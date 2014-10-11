@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<%= render '/refinery/html_tag' %>
+  <% content_for :meta, "<meta refinerycms='#{Refinery.version}' />".html_safe %>
+  <%= render 'refinery/admin/head' %>
+  <body class="<%= action_name %> <%= I18n.locale %>">
+
+
+    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+
+    <%= render '/refinery/site_bar' %>
+    <!-- div id='tooltip_container'></div -->
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-2">
+          <%= render 'refinery/admin/menu' %>
+        </div>
+        <div class="col-sm-8">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="row">
+                  <div id="flash_container" class="col-sm-12">
+                    <%= render '/refinery/no_script' %>
+                    <%= render '/refinery/message' %>
+                  </div>
+                  <%= yield %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

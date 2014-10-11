@@ -1,0 +1,161 @@
+@import "config/mixins";
+@import "config/variables";
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+@import "partials/main";
+
+#site_bar{
+  margin-bottom: 60px;
+}
+
+
+#actions li a {
+  background-color: #e3f2ff;
+}
+body {
+  background: #fbfbfb none repeat;
+}
+/*Global Bar attop */
+#site_bar {
+  height: 60px;
+  background: #313131;
+  position: relative;
+  z-index: 99999;
+  box-shadow: 0 6px 20px -8px rgb(129, 129, 129);
+}
+#site_bar * {
+  line-height: 60px;
+}
+#site_bar_refinery_cms_logo {
+  display: none;
+}
+
+/* Header containing main nav */
+header {
+  width: 100%;
+  height: 120px;
+  position: relative;
+  margin-bottom: 0px;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #e9e9e9;
+}
+#page_container, #site_bar_content {
+  margin: 0px auto 10px auto;
+  text-align: left;
+  width: 990px;
+}
+header .jcarousel-container {
+  width:990px;
+  margin: 0 auto 30px auto;
+}
+
+/* MAIN MENU */
+#menu a {
+  background: #eaeaea none repeat;
+  color: #000;
+  padding: 9px 13px;
+  margin-top: 0px;
+}
+#menu > a {
+  border-radius: 5px !important;
+  
+  border-radius-top: 5px;
+  -moz-border-radius-topleft: 5px;
+  -moz-border-radius-topright: 5px;
+  -webkit-border-top-left-radius: 5px;
+  -webkit-border-top-right-radius: 5px;
+  
+  border-radius-bottom: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  -moz-border-radius-bottomright: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+}
+
+#menu a:hover {
+  background: #e5e5e5 none repeat;
+  color: #000;
+}
+
+#menu a.active, #menu a:focus {
+  background-color: #343434;
+  color: #fff;
+}
+
+
+/* BUTTON: "SWITCH BACK TO YOUR SITE" */
+#editor_switch a {
+  color: #d1d1d1;
+  background: #313131 none repeat;
+  border: 1px solid #d1d1d1;
+  padding: 8px 14px;
+}
+#editor_switch a:hover {
+  color: #FFFFFF;
+  background: #313131 none repeat;
+  border: 1px solid #FFFFFF;
+  padding: 8px 14px;
+}
+#editor_switch span {
+  border: none;
+  margin-top: 16px;
+}
+
+/* Changing white background ellements to grey */
+#page_container {
+width: 990px;
+padding: 40px 0px;
+}
+#content, #page_container, .index #content, .splash #content {
+  background-color: #fbfbfb;
+}
+#records .off, #records .on-hover {
+background-color: #fbfbfb;
+}
+
+
+/* Sidebar Buttons =========================
+  ======================================= */
+  
+#actions li a {
+    border-radius: 3px;
+}
+/*
+#actions li a {
+font-weight: bold;
+padding: 12px 15px 12px 35px;
+background-color: #5996c0;
+color: #fff !important;
+font-size: 14px;
+font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+cursor: pointer;
+text-decoration: none;
+text-shadow: 0 1px 0px rgba(0,0,0,0.15);
+border-width: 1px 1px 3px !important;
+border-style: solid;
+border-color: #447ca4;
+
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+-ms-border-radius: 5px;
+-o-border-radius: 5px;
+border-radius: 5px;
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+-webkit-box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+-moz-box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+}
+
+#actions li a:hover {
+background-color: #a9abb0;
+}
+
+#actions li.selected a {
+background-color: #818389;
+border-color: #6f7176;
+color: white;
+}
+
+*/
