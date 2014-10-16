@@ -1,0 +1,25 @@
+<% if refinery_user? && "#{controller_name}##{action_name}" !~ %r{preview#show} %>
+  <% unless admin? # all required JS included by backend. %>
+    <% content_for :stylesheets, stylesheet_link_tag('refinery/site_bar') unless !!local_assigns[:exclude_css] %>
+    <%= yield(:stylesheets) unless local_assigns[:head] || local_assigns[:exclude_css] %>
+  <% end -%>
+  
+  <nav class="navbar navbar-default navbar-fixed-top" id="site-bar" role="navigation">
+    <div class="container-fluid">
+      <div class="site-link pull-left">
+        <!-- <%= site_bar_switch_link -%> -->
+        <a href=""><%= Refinery::Core.site_name %></a>
+      </div>
+      <div class="pull-right">
+        <a href="">Log out <i class="icon icon-log-out"></i></a>
+        
+       <!--
+ <%= link_to t('.log_out', site_bar_translate_locale_args),
+                    refinery.logout_path, :id => 'logout' %>
+-->
+      </div>
+
+    </div>
+  </nav>
+  
+<% end %>

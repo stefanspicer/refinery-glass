@@ -1,9 +1,8 @@
 <%= render '/refinery/admin/search', :url => refinery.admin_pages_path %>
 <% content_for :submenu do %>
-<ul>
+<ul class="list-unstyled">
   <li>
-    <%= link_to t('.create_new_page'), refinery.new_admin_page_path,
-                :class => "no_add_icon" %>
+    <%= link_to t('<i class="icon icon-add"></i>' '.create_new_page'), refinery.new_admin_page_path %>
   </li>
 <!--
 <% if @pages.many? and !searching? %>

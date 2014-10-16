@@ -10,177 +10,269 @@
 
 
 
+img.pull-left{
+  margin: 10px 10px 10px 0;
+}
 
+body p{
+  font-size: 16px;
+  line-height: 1.6em;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-#site_bar{
-  margin-bottom: 60px;
+.circle{
+  @include circle(30px);
 }
 
 
 
-
-
-
-
-#actions li a {
-  background-color: #e3f2ff;
-}
-body {
-  background: #fbfbfb none repeat;
-}
-/*Global Bar attop */
-#site_bar {
-  height: 60px;
-  background: #313131;
-  position: relative;
-  z-index: 99999;
-  box-shadow: 0 6px 20px -8px rgb(129, 129, 129);
-}
-#site_bar * {
-  line-height: 60px;
-}
-#site_bar_refinery_cms_logo {
-  display: none;
+body{
+  height: 100%;
+  padding-top: 34px;
 }
 
-/* Header containing main nav */
-header {
-  width: 100%;
-  height: 120px;
-  position: relative;
-  margin-bottom: 0px;
-  background-color: #f5f5f5;
-  border-bottom: 1px solid #e9e9e9;
-}
-#page_container, #site_bar_content {
-  margin: 0px auto 10px auto;
-  text-align: left;
-  width: 990px;
-}
-header .jcarousel-container {
-  width:990px;
-  margin: 0 auto 30px auto;
+#site-bar{
+  min-height: 34px;
+  height: 34px;
+  background: $grey-9;
+  a{
+    letter-spacing: 1px;
+    padding: 4px 0;
+    display: block;
+    font-size: 14px;
+    color: $off-white;
+    &:hover{
+      color: $primary-hover;
+    }
+  }
+  .site-link a{
+    font-size: 16px;
+    padding: 6px 0;
+    font-weight: 600;
+  }
 }
 
-/* MAIN MENU */
-#menu a {
-  background: #eaeaea none repeat;
-  color: #000;
-  padding: 9px 13px;
-  margin-top: 0px;
+#flash_container{
+  padding: 0;
+  #flash{
+    margin: 30px 0;
+    padding: 10px 15px;
+    background: $off-white;
+    border: 1px solid $grey-2;
+    #flash_close{
+      float: right;
+    }
+  }
 }
-#menu > a {
-  border-radius: 5px !important;
+
+.container-fluid{
+  height: calc(100%);
+  .row{
+    height: 100%;
+    .col-sm-2{
+      height: 100%;
+      .sidebar{
+        width: 230px;
+        background: $off-white;
+        height: 100%;
+        margin-left: -15px;
+        padding: 15px 0 60px;
+        border-right: 1px solid $grey-2;
+        position: fixed;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        li{
+          margin: 0 0 1px;
+          a{
+            padding: 10px 15px 6px;
+            width: 100%;
+            display: block;
+            color: $grey-6;
+            font-size: 16px;
+            letter-spacing: 1px;
+            text-decoration: none;
+            @include transition(0.1s);
+            font-weight: 400;
+            text-transform: uppercase;
+            &:hover{
+              border-bottom: 0;
+              background: $white-opaque;
+              color: $primary-dark;
+            }
+          }
+          .active{
+            border-right: 2px solid $primary-color;
+            background: $white-opaque;
+          }
+          ul{
+            padding-top: 1px;
+            li{
+              a{
+                padding: 5px 15px 2px 30px;
+                font-size: 14px;
+                font-weight: 400;
+                background: $white-opaque;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#page-index{
+  margin-top: 60px;
+  ul{
+    li{
+      padding: 10px 0;
+      border-bottom: 1px solid $grey-2;
+      margin-bottom: 0;
+      &:hover{
+        .actions{
+          opacity: 1;
+        }
+      }
+      &:last-of-type{
+        border: none;
+        padding-bottom: 0;
+      }
+      .page-title{
+        font-size: 18px;
+        letter-spacing: 1px;  
+        .label{
+          background: $grey-2;
+          text-transform: capitalize;
+          padding: 2px 8px;
+          font-weight: 600;
+          margin-left: 5px;
+          position: relative;
+          top: -2px;
+        }
+      }
+      .actions{
+        float: right;
+        opacity: 0;
+        position: relative;
+        top: -1px;
+        span{
+          width: 30px;
+          text-align: center;
+          display: inline-block;
+          margin-left: 5px;
+          a{
+            color: $black;
+            border: 1px solid $black;
+            padding-top: 2px;
+            display: block;
+            &:hover{
+              color: $primary-dark;
+              border-color: $primary-dark;
+            }
+          }
+        }
+      }
+    }
+    .nested{
+      margin: 10px 0 0 0;
+      &:empty{
+        margin: 0;
+      }
+      li{
+        padding-left: 30px;
+        border-bottom: none;
+        border-top: 1px solid $grey-2;
+      }
+    }
+  }
+}
+
+#page-form{
+  margin-top: 60px;
+  margin-bottom: 90px;
+  .page-preview{
+    display: block;
+  }
+  .new-module{
+    display: block;
+    clear: both;
+    padding-top: 15px;
+    margin-bottom: 15px;
+    a{
+      &:hover{
+        color: $primary-dark;
+        border-color: $primary-dark;
+      }
+      text-align: center;
+      border: 1px solid $black;
+      color: $black;
+      overflow: hidden;
+      float: left;
+      margin: 0 5px 0 0;
+      .icon{
+        position: relative;
+      }
+    }
+    .add-module{
+      font-size: 18px;
+      top: -1px;
+    }
+    .media-type{
+      .icon{
+        font-size: 14px;
+        top: 2px;
+      }
+    }
+  }
+  .media-chooser{
+    .add-module{
+      margin-right: 20px; 
+      color: $grey-5;
+      border-color: $grey-5;
+      .icon{
+        top: 1px;
+        left: 1px;
+        @include rotate(45deg);
+      }
+    }
+  }
   
-  border-radius-top: 5px;
-  -moz-border-radius-topleft: 5px;
-  -moz-border-radius-topright: 5px;
-  -webkit-border-top-left-radius: 5px;
-  -webkit-border-top-right-radius: 5px;
-  
-  border-radius-bottom: 5px;
-  -moz-border-radius-bottomleft: 5px;
-  -moz-border-radius-bottomright: 5px;
-  -webkit-border-bottom-left-radius: 5px;
-  -webkit-border-bottom-right-radius: 5px;
-}
-
-#menu a:hover {
-  background: #e5e5e5 none repeat;
-  color: #000;
-}
-
-#menu a.active, #menu a:focus {
-  background-color: #343434;
-  color: #fff;
-}
-
-
-/* BUTTON: "SWITCH BACK TO YOUR SITE" */
-#editor_switch a {
-  color: #d1d1d1;
-  background: #313131 none repeat;
-  border: 1px solid #d1d1d1;
-  padding: 8px 14px;
-}
-#editor_switch a:hover {
-  color: #FFFFFF;
-  background: #313131 none repeat;
-  border: 1px solid #FFFFFF;
-  padding: 8px 14px;
-}
-#editor_switch span {
-  border: none;
-  margin-top: 16px;
-}
-
-/* Changing white background ellements to grey */
-#page_container {
-width: 990px;
-padding: 40px 0px;
-}
-#content, #page_container, .index #content, .splash #content {
-  background-color: #fbfbfb;
-}
-#records .off, #records .on-hover {
-background-color: #fbfbfb;
+  .highlight-editor{
+    position: relative;
+    background: $off-white;
+    border: 1px solid $grey-2;
+    @include border-radius($radius);
+    display: inline-block;
+    padding: 5px 10px;
+    &:after{
+      content: "";
+      position: absolute;
+      bottom: -7px;
+      left: 50%;
+      margin-left: -7px;
+      border-style: solid;
+      border-width: 7px 7px 0 7px;
+      border-color: $off-white transparent transparent transparent;
+    }
+    &:before{
+      content: "";
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      margin-left: -8px;
+      border-style: solid;
+      border-width: 8px 8px 0 8px;
+      border-color: $grey-2 transparent transparent transparent;
+    }
+    a{
+      margin: 0 5px;
+      color: $grey-6;
+      &:hover{
+        color: $primary-dark;
+      }
+    }
+  }
 }
 
 
-/* Sidebar Buttons =========================
-  ======================================= */
-  
-#actions li a {
-    border-radius: 3px;
-}
-/*
-#actions li a {
-font-weight: bold;
-padding: 12px 15px 12px 35px;
-background-color: #5996c0;
-color: #fff !important;
-font-size: 14px;
-font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-cursor: pointer;
-text-decoration: none;
-text-shadow: 0 1px 0px rgba(0,0,0,0.15);
-border-width: 1px 1px 3px !important;
-border-style: solid;
-border-color: #447ca4;
 
--webkit-border-radius: 5px;
--moz-border-radius: 5px;
--ms-border-radius: 5px;
--o-border-radius: 5px;
-border-radius: 5px;
--webkit-box-sizing: border-box;
--moz-box-sizing: border-box;
-box-sizing: border-box;
--webkit-box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
--moz-box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
-box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
-}
 
-#actions li a:hover {
-background-color: #a9abb0;
-}
-
-#actions li.selected a {
-background-color: #818389;
-border-color: #6f7176;
-color: white;
-}
-
-*/
