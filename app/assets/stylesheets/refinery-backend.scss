@@ -23,6 +23,15 @@ body p{
   @include circle(30px);
 }
 
+.input-group{
+  .input-group-addon{
+    background: $off-white;
+    border-color: $grey-2;
+  }
+  .form-control{
+    border-color: $grey-2;
+  }
+}
 
 
 body{
@@ -234,6 +243,12 @@ body{
         @include rotate(45deg);
       }
     }
+    .input-group{
+      top: -1px;
+      .form-control{
+        width: 300px;
+      }
+    }
   }
   
   .highlight-editor{
@@ -273,6 +288,11 @@ body{
   }
 }
 
-
+.settings{
+  background: $off-white;
+  border-left: 1px solid $grey-1;
+  position: fixed !important;
+  right: 0;
+}
 
 

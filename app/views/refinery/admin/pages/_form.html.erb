@@ -1,4 +1,4 @@
-<div id="page-form">
+<div id="page-form" class="col-sm-10">
   <div class="page-preview">
     <h1>Title</h1>
     <p>Est Banksy nihil gastropub eu, <strong>consequat vero semiotics.</strong> Keytar trust fund bitters flexitarian. <em>Direct trade pickled Etsy Odd</em> Future, fingerstache veniam YOLO Shoreditch dolor aute Pinterest kogi letterpress. Meggings aesthetic deserunt semiotics, lomo chillwave occaecat flexitarian drinking vinegar. Excepteur scenester Godard drinking vinegar banh mi. Bicycle rights incididunt tousled, culpa Neutra cupidatat Schlitz mollit disrupt. Lomo non polaroid, twee iPhone DIY biodiesel nulla.</p>
@@ -6,22 +6,8 @@
       <p>
         Est Banksy nihil gastropub eu, consequat vero semiotics. Keytar trust fund bitters flexitarian. Direct trade pickled Etsy Odd Future, fingerstache veniam YOLO Shoreditch dolor aute Pinterest kogi letterpress. Meggings aesthetic deserunt semiotics, lomo chillwave occaecat flexitarian drinking vinegar. Excepteur scenester Godard drinking vinegar banh mi. Bicycle rights incididunt tousled, culpa Neutra cupidatat Schlitz mollit disrupt. Lomo non polaroid, twee iPhone DIY biodiesel nulla.
       </p>
-      <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
+      <footer>Someone famous</footer>
     </blockquote>
-    <ul>
-      <li>eggs</li>
-      <li>bacon</li>
-      <li>lions</li>
-      <li>tiggers</li>
-    </ul>
-    <p>this is so cool</p>
-    <ol>
-      <li>eggs</li>
-      <li>bacon</li>
-      <li>lions</li>
-      <li>tiggers</li>
-    </ol>
-    <p class="text-center">Hello ther</p>
     <div class="highlight-editor">
       <a href=""><i class="icon icon-bold"></i></a>
       <a href=""><i class="icon icon-italic"></i></a>
@@ -32,7 +18,6 @@
       <a href=""><i class="icon icon-quote"></i></a>
       <a href=""><i class="icon icon-link"></i></a>
     </div>
-    <h2>Subtitle</h2>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     <img class="img-responsive pull-left" src="/assets/testimonial-lego.jpg"/>
     <p>Est Banksy nihil gastropub eu, consequat vero semiotics. Keytar trust fund bitters flexitarian. Direct trade pickled Etsy Odd Future, fingerstache veniam YOLO Shoreditch dolor aute Pinterest kogi letterpress. Meggings aesthetic deserunt semiotics, lomo chillwave occaecat flexitarian drinking vinegar. Excepteur scenester Godard drinking vinegar banh mi. Bicycle rights incididunt tousled, culpa Neutra cupidatat Schlitz mollit disrupt. Lomo non polaroid, twee iPhone DIY biodiesel nulla.</p>
@@ -52,10 +37,27 @@
     <a href="" class="circle media-type"><i class="icon icon-film"></i></a>
     <div class="clearfix"></div>
   </div>
+  
+  <div class="new-module media-chooser">
+    <a href="" class="circle add-module"><i class="icon icon-plus"></i></a>
+    <form class="form-inline" role="form">
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-addon">Vimeo or YouTube URL</div>
+          <input class="form-control" type="text" placeholder="http://...">
+        </div>
+      </div>
+    </form>
+    <div class="clearfix"></div>
+  </div>
 
 </div>
 
-<div class="">
+<div class="col-sm-2 settings">
+ hello
+</div>
+
+
 <%= form_for [refinery, :admin, @page],
              :url => (refinery.admin_page_path(@page.nested_url) if @page.persisted?) do |f| %>
 
