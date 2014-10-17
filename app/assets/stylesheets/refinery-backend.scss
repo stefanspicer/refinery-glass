@@ -33,6 +33,17 @@ body p{
   }
 }
 
+#article-cover{
+  background: url("/assets/home-cover.jpg") center center / cover no-repeat;
+	height: 500px;
+	padding-top: 120px;
+	width: calc(100% + 90px);
+	margin-left: -45px;
+	margin-top: -45px;
+	margin-bottom: 30px;
+}
+
+
 
 body{
   height: 100%;
@@ -43,6 +54,7 @@ body{
   min-height: 34px;
   height: 34px;
   background: $grey-9;
+  border: none;
   a{
     letter-spacing: 1px;
     padding: 4px 0;
@@ -73,64 +85,70 @@ body{
   }
 }
 
-.container-fluid{
+#wrapper{
   height: calc(100%);
-  .row{
+  #sidebar-left{
     height: 100%;
-    .col-sm-2{
+    width: 230px;
+    float: left;
+    padding: 0 15px;
+    #sidebar-left-nav{
+      background: $off-white;
+      width: 230px;
       height: 100%;
-      .sidebar{
-        width: 230px;
-        background: $off-white;
-        height: 100%;
-        margin-left: -15px;
-        padding: 15px 0 60px;
-        border-right: 1px solid $grey-2;
-        position: fixed;
-        overflow-y: scroll;
-        overflow-x: hidden;
-        li{
-          margin: 0 0 1px;
-          a{
-            padding: 10px 15px 6px;
-            width: 100%;
-            display: block;
-            color: $grey-6;
-            font-size: 16px;
-            letter-spacing: 1px;
-            text-decoration: none;
-            @include transition(0.1s);
-            font-weight: 400;
-            text-transform: uppercase;
-            &:hover{
-              border-bottom: 0;
-              background: $white-opaque;
-              color: $primary-dark;
-            }
-          }
-          .active{
-            border-right: 2px solid $primary-color;
+      margin-left: -15px;
+      padding: 15px 0 60px;
+      border-right: 1px solid $grey-2;
+      position: fixed;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      li{
+        margin: 0 0 1px;
+        a{
+          padding: 10px 15px 6px;
+          width: 100%;
+          display: block;
+          color: $grey-6;
+          font-size: 16px;
+          letter-spacing: 1px;
+          text-decoration: none;
+          @include transition(0.1s);
+          font-weight: 400;
+          text-transform: uppercase;
+          &:hover{
+            border-bottom: 0;
             background: $white-opaque;
+            color: $primary-dark;
           }
-          ul{
-            padding-top: 1px;
-            li{
-              a{
-                padding: 5px 15px 2px 30px;
-                font-size: 14px;
-                font-weight: 400;
-                background: $white-opaque;
-              }
+        }
+        .active{
+          border-right: 2px solid $primary-color;
+          background: $white-opaque;
+        }
+        ul{
+          padding-top: 1px;
+          li{
+            a{
+              padding: 5px 15px 2px 30px;
+              font-size: 14px;
+              font-weight: 400;
+              background: $white-opaque;
             }
           }
         }
       }
     }
   }
+  .container-fluid{
+    width: calc(100% - 550px);
+    margin-top: 15px;
+    #page{
+      margin-top: 30px;
+    }
+  }
 }
 
 #page-index{
-  margin-top: 60px;
   ul{
     li{
       padding: 10px 0;
@@ -196,7 +214,6 @@ body{
 }
 
 #page-form{
-  margin-top: 60px;
   margin-bottom: 90px;
   .page-preview{
     display: block;

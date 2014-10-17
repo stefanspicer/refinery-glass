@@ -11,27 +11,28 @@
     <%= render '/refinery/site_bar' %>
     <!-- div id='tooltip_container'></div -->
 
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-2">
-          <%= render 'refinery/admin/menu' %>
-        </div>
-        <div class="col-sm-8">
-          <div class="container">
+    <section id="wrapper">
+      <section id="sidebar-left">
+        <%= render 'refinery/admin/menu' %>
+      </section>
+      <sectiom class="container-fluid">
+        <div class="row">
+          <div class="col-sm-12">
             <div class="row">
-              <div class="col-sm-12">
-                <div class="row">
-                  <div id="flash_container" class="col-sm-12">
-                    <%= render '/refinery/no_script' %>
-                    <%= render '/refinery/message' %>
-                  </div>
-                  <%= yield %>
-                </div>
+              <div id="flash_container">
+                <%= render '/refinery/no_script' %>
+                <%= render '/refinery/message' %>
               </div>
+              <section id="page">
+                <%= yield %>
+              </section>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </section>
+      <section id="sidebar-right">
+        hello
+      </section>
+    </section>
   </body>
 </html>
