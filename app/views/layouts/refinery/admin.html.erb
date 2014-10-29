@@ -15,21 +15,17 @@
       <section id="sidebar-left">
         <%= render 'refinery/admin/menu' %>
       </section>
-      <sectiom class="container-fluid">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="row">
-              <div id="flash_container">
-                <%= render '/refinery/no_script' %>
-                <%= render '/refinery/message' %>
-              </div>
-              <section id="page">
-                <%= yield %>
-              </section>
-            </div>
-          </div>
+      
+      <section class="inner-wrapper">
+        <div id="flash_container">
+          <%= render '/refinery/no_script' %>
+          <%= render '/refinery/message' %>
         </div>
+        <section id="page">
+          <%= yield %>
+        </section>
       </section>
+      
       <section id="sidebar-right">
         <nav id="sidebar-right-nav">
           <ul class="list-unstyled">

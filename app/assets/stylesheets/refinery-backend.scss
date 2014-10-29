@@ -138,26 +138,9 @@ body{
         }
       }
     }
-    #sidebar-right{
-      height: 100%;
-      width: 230px;
-      float: right;
-      padding: 0 15px;
-      #sidebar-right-nav{
-        background: $off-white;
-        width: 230px;
-        height: 100%;
-        margin-left: -15px;
-        padding: 15px 0 60px;
-        border-right: 1px solid $grey-2;
-        position: fixed;
-        overflow-y: scroll;
-        overflow-x: hidden;
-      }
-    }
   }
-  .container-fluid{
-    width: calc(100% - 550px);
+  .inner-wrapper{
+    width: calc(100% - 460px);
     margin-top: 15px;
     float: left;
     padding: 0 60px;
@@ -166,6 +149,26 @@ body{
     }
   }
 }
+
+#sidebar-right{
+  height: 100%;
+  width: 230px;
+  padding: 0 15px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  #sidebar-right-nav{
+    background: $off-white;
+    width: 230px;
+    height: 100%;
+    margin-left: -15px;
+    padding: 15px 0 60px;
+    border-left: 1px solid $grey-2;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+}
+
 
 #page-index{
   ul{
