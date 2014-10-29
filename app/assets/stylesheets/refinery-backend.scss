@@ -142,6 +142,8 @@ body{
   .container-fluid{
     width: calc(100% - 550px);
     margin-top: 15px;
+    float: left;
+    padding: 0 60px;
     #page{
       margin-top: 30px;
     }
