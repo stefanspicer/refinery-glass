@@ -1,0 +1,848 @@
+/* -------------------- MAIN -------------------- */
+
+html{
+	height: 100%;
+}
+
+body{
+  min-height: 100%;
+  overflow-x: hidden;
+  position: relative;
+  padding-top: 0;
+  background: lighten($grey-7, 10%);
+	font-family: $primary-font;
+}
+
+#page_container{
+	background: $white;
+}
+
+a{
+	@include transition($transition);
+}
+
+a:link, a:visited{
+	color: $primary-color;
+}
+
+a:hover, a:focus{
+	color: $primary-hover;
+	text-decoration: none;
+}
+
+a:focus{
+  outline: 0;
+}
+
+a:active{
+	color: $primary-hover;
+}
+
+button{
+	background: none;
+	border: none;
+	padding: 0;
+	color: $primary-color;
+	&:hover, &:focus{
+		color: $primary-hover;
+	}
+}
+
+*::selection {
+	background: $primary-light; /* Safari */
+	color: $white;
+}
+
+p::-moz-selection {
+	background: $primary-light; /* Firefox */
+	color: $white;
+}
+
+.margin-bottom-xs{
+  margin-bottom: $margin-half;
+}
+
+.margin-bottom-sm{
+  margin-bottom: $margin;
+}
+
+.margin-bottom-md{
+  margin-bottom: $margin * 1.5;
+}
+
+.margin-bottom{
+  margin-bottom: $margin-double;
+}
+
+.margin-bottom-lg{
+  margin-bottom: $margin * 3;
+}
+
+
+
+/* -------------------- ELEMENTS -------------------- */
+
+.cover{
+	color: $white;
+	position: relative;
+	h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
+		color: $white;
+	}
+}
+
+.section{
+	padding-top: $margin;
+	padding-bottom: $margin;
+}
+
+.quote-wrapper{
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.note{
+  font-style: italic;
+  color: $primary-color;
+}
+
+.image-link{
+  background: $grey-5;
+  display: block;
+  &:hover img{
+    opacity: 0.8;
+  }
+}
+
+.image-link img{
+  @include transition($transition);
+}
+
+.grid-img{
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  padding-bottom: 64%;
+  overflow: hidden;
+  position: relative;
+  height: 0;
+  display: block;
+  color: $black;
+}
+
+.video-link{
+	position: relative;
+	display: block;
+	background: $white;
+	&:hover{
+		.icon-stack{
+			@include scale($scale);
+		}
+		img{
+			opacity: 0.8;
+		}
+	}
+	img{
+		@include transition($transition);
+		@include transition-fix();
+		opacity: 1;
+	}
+	.icon-stack{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -21px;
+    margin-left: -21px;
+    z-index: 10;
+    @include transition($transition);
+    .icon-circle-thin{
+      color: $white;
+      font-size: 50px;
+    }
+    .icon-play{
+      top: 4px;
+      left: 2px;
+    }
+  }
+}
+
+.video-16-9 {
+	position: relative;
+	padding-bottom: 56.25%;
+	height: 0;
+	margin-bottom: 60px;
+}
+
+.video-16-9 iframe{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.dropdown-menu{
+	@include box-shadow($shadow);
+	border: 1px solid $grey-1;
+	li{
+		margin: 0;
+		a{
+			padding: 5px 15px;
+		}
+	}
+	.divider{
+		margin: 5px 0;
+	}
+}
+
+.carousel{
+	&:hover{
+		@media (min-width: 768px){
+			.carousel-control .icon, .carousel-indicators{
+				@include transition(0.5s ease-out 0);
+				opacity: 1;
+			}
+			.left{
+				.icon{
+					left: 30px;
+				}
+			}
+			.right{
+				.icon{
+					right: 30px;
+				}
+			}
+			.carousel-indicators{
+				bottom: 20px;
+			}
+		}
+	}
+	.carousel-inner{
+		.item{
+			img{
+				width: 100%;
+			}
+			.carousel-caption{
+				text-shadow: none;
+				@media (min-width: 768px){
+					left: 15%;
+					right: auto;
+					bottom: 15%;
+					text-align: left;
+					@include transition-fix();
+					@include transition(0.5s ease-out);
+					h2{
+						color: $white;
+						width: 400px;
+						margin-bottom: $margin;
+						top: 30px;
+						position: relative;
+						@include transition(0.55s ease-out);
+						opacity: 0;
+					}
+					.btn{
+						top: 20px;
+						position: relative;
+						@include transition(0.5s ease-out);
+						opacity: 0;
+					}
+				}
+				@media (max-width: 767px){
+					background: $grey-6;
+					width: 100%;
+					position: relative;
+					bottom: auto;
+					left: 0;
+					padding: 15px 15px 45px;
+					h2{
+						color: $white;
+						margin: 0 0 30px;
+					}
+					.btn{
+						margin: 0 auto;
+						display: inline-block;
+					}
+				}
+			}
+			.caption-init{
+				h2{
+					top: 0px;
+				}
+				.btn{
+					top: 0px;	
+				}
+			}
+		}
+	}
+	.initiated .active{
+		.carousel-caption{
+			h2{
+				top: 0px;
+				opacity: 1;
+			}
+			.btn{
+				top: 0px;	
+				opacity: 1;
+			}
+		}
+	}
+	.carousel-indicators{
+		@media (min-width: 768px){
+			bottom: 10px;
+			opacity: 0;
+			@include transition(0.3s ease-out 0.5s);
+		}
+		@media (max-width: 767px){
+			bottom: -5px;
+		}
+		li{
+			&:hover{
+				background: $white-fade;
+			}
+		}
+		li.active{
+			&:hover{
+				background: $white;
+			}
+		}
+	}
+	.carousel-control{
+		@include transition($transition);
+		.icon{
+			@include transition(0.2s ease-out 0.5s);
+			top: 50%;
+			position: absolute;
+			font-size: 32px;
+			margin-top: -28px;
+			color: white;
+			text-shadow: none;
+			opacity: 0;
+			@media (max-width: 767px){
+				opacity: 1;
+				top: 75px;
+			}
+		}
+	}
+	.left{
+		@include gradient($start, $stop);
+		&:hover{
+			@include gradient(rgba(0,0,0,0.2), rgba(0,0,0,0));
+		}
+		.icon{
+			left: 40px;
+			@media (max-width: 767px){
+				left: 10px;
+			}
+		}
+	}
+	.right{
+		@include gradient($stop, $start);
+		&:hover{
+			@include gradient(rgba(0,0,0,0), rgba(0,0,0,0.2));
+		}
+		.icon{
+			right: 40px;
+			@media (max-width: 767px){
+				right: 10px;
+			}
+		}
+	}
+}
+
+
+
+/* -------------------- TYPOGRAPHY -------------------- */
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    margin-bottom: $margin-half;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    color: $grey-8;
+}
+
+h1, h2, .h1, .h2 {
+    font-family: $heading-font;
+}
+
+h1{
+	margin-bottom: $margin;
+}
+
+h1 hr{
+	width: 200px;
+	border: 2px solid $grey-5;
+	margin: 10px auto 60px;
+}
+
+h2 hr, h3 hr, h4 hr, h5 hr, h6 hr{
+	width: 125px;
+	margin-bottom: 60px;
+	color: $grey-8;
+	background-color: $grey-8;
+	height: 1px;
+}
+hr {
+  margin: 30px auto; //margin subject to change
+  width: 100%;
+  height: 4px;
+  border: 0;
+  background-color: $grey-1;
+}
+
+@media (max-width: 767px){
+	h1{
+		font-size: $font-size-h1 * 0.75;
+	}
+	h2{
+		font-size: $font-size-h2 * 0.75;
+	}
+	h3{
+		font-size: $font-size-h3 * 0.75;
+	}
+	h4{
+		font-size: 18px;
+	}
+}
+
+p{
+	margin-bottom: 0.75em;
+}
+
+p.small{
+	font-size: 14px;
+	line-height: 1.4em;
+	font-weight: 600;
+	color: $grey-4;
+}
+
+ul li{
+	margin-bottom: 8px;
+}
+
+.uppercase{
+	text-transform: uppercase;
+}
+
+.tight{
+  line-height: 1.4em;
+}
+
+
+
+/* -------------------- FORMS -------------------- */
+
+form{
+	.form-group{
+	  label{
+	    .small{
+	    }
+	  }
+	  .form-control, textarea, .btn{
+		  @include border-radius($radius);
+	  }
+	  textarea{
+			resize: none;
+			min-height: 137px;
+		}
+    &.checkbox-group{
+      input, label{
+        float: left;
+      }
+      input[type="checkbox"]{
+        margin: 4px 0 0;
+      }
+      label{
+        margin: 0 0 0 10px;
+        width: 85%;
+        font-weight: normal;
+        font-size: 16px;
+      }
+    }
+	}
+	
+	.submit, .btn{
+		.icon{
+			margin-left: 10px;
+		}
+	}
+	
+  .select-area, .form-control{
+		@include transition($transition);
+	  @include box-shadow(none);
+	  font-size: 18px;
+	}
+	
+	::-webkit-input-placeholder {
+	   font-size: 16px;
+	   line-height: 1.8;
+	}
+	
+	:-moz-placeholder { /* Firefox 18- */
+	   font-size: 16px;
+	   line-height: 1.8;
+	}
+	
+	::-moz-placeholder {  /* Firefox 19+ */
+	   font-size: 16px;
+	   line-height: 1.8;
+	}
+	
+	:-ms-input-placeholder {  
+	   font-size: 16px;
+	   line-height: 1.8;
+	}
+	
+	input:focus, .form-control:focus, input[type="submit"]:focus, .btn:focus{
+	  border-color: $primary-hover;
+	  outline: 0;
+	  @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075), 0px 0px 6px 0px rgba(255,49,152,0.1));
+	}
+	
+
+	.dropdown-wrapper{
+	  background: $white;
+	  @include border-radius($radius);
+	  position: relative;
+	  padding: 0;
+	  
+	  select{
+	    -webkit-appearance: none;
+	    -moz-appearance: window;
+	    appearance: none;
+	    text-indent: 0.01px;
+	    text-overflow: '';
+	    /* position: relative; SS: Luke, this seems to be messing up FF for me. */
+	    background: transparent;
+	    font-size: 16px;
+      width: 100%;
+	    padding: 8px 0 !important;
+	    line-height: 1.2;
+	    @include box-shadow($shadow);
+	    z-index: 10;
+	  }
+	  select::-ms-expand {
+			display: none; /* to ie 10 */
+		}
+	}
+	
+	.dropdown-wrapper:after{
+	  content:"";
+	  width:0;
+	  height:0;
+	  border-style: solid;
+	  border-width: 8px 7.5px 0 7.5px;
+	  border-color: $grey-4 transparent transparent transparent;
+	  top: 50%;
+	  right: 10px;
+	  position: absolute;
+	  margin-top: -2px;
+	  z-index: 5;
+	}
+
+  /* JCF = Javascript Custom Forms */
+
+  /* hide original element */
+  .jcf-hidden {
+    display: block !important;
+    position: absolute !important;
+    left: -9999px !important; /* change to right: -9999px on RTL sites */
+  }
+
+  /* custom select styles */
+  .select-area {
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+    display: block;
+    background: #fff;
+    height: 60px;
+    @include border-radius($radius);
+    padding: 10px 16px;
+    line-height: 1.73;
+    font-size: 22px;
+    width: 100%;
+  }
+  
+  .date-select .select-area {
+    float: left;
+    width: 130px !important;
+    margin-right: 10px;
+  }
+  
+  .select-focus { border-color: #303030; }
+  .select-disabled { background: #eee; }
+  .select-area .select-opener {
+    background: url(/assets/arrow2.png) no-repeat;
+    position: absolute;
+    height: 7px;
+    width: 13px;
+    right: 17px;
+    top: 26px;
+  }
+}
+
+.moz-appearance .dropdown-wrapper{
+	 border: 1px solid $grey-1 !important;
+}
+
+.select-options {
+  position: absolute;
+  overflow: hidden;
+  background: #fff;
+  margin:4px 0 0;
+  z-index: 2000;
+  @include border-radius($radius);
+  box-shadow:1px 2px 2px 0 rgba(0,0,0,0.1);
+}
+
+.select-options .drop-holder {
+  border: 1px solid #c4c4c4;
+  overflow: hidden;
+  @include border-radius($radius);
+  height: 1%;
+}
+
+.select-options ul {
+  list-style: none;
+  overflow: hidden;
+  padding: 0;
+  margin: 7px 0 9px;
+  font-size:14px;
+  line-height:18px;
+  font-weight:bold;
+}
+
+.select-options ul li {
+  width: 100%;
+  float: left;
+}
+
+.select-options ul a {
+  text-decoration: none;
+  padding: 4px 14px 3px;
+  display: block;
+  cursor: default;
+  color: #000;
+  height: 1%;
+}
+
+.select-options .item-selected a {
+  text-decoration: none;
+  background: #ebebeb;
+  color: #000;
+}
+
+/* select options optgroup example styles */
+.select-options .optgroup { clear: both; }
+.select-options .optgroup strong {
+  display: block;
+  padding: 5px;
+}
+
+.select-options .optgroup ul a { padding-left: 30px; }
+
+
+
+/* -------------------- FORM VALIDATION -------------------- */
+
+p.alert, p.notice {
+  margin: 0;
+  padding: 0;
+}
+
+p.notice-top {
+  position: relative;
+  top: 85px;
+}
+
+.alert, .notice {
+  text-align: center;
+}
+
+.notice {
+  background-color: $yellow-fade;
+  color: $yellow;
+}
+
+#error_explanation h2 {
+  display: none;
+}
+
+#error_explanation:before {
+  content: "There were problems with the following fields:";
+}
+
+#error_explanation,
+.errorExplanation,
+.alert,
+.fieldWithErrors {
+  color: $red;
+}
+
+#error_explanation,
+.errorExplanation,
+.alert {
+  background-color: $red-fade;
+}
+
+#error_explanation,
+.errorExplanation,
+.alert,
+.notice {
+  border: none;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  padding: 8px 35px 8px 14px;
+}
+
+
+
+/* -------------------- BUTTONS -------------------- */
+
+.btn{
+	font-weight: 400;
+	font-size: 16px;
+	@include border-radius($radius);
+	@include transition($transition);
+	@include box-shadow(none);
+	text-shadow: 0;
+	background-image: none;
+	border: none;
+	&:active{
+		@include box-shadow(none);
+	}
+	&:focus{
+		outline: 0;
+	}
+}
+
+.btn-uppercase{
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+.btn-sm{
+  padding: 5px 20px;
+}
+
+.btn-md{
+  padding: 10px 20px;
+}
+
+.btn-lg{
+  padding: 15px 20px;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.btn-xl{
+  padding: 25px 45px;
+  text-transform: uppercase;
+}
+
+.btn-group-xl{
+  .btn{
+    padding: 25px 45px;
+  }
+}
+
+@media (max-width: 767px){
+  .btn-mobile-block{
+    display: block;
+    width: 100%;
+  }
+}
+
+.btn-primary{
+	background: $primary-color;
+	border: 1px solid $primary-color;
+	font-weight: 600;
+	&:link, &:visited{
+		color: $white !important;
+	}
+	&:hover, &:focus, &:active{
+		background: $primary-hover;
+		border-color: $primary-hover;
+	}
+}
+
+.btn-default{
+	background: none;
+	border: 1px solid $grey-3;
+	&:link, &:visited{
+		color: $grey-4;
+	}
+	&:hover, &:focus, &:active{
+	  background: $primary-hover;
+		border: 1px solid $primary-hover;
+		color: $white;
+	}
+}
+
+.btn-white{
+	background: $white;
+	border: 1px solid $primary-color;
+	&:link, &:visited{
+		color: $primary-color;
+	}
+	&:hover, &:focus, &:active{
+	  background: $primary-hover;
+		border: 1px solid $primary-hover;
+		color: $white;
+	}
+}
+
+.btn-light{
+	background: $off-white;
+	border: 1px solid $off-white;
+	&:link, &:visited{
+		color: $primary-color;
+	}
+	&:hover, &:focus, &:active{
+	  background: $primary-hover;
+		border: 1px solid $primary-hover;
+		color: $white;
+	}
+}
+
+.btn-grey{
+	background: $grey-5;
+	border: 1px solid $grey-5;
+	&:link, &:visited{
+		color: $white;
+	}
+	&:hover, &:focus, &:active{
+	  background: $grey-4;
+		border: 1px solid $grey-4;
+		color: $white;
+	}
+}
+
+.btn-dark{
+	background: $grey-7;
+	border: 1px solid $grey-7;
+	&:link, &:visited{
+		color: $white;
+	}
+	&:hover, &:focus, &:active{
+	  background: $grey-7;
+		border: 1px solid $grey-7;
+		color: $white;
+	}
+}
+
+.btn-link{
+	color: $primary-color;
+	&:hover{
+		color: $primary-hover;
+	}
+}
+
+.btn-link-basic{
+  &:link, &:visited{
+	  color: $primary-color;
+  }
+  &:hover{
+    color: $primary-hover;
+  }
+}
