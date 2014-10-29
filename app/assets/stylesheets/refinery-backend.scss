@@ -19,7 +19,7 @@ body p{
   line-height: 1.6em;
 }
 
-.circle{
+.circle-icon{
   @include circle(30px);
 }
 
@@ -84,6 +84,11 @@ body{
 }
 
 #wrapper{
+  .container{
+    @media (max-width: 1630px) {
+      width: 100%;
+    }
+  }
   height: calc(100%);
   #sidebar-left{
     height: 100%;
