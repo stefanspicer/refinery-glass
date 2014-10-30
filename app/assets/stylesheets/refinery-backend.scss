@@ -343,4 +343,11 @@ body{
   right: 0;
 }
 
-
+#page-preview{
+  header#header{
+    position: relative;
+  }
+  .navbar-fixed-top{
+    position: absolute;
+  }
+}
