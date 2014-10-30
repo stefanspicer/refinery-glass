@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<%= render '/refinery/html_tag' %>
+  <%= render '/refinery/admin/head' %>
+  <body class='login <%= I18n.locale %>'>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div id="flash_container">
+            <%= render '/refinery/message' %>
+          </div>
+        </div>
+        <div class="col-sm-4 col-sm-offset-4">
+          <h2><%= yield :header %></h2>
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
