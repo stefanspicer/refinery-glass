@@ -265,7 +265,7 @@ body{
       overflow: hidden;
       float: left;
       margin: 0 5px 0 0;
-      .icon{
+      .gcicon{
         position: relative;
       }
     }
@@ -274,7 +274,7 @@ body{
       top: -1px;
     }
     .media-type{
-      .icon{
+      .gcicon{
         font-size: 14px;
         top: 2px;
       }
@@ -285,7 +285,7 @@ body{
       margin-right: 20px; 
       color: $grey-5;
       border-color: $grey-5;
-      .icon{
+      .gcicon{
         top: 1px;
         left: 1px;
         @include rotate(45deg);
