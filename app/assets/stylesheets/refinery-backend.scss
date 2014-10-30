@@ -83,6 +83,12 @@ body{
   }
 }
 
+#admin-page-content{
+  padding: 30px;
+  background: $white;
+  height: 100%;
+}
+
 #wrapper{
   .container{
     @media (max-width: 1630px) {
@@ -144,6 +150,7 @@ body{
   }
   .inner-wrapper{
     width: calc(100% - 460px);
+    height: 100%;
     float: left;
   }
   #sidebar-right{
@@ -166,7 +173,7 @@ body{
   }
 }
 
-#page-index{
+#admin-page-content{
   ul{
     li{
       padding: 10px 0;
@@ -242,10 +249,6 @@ body{
     padding-right: 15px;
     margin-right: -17px;
   }
-}
-
-#page-form{
-  margin-bottom: 90px;
   .new-module{
     display: block;
     clear: both;

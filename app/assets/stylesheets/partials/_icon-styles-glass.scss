@@ -11,11 +11,11 @@
   font-style: normal;
 }
 
-
+$gcicon-css-prefix: gcicon !default;
 
 /* Base Class Definition */
 
-.#{$icon-css-prefix} {
+.#{$gcicon-css-prefix} {
   display: inline-block;
   font-family: "refinery";
 }
@@ -33,8 +33,8 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-[class^="icon-"]:before,
-[class*=" icon-"]:before {
+[class^="gcicon-"]:before,
+[class*=" gcicon-"]:before {
   font-family: "refinery" !important;
   font-style: normal !important;
   font-weight: normal !important;
@@ -72,7 +72,7 @@
 
 /* Bordered & Pulled */
 
-.#{$icon-css-prefix}-border {
+.#{$gcicon-css-prefix}-border {
   padding: .2em .25em .15em;
   border: solid .08em $icon-border-color;
   border-radius: .1em;
@@ -81,24 +81,24 @@
 .pull-right { float: right; }
 .pull-left { float: left; }
 
-.#{$icon-css-prefix} {
+.#{$gcicon-css-prefix} {
   &.pull-left { margin-right: .3em; }
   &.pull-right { margin-left: .3em; }
 }
 
 /* Rotated & Flipped */
 
-.#{$icon-css-prefix}-rotate-90  { @include icon-rotate(90deg, 1);  }
-.#{$icon-css-prefix}-rotate-180 { @include icon-rotate(180deg, 2); }
-.#{$icon-css-prefix}-rotate-270 { @include icon-rotate(270deg, 3); }
+.#{$gcicon-css-prefix}-rotate-90  { @include icon-rotate(90deg, 1);  }
+.#{$gcicon-css-prefix}-rotate-180 { @include icon-rotate(180deg, 2); }
+.#{$gcicon-css-prefix}-rotate-270 { @include icon-rotate(270deg, 3); }
 
-.#{$icon-css-prefix}-flip-horizontal { @include icon-flip(-1, 1, 0); }
-.#{$icon-css-prefix}-flip-vertical   { @include icon-flip(1, -1, 2); }
+.#{$gcicon-css-prefix}-flip-horizontal { @include icon-flip(-1, 1, 0); }
+.#{$gcicon-css-prefix}-flip-vertical   { @include icon-flip(1, -1, 2); }
 
 
 /* Spinning */
 
-.#{$icon-css-prefix}-spin {
+.#{$gcicon-css-prefix}-spin {
   -webkit-animation: spin 2s infinite linear;
   -moz-animation: spin 2s infinite linear;
   -o-animation: spin 2s infinite linear;
@@ -130,7 +130,7 @@
 
 /* Stacked */
 
-.#{$icon-css-prefix}-stack {
+.#{$gcicon-css-prefix}-stack {
   position: relative;
   display: inline-block;
   width: 2em;
@@ -138,38 +138,38 @@
   line-height: 2em;
   vertical-align: middle;
 }
-.#{$icon-css-prefix}-stack-1x, .#{$icon-css-prefix}-stack-2x {
+.#{$gcicon-css-prefix}-stack-1x, .#{$gcicon-css-prefix}-stack-2x {
   position: absolute;
   left: 0;
   width: 100%;
   text-align: center;
 }
-.#{$icon-css-prefix}-stack-1x { line-height: inherit; }
-.#{$icon-css-prefix}-stack-2x { font-size: 2em; }
-.#{$icon-css-prefix}-inverse { color: $icon-inverse; }
+.#{$gcicon-css-prefix}-stack-1x { line-height: inherit; }
+.#{$gcicon-css-prefix}-stack-2x { font-size: 2em; }
+.#{$gcicon-css-prefix}-inverse { color: $icon-inverse; }
 
 /* Fluid width */
 
-.#{$icon-css-prefix}-fw {
+.#{$gcicon-css-prefix}-fw {
   width: (18em / 14);
   text-align: center;
 }
 
 /* List */
 
-.#{$icon-css-prefix}-ul {
+.#{$gcicon-css-prefix}-ul {
   padding-left: 0;
   margin-left: $icon-li-width;
   list-style-type: none;
   > li { position: relative; }
 }
-.#{$icon-css-prefix}-li {
+.#{$gcicon-css-prefix}-li {
   position: absolute;
   left: -$icon-li-width;
   width: $icon-li-width;
   top: (2em / 14);
   text-align: center;
-  &.#{$icon-css-prefix}-lg {
+  &.#{$gcicon-css-prefix}-lg {
     left: -$icon-li-width + (4em / 14);
   }
 }
@@ -177,12 +177,12 @@
 /* Icon sized */
 
 /* makes the font 33% larger relative to the icon container */
-.#{$icon-css-prefix}-lg {
+.#{$gcicon-css-prefix}-lg {
   font-size: (4em / 3);
   line-height: (3em / 4);
   vertical-align: -15%;
 }
-.#{$icon-css-prefix}-2x { font-size: 2em; }
-.#{$icon-css-prefix}-3x { font-size: 3em; }
-.#{$icon-css-prefix}-4x { font-size: 4em; }
-.#{$icon-css-prefix}-5x { font-size: 5em; }
+.#{$gcicon-css-prefix}-2x { font-size: 2em; }
+.#{$gcicon-css-prefix}-3x { font-size: 3em; }
+.#{$gcicon-css-prefix}-4x { font-size: 4em; }
+.#{$gcicon-css-prefix}-5x { font-size: 5em; }

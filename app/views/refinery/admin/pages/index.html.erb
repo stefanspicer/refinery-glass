@@ -1,5 +1,5 @@
 <% content_for :admin_content do %>
-<section id="page-index">
+<section id="admin-page-content">
   <% cache_if(Refinery::Pages.cache_pages_backend, [Refinery::Core.base_cache_key, "pages_backend", Globalize.locale].join('_')) do %>
     <%= render 'records' %>
   <% end %>
