@@ -92,6 +92,7 @@ body{
 }
 
 #wrapper{
+  background: $white;
   .container{
     @media (max-width: 1630px) {
       width: 100%;
@@ -118,6 +119,10 @@ body{
       overflow-x: hidden;
       li{
         margin: 0 0 1px;
+        .gcicon{
+          margin-right: 4px;
+          color: $grey-6;
+        }
         a{
           padding: 10px 15px 6px;
           width: 100%;
@@ -133,6 +138,9 @@ body{
             border-bottom: 0;
             background: $white-opaque;
             color: $primary-dark;
+            .gcicon{
+              color: $primary-dark;
+            }
           }
         }
         .active{
@@ -141,14 +149,25 @@ body{
         }
         ul{
           padding-top: 1px;
+          margin-bottom: 10px;
           li{
             a{
-              padding: 5px 15px 2px 30px;
-              font-size: 14px;
+              padding: 3px 15px 3px 30px;
+              font-size: 13px;
               font-weight: 400;
               background: $white-opaque;
             }
           }
+        }
+      }
+      .list-heading{
+        padding: 10px 15px 6px 30px;
+        font-weight: 600;
+        font-size: 14px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        .gcicon{
+          margin-right: 8px;
         }
       }
     }
