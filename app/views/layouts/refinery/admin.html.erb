@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 <%= render '/refinery/html_tag' %>
   <% content_for :meta, "<meta refinerycms='#{Refinery.version}' />".html_safe %>
-  <%= render 'refinery/admin/head' %>
+  <head>
+    <%= render '/refinery/admin/head' %>
+  </head>
   <body class="<%= action_name %> <%= I18n.locale %>">
-
-
-    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-
-
-    <%= render '/refinery/site_bar' %>
     <!-- div id='tooltip_container'></div -->
-
     <section id="wrapper">
       <section id="sidebar-left">
         <%= render 'refinery/admin/menu' %>
@@ -21,27 +16,40 @@
           <%= render '/refinery/no_script' %>
           <%= render '/refinery/message' %>
         </div>
-        <section id="page-preview">
-          <%= yield %>
-        </section>
+        <% if content_for?(:admin_page_preview) %>
+          <section id="page-preview">
+            <%= render "/refinery/body" %> <!-- this partial yields to :admin_page_preview -->
+          </section>
+        <% elsif content_for?(:admin_content) %>
+          <%= yield :admin_content %>
+        <% else %>
+          <!-- this is just to display legacy, so we'll grab legacy css -->
+          <%= stylesheet_link_tag 'refinery/refinery' %>
+          <div id="page_container">
+            <div id="page">
+              <div id="content" class="clearfix">
+                <%= yield %>
+              </div>
+            </div>
+          </div>
+        <% end %>
       </section>
       
-      <section id="sidebar-right">
-        <nav id="sidebar-right-nav" class="sidebar-nav">
-          <ul class="list-unstyled">
-            <li><a href="">hello there</a></li>
-            <li><a href="">hello there</a></li>
-            <li><a href="">hello there</a></li>
-            <li><a href="">hello there</a></li>
-          </ul>
-        </nav>
-      </section>
+      <% if content_for?(:admin_sidebar) %>
+        <section id="sidebar-right">
+          <%= yield :admin_sidebar %>
+          <!--
+          <nav id="sidebar-right-nav" class="sidebar-nav">
+            <ul class="list-unstyled">
+              <li><a href="">hello there</a></li>
+              <li><a href="">hello there</a></li>
+              <li><a href="">hello there</a></li>
+              <li><a href="">hello there</a></li>
+            </ul>
+          </nav>
+          -->
+        </section>
+      <% end %>
     </section>
-    
-    
-    
-
-    
-    
   </body>
 </html>

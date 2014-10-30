@@ -1,3 +1,4 @@
+<% content_for :admin_content do %>
 <section id="page-index">
   <% cache_if(Refinery::Pages.cache_pages_backend, [Refinery::Core.base_cache_key, "pages_backend", Globalize.locale].join('_')) do %>
     <%= render 'records' %>
@@ -7,3 +8,4 @@
   <%= render 'actions' %>
 </section>
 <%= render '/refinery/admin/make_sortable', :tree => true, :replace_contents_after_update => true if @pages.many? -%>
+<% end %>

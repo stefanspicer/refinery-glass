@@ -1,1 +1,134 @@
-<%= render 'form' %>
+<% content_for :admin_sidebar do %>
+  <%= render 'form' %>
+<% end %>
+
+<% content_for :admin_page_preview do %>
+
+<section id="article-cover" class="cover">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				
+			</div>
+		</div>
+	</div>
+</section>
+
+<div class="page-preview">
+  <h1 contenteditable="true">Title</h1>
+  <p contenteditable="true">Est Banksy nihil gastropub eu, <strong>consequat vero semiotics.</strong> Keytar trust fund bitters flexitarian. <em>Direct trade pickled Etsy Odd</em> Future, fingerstache veniam YOLO Shoreditch dolor aute Pinterest kogi letterpress. Meggings aesthetic deserunt semiotics, lomo chillwave occaecat flexitarian drinking vinegar. Excepteur scenester Godard drinking vinegar banh mi. Bicycle rights incididunt tousled, culpa Neutra cupidatat Schlitz mollit disrupt. Lomo non polaroid, twee iPhone DIY biodiesel nulla.</p>
+  <blockquote>
+    <p>
+    Est Banksy nihil gastropub eu, consequat vero semiotics. Keytar trust fund bitters flexitarian. Direct trade pickled Etsy Odd Future, fingerstache veniam YOLO Shoreditch dolor aute Pinterest kogi letterpress. Meggings aesthetic deserunt semiotics, lomo chillwave occaecat flexitarian drinking vinegar. Excepteur scenester Godard drinking vinegar banh mi. Bicycle rights incididunt tousled, culpa Neutra cupidatat Schlitz mollit disrupt. Lomo non polaroid, twee iPhone DIY biodiesel nulla.
+    </p>
+    <footer>Someone famous</footer>
+  </blockquote>
+  <div class="highlight-editor">
+    <a href=""><i class="icon icon-bold"></i></a>
+    <a href=""><i class="icon icon-italic"></i></a>
+    <a href=""><i class="icon icon-heading"></i></a>
+    <a href=""><i class="icon icon-list-bullet"></i></a>
+    <a href=""><i class="icon icon-list-number"></i></a>
+    <a href=""><i class="icon icon-quote"></i></a>
+    <a href=""><i class="icon icon-link"></i></a>
+  </div>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  <img class="img-responsive pull-left" src="/assets/testimonial-lego.jpg"/>
+  <p>Est Banksy nihil gastropub eu, consequat vero semiotics. Keytar trust fund bitters flexitarian. Direct trade pickled Etsy Odd Future, fingerstache veniam YOLO Shoreditch dolor aute Pinterest kogi letterpress. Meggings aesthetic deserunt semiotics, lomo chillwave occaecat flexitarian drinking vinegar. Excepteur scenester Godard drinking vinegar banh mi. Bicycle rights incididunt tousled, culpa Neutra cupidatat Schlitz mollit disrupt. Lomo non polaroid, twee iPhone DIY biodiesel nulla.</p>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+</div>
+        
+<div class="new-module">
+  <a href="" class="circle-icon add-module"><i class="icon icon-plus"></i></a>
+  <div class="clearfix"></div>
+</div>
+
+<div class="new-module media-chooser">
+  <a href="" class="circle-icon add-module"><i class="icon icon-plus"></i></a>
+  <a href="" class="circle-icon media-type"><i class="icon icon-paragraph"></i></a>
+  <a href="" class="circle-icon media-type"><i class="icon icon-photo"></i></a>
+  <a href="" class="circle-icon media-type"><i class="icon icon-film"></i></a>
+  <div class="clearfix"></div>
+</div>
+
+<div class="new-module media-chooser">
+  <a href="" class="circle-icon add-module"><i class="icon icon-plus"></i></a>
+  <form class="form-inline" role="form">
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-addon">Vimeo or YouTube URL</div>
+        <input class="form-control" type="text" placeholder="http://...">
+      </div>
+    </div>
+  </form>
+  <div class="clearfix"></div>
+</div>
+
+<%= form_for [refinery, :admin, @page],
+             :url => (refinery.admin_page_path(@page.nested_url) if @page.persisted?) do |f| %>
+
+  <%= render '/refinery/admin/error_messages', :object => @page, :include_object_name => true %>
+
+  <%= render '/refinery/admin/locale_picker', :current_locale => Globalize.locale %>
+
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title, :class => "larger widest" %>
+  </div>
+
+  <%= render 'form_fields_after_title', :f => f %>
+
+  <div class='field'>
+    <%= render 'form_page_parts', :f => f %>
+  </div>
+
+  <%= render 'form_advanced_options', :f => f %>
+
+  <%= render '/refinery/admin/form_actions', :f => f,
+             :continue_editing => true,
+             :delete_title => t('delete', :scope => 'refinery.admin.pages'),
+             :delete_confirmation => t('message', :scope => 'refinery.admin.delete', :title => @page.title),
+             :before_cancel_button => submit_tag(
+               t('.preview'),
+               :id => 'preview-button',
+               :title => 'Preview page',
+               :name => nil,
+               :class => "wymupdate button",
+               :tooltip => t('.preview_changes')
+             ),
+             :cancel_url => refinery.admin_pages_path %>
+
+  <%= render 'form_new_page_parts', :f => f if Refinery::Pages.new_page_parts %>
+<% end %>
+
+<% content_for :javascripts do %>
+  <script>
+    $(document).ready(function(){
+      page_options.init(
+        <%= Refinery::Pages.new_page_parts.to_s %>
+        , "<%= refinery.new_admin_page_part_path %>"
+        , "<%= refinery.admin_page_parts_path %>"
+      );
+
+      $("#preview-button").click(function(e) {
+        var form = $(this).parents('form');
+        var prev_url = form.attr('action');
+        var prev_target = form.attr('target');
+        form.attr({
+          'action': '<%= @page.persisted? ? refinery.pages_admin_preview_page_path(@page.nested_url) : refinery.pages_admin_preview_pages_path %>'
+          , 'target': '_blank'
+        });
+        form.submit();
+        form.attr({
+          'action': prev_url
+          , 'target': prev_target
+        });
+        e.preventDefault();
+      });
+    });
+  </script>
+<% end %>
+</div>
+
+<% end %>
