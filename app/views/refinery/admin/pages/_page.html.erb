@@ -1,6 +1,6 @@
 <li id="<%= dom_id(page) -%>" class="page-listing">
-
-    <span  class="page-title">
+  <div class="page-row">
+    <a href="<%= refinery.edit_admin_page_path(page.nested_url, :switch_locale => (page.translations.first.locale unless page.translated_to_default_locale?)) %>" class="page-title">
       <% if page.children.present? %>
         <% if Refinery::Pages.auto_expand_admin_tree %> <i class="gcicon gcicon-folder-open"></i> <% else %> <i class="gcicon gcicon-folder"></i> <% end %>
       <% else %>
@@ -20,7 +20,7 @@
           <% end %>
         </span>
       <% end %>
-    </span>
+    </a>
     
     <span class='actions'>
       <span class="delete">
@@ -59,6 +59,7 @@
                   :title => t('new', :scope => 'refinery.admin.pages') %>
       </span>
     </span>
+  </div>
     
 
   
