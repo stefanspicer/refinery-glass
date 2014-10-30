@@ -231,15 +231,18 @@ body{
   }
 }
 
-  #page-preview{
-    *[contenteditable=true]:focus{
-      outline: none;
-      position: relative;
-      border-left: 2px solid $grey-3;
-      padding-left: 15px;
-      margin-left: -17px;
-    }
+#page-preview{
+  *[contenteditable=true]:focus{
+    outline: none;
+    position: relative;
+    border-left: 2px solid $primary-fade;
+    padding-left: 15px;
+    margin-left: -17px;
+    border-right: 2px solid $primary-fade;
+    padding-right: 15px;
+    margin-right: -17px;
   }
+}
 
 #page-form{
   margin-bottom: 90px;
