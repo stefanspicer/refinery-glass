@@ -9,8 +9,10 @@
     <!-- div id='tooltip_container'></div -->
 
     <section id="wrapper">
-      <section id="sidebar-left">
-        <%= render 'refinery/admin/menu' %>
+      <section id="sidebar-left" class="sidebar">
+        <div id="sidebar-left-inner">
+          <%= render 'refinery/admin/menu' %>
+        </div>
       </section>
       
       <section class="inner-wrapper">
@@ -38,18 +40,20 @@
       </section>
       
       <% if content_for?(:admin_sidebar) %>
-        <section id="sidebar-right">
-          <%= yield :admin_sidebar %>
-          <!--
-          <nav id="sidebar-right-nav" class="sidebar-nav">
-            <ul class="list-unstyled">
-              <li><a href="">hello there</a></li>
-              <li><a href="">hello there</a></li>
-              <li><a href="">hello there</a></li>
-              <li><a href="">hello there</a></li>
-            </ul>
-          </nav>
-          -->
+        <section id="sidebar-right" class="sidebar">
+          <div id="sidebar-right-inner">
+            <%= yield :admin_sidebar %>
+            <!--
+            <nav id="sidebar-right-nav" class="sidebar-nav">
+              <ul class="list-unstyled">
+                <li><a href="">hello there</a></li>
+                <li><a href="">hello there</a></li>
+                <li><a href="">hello there</a></li>
+                <li><a href="">hello there</a></li>
+              </ul>
+            </nav>
+            -->
+          </div>
         </section>
       <% end %>
     </section>

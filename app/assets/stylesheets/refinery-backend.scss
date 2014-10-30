@@ -86,7 +86,9 @@ body{
 #admin-page-content{
   padding: 30px;
   background: $white;
-  height: 100%;
+  height: calc(100% - 34px);
+  top: 34px;
+  position: relative;
 }
 
 #wrapper{
@@ -96,12 +98,15 @@ body{
     }
   }
   height: calc(100%);
-  #sidebar-left{
+  .sidebar{
     height: 100%;
     width: 230px;
     float: left;
-    padding: 0 15px;
-    #sidebar-left-nav{
+    padding: 34px 15px 0;
+  }
+  #sidebar-left{
+    float: left;
+    #sidebar-left-inner{
       background: $off-white;
       width: 230px;
       height: 100%;
@@ -156,11 +161,10 @@ body{
   #sidebar-right{
     height: 100%;
     width: 230px;
-    padding: 0 15px;
     position: fixed;
     top: 0;
     right: 0;
-    #sidebar-right-nav{
+    #sidebar-right-inner{
       background: $off-white;
       width: 230px;
       height: 100%;
@@ -188,37 +192,39 @@ body{
         border: none;
         padding-bottom: 0;
       }
-      .page-title{
-        font-size: 18px;
-        letter-spacing: 1px;  
-        .label{
-          background: $grey-2;
-          text-transform: capitalize;
-          padding: 2px 8px;
-          font-weight: 600;
-          margin-left: 5px;
-          position: relative;
-          top: -2px;
+      .page-row{
+        .page-title{
+          font-size: 18px;
+          letter-spacing: 1px;  
+          .label{
+            background: $grey-2;
+            text-transform: capitalize;
+            padding: 2px 8px;
+            font-weight: 600;
+            margin-left: 5px;
+            position: relative;
+            top: -2px;
+          }
         }
-      }
-      .actions{
-        float: right;
-        opacity: 0;
-        position: relative;
-        top: -1px;
-        span{
-          width: 30px;
-          text-align: center;
-          display: inline-block;
-          margin-left: 5px;
-          a{
-            color: $black;
-            border: 1px solid $black;
-            padding-top: 2px;
-            display: block;
-            &:hover{
-              color: $primary-dark;
-              border-color: $primary-dark;
+        .actions{
+          float: right;
+          opacity: 0;
+          position: relative;
+          top: -1px;
+          span{
+            width: 30px;
+            text-align: center;
+            display: inline-block;
+            margin-left: 5px;
+            a{
+              color: $black;
+              border: 1px solid $black;
+              padding-top: 2px;
+              display: block;
+              &:hover{
+                color: $primary-dark;
+                border-color: $primary-dark;
+              }
             }
           }
         }
