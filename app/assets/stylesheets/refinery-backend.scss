@@ -1,9 +1,10 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
 @import "config/mixins";
 @import "config/variables";
 @import "config/base-mixins";
 @import "config/base-variables";
-@import "bootstrap/variables";
-@import "bootstrap/mixins";
+@import "config/base";
 @import "partials/main";
 @import "partials/icons-glass";
 @import "partials/icon-styles-glass";
