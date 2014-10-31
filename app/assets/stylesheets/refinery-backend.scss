@@ -180,6 +180,9 @@ body{
     height: calc(100% - 34px);
     float: left;
   }
+  .inner-wrapper.single-sidebar{
+    width: calc(100% - 230px);
+  }
   #sidebar-right{
     height: 100%;
     width: 230px;
