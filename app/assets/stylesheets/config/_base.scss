@@ -5,16 +5,9 @@ html{
 }
 
 body{
-  min-height: 100%;
   overflow-x: hidden;
   position: relative;
-  padding-top: 0;
-  background: lighten($grey-7, 10%);
 	font-family: $primary-font;
-}
-
-#page_container{
-	background: $white;
 }
 
 a{
@@ -82,6 +75,11 @@ p::-moz-selection {
 
 /* -------------------- ELEMENTS -------------------- */
 
+.section{
+	padding-top: $margin;
+	padding-bottom: $margin;
+}
+
 .cover{
 	color: $white;
 	position: relative;
@@ -90,9 +88,26 @@ p::-moz-selection {
 	}
 }
 
-.section{
-	padding-top: $margin;
-	padding-bottom: $margin;
+.circle{
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: block;
+  background: $grey-5;
+  @include transition($transition);
+}
+
+.icon-stack{
+  .circle{
+    position: absolute;
+    top: 0;
+  }
+  .icon-stack-1x{
+    position: relative;
+    top: -1px;
+    left: -6px;
+    font-size: 14px;
+  }
 }
 
 .quote-wrapper{
@@ -194,160 +209,68 @@ p::-moz-selection {
 	}
 }
 
-.carousel{
-	&:hover{
-		@media (min-width: 768px){
-			.carousel-control .icon, .carousel-indicators{
-				@include transition(0.5s ease-out 0);
-				opacity: 1;
-			}
-			.left{
-				.icon{
-					left: 30px;
-				}
-			}
-			.right{
-				.icon{
-					right: 30px;
-				}
-			}
-			.carousel-indicators{
-				bottom: 20px;
-			}
-		}
-	}
-	.carousel-inner{
-		.item{
-			img{
-				width: 100%;
-			}
-			.carousel-caption{
-				text-shadow: none;
-				@media (min-width: 768px){
-					left: 15%;
-					right: auto;
-					bottom: 15%;
-					text-align: left;
-					@include transition-fix();
-					@include transition(0.5s ease-out);
-					h2{
-						color: $white;
-						width: 400px;
-						margin-bottom: $margin;
-						top: 30px;
-						position: relative;
-						@include transition(0.55s ease-out);
-						opacity: 0;
-					}
-					.btn{
-						top: 20px;
-						position: relative;
-						@include transition(0.5s ease-out);
-						opacity: 0;
-					}
-				}
-				@media (max-width: 767px){
-					background: $grey-6;
-					width: 100%;
-					position: relative;
-					bottom: auto;
-					left: 0;
-					padding: 15px 15px 45px;
-					h2{
-						color: $white;
-						margin: 0 0 30px;
-					}
-					.btn{
-						margin: 0 auto;
-						display: inline-block;
-					}
-				}
-			}
-			.caption-init{
-				h2{
-					top: 0px;
-				}
-				.btn{
-					top: 0px;	
-				}
-			}
-		}
-	}
-	.initiated .active{
-		.carousel-caption{
-			h2{
-				top: 0px;
-				opacity: 1;
-			}
-			.btn{
-				top: 0px;	
-				opacity: 1;
-			}
-		}
-	}
-	.carousel-indicators{
-		@media (min-width: 768px){
-			bottom: 10px;
-			opacity: 0;
-			@include transition(0.3s ease-out 0.5s);
-		}
-		@media (max-width: 767px){
-			bottom: -5px;
-		}
-		li{
-			&:hover{
-				background: $white-fade;
-			}
-		}
-		li.active{
-			&:hover{
-				background: $white;
-			}
-		}
-	}
-	.carousel-control{
-		@include transition($transition);
-		.icon{
-			@include transition(0.2s ease-out 0.5s);
-			top: 50%;
-			position: absolute;
-			font-size: 32px;
-			margin-top: -28px;
-			color: white;
-			text-shadow: none;
-			opacity: 0;
-			@media (max-width: 767px){
-				opacity: 1;
-				top: 75px;
-			}
-		}
-	}
-	.left{
-		@include gradient($start, $stop);
-		&:hover{
-			@include gradient(rgba(0,0,0,0.2), rgba(0,0,0,0));
-		}
-		.icon{
-			left: 40px;
-			@media (max-width: 767px){
-				left: 10px;
-			}
-		}
-	}
-	.right{
-		@include gradient($stop, $start);
-		&:hover{
-			@include gradient(rgba(0,0,0,0), rgba(0,0,0,0.2));
-		}
-		.icon{
-			right: 40px;
-			@media (max-width: 767px){
-				right: 10px;
-			}
-		}
-	}
+.pill{
+  padding: 5px 15px 5px 18px;
+  height: 40px;
+  @include border-radius(20px);
+  @include transition($transition ease-out);
+  color: $black;
+  font-size: 18px;
+  border: 1px solid $grey-3;
+  display: inline-block;
+  .icon{
+    font-size: 16px;
+    line-height: 1;
+    margin: 0 2px 0 0;
+    left: -5px;
+    position: relative;
+  }
+  .icon-last{
+    margin: 0 0 0 2px;
+    left: 2px;
+  }
+  .delete{
+    font-size: 24px;
+    position: relative;
+    top: 1px;
+    line-height: 20px;
+    color: #aeaeae;
+    left: 2px;
+    margin-left: 2px;
+    &:hover{
+      color: $primary-hover;
+    }
+  }
 }
 
+a.pill{
+  color: $black;
+  &:hover{
+    background: $grey-6;
+    color: $white;
+    border-color: $grey-6;
+  }
+}
+
+.pill-sm{
+  height: 30px;
+  padding: 0 12px 0 15px;
+  font-size: 14px;
+  line-height: 26px;
+  .icon{
+    font-size: 12px;
+  }
+}
+
+.pill-xs{
+  height: 20px;
+  padding: 0 8px 0 10px;
+  font-size: 12px;
+  line-height: 18px;
+  .icon{
+    font-size: 12px;
+  }
+}
 
 
 /* -------------------- TYPOGRAPHY -------------------- */
@@ -357,10 +280,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-weight: 400;
     letter-spacing: 0.05em;
     color: $grey-8;
-}
-
-h1, h2, .h1, .h2 {
-    font-family: $heading-font;
 }
 
 h1{
@@ -416,10 +335,6 @@ p.small{
 
 ul li{
 	margin-bottom: 8px;
-}
-
-.uppercase{
-	text-transform: uppercase;
 }
 
 .tight{
@@ -496,95 +411,52 @@ form{
 	  outline: 0;
 	  @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075), 0px 0px 6px 0px rgba(255,49,152,0.1));
 	}
-	
+}
 
-	.dropdown-wrapper{
-	  background: $white;
-	  @include border-radius($radius);
-	  position: relative;
-	  padding: 0;
-	  
-	  select{
-	    -webkit-appearance: none;
-	    -moz-appearance: window;
-	    appearance: none;
-	    text-indent: 0.01px;
-	    text-overflow: '';
-	    /* position: relative; SS: Luke, this seems to be messing up FF for me. */
-	    background: transparent;
-	    font-size: 16px;
-      width: 100%;
-	    padding: 8px 0 !important;
-	    line-height: 1.2;
-	    @include box-shadow($shadow);
-	    z-index: 10;
-	  }
-	  select::-ms-expand {
-			display: none; /* to ie 10 */
-		}
-	}
-	
-	.dropdown-wrapper:after{
-	  content:"";
-	  width:0;
-	  height:0;
-	  border-style: solid;
-	  border-width: 8px 7.5px 0 7.5px;
-	  border-color: $grey-4 transparent transparent transparent;
-	  top: 50%;
-	  right: 10px;
-	  position: absolute;
-	  margin-top: -2px;
-	  z-index: 5;
-	}
-
-  /* JCF = Javascript Custom Forms */
-
-  /* hide original element */
-  .jcf-hidden {
-    display: block !important;
-    position: absolute !important;
-    left: -9999px !important; /* change to right: -9999px on RTL sites */
-  }
-
-  /* custom select styles */
-  .select-area {
-    position: relative;
-    overflow: hidden;
-    cursor: default;
-    display: block;
-    background: #fff;
-    height: 60px;
-    @include border-radius($radius);
-    padding: 10px 16px;
-    line-height: 1.73;
-    font-size: 22px;
+.dropdown-wrapper{
+  background: $white;
+  @include border-radius($radius);
+  position: relative;
+  padding: 0;
+  select{
+    -webkit-appearance: none;
+    -moz-appearance: window;
+    appearance: none;
+    text-indent: 0.01px;
+    text-overflow: '';
+    /* position: relative; SS: Luke, this seems to be messing up FF for me. */
+    background: transparent;
+    font-size: 16px;
     width: 100%;
+    padding: 8px 0 !important;
+    line-height: 1.2;
+    @include box-shadow($shadow);
+    z-index: 10;
   }
-  
-  .date-select .select-area {
-    float: left;
-    width: 130px !important;
-    margin-right: 10px;
-  }
-  
-  .select-focus { border-color: #303030; }
-  .select-disabled { background: #eee; }
-  .select-area .select-opener {
-    background: url(/assets/arrow2.png) no-repeat;
-    position: absolute;
-    height: 7px;
-    width: 13px;
-    right: 17px;
-    top: 26px;
-  }
+  select::-ms-expand {
+		display: none; /* to ie 10 */
+	}
+}
+
+.dropdown-wrapper:after{
+  content:"";
+  width:0;
+  height:0;
+  border-style: solid;
+  border-width: 8px 7.5px 0 7.5px;
+  border-color: $grey-4 transparent transparent transparent;
+  top: 50%;
+  right: 10px;
+  position: absolute;
+  margin-top: -2px;
+  z-index: 5;
 }
 
 .moz-appearance .dropdown-wrapper{
 	 border: 1px solid $grey-1 !important;
 }
 
-.select-options {
+.select-options{
   position: absolute;
   overflow: hidden;
   background: #fff;
@@ -755,10 +627,11 @@ p.notice-top {
 
 .btn-primary{
 	background: $primary-color;
-	border: 1px solid $primary-color;
+	border: 0;
 	font-weight: 600;
+	color: $white;
 	&:link, &:visited{
-		color: $white !important;
+		color: $white;
 	}
 	&:hover, &:focus, &:active{
 		background: $primary-hover;
@@ -769,8 +642,9 @@ p.notice-top {
 .btn-default{
 	background: none;
 	border: 1px solid $grey-3;
+	color: $grey-5;
 	&:link, &:visited{
-		color: $grey-4;
+		color: $grey-5;
 	}
 	&:hover, &:focus, &:active{
 	  background: $primary-hover;
@@ -781,52 +655,24 @@ p.notice-top {
 
 .btn-white{
 	background: $white;
-	border: 1px solid $primary-color;
+	color: $primary-color;
 	&:link, &:visited{
 		color: $primary-color;
 	}
 	&:hover, &:focus, &:active{
 	  background: $primary-hover;
-		border: 1px solid $primary-hover;
-		color: $white;
-	}
-}
-
-.btn-light{
-	background: $off-white;
-	border: 1px solid $off-white;
-	&:link, &:visited{
-		color: $primary-color;
-	}
-	&:hover, &:focus, &:active{
-	  background: $primary-hover;
-		border: 1px solid $primary-hover;
-		color: $white;
-	}
-}
-
-.btn-grey{
-	background: $grey-5;
-	border: 1px solid $grey-5;
-	&:link, &:visited{
-		color: $white;
-	}
-	&:hover, &:focus, &:active{
-	  background: $grey-4;
-		border: 1px solid $grey-4;
 		color: $white;
 	}
 }
 
 .btn-dark{
-	background: $grey-7;
-	border: 1px solid $grey-7;
+	background: $grey-6;
+	color: $white;
 	&:link, &:visited{
 		color: $white;
 	}
 	&:hover, &:focus, &:active{
-	  background: $grey-7;
-		border: 1px solid $grey-7;
+	  background: $grey-5;
 		color: $white;
 	}
 }
