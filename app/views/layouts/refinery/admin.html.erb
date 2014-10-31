@@ -39,14 +39,14 @@
           </div>
         <% end %>
       </section>
-      
-      <% if content_for?(:admin_sidebar) %>
-        <section id="sidebar-right" class="sidebar">
-          <div id="sidebar-right-inner">
-            <%= yield :admin_sidebar %>
-          </div>
-        </section>
-      <% end %>
     </section>
+
+    <% if content_for?(:admin_sidebar) %>
+      <section id="sidebar-right" class="sidebar">
+        <div id="sidebar-right-inner">
+          <%= yield :admin_sidebar %>
+        </div>
+      </section>
+    <% end %>
   </body>
 </html>

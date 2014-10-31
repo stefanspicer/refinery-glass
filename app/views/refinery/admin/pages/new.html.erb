@@ -36,6 +36,7 @@
   <img class="img-responsive pull-left" src="/assets/testimonial-lego.jpg"/>
   <p>Est Banksy nihil gastropub eu, consequat vero semiotics. Keytar trust fund bitters flexitarian. Direct trade pickled Etsy Odd Future, fingerstache veniam YOLO Shoreditch dolor aute Pinterest kogi letterpress. Meggings aesthetic deserunt semiotics, lomo chillwave occaecat flexitarian drinking vinegar. Excepteur scenester Godard drinking vinegar banh mi. Bicycle rights incididunt tousled, culpa Neutra cupidatat Schlitz mollit disrupt. Lomo non polaroid, twee iPhone DIY biodiesel nulla.</p>
   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+</div>
         
 <div class="new-module">
   <a href="" class="circle-icon add-module"><i class="gcicon gcicon-plus"></i></a>
@@ -100,6 +101,8 @@
   <%= render 'form_new_page_parts', :f => f if Refinery::Pages.new_page_parts %>
 <% end %>
 
+<% end %>
+
 <% content_for :javascripts do %>
   <script>
     $(document).ready(function(){
@@ -126,9 +129,4 @@
       });
     });
   </script>
-<% end %>
-</div>
-
-</div>
-
 <% end %>
