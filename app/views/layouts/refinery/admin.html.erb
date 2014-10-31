@@ -15,7 +15,8 @@
         </div>
       </section>
       
-      <section class="inner-wrapper">
+      
+      <section class="inner-wrapper <%= 'single-sidebar' unless content_for?(:admin_sidebar) %>">
         <div id="flash_container">
           <%= render '/refinery/no_script' %>
           <%= render '/refinery/message' %>
