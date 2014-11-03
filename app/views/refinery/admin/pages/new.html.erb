@@ -1,16 +1,33 @@
 <% content_for :admin_sidebar do %>
-  <a href=""><i class="gcicon gcicon-screen"></i></a>
-  Draft
-  <a href=""><i class="gcicion gcicon-lock"></i></a>
-   <div class="checkbox">
-    <label>
-      <input type="checkbox"> Draft
-    </label>
-  </div>
-  Saved
-  <a href="" class="btn btn-primary">Publish</a>
-  <a href="">Delete</a>
+  <div class="page-options">
+    <div class="deliver row">
+      <div class="pull-left">
+        <a href="" class="circle-icon"><i class="gcicon gcicon-screen"></i></a>
+      </div>
+      <div class="pull-right">
+        <a href="" class="circle-icon"><i class="gc-icon gcicon-save"></i></a>
+        <a href="" class="circle-icon fluid-width"><i class="gcicon gcicon-publish"></i> Publish</a>
+      </div>
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control input-lg" id="title" placeholder="Page Title">
+    </div>
+    <div class="url">http://serena.ca/<span class="slug" contenteditable="true">page-title</span>/</div>
+    <a href="" class="btn btn-default btn-xs">Ok</a>
+    <i class="icon icon-draft"></i> Draft
+    
+    
+    <a href=""><i class="gcicion gcicon-lock"></i></a>
+     <div class="checkbox">
+      <label>
+        <input type="checkbox"> Draft
+      </label>
+    </div>
+    Saved
+    <a href="" class="btn btn-primary">Publish</a>
+    <a href="">Delete</a>
   <%= render 'form' %>
+  </div>
 <% end %>
 
 <% content_for :admin_page_preview do %>
