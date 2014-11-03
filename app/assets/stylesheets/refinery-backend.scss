@@ -11,6 +11,10 @@
 
 
 
+.login{
+  background: $off-white;
+  padding-top: 120px;
+}
 
 
 img.pull-left{
@@ -87,7 +91,7 @@ body{
 }
 
 #admin-page-content{
-  padding: 30px;
+  padding: 60px;
   background: $white;
   height: calc(100% - 34px);
   top: 34px;
