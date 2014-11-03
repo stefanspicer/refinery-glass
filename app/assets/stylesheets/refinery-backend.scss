@@ -227,23 +227,33 @@ body{
       overflow-x: hidden;
       .page-options{
         padding: 0 15px;
+        *[contenteditable=true]{
+          padding-bottom: 1px;
+          color: $primary-dark;
+          border-bottom: 1px solid transparent;
+          &:focus{
+            border-color: $primary-dark;
+            outline: none;
+          }
+          &:empty{
+            width: 30px;
+            border-color: $primary-dark;
+          }
+        }
         .deliver{
           margin-bottom: 15px;
           display: block;
           margin-left: 0;
           margin-right: 0;
         }
+        .page-title{
+          font-size: 18px;
+          font-weight: 600;
+          display: inline-block;
+        }
         .url{
           font-weight: 600;
           color: $grey-5;
-          [contenteditable=true]{
-            padding-bottom: 1px;
-            color: $primary-dark;
-            &:focus{
-              border-bottom: 1px solid $primary-dark;
-              outline: none;
-            }
-          }
         }
       }
     }
