@@ -8,15 +8,11 @@
     <div class="container-fluid">
       <div class="site-link pull-left">
         <!-- <%= site_bar_switch_link -%> -->
-        <a href=""><%= Refinery::Core.site_name %></a>
+        <%= link_to Refinery::Core.site_name, '/' %>
       </div>
       <div class="pull-right">
-        <a href="">Log out <i class="gcicon gcicon-log-out"></i></a>
-        
-       <!--
- <%= link_to t('.log_out', site_bar_translate_locale_args),
-                    refinery.logout_path, :id => 'logout' %>
--->
+        <%= link_to (t('.log_out', site_bar_translate_locale_args) + ' <i class="gcicon gcicon-log-out"></i>').html_safe,
+            refinery.logout_path, :id => 'logout' %>
       </div>
 
     </div>
