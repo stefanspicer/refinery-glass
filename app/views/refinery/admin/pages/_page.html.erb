@@ -22,9 +22,31 @@
       <% end %>
     </a>
     
-    <span class='actions'>
+    <span class='actions'>          
+      <span class="edit">
+        <%= link_to '<i class="gcicon gcicon-edit top-down"></i>'.html_safe,
+                  refinery.edit_admin_page_path(page.nested_url, :switch_locale => (page.translations.first.locale unless page.translated_to_default_locale?)),
+                  :class => "circle-icon",
+                  :title => t('edit', :scope => 'refinery.admin.pages') %>
+      </span>
+      
+      <span class="preview">
+        <%= link_to '<i class="gcicon gcicon-screen top-down"></i>'.html_safe,
+                  page.url,
+                  :target => "_blank",
+                  :class => "circle-icon",
+                  :title => t('.view_live_html') %>
+      </span>
+      
+      <span class="add-child">           
+        <%= link_to '<i class="gcicon gcicon-add top-down"></i>'.html_safe,
+                  refinery.new_admin_page_path(:parent_id => page.id),
+                  :class => "circle-icon",
+                  :title => t('new', :scope => 'refinery.admin.pages') %>
+      </span>
+      
       <span class="delete">
-        <%= link_to '<i class="gcicon gcicon-trash"></i>'.html_safe,
+        <%= link_to '<i class="gcicon gcicon-trash top-down"></i>'.html_safe,
                   refinery.admin_page_path(page.nested_url),
                   :class => "cancel confirm-delete circle-icon",
                   :title => t('delete', :scope => 'refinery.admin.pages'),
@@ -35,28 +57,6 @@
                     )
                   },
                   :method => :delete if page.deletable? %>
-      </span>
-    
-      <span class="preview">
-        <%= link_to '<i class="gcicon gcicon-screen"></i>'.html_safe,
-                  page.url,
-                  :target => "_blank",
-                  :class => "circle-icon",
-                  :title => t('.view_live_html') %>
-      </span>
-      
-      <span class="edit">
-        <%= link_to '<i class="gcicon gcicon-edit"></i>'.html_safe,
-                  refinery.edit_admin_page_path(page.nested_url, :switch_locale => (page.translations.first.locale unless page.translated_to_default_locale?)),
-                  :class => "circle-icon",
-                  :title => t('edit', :scope => 'refinery.admin.pages') %>
-      </span>
-      
-      <span class="add-child">           
-        <%= link_to '<i class="gcicon gcicon-add"></i>'.html_safe,
-                  refinery.new_admin_page_path(:parent_id => page.id),
-                  :class => "circle-icon",
-                  :title => t('new', :scope => 'refinery.admin.pages') %>
       </span>
     </span>
   </div>

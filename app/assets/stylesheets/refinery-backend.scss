@@ -10,62 +10,15 @@
 @import "partials/icon-styles-glass";
 
 
-
-.login{
-  background: $off-white;
-  padding-top: 120px;
-  @media (max-width: 767px) {
-    padding-top: 45px;  
-  }
-  h2{
-    margin-bottom: 30px;
-  }
-}
-
-
-img.pull-left{
-  margin: 10px 10px 10px 0;
-}
+/* -------------------- TEMPORARY -------------------- */
 
 body p{
   font-size: 16px;
   line-height: 1.6em;
 }
 
-.circle-icon{
-  @include circle(30px);
-}
-
-a.circle-icon{
-  color: $black;
-  border: 1px solid $black;
-  display: inline-block;
-  text-align: center;
-  padding: 3px 0 0 0;
-  &:link, &:visited {
-    color: $black;
-  }
-  &:hover, &:focus{
-    color: $white;
-    border-color: $primary-dark;
-    background: $primary-dark;
-  }
-}
-
-.circle-icon.fluid-width{
-  padding: 3px 10px 0 10px;
-  min-width: 30px;
-  width: auto;
-}
-
-.input-group{
-  .input-group-addon{
-    background: $off-white;
-    border-color: $grey-2;
-  }
-  .form-control{
-    border-color: $grey-2;
-  }
+img.pull-left{
+  margin: 10px 10px 10px 0;
 }
 
 #article-cover{
@@ -77,11 +30,174 @@ a.circle-icon{
 }
 
 
+/* -------------------- MAIN -------------------- */
 
 body{
   height: 100%;
   padding-top: 34px;
 }
+
+*[contenteditable=true]{
+ white-space: pre-wrap; 
+}
+
+
+
+/* -------------------- ELEMENTS -------------------- */
+
+.circle-icon{
+  @include circle(30px);
+  color: $black;
+  border: 1px solid $black;
+  display: inline-block;
+  text-align: center;
+  padding: 3px 0 0 0;
+  vertical-align: top;
+  &:link, &:visited {
+    color: $black;
+  }
+  &:hover, &:focus{
+    color: $white;
+    border-color: $primary-dark;
+    background: $primary-dark;
+  }
+  .gcicon{
+    position: relative;
+  }
+  .top-down{
+    top: 1px;
+  }
+}
+
+.circle-icon.fluid-width{
+  padding: 3px 10px 0 10px;
+  min-width: 30px;
+  width: auto;
+  span{
+    padding-top: 2px;
+  }
+}
+
+/* -------------------- EDITOR -------------------- */
+
+.input-group{
+  .input-group-addon{
+    background: $off-white;
+    border-color: $grey-2;
+  }
+  .form-control{
+    border-color: $grey-2;
+  }
+}
+
+#page-preview{
+  *[contenteditable=true]{
+      position: relative;
+      border-left: 2px solid transparent;
+      padding-left: 15px;
+      margin-left: -17px;
+      border-right: 2px solid transparent;
+      padding-right: 15px;
+      margin-right: -17px;
+    &:focus{
+      outline: none;
+      border-color: $primary-fade !important;
+    }
+    &:hover{
+      border-color: rgba($primary-fade, 0.3);
+    }
+  }
+  .new-module{
+    display: block;
+    clear: both;
+    padding-top: 15px;
+    margin-bottom: 15px;
+    a{
+      text-align: center;
+      overflow: hidden;
+      float: left;
+      margin: 0 5px 0 0;
+      .gcicon{
+        position: relative;
+      }
+    }
+    .add-module{
+      .gcicon{
+        top: 1px;
+      }
+    }
+    .media-type{
+      .gcicon{
+        font-size: 14px;
+      }
+    }
+  }
+  .media-chooser{
+    .add-module{
+      margin-right: 20px; 
+      color: $grey-5;
+      border-color: $grey-5;
+      &:hover{
+        color: $white;
+        border-color: $primary-dark;
+      }
+      .gcicon{
+        left: 1px;
+        @include rotate(45deg);
+      }
+    }
+    .media-type{
+      .gcicon{
+        position: relative;
+      }
+    }
+    .input-group{
+      top: -1px;
+      .form-control{
+        width: 300px;
+      }
+    }
+  }
+  
+  .highlight-editor{
+    position: relative;
+    background: $off-white;
+    border: 1px solid $grey-2;
+    @include border-radius($radius);
+    display: inline-block;
+    padding: 5px 10px;
+    &:after{
+      content: "";
+      position: absolute;
+      bottom: -7px;
+      left: 50%;
+      margin-left: -7px;
+      border-style: solid;
+      border-width: 7px 7px 0 7px;
+      border-color: $off-white transparent transparent transparent;
+    }
+    &:before{
+      content: "";
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      margin-left: -8px;
+      border-style: solid;
+      border-width: 8px 8px 0 8px;
+      border-color: $grey-2 transparent transparent transparent;
+    }
+    a{
+      margin: 0 5px;
+      color: $grey-6;
+      &:hover{
+        color: $primary-dark;
+      }
+    }
+  }
+}
+
+
+/* -------------------- UI -------------------- */
 
 #site-bar{
   min-height: 34px;
@@ -118,6 +234,27 @@ body{
     }
   }
 }
+
+
+
+/* -------------------- PAGES -------------------- */
+
+.login{
+  background: $off-white;
+  padding-top: 120px;
+  @media (max-width: 767px) {
+    padding-top: 45px;  
+  }
+  h2{
+    margin-bottom: 30px;
+  }
+}
+
+
+
+
+
+
 
 #wrapper{
   background: $white;
@@ -228,7 +365,6 @@ body{
       .page-options{
         padding: 0 15px;
         *[contenteditable=true]{
-          padding-bottom: 1px;
           color: $primary-dark;
           border-bottom: 1px solid transparent;
           &:focus{
@@ -236,7 +372,7 @@ body{
             outline: none;
           }
           &:empty{
-            width: 30px;
+            width: 15px;
             border-color: $primary-dark;
           }
         }
@@ -245,15 +381,74 @@ body{
           display: block;
           margin-left: 0;
           margin-right: 0;
+          .save-page{
+            margin-right: 5px;
+          }
         }
         .page-title{
-          font-size: 18px;
+          font-size: 21px;
           font-weight: 600;
           display: inline-block;
         }
         .url{
           font-weight: 600;
           color: $grey-5;
+          margin-bottom: 30px;
+          span{
+            padding-bottom: 1px;
+          }
+        }
+        .status{
+          ul{
+            li{
+              margin-bottom: 4px;
+              padding-bottom: 6px;
+              border-bottom: 1px solid $grey-2;
+              &:last-of-type{
+                border-bottom: none;
+              }
+              .gcicon{
+                width: 20px;
+                display: inline-block;
+              }
+              .password-protect{
+                color: $black;
+                width: 100%;
+                display: block;
+                &:hover{
+                  color: $primary-dark;
+                }
+                .gcicon-down{
+                  top: 2px;
+                  position: relative;
+                  font-size: 18px;
+                  line-height: 14px;
+                  float: right;
+                }
+              }
+              .checkbox{
+                margin: 0;
+                height: 19px;
+                label{
+                  width: 100%;
+                  display: block;
+                  padding-top: 2px;
+                  input{
+                    position: relative;
+                  }
+                }
+              }
+            }
+            .saved-state{
+              color: $grey-6;
+            }
+          }
+        }
+        .delete{
+          color: $red;
+          &:hover{
+            color: darken($red, 15%);
+          }
         }
       }
     }
@@ -281,7 +476,7 @@ body{
             opacity: 1;
           }
           .page-title{
-            color: $primary-hover;
+            color: $primary-dark;
           }
         }
         .page-title{
@@ -312,18 +507,8 @@ body{
             display: inline-block;
             margin-left: 5px;
             a{
-              color: $black;
-              border: 1px solid $black;
               padding-top: 2px;
               display: block;
-              &:hover{
-                color: $primary-dark;
-                border-color: $primary-dark;
-              }
-              .gcicon{
-                position: relative;
-                top: 1px;
-              }
             }
           }
         }
@@ -345,115 +530,6 @@ body{
   }
 }
 
-#page-preview{
-  *[contenteditable=true]{
-      position: relative;
-      border-left: 2px solid transparent;
-      padding-left: 15px;
-      margin-left: -17px;
-      border-right: 2px solid transparent;
-      padding-right: 15px;
-      margin-right: -17px;
-    &:focus{
-      outline: none;
-      border-color: $primary-fade !important;
-    }
-    &:hover{
-      border-color: rgba($primary-fade, 0.3);
-    }
-  }
-  .new-module{
-    display: block;
-    clear: both;
-    padding-top: 15px;
-    margin-bottom: 15px;
-    a{
-      &:hover{
-        color: $primary-dark;
-        border-color: $primary-dark;
-      }
-      text-align: center;
-      border: 1px solid $black;
-      color: $black;
-      overflow: hidden;
-      float: left;
-      margin: 0 5px 0 0;
-      .gcicon{
-        position: relative;
-      }
-    }
-    .add-module{
-      font-size: 18px;
-      top: -1px;
-    }
-    .media-type{
-      .gcicon{
-        font-size: 14px;
-        top: 2px;
-      }
-    }
-  }
-  .media-chooser{
-    .add-module{
-      margin-right: 20px; 
-      color: $grey-5;
-      border-color: $grey-5;
-      .gcicon{
-        top: 1px;
-        left: 1px;
-        @include rotate(45deg);
-      }
-    }
-    .media-type{
-      .gcicon{
-        top: 3px;
-        position: relative;
-      }
-    }
-    .input-group{
-      top: -1px;
-      .form-control{
-        width: 300px;
-      }
-    }
-  }
-  
-  .highlight-editor{
-    position: relative;
-    background: $off-white;
-    border: 1px solid $grey-2;
-    @include border-radius($radius);
-    display: inline-block;
-    padding: 5px 10px;
-    &:after{
-      content: "";
-      position: absolute;
-      bottom: -7px;
-      left: 50%;
-      margin-left: -7px;
-      border-style: solid;
-      border-width: 7px 7px 0 7px;
-      border-color: $off-white transparent transparent transparent;
-    }
-    &:before{
-      content: "";
-      position: absolute;
-      bottom: -8px;
-      left: 50%;
-      margin-left: -8px;
-      border-style: solid;
-      border-width: 8px 8px 0 8px;
-      border-color: $grey-2 transparent transparent transparent;
-    }
-    a{
-      margin: 0 5px;
-      color: $grey-6;
-      &:hover{
-        color: $primary-dark;
-      }
-    }
-  }
-}
 
 .settings{
   background: $off-white;
