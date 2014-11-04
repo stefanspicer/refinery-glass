@@ -36,6 +36,7 @@ button{
 	border: none;
 	padding: 0;
 	color: $primary-color;
+	text-decoration: none;
 	&:hover, &:focus{
 		color: $primary-hover;
 	}
@@ -180,7 +181,7 @@ p::-moz-selection {
   }
 }
 
-.video-16-9 {
+.video-16-9{
 	position: relative;
 	padding-bottom: 56.25%;
 	height: 0;
@@ -188,6 +189,21 @@ p::-moz-selection {
 }
 
 .video-16-9 iframe{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.video-ws{
+	position: relative;
+	padding-bottom: 42.18%;
+	height: 0;
+	margin-bottom: 60px;
+}
+
+.video-ws iframe{
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -272,6 +288,161 @@ a.pill{
   }
 }
 
+.carousel{
+	&:hover{
+		@media (min-width: 768px){
+			.carousel-control .icon, .carousel-indicators{
+				@include transition(0.5s ease-out 0);
+				opacity: 1;
+			}
+			.left{
+				.icon{
+					left: 30px;
+				}
+			}
+			.right{
+				.icon{
+					right: 30px;
+				}
+			}
+			.carousel-indicators{
+				bottom: 20px;
+			}
+		}
+	}
+	.carousel-inner{
+		.item{
+			img{
+				width: 100%;
+			}
+			.carousel-caption{
+				text-shadow: none;
+				@media (min-width: 768px){
+					left: 15%;
+					right: auto;
+					bottom: 15%;
+					text-align: left;
+					@include transition-fix();
+					@include transition(0.5s ease-out);
+					h2{
+						color: $white;
+						width: 400px;
+						margin-bottom: $margin;
+						top: 30px;
+						position: relative;
+						@include transition(0.55s ease-out);
+						opacity: 0;
+					}
+					.btn{
+						top: 20px;
+						position: relative;
+						@include transition(0.5s ease-out);
+						opacity: 0;
+					}
+				}
+				@media (max-width: 767px){
+					background: $grey-6;
+					width: 100%;
+					position: relative;
+					bottom: auto;
+					left: 0;
+					padding: 15px 15px 45px;
+					h2{
+						color: $white;
+						margin: 0 0 30px;
+					}
+					.btn{
+						margin: 0 auto;
+						display: inline-block;
+					}
+				}
+			}
+			.caption-init{
+				h2{
+					top: 0px;
+				}
+				.btn{
+					top: 0px;	
+				}
+			}
+		}
+	}
+	.initiated .active{
+		.carousel-caption{
+			h2{
+				top: 0px;
+				opacity: 1;
+			}
+			.btn{
+				top: 0px;	
+				opacity: 1;
+			}
+		}
+	}
+	.carousel-indicators{
+		@media (min-width: 768px){
+			bottom: 10px;
+			opacity: 0;
+			@include transition(0.3s ease-out 0.5s);
+		}
+		@media (max-width: 767px){
+			bottom: -5px;
+		}
+		li{
+			&:hover{
+				background: $white-fade;
+			}
+		}
+		li.active{
+			&:hover{
+				background: $white;
+			}
+		}
+	}
+	.carousel-control{
+		@include transition($transition);
+		.icon{
+			@include transition(0.2s ease-out 0.5s);
+			top: 50%;
+			position: absolute;
+			font-size: 32px;
+			margin-top: -28px;
+			color: white;
+			text-shadow: none;
+			opacity: 0;
+			@media (max-width: 767px){
+				opacity: 1;
+				top: 75px;
+			}
+		}
+	}
+	.left{
+		@include gradient($start, $stop);
+		&:hover{
+			@include gradient(rgba(0,0,0,0.2), rgba(0,0,0,0));
+		}
+		.icon{
+			left: 40px;
+			@media (max-width: 767px){
+				left: 10px;
+			}
+		}
+	}
+	.right{
+		@include gradient($stop, $start);
+		&:hover{
+			@include gradient(rgba(0,0,0,0), rgba(0,0,0,0.2));
+		}
+		.icon{
+			right: 40px;
+			@media (max-width: 767px){
+				right: 10px;
+			}
+		}
+	}
+}
+
+
 
 /* -------------------- TYPOGRAPHY -------------------- */
 
@@ -346,72 +517,102 @@ ul li{
 /* -------------------- FORMS -------------------- */
 
 form{
-	.form-group{
-	  label{
-	    .small{
-	    }
-	  }
-	  .form-control, textarea, .btn{
-		  @include border-radius($radius);
-	  }
-	  textarea{
-			resize: none;
-			min-height: 137px;
-		}
-    &.checkbox-group{
-      input, label{
-        float: left;
-      }
-      input[type="checkbox"]{
-        margin: 4px 0 0;
-      }
-      label{
-        margin: 0 0 0 10px;
-        width: 85%;
-        font-weight: normal;
-        font-size: 16px;
-      }
+  label{
+    padding-top: 15px;
+    text-align: right;
+    font-weight: 400;
+  }
+  .form-control-static{
+    padding-top: 7px;
+  }
+  .required{
+    color: $red;
+    padding-left: 5px;
+  }
+}
+
+.form-group{
+  .form-control, textarea, .btn{
+	  @include border-radius($radius);
+  }
+  textarea{
+		resize: none;
+		min-height: 137px;
+	}
+  &.checkbox-group{
+    input, label{
+      float: left;
     }
-	}
-	
-	.submit, .btn{
-		.icon{
-			margin-left: 10px;
-		}
-	}
-	
-  .select-area, .form-control{
-		@include transition($transition);
-	  @include box-shadow(none);
-	  font-size: 18px;
-	}
-	
-	::-webkit-input-placeholder {
-	   font-size: 16px;
-	   line-height: 1.8;
-	}
-	
-	:-moz-placeholder { /* Firefox 18- */
-	   font-size: 16px;
-	   line-height: 1.8;
-	}
-	
-	::-moz-placeholder {  /* Firefox 19+ */
-	   font-size: 16px;
-	   line-height: 1.8;
-	}
-	
-	:-ms-input-placeholder {  
-	   font-size: 16px;
-	   line-height: 1.8;
-	}
-	
-	input:focus, .form-control:focus, input[type="submit"]:focus, .btn:focus{
-	  border-color: $primary-hover;
-	  outline: 0;
-	  @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075), 0px 0px 6px 0px rgba(255,49,152,0.1));
+    input[type="checkbox"]{
+      margin: 4px 0 0;
+    }
+    label{
+      margin: 0 0 0 10px;
+      width: 85%;
+      font-weight: normal;
+      font-size: 16px;
+    }
+  }
+}
+
+.submit, .btn{
+	.icon{
+		margin-left: 10px;
 	}
 }
+
+.select-area, .form-control{
+	@include transition($transition);
+  @include box-shadow(none);
+  font-size: 18px;
+}
+
+::-webkit-input-placeholder {
+   font-size: 16px;
+   line-height: 1.8;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   font-size: 16px;
+   line-height: 1.8;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   font-size: 16px;
+   line-height: 1.8;
+}
+
+:-ms-input-placeholder {  
+   font-size: 16px;
+   line-height: 1.8;
+}
+
+.input-lg::-webkit-input-placeholder {
+   font-size: 16px;
+   line-height: 1.4;
+}
+
+.input-lg:-moz-placeholder { /* Firefox 18- */
+   font-size: 16px;
+   line-height: 1.4;
+}
+
+.input-lg::-moz-placeholder {  /* Firefox 19+ */
+   font-size: 16px;
+   line-height: 1.4;
+}
+
+.input-lg:-ms-input-placeholder {  
+   font-size: 16px;
+   line-height: 1.4;
+}
+
+input:focus, .form-control:focus, input[type="submit"]:focus, .btn:focus{
+  border-color: $primary-hover;
+  outline: 0;
+  @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075), 0px 0px 6px 0px rgba(255,49,152,0.1));
+}
+
 
 .dropdown-wrapper{
   background: $white;
@@ -420,17 +621,15 @@ form{
   padding: 0;
   select{
     -webkit-appearance: none;
-    -moz-appearance: window;
+    -moz-appearance: window !important;
     appearance: none;
     text-indent: 0.01px;
     text-overflow: '';
-    /* position: relative; SS: Luke, this seems to be messing up FF for me. */
     background: transparent;
     font-size: 16px;
     width: 100%;
-    padding: 8px 0 !important;
+    padding: 5px 10px !important;
     line-height: 1.2;
-    @include box-shadow($shadow);
     z-index: 10;
   }
   select::-ms-expand {
