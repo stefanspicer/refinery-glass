@@ -399,6 +399,7 @@ body{
           }
         }
         .status{
+          margin-bottom: 30px;
           ul{
             li{
               margin-bottom: 4px;
@@ -415,6 +416,7 @@ body{
                 color: $black;
                 width: 100%;
                 display: block;
+                text-align: left;
                 &:hover{
                   color: $primary-dark;
                 }
@@ -425,6 +427,9 @@ body{
                   line-height: 14px;
                   float: right;
                 }
+              }
+              .password-collapse{
+                padding: 10px 0 5px 0;
               }
               .checkbox{
                 margin: 0;
@@ -442,6 +447,20 @@ body{
             .saved-state{
               color: $grey-6;
             }
+          }
+        }
+        .settings-toggle{
+          display: block;
+          margin-bottom: 10px;
+          color: $grey-6;
+          font-size: 16px;
+          &:hover{
+            color: $primary-dark;
+          }
+        }
+        .settings-collapse{
+          .dropdown-wrapper{
+            margin-bottom: 10px;
           }
         }
         .delete{

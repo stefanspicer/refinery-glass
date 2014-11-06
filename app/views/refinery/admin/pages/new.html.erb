@@ -14,7 +14,19 @@
     <div class="status">      
       <ul class="list-unstyled">
         <li class="saved-state"><i class="gcicon gcicon-save"></i>Saved at 10:23</li>
-        <li><a href="" class="password-protect"><i class="gcicon gcicon-lock"></i>Password protect <i class="gcicon gcicon-down"></i></a></li>
+        <li>
+          <button type="button" class="password-protect" data-toggle="collapse" data-target="#password-protect" aria-expanded="true" aria-controls="demo">
+            <i class="gcicon gcicon-lock"></i>Password protect <i class="gcicon gcicon-down"></i>
+          </button>
+          <div id="password-protect" class="collapse password-collapse">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Password">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Ok</button>
+              </span>
+            </div>
+          </div>
+        </li>
         <li>
           <div class="checkbox">
             <label>
@@ -25,10 +37,10 @@
       </ul>
     </div>
     
-    <button type="button" class="" data-toggle="collapse" data-target="#demo" aria-expanded="true" aria-controls="demo">
+    <button type="button" class="settings-toggle" data-toggle="collapse" data-target="#settings-collapse" aria-expanded="true" aria-controls="demo">
       <i class="gcicon gcicon-gear"></i> Settings
     </button>
-    <div id="demo" class="collapse">
+    <div id="settings-collapse" class="collapse settings-collapse">
       <div class="form-group">
         <div class="dropdown-wrapper">
           <select class="form-control">
