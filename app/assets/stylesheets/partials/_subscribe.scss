@@ -1,0 +1,48 @@
+.subscribe-wrapper{
+	height: 52px;
+	@include transition($transition);
+}
+
+.subscribe-wrapper.open{
+	height: 114px;
+}	
+	
+#subscribe-form{
+	max-width: 400px;
+	margin: 0 auto;
+	.form-group{
+	  top: 0px;
+	  position: relative;
+	  @include transition($transition);
+	  margin-bottom: 10px;
+	  height: 44px;
+  	.form-control{
+    	@include border-radius($radius);
+    	height: 42px;
+  	}
+	}
+	.closed{
+  	top: -54px;
+	}
+  .subscribe-btn{
+    position: absolute;
+    top: 4px;
+    right: 19px;
+    .btn{
+	    height: 34px;
+	    line-height: 1.4;
+    }
+  }
+	.tight-gutter{
+		padding-right: 0;
+		padding-bottom: 0 !important;
+	}
+	
+	.tight-gutter:nth-child(2),.tight-gutter:nth-child(3){
+	  padding-left: 10px;
+	}
+	
+	.tight-gutter:last-child{
+		padding-right: 15px;
+	}
+}

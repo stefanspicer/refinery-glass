@@ -288,160 +288,6 @@ a.pill{
   }
 }
 
-.carousel{
-	&:hover{
-		@media (min-width: 768px){
-			.carousel-control .icon, .carousel-indicators{
-				@include transition(0.5s ease-out 0);
-				opacity: 1;
-			}
-			.left{
-				.icon{
-					left: 30px;
-				}
-			}
-			.right{
-				.icon{
-					right: 30px;
-				}
-			}
-			.carousel-indicators{
-				bottom: 20px;
-			}
-		}
-	}
-	.carousel-inner{
-		.item{
-			img{
-				width: 100%;
-			}
-			.carousel-caption{
-				text-shadow: none;
-				@media (min-width: 768px){
-					left: 15%;
-					right: auto;
-					bottom: 15%;
-					text-align: left;
-					@include transition-fix();
-					@include transition(0.5s ease-out);
-					h2{
-						color: $white;
-						width: 400px;
-						margin-bottom: $margin;
-						top: 30px;
-						position: relative;
-						@include transition(0.55s ease-out);
-						opacity: 0;
-					}
-					.btn{
-						top: 20px;
-						position: relative;
-						@include transition(0.5s ease-out);
-						opacity: 0;
-					}
-				}
-				@media (max-width: 767px){
-					background: $grey-6;
-					width: 100%;
-					position: relative;
-					bottom: auto;
-					left: 0;
-					padding: 15px 15px 45px;
-					h2{
-						color: $white;
-						margin: 0 0 30px;
-					}
-					.btn{
-						margin: 0 auto;
-						display: inline-block;
-					}
-				}
-			}
-			.caption-init{
-				h2{
-					top: 0px;
-				}
-				.btn{
-					top: 0px;	
-				}
-			}
-		}
-	}
-	.initiated .active{
-		.carousel-caption{
-			h2{
-				top: 0px;
-				opacity: 1;
-			}
-			.btn{
-				top: 0px;	
-				opacity: 1;
-			}
-		}
-	}
-	.carousel-indicators{
-		@media (min-width: 768px){
-			bottom: 10px;
-			opacity: 0;
-			@include transition(0.3s ease-out 0.5s);
-		}
-		@media (max-width: 767px){
-			bottom: -5px;
-		}
-		li{
-			&:hover{
-				background: $white-fade;
-			}
-		}
-		li.active{
-			&:hover{
-				background: $white;
-			}
-		}
-	}
-	.carousel-control{
-		@include transition($transition);
-		.icon{
-			@include transition(0.2s ease-out 0.5s);
-			top: 50%;
-			position: absolute;
-			font-size: 32px;
-			margin-top: -28px;
-			color: white;
-			text-shadow: none;
-			opacity: 0;
-			@media (max-width: 767px){
-				opacity: 1;
-				top: 75px;
-			}
-		}
-	}
-	.left{
-		@include gradient($start, $stop);
-		&:hover{
-			@include gradient(rgba(0,0,0,0.2), rgba(0,0,0,0));
-		}
-		.icon{
-			left: 40px;
-			@media (max-width: 767px){
-				left: 10px;
-			}
-		}
-	}
-	.right{
-		@include gradient($stop, $start);
-		&:hover{
-			@include gradient(rgba(0,0,0,0), rgba(0,0,0,0.2));
-		}
-		.icon{
-			right: 40px;
-			@media (max-width: 767px){
-				right: 10px;
-			}
-		}
-	}
-}
-
 
 
 /* -------------------- TYPOGRAPHY -------------------- */
@@ -555,6 +401,12 @@ form{
   }
 }
 
+.input-group{
+  .btn{
+    padding: 5px 10px;
+  }
+}
+
 .submit, .btn{
 	.icon{
 		margin-left: 10px;
@@ -569,48 +421,48 @@ form{
 
 ::-webkit-input-placeholder {
    font-size: 16px;
-   line-height: 1.8;
+   line-height: 1.6;
 }
 
 :-moz-placeholder { /* Firefox 18- */
    font-size: 16px;
-   line-height: 1.8;
+   line-height: 1.6;
 }
 
 ::-moz-placeholder {  /* Firefox 19+ */
    font-size: 16px;
-   line-height: 1.8;
+   line-height: 1.6;
 }
 
 :-ms-input-placeholder {  
    font-size: 16px;
-   line-height: 1.8;
+   line-height: 1.6;
 }
 
 .input-lg::-webkit-input-placeholder {
    font-size: 16px;
-   line-height: 1.4;
+   line-height: 1.6;
 }
 
 .input-lg:-moz-placeholder { /* Firefox 18- */
    font-size: 16px;
-   line-height: 1.4;
+   line-height: 1.8;
 }
 
 .input-lg::-moz-placeholder {  /* Firefox 19+ */
    font-size: 16px;
-   line-height: 1.4;
+   line-height: 1.8;
 }
 
 .input-lg:-ms-input-placeholder {  
    font-size: 16px;
-   line-height: 1.4;
+   line-height: 1.6;
 }
 
-input:focus, .form-control:focus, input[type="submit"]:focus, .btn:focus{
-  border-color: $primary-hover;
+input:focus, .form-control:focus, input[type="submit"]:focus, .btn:focus, input[type="select"]:focus,{
+  border-color: $primary-hover !important;
   outline: 0;
-  @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075), 0px 0px 6px 0px rgba(255,49,152,0.1));
+  @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075), 0px 0px 6px 0px rgba($primary-color,0.3));
 }
 
 

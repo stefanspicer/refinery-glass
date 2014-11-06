@@ -21,6 +21,7 @@ $grey-6: #5a5a5a;
 $grey-7: #303030;
 $grey-8: #2c2c2c;
 $grey-9: #1f1f1f;
+$beige: #e1dcd9;
 $red: #a94442;
 $red-fade: #bf4d4b;
 $green: #5bc890;
@@ -125,6 +126,10 @@ $icon-li-width: (30em / 14) !default;
   color: $grey-9;
 }
 
+.beige{
+  color: $beige;
+}
+
 .red{
   color: $red;
 }
@@ -212,6 +217,11 @@ $icon-li-width: (30em / 14) !default;
 .grey-9-bg{
   background-color: $grey-9;
 }
+
+.beige{
+  background-color: $beige;
+}
+
 
 .red-bg{
   background-color: $red;
