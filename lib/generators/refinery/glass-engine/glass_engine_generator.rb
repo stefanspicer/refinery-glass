@@ -2,7 +2,7 @@ require 'rails/generators/named_base'
 require 'refinery/extension_generation'
 
 module Refinery
-  class EngineGenerator < Rails::Generators::NamedBase
+  class GlassEngineGenerator < Rails::Generators::NamedBase
     source_root Pathname.new(File.expand_path('../templates', __FILE__))
 
     include Refinery::ExtensionGeneration
@@ -32,7 +32,7 @@ module Refinery
     protected
 
     def generator_command
-      'rails generate refinery:engine'
+      'rails generate refinery:glass_engine'
     end
 
     def reject_file_with_skip_frontend?(file)
