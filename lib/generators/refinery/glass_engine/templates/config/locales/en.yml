@@ -5,11 +5,14 @@ en:
         title: <%= plural_name.titleize %>
     <%= namespacing.underscore %>:
       admin:
-        <%= plural_name %>:
-          actions:
-            create_new: Add New <%= singular_name.titleize %>
+        submenu:
+          <%= plural_name %>:
+            title: <%= singular_name.titleize.pluralize %>
+            manage: Manage <%= singular_name.titleize.pluralize %>
+            new: Add New <%= singular_name.titleize %>
             reorder: Reorder <%= singular_name.titleize.pluralize %>
             reorder_done: Done Reordering <%= singular_name.titleize.pluralize %>
+        <%= plural_name %>:
           records:
             title: <%= plural_name.titleize %>
             sorry_no_results: Sorry! There are no results found.

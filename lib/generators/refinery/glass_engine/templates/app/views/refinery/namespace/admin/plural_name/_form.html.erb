@@ -1,3 +1,5 @@
+<%%= render 'refinery/<%= namespacing.underscore %>/admin/submenu' %>
+
 <%
   text_areas = attributes.reject{|a| a.field_type.to_s != 'text_area'}
   generated_text_areas = false

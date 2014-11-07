@@ -1,33 +1,47 @@
 <% title_attribute = (title = attributes.detect { |a| a.type.to_s == "string" }).present? ? title.name : 'title' -%>
-<li class='clearfix record <%%= cycle("on", "on-hover") %>' id="<%%= dom_id(<%= singular_name %>) -%>">
-  <span class='title'>
-    <%%= <%= singular_name %>.<%= title_attribute %> %>
-<% if localized? %>
-    <%% if Refinery::I18n.frontend_locales.many? %>
-      <span class='preview'>
-        <%% <%= singular_name %>.translations.each do |translation| %>
-          <%% if translation.<%= title_attribute %>.present? %>
-            <%%= link_to refinery_icon_tag("flags/#{translation.locale}.png", :size => '16x11'),
-                         refinery.edit_<%= namespacing.underscore %>_admin_<%= singular_name %>_path(<%= singular_name %>, :switch_locale => translation.locale),
-                         :class => 'locale' %>
+<li class='page-listing' id="<%%= dom_id(<%= singular_name %>) -%>">
+  <div class="page-row">
+    <a class="page-title" href="<%%= refinery.edit_<%= namespacing.underscore %>_admin_<%= singular_name %>_path(<%= singular_name %>) %>">
+      <i class="gcicon gcicon-file"></i>
+      <%%= <%= singular_name %>.<%= title_attribute %> %>
+    </a>
+    <span class='actions'>
+      <% if localized? %>
+          <%% if Refinery::I18n.frontend_locales.many? %>
+            <span class='preview'>
+              <%% <%= singular_name %>.translations.each do |translation| %>
+                <%% if translation.<%= title_attribute %>.present? %>
+                  <%%= link_to refinery_icon_tag("flags/#{translation.locale}.png", :size => '16x11'),
+                               refinery.edit_<%= namespacing.underscore %>_admin_<%= singular_name %>_path(<%= singular_name %>, :switch_locale => translation.locale),
+                               :class => 'locale' %>
+                <%% end %>
+              <%% end %>
+            </span>
           <%% end %>
-        <%% end %>
+      <% end %>
+
+      <span class="delete">
+        <%%= link_to '<i class="gcicon gcicon-trash"></i>'.html_safe, refinery.<%= namespacing.underscore %>_admin_<%= singular_name %>_path(<%= singular_name %>),
+            :class => "cancel confirm-delete circle-icon",
+            :title => t('.delete'),
+            :confirm => t('message', :scope => 'refinery.admin.delete', :title => <%= singular_name %>.<%= title_attribute %>),
+            :method => :delete %>
       </span>
-    <%% end %>
-<% end %>
-  </span>
-  <span class='actions'>
-    <% unless skip_frontend? %>
-    <%%= link_to refinery_icon_tag("application_go.png"), refinery.<%= namespacing.underscore %>_<%= singular_name %>_path(<%= singular_name %>),
-        :title => t('.view_live_html'),
-        :target => "_blank" %>
-    <% end %>
-    <%%= link_to refinery_icon_tag("application_edit.png"), refinery.edit_<%= namespacing.underscore %>_admin_<%= singular_name %>_path(<%= singular_name %>),
-         :title => t('.edit') %>
-    <%%= link_to refinery_icon_tag("delete.png"), refinery.<%= namespacing.underscore %>_admin_<%= singular_name %>_path(<%= singular_name %>),
-        :class => "cancel confirm-delete",
-        :title => t('.delete'),
-        :confirm => t('message', :scope => 'refinery.admin.delete', :title => <%= singular_name %>.<%= title_attribute %>),
-        :method => :delete %>
-  </span>
+
+      <% unless skip_frontend? %>
+      <span class="preview">
+        <%%= link_to '<i class="gcicon gcicon-screen"></i>'.html_safe, refinery.<%= namespacing.underscore %>_<%= singular_name %>_path(<%= singular_name %>),
+            :title => t('.view_live_html'),
+            :class => "circle-icon",
+            :target => "_blank" %>
+      </span>
+      <% end %>
+
+      <span class="edit">
+        <%%= link_to '<i class="gcicon gcicon-edit"></i>'.html_safe, refinery.edit_<%= namespacing.underscore %>_admin_<%= singular_name %>_path(<%= singular_name %>),
+             :class => "circle-icon",
+             :title => t('.edit') %>
+      </span>
+    </span>
+  </div>
 </li>
