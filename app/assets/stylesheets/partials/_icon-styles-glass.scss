@@ -18,6 +18,7 @@ $gcicon-css-prefix: gcicon !default;
 .#{$gcicon-css-prefix} {
   display: inline-block;
   font-family: "refinery-glass";
+  line-height: 1;
 }
 
 [data-icon]:before {
@@ -31,6 +32,8 @@ $gcicon-css-prefix: gcicon !default;
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  top: -1px;
 }
 
 [class^="gcicon-"]:before,
@@ -44,8 +47,8 @@ $gcicon-css-prefix: gcicon !default;
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  top: 2px;
   position: relative;
+  top: -1px;
 }
 
 

@@ -5,7 +5,6 @@
 @import "config/base-mixins";
 @import "config/base-variables";
 @import "config/base";
-@import "partials/main";
 @import "partials/icons-glass";
 @import "partials/icon-styles-glass";
 
@@ -51,7 +50,6 @@ body{
   border: 1px solid $black;
   display: inline-block;
   text-align: center;
-  padding: 3px 0 0 0;
   vertical-align: top;
   &:link, &:visited {
     color: $black;
@@ -64,13 +62,10 @@ body{
   .gcicon{
     position: relative;
   }
-  .top-down{
-    top: 1px;
-  }
 }
 
 .circle-icon.fluid-width{
-  padding: 3px 10px 0 10px;
+  padding: 0 10px 0 10px;
   min-width: 30px;
   width: auto;
   span{
@@ -142,7 +137,6 @@ body{
         border-color: $primary-dark;
       }
       .gcicon{
-        left: 1px;
         @include rotate(45deg);
       }
     }
@@ -151,10 +145,13 @@ body{
         position: relative;
       }
     }
-    .input-group{
-      top: -1px;
-      .form-control{
-        width: 300px;
+    .form-group{
+      margin: 0;
+      .input-group{
+        top: -1px;
+        .form-control{
+          width: 300px;
+        }
       }
     }
   }
@@ -525,10 +522,6 @@ body{
             text-align: center;
             display: inline-block;
             margin-left: 5px;
-            a{
-              padding-top: 2px;
-              display: block;
-            }
           }
         }
       }
