@@ -495,11 +495,14 @@ body{
             color: $primary-dark;
           }
         }
+        .toggle{
+          cursor: pointer;
+        }
         .page-title{
           font-size: 18px;
           letter-spacing: 1px;
           display: inline-block;
-          width: calc(100% - 160px); 
+          width: calc(100% - 185px);
           padding: 10px 0;
           color: $grey-6;
           .label{
@@ -526,8 +529,10 @@ body{
         }
       }
     }
-    .nested{
+    ul{
+      list-style: outside none none;
       margin: 0 0 0 0;
+      padding: 0;
       &:empty{
         margin: 0;
       }
@@ -536,6 +541,21 @@ body{
         border-top: 1px solid $grey-2;
         .page-row{
           padding-left: 30px;
+        }
+      }
+      ul{
+        li .page-row{               padding-left: 60px;  }
+        ul{
+          li .page-row{             padding-left: 90px;  }
+          ul{
+            li .page-row {          padding-left: 120px; }
+            ul{
+              li .page-row{         padding-left: 150px; }
+              ul{
+                li .page-row{       padding-left: 180px; }
+              }
+            }
+          }
         }
       }
     }

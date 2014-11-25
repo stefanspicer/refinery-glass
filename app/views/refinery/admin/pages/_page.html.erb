@@ -1,13 +1,17 @@
 <li id="<%= dom_id(page) -%>" class="page-listing">
   <div class="page-row">
-    <a href="<%= refinery.edit_admin_page_path(page.nested_url, :switch_locale => (page.translations.first.locale unless page.translated_to_default_locale?)) %>" class="page-title">
-      <% if page.children.present? %>
-        <% if Refinery::Pages.auto_expand_admin_tree %> <i class="gcicon gcicon-folder-open"></i> <% else %> <i class="gcicon gcicon-folder"></i> <% end %>
+    <% if page.children.present? %>
+      <% if Refinery::Pages.auto_expand_admin_tree %>
+        <i class="icon gcicon gcicon-folder-open expanded toggle"></i>
       <% else %>
-        <i class="gcicon gcicon-file"></i>
+        <i class="icon gcicon gcicon-folder toggle"></i>
       <% end %>
+    <% else %>
+      <i class="gcicon gcicon-file"></i>
+    <% end %>
   
-      <span class='title <%= 'toggle' if page.children.present? %>'>
+    <a href="<%= refinery.edit_admin_page_path(page.nested_url, :switch_locale => (page.translations.first.locale unless page.translated_to_default_locale?)) %>" class="page-title">
+      <span class='title'>
         <%= page_title_with_translations page %>
         <%= page_meta_information page %>
       </span>
