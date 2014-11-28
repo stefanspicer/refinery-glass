@@ -583,3 +583,26 @@ body{
     padding-right: 60px;
   }
 }
+
+/**** Tooltip Icons *****/
+.tooltip {
+  background: #22a7f2;
+  border: 1px solid #1b82bd;
+  word-wrap:break-word;
+  position: relative;
+  span {
+    display: block;
+    padding: 10px;
+    border: 1px solid #62c1f6;
+  }
+}
+.tooltip-nib {
+  position: absolute;
+  z-index: 10001;
+}
+.tooltip, .tooltip * {
+  color: white;
+}
+.tooltip, .tooltip span {
+  @include border-radius($radius);
+}
