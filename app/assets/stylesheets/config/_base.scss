@@ -623,6 +623,12 @@ p.notice-top {
   color: $red;
 }
 
+.fieldWithErrors {
+  input{
+    border-color: $red;
+  }
+}
+
 #error_explanation,
 .errorExplanation,
 .alert {
