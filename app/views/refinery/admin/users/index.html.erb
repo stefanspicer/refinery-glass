@@ -1,0 +1,7 @@
+<% content_for :admin_content do %>
+	<%= render '/refinery/admin/search', :url => refinery.admin_users_path %>
+	<section id='admin-page-content'>
+	  <%= render 'records' %>
+	</section>
+<% end %>
+<%= render 'refinery/admin/users/submenu' %>

@@ -1,0 +1,28 @@
+<li class='page-listing' id="<%= dom_id(user) -%>">
+  <div class="page-row">
+    <% if current_refinery_user.can_edit?(user) %>
+    <a href="<%= refinery.edit_admin_user_path(user) %>" class="page-title">
+    <% end %>
+      <i class="gcicon gcicon-file"></i>
+      <%= "#{user.username}" %>
+    <% if current_refinery_user.can_edit?(user) %>
+    </a>
+    <% end %>
+    <span class='actions'>
+      <span class="delete">                  
+        <%= link_to '<i class="gcicon gcicon-trash"></i>'.html_safe, refinery.admin_user_path(user),
+          :class => "cancel confirm-delete circle-icon",
+          :title => t('.delete'),
+          :confirm => t('message', :scope => 'refinery.admin.delete', :title => user.username),
+          :method => :delete if current_refinery_user.can_delete?(user) %>
+      </span>
+    
+      <span class="edit">
+        <%= link_to '<i class="gcicon gcicon-edit"></i>'.html_safe, refinery.edit_admin_user_path(user),
+           :class => "circle-icon",
+           :title => t('.edit') if current_refinery_user.can_edit?(user) %>
+      </span>
+    </span>
+  </div>
+</li>
+
