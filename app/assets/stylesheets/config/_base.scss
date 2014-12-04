@@ -638,7 +638,7 @@ p.notice-top {
 }
 
 .fieldWithErrors {
-  input{
+  input, textarea, select{
     border-color: $red;
   }
 }
