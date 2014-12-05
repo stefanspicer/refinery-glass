@@ -1,10 +1,14 @@
 <% content_for :admin_submenu do %>
-  <ul>
+
+  <ul class='list-unstyled'>
+    <li>
+      <%= render "/refinery/admin/search", :url => request.path.gsub("//", "/") %>
+    </li>
     <li <%= "class='selected'" if params[:action] == "index" %>>
       <%= link_to t('.inbox'), refinery.inquiries_admin_inquiries_path, :class => "email_icon" %>
     </li>
     <li <%= "class='selected'" if params[:action] == "spam" %>>
-      <% if @spam_count > 0  %>
+      <% if @spam_count.present? && @spam_count > 0  %>
         <%= link_to "#{t('.spam')} (#{@spam_count})", refinery.spam_inquiries_admin_inquiries_path, :class => "spam_icon" %>
       <% else %>
         <%= link_to t('.spam'), refinery.spam_inquiries_admin_inquiries_path, :class => "spam_empty_icon" %>
@@ -22,3 +26,4 @@
     </li>
   </ul>
 <% end %>
+

@@ -1,29 +1,34 @@
 <li class='page-listing' id="<%= dom_id(inquiry) -%>">
-  <span class='title'>
-    <%= link_to inquiry.name, refinery.inquiries_admin_inquiry_path(inquiry) %> <%= t('.said') %>
-    <span class="preview"><%= truncate(strip_tags(sanitize(inquiry.message)), :length => 60) -%></span>
-  </span>
-  <span class='actions'>
-    <%= link_to refinery_icon_tag('delete.png'), 
-                refinery.inquiries_admin_inquiry_path(inquiry),
-                :class => "cancel confirm-delete",
-                :title => t('refinery.inquiries.admin.inquiries.delete'),
-                :data => {
-                  :confirm => t('refinery.admin.delete.message', :title => inquiry.name)
-                },
-                :method => :delete -%>
+  <div class="page-row">
 
-    <%= link_to refinery_icon_tag('zoom.png'), refinery.inquiries_admin_inquiry_path(inquiry),
-                :title => t('.read_inquiry') -%>
+    <a href="<%= refinery.inquiries_admin_inquiry_path(inquiry) %>" class="page-title">
+      <i class="gcicon gcicon-file"></i>
+      <%= inquiry.name %> <%= t('.said') %>
+      <span class="preview"><%= truncate(strip_tags(sanitize(inquiry.message)), :length => 60) -%></span>
+    </a>
 
-    <% if inquiry.spam? %>
-      <%= link_to refinery_icon_tag('email.png'),
-                  refinery.toggle_spam_inquiries_admin_inquiry_path(inquiry),
-                  :title => t('.mark_as_ham') -%>
-    <% else %>
-      <%= link_to refinery_icon_tag('bin_closed.png'),
-                  refinery.toggle_spam_inquiries_admin_inquiry_path(inquiry),
-                  :title => t('.mark_as_spam') -%>
-    <% end %>
-  </span>
+    <span class='actions'>
+
+      <span class="delete">                  
+        <%= link_to '<i class="gcicon gcicon-trash"></i>'.html_safe, 
+          refinery.inquiries_admin_inquiry_path(inquiry),
+          :class => "cancel confirm-delete circle-icon",
+          :title => t('.delete'),
+          :data => {
+            :confirm => t('refinery.admin.delete.message', :title => inquiry.name)
+          },
+          :method => :delete %>
+      </span>
+
+      <span class="spam-filter">
+        <% if inquiry.spam? %>
+          <%= link_to 'Ham', refinery.toggle_spam_inquiries_admin_inquiry_path(inquiry),
+                      :title => t('.mark_as_ham') -%>
+        <% else %>
+          <%= link_to 'Spam', refinery.toggle_spam_inquiries_admin_inquiry_path(inquiry),
+                      :title => t('.mark_as_spam') -%>
+        <% end %>
+      </span>
+    </span>
+  </div>
 </li>
