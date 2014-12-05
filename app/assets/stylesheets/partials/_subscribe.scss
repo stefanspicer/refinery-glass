@@ -23,6 +23,9 @@
 	}
 	.closed{
   	top: -54px;
+  	@media (max-width: 767px) {
+  	 top: -57px; 
+  	}
 	}
   .subscribe-btn{
     position: absolute;
