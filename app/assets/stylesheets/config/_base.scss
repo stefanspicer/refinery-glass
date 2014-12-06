@@ -537,7 +537,7 @@ input:focus, .form-control:focus, input[type="submit"]:focus, .btn:focus, input[
   right: 10px;
   position: absolute;
   margin-top: -2px;
-  z-index: 5;
+  z-index: 100;
 }
 
 .moz-appearance .dropdown-wrapper{
@@ -677,6 +677,9 @@ p.notice-top {
 	}
 	&:focus{
 		outline: 0;
+	}
+	&:disabled{
+  	cursor: not-allowed;
 	}
 }
 
