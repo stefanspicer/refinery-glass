@@ -1,6 +1,7 @@
 <nav id="sidebar-left-nav" class="sidebar-nav">
   <ul class="list-unstyled">
-    <% ::Refinery::Plugins.active.in_menu.each do |plugin| -%>
+    <!-- NOTE: refinery/glass/plugin_sorter.rb helps with this sorting -->
+    <% ::Refinery::Plugins.active.in_menu.find_all{|p| p.position > 0}.sort_by {|p| p.position}.each do |plugin| -%>
       <li>
         <%= link_to plugin.title, refinery.url_for(plugin.url),
           :class => ("active" if plugin.highlighted?(params)),
