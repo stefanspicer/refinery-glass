@@ -9,10 +9,7 @@
     <!-- div id='tooltip_container'></div -->
 
     <section id="wrapper">
-      
-      <a href="" class="menu-link menu-link-left"><i class="icon icon-gear"></i></a>
-      
-      <section id="sidebar-left" class="ui large inverted vertical sidebar menu">
+      <section id="sidebar-left" class="sidebar">
         <div id="sidebar-left-inner">
           <%= render 'refinery/admin/menu' %>
         </div>
@@ -20,9 +17,6 @@
       
       
       <section class="inner-wrapper <%= 'single-sidebar' unless content_for?(:admin_sidebar) %>">
-        <div class="ui right floated black launch button">
-        <i class="list layout icon"></i> Menu
-      </div>
         <div id="flash_container">
           <%= render '/refinery/no_script' %>
           <%= render '/refinery/message' %>
@@ -53,7 +47,6 @@
           </div>
         </section>
       <% end %>
-      
     </section>
   </body>
 </html>
