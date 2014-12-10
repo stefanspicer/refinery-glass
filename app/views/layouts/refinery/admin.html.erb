@@ -8,13 +8,17 @@
     <%= render '/refinery/site_bar' %>
     <!-- div id='tooltip_container'></div -->
 
-    <section id="wrapper">
-      <section id="sidebar-left" class="sidebar">
-        <div id="sidebar-left-inner">
-          <%= render 'refinery/admin/menu' %>
-        </div>
-      </section>
-      
+    <section id="sidebar-left" class="ui large inverted vertical sidebar menu">
+      <div id="sidebar-left-inner">
+        <%= render 'refinery/admin/menu' %>
+      </div>
+    </section>
+
+    <section id="wrapper" class="pusher">
+      <div class="ui right floated black launch button">
+        <i class="list layout icon"></i> Menu
+      </div>
+      <a href="" class="sidebar-left-opener menu-link menu-link-left"><i class="icon icon-gear"></i></a>
       
       <section class="inner-wrapper <%= 'single-sidebar' unless content_for?(:admin_sidebar) %>">
         <div id="flash_container">
@@ -38,6 +42,8 @@
             </div>
           </div>
         <% end %>
+
+        <%= render 'refinery/admin/glass/modal' %>
       </section>
 
       <% if content_for?(:admin_sidebar) %>

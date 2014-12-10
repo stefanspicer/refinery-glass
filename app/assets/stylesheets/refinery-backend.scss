@@ -7,6 +7,7 @@
 @import "config/base";
 @import "partials/icons-glass";
 @import "partials/icon-styles-glass";
+@import "glass/sidebar";
 
 
 /* -------------------- TEMPORARY -------------------- */
@@ -251,6 +252,19 @@ body{
 
 
 
+.menu-link{
+  width: 60px;
+  height: 60px;
+  background: $primary-color;
+  position: absolute;
+  top: 30px;
+  color: $white;
+  z-index: 10;
+}
+
+.menu-link-left{
+  left: 30px;
+}
 
 
 #wrapper{

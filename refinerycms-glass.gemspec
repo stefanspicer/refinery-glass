@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.date              = '2014-07-08'
   s.summary           = 'A "Glass" theme for Refinery CMS'
   s.require_paths     = %w(lib)
-  s.files             = Dir["{app,lib}/**/*"]
+  s.files             = Dir["{app,lib,vendor}/**/*"]
 
   # Runtime dependencies
   s.add_dependency             'refinerycms-core',    '~> 2.1.2'
