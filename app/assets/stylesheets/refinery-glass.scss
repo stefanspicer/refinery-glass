@@ -260,12 +260,91 @@ body{
   top: 30px;
   color: $white;
   z-index: 10;
+  padding: 15px;
+  @include transition($transition);
+  &:hover{
+    .gcicon{
+      color: $primary-hover;
+    }
+  }
+  .gcicon{
+    color: $white;
+    font-size: 30px;
+  }
 }
 
 .menu-link-left{
   left: 30px;
 }
 
+
+#sidebar-left{
+  background: $off-white;
+  border-right: 1px solid $grey-2;
+  padding: 45px 0;
+  #sidebar-left-inner{
+    height: 100%;
+    margin-left: -15px;
+    padding: 15px 0 30px;
+    
+    overflow-y: scroll;
+    overflow-x: hidden;
+    li{
+      margin: 0 0 1px;
+      .gcicon{
+        margin-right: 4px;
+        color: $grey-6;
+      }
+      a{
+        padding: 10px 15px 6px;
+        width: 100%;
+        display: block;
+        color: $grey-6;
+        font-size: 16px;
+        letter-spacing: 1px;
+        text-decoration: none;
+        @include transition(0.1s);
+        font-weight: 400;
+        text-transform: uppercase;
+        &:hover{
+          border-bottom: 0;
+          background: $white-opaque;
+          color: $primary-dark;
+          .gcicon{
+            color: $primary-dark;
+          }
+        }
+      }
+      .active{
+        border-right: 2px solid $primary-color;
+        background: $white-opaque;
+      }
+      ul{
+        padding-top: 1px;
+        margin-bottom: 10px;
+        li{
+          a{
+            padding: 4px 15px 4px 30px;
+            font-size: 13px;
+            font-weight: 400;
+            background: $white-opaque;
+          }
+        }
+      }
+    }
+    .list-heading{
+      padding: 10px 15px 6px 30px;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: darken($white-opaque, 3%);
+      .gcicon{
+        margin-right: 8px;
+      }
+    }
+  }
+}
 
 #wrapper{
   background: $white;
@@ -276,78 +355,7 @@ body{
   }
   min-height: 100%;
   .sidebar{
-    height: calc(100% - 34px);
-    width: 230px;
-    float: left;
-    padding: 34px 15px 0;
-  }
-  #sidebar-left{
-    float: left;
-    #sidebar-left-inner{
-      background: $off-white;
-      width: 230px;
-      height: 100%;
-      margin-left: -15px;
-      padding: 15px 0 30px;
-      border-right: 1px solid $grey-2;
-      position: fixed;
-      overflow-y: scroll;
-      overflow-x: hidden;
-      li{
-        margin: 0 0 1px;
-        .gcicon{
-          margin-right: 4px;
-          color: $grey-6;
-        }
-        a{
-          padding: 10px 15px 6px;
-          width: 100%;
-          display: block;
-          color: $grey-6;
-          font-size: 16px;
-          letter-spacing: 1px;
-          text-decoration: none;
-          @include transition(0.1s);
-          font-weight: 400;
-          text-transform: uppercase;
-          &:hover{
-            border-bottom: 0;
-            background: $white-opaque;
-            color: $primary-dark;
-            .gcicon{
-              color: $primary-dark;
-            }
-          }
-        }
-        .active{
-          border-right: 2px solid $primary-color;
-          background: $white-opaque;
-        }
-        ul{
-          padding-top: 1px;
-          margin-bottom: 10px;
-          li{
-            a{
-              padding: 4px 15px 4px 30px;
-              font-size: 13px;
-              font-weight: 400;
-              background: $white-opaque;
-            }
-          }
-        }
-      }
-      .list-heading{
-        padding: 10px 15px 6px 30px;
-        font-weight: 600;
-        font-size: 14px;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        background: darken($white-opaque, 3%);
-        .gcicon{
-          margin-right: 8px;
-        }
-      }
-    }
+
   }
   .inner-wrapper{
     width: calc(100% - 460px);

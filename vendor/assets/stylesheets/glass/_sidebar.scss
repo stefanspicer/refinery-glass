@@ -87,7 +87,6 @@
 .pushable {
   height: 100%;
   overflow-x: hidden;
-  background: #333333 !important;
 }
 
 /*--------------
@@ -115,7 +114,6 @@
   min-height: 100%;
   -webkit-transition: -webkit-transform 500ms ease;
           transition: transform 500ms ease;
-  background: #f7f7f7;
   z-index: 2;
 }
 
@@ -128,7 +126,6 @@
   top: 0px;
   right: 0px;
   content: '';
-  background-color: rgba(0, 0, 0, 0.4);
   width: 0px;
   height: 0px;
   overflow: hidden;
