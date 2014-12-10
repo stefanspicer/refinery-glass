@@ -9,5 +9,5 @@ Gem::Specification.new do |s|
   s.date              = '2014-10-29'
   s.summary           = 'Common Glass Canvas styles & js libraries'
   s.require_paths     = %w(lib)
-  s.files             = Dir["{app,lib}/**/*"]
+  s.files             = Dir["{app,lib,vendor}/**/*"]
 end

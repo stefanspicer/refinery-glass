@@ -1,0 +1,146 @@
+var forms = (function($){
+  $(document).on('content-ready', function (e, element) {
+    initFormSelectsWithin(element);
+    initFormOptionalFieldsWithin(element);
+    initFormSubmitWithin(element);
+  });
+
+  function initFormSelectsWithin(element) {
+    if ($(element).find('select').length > 0) {
+      if ('MozAppearance' in $(element).find('select')[0].style) {
+        $('html').addClass('moz-appearance');
+      }
+    }
+  }
+
+  function initFormOptionalFieldsWithin(element) {
+    $(element).find("#registration_situation").change(function () {
+      $("#registration_situation_other").parents('.form-group')
+        .toggle($(this).val() == "Other");
+      $("#registration_situation_contraception").parents('.form-group')
+        .toggle($(this).val().match(/contracept/i) != null);
+    });
+    $(element).find("#registration_how_find").change(function () {
+      $("#registration_how_find_other").parents('.form-group')
+        .toggle($(this).val() == "Other");
+    });
+    $(element).find("#registration_situation").change();
+    $(element).find("#registration_how_find").change();
+  }
+
+  function initFormSubmitWithin(element) {
+    $(element).find('form').each(function () {
+      // if ($(this).hasClass('no-ajax') || !$(this).attr('id')) {
+      //   return;
+      // }
+      if (!($(this).hasClass('ajax-form') || $(this).parents('.modal').length > 0)) {
+        return;
+      }
+      var selector = "#" + $(this).attr('id');
+      var $form = $(this);
+      $(this).submit(function(e) {
+        var $submit_btn = $(this).find('.btn[type="submit"]');
+        $submit_btn.html('<div class="ui active inline inverted xs loader"></div> Sending');
+        $submit_btn.attr('disabled', 'disabled');
+      });
+      $(this).ajaxForm({
+        complete: function(xhr, status) {
+          if ($form.hasClass('mailchimp')) {
+            $form.find('input[type="email"]').val('Thank you!');
+            return;
+          }
+          if (status != 'success') {
+            $(selector).append('<div id="errorExplanation" ' + 
+              'class="errorExplanation text-center"><p>An error occured.' + 
+              ' Please try again or send us an email</p></div>');
+            return;
+          }
+          xhr.done(function(data) {
+            var $content = $(data).find(selector);
+            
+            if ($content.length > 0) {
+              replaceContent($(selector), $content);
+            }
+            else {
+              if ($(data).attr('id') == 'errorExplanation') {
+                $content = $(data);
+              }
+              else {
+                $content = $(data).find('#errorExplanation');
+              }
+
+              if ($content.length > 0) {
+                $content.insertBefore(selector + ' .form-actions');
+              }
+              else {
+                var $modal = $(selector).parents('.modal');
+
+                if ($modal.length > 0) {
+                  var close_button = '<button data-dismiss="modal" class="btn btn-primary btn-lg">Close</button>';
+                  var update_selector = $modal.find('.update-on-close');
+
+                  if (update_selector) {
+                    ajaxUpdateContent(update_selector);
+
+                    // The button that on click, will trigger the modal that was displayed
+                    // before the current modal was displayed.
+                    var callback_modal_btn = $('#callback-modal');
+
+                    // If there is another modal to display after this one's form has
+                    // been submitted, then don't hide the modal, but rather, trigger
+                    // the previous modal to be displayed.
+                    if(callback_modal_btn.length > 0){
+                      $(callback_modal_btn.data('selector')).click();
+                    } else {
+                      $modal.modal('hide');
+                    }
+                    return;
+                  }
+                }
+
+                // A reset form is a form that doesn't have to be rendered again, 
+                // because it already exists on a page and wasn't pulled in using 'load'.
+                // It simply needs its input values wiped.
+                var $resetForm = $('.ajax-reset-form');
+
+                if($resetForm.length > 0) {
+                  var updateArea = $resetForm.find('.update-on-close');
+                  if (updateArea.length > 0) {
+                    ajaxUpdateContent(updateArea);
+                    // Clear input values from the form (except for hidden values)
+                    $resetForm.trigger("reset"); 
+                    return;
+                  }
+                }
+
+                var $body = $(data).find('#body_content');
+                var $thank_you = $body.length > 0 ? $body : $('<p>Thank you</p>');
+                $thank_you.find('h1').remove(); // inquiries engine puts an h1 in there
+                replaceContent($(selector), $thank_you);
+              }
+            }
+          });
+        },
+      });
+    });
+  }
+
+  function ajaxUpdateContent(update_selector){
+    var $tmp = $("<div></div>");
+    var $to_update = $(update_selector.data('selector'));
+    $tmp.insertAfter($to_update).append($to_update);
+    $tmp.load(document.URL + ' ' + update_selector.data('selector'));
+  }
+
+  function replaceContent($orig, $replacement) {
+    $(document).trigger('content-ready', $replacement.parent()[0]);
+    $orig.fadeOut(function () {
+      $(this).replaceWith($replacement);
+      $replacement.fadeIn();
+    });
+  }
+
+  // Return API for other modules
+  return {
+  };
+})(jQuery);
