@@ -8,6 +8,7 @@
 @import "partials/icons-glass";
 @import "partials/icon-styles-glass";
 @import "glass/sidebar";
+@import "glass/dimmer";
 
 
 /* -------------------- TEMPORARY -------------------- */
@@ -284,9 +285,6 @@ body{
   padding: 45px 0;
   #sidebar-left-inner{
     height: 100%;
-    margin-left: -15px;
-    padding: 15px 0 30px;
-    
     overflow-y: scroll;
     overflow-x: hidden;
     li{
@@ -348,14 +346,11 @@ body{
 
 #wrapper{
   background: $white;
+  min-height: 100%;
   .container{
     @media (max-width: 1630px) {
       width: 100%;
     }
-  }
-  min-height: 100%;
-  .sidebar{
-
   }
   .inner-wrapper{
     width: calc(100% - 460px);
