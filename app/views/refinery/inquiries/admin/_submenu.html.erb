@@ -5,27 +5,24 @@
       <%= render "/refinery/admin/search", :url => request.path.gsub("//", "/") %>
     </li>
     <li <%= "class='selected'" if params[:action] == "index" %>>
-      <%= link_to t('.inbox'), refinery.inquiries_admin_inquiries_path, :class => "email_icon" %>
+      <%= link_to '<i class="gcicon gcicon-index"></i> '.html_safe + t('.inbox'),
+        refinery.inquiries_admin_inquiries_path %>
     </li>
     <li <%= "class='selected'" if params[:action] == "spam" %>>
-      <% if @spam_count.present? && @spam_count > 0  %>
-        <%= link_to "#{t('.spam')} (#{@spam_count})", refinery.spam_inquiries_admin_inquiries_path, :class => "spam_icon" %>
-      <% else %>
-        <%= link_to t('.spam'), refinery.spam_inquiries_admin_inquiries_path, :class => "spam_empty_icon" %>
-      <% end %>
+      <%= link_to '<i class="gcicon gcicon-trash"></i>'.html_safe + " #{t('.spam')} (#{@spam_count})",
+        refinery.spam_inquiries_admin_inquiries_path %>
     </li>
     <li>
-      <%= link_to t('.update_notified'),
+      <%= link_to '<i class="gcicon gcicon-edit"></i> '.html_safe + ' Who to notify',
                   refinery.edit_inquiries_admin_setting_path(:inquiry_notification_recipients),
                   { :class => 'open-modal-form' }
       %>
     </li>
     <li>
-      <%= link_to t('.edit_confirmation_email'),
+      <%= link_to '<i class="gcicon gcicon-edit"></i> '.html_safe + ' Response email',
                   refinery.edit_inquiries_admin_setting_path(:inquiry_confirmation_body),
                   { :class => 'open-modal-form' }
       %>
     </li>
   </ul>
 <% end %>
-
