@@ -10,7 +10,6 @@
 //  # canvas/bootstrap not needed??
 //= require canvas/jquery.form.min
 //= require glass/semantic-ui/sidebar.js
-//= require glass/semantic-ui/index.js
 //= require canvas/modules/forms.js
 //= require canvas/modules/main.js
 //= require glass/modules/menus.js
