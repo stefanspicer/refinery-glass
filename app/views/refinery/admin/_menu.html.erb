@@ -3,7 +3,8 @@
     <!-- NOTE: refinery/glass/plugin_sorter.rb helps with this sorting -->
     <% ::Refinery::Plugins.active.in_menu.find_all{|p| p.position > 0}.sort_by {|p| p.position}.each do |plugin| -%>
       <li>
-        <%= link_to plugin.title, refinery.url_for(plugin.url),
+        <% plugin_title = (!current_refinery_user.has_role?(:superuser) && plugin.name == 'orgs') ? current_refinery_user.org.name : plugin.title %>
+        <%= link_to plugin_title, refinery.url_for(plugin.url),
           :class => ("active" if plugin.highlighted?(params)),
           :id => "plugin_#{plugin.name}" %>
         <% if plugin.highlighted?(params) %>
