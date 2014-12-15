@@ -1,4 +1,40 @@
 <!DOCTYPE html>
+<!-- DOCUMENTATION
+
+html
+  head
+    head_common
+    refinery js (includes some or all of application-base.js)
+  /head
+  body
+    menu (sidebar-left)
+    admin_page_preview
+      _body partial
+        header (main nav)
+        content
+        footer
+      /_body partial
+      js - application.js (frontend specific)
+    /admin_page_preview
+    OR admin_content
+    [OR legacy admin content]
+    modal wrapper
+    admin_sidebar (right side)
+  /body
+/html
+
+html
+  head
+    head_common
+  /head
+  body
+    shared _body partial
+    js - application-base.js (js that admin doesn't need because it is already included there)
+    js - application.js (frontend specific)
+  /body
+/html
+-->
+
 <%= render '/refinery/html_tag' %>
   <% content_for :meta, "<meta refinerycms='#{Refinery.version}' />".html_safe %>
   <head>
@@ -28,6 +64,7 @@
         <% if content_for?(:admin_page_preview) %>
           <section id="page-preview">
             <%= render "/refinery/body" %> <!-- this partial yields to :admin_page_preview -->
+            <%= render '/refinery/javascripts' %>
           </section>
         <% elsif content_for?(:admin_content) %>
           <%= yield :admin_content %>
