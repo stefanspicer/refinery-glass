@@ -36,12 +36,8 @@ img.pull-left{
 body{
   height: 100%;
   padding-top: 34px;
+  background: lighten($off-white, 2%) !important;
 }
-
-*[contenteditable=true]{
- white-space: pre-wrap; 
-}
-
 
 
 /* -------------------- ELEMENTS -------------------- */
@@ -75,7 +71,401 @@ body{
   }
 }
 
+
+
+/* -------------------- UI -------------------- */
+
+#site-bar{
+  min-height: 34px;
+  height: 34px;
+  background: $grey-9;
+  border: none;
+  a{
+    letter-spacing: 1px;
+    padding: 4px 0;
+    display: block;
+    font-size: 14px;
+    color: $off-white;
+    &:hover{
+      color: $primary-hover;
+    }
+  }
+  .site-link a{
+    font-size: 16px;
+    padding: 6px 0;
+    font-weight: 600;
+  }
+}
+
+#flash_container{
+  padding: 0;
+  #flash{
+    margin: 30px 0;
+    padding: 10px 15px;
+    background: $off-white;
+    border: 1px solid $grey-2;
+    margin: 45px 60px 0;
+    #flash_close{
+      float: right;
+    }
+  }
+}
+
+.menu-link{
+  width: 45px;
+  height: 45px;
+  background: $primary-color;
+  position: absolute;
+  top: 10px;
+  color: $white;
+  z-index: 10;
+  padding: 9px 10px;
+  @include transition($transition);
+  &:hover{
+    .gcicon{
+      color: $primary-fade;
+    }
+  }
+  .gcicon{
+    color: $white;
+    font-size: 24px;
+  }
+}
+
+.menu-link-left{
+  left: 10px;
+}
+
+#wrapper{
+  background: lighten($off-white, 2%) !important;
+  padding: 34px 50px 0;
+}
+
+.contextual-menu{
+  background: $white;
+  padding: 15px;
+  margin-bottom: 30px;
+  @include flex();
+  @include align(center);
+  .search {
+    @include flex-width(1); /* take up the rest of the remaining space */
+    @include flex-order(-1);
+    margin-right: 15px;
+  }
+  .search input {
+    width: 100%;
+  }
+}
+
+
+/* -------------------- PAGES -------------------- */
+
+.login{
+  background: $off-white;
+  padding-top: 120px;
+  @media (max-width: 767px) {
+    padding-top: 45px;  
+  }
+  h2{
+    margin-bottom: 30px;
+  }
+}
+
+.admin-index{
+  max-width: 1200px;
+  ul{
+    li{
+      margin-bottom: 2px;
+      background: $white;
+      padding: 0 15px;
+      &:hover{
+        background: $primary-hover;
+      }
+      &:last-of-type{
+        padding-bottom: 0;
+      }
+      .page-row{
+        margin-bottom: 0;
+        &:hover{
+          .actions{
+            opacity: 1;
+          }
+          .page-title{
+            color: $primary-dark;
+          }
+        }
+        .toggle{
+          cursor: pointer;
+        }
+        .page-title{
+          font-size: 18px;
+          letter-spacing: 1px;
+          display: inline-block;
+          width: calc(100% - 185px);
+          padding: 10px 0;
+          color: $grey-6;
+          .label{
+            background: $grey-2;
+            text-transform: capitalize;
+            padding: 2px 8px;
+            font-weight: 600;
+            margin-left: 5px;
+            position: relative;
+            top: -2px;
+          }
+        }
+        .actions{
+          float: right;
+          opacity: 0;
+          position: relative;
+          top: 10px;
+          span{
+            width: 30px;
+            text-align: center;
+            display: inline-block;
+            margin-left: 5px;
+          }
+        }
+      }
+    }
+    ul{
+      list-style: outside none none;
+      margin: 0 0 0 0;
+      padding: 0;
+      &:empty{
+        margin: 0;
+      }
+      li{
+        background: lighten($off-white, 4%);
+        margin-left: -15px;
+        margin-right: -15px;
+        margin-bottom: 0;
+        border-bottom: 2px solid lighten($off-white, 2%);
+        .page-row{
+          padding-left: 30px;
+        }
+      }
+      ul{
+        li .page-row{               padding-left: 60px;  }
+        ul{
+          li .page-row{             padding-left: 90px;  }
+          ul{
+            li .page-row {          padding-left: 120px; }
+            ul{
+              li .page-row{         padding-left: 150px; }
+              ul{
+                li .page-row{       padding-left: 180px; }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+/* -------------------- SIDEBARS -------------------- */
+
+#sidebar-left{
+  background: $off-white;
+  border-right: 1px solid $grey-2;
+  padding: 45px 0;
+  #sidebar-left-inner{
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    li{
+      margin: 0 0 1px;
+      .gcicon{
+        margin-right: 4px;
+        color: $grey-6;
+      }
+      a{
+        padding: 10px 15px 6px;
+        width: 100%;
+        display: block;
+        color: $grey-6;
+        font-size: 16px;
+        letter-spacing: 1px;
+        text-decoration: none;
+        @include transition(0.1s);
+        font-weight: 400;
+        text-transform: uppercase;
+        &:hover{
+          border-bottom: 0;
+          background: $white-opaque;
+          color: $primary-dark;
+          .gcicon{
+            color: $primary-dark;
+          }
+        }
+      }
+      .active{
+        border-right: 2px solid $primary-color;
+        background: $white-opaque;
+      }
+      ul{
+        padding-top: 1px;
+        margin-bottom: 10px;
+        li{
+          a{
+            padding: 4px 15px 4px 30px;
+            font-size: 13px;
+            font-weight: 400;
+            background: $white-opaque;
+          }
+        }
+      }
+    }
+    .list-heading{
+      padding: 10px 15px 6px 30px;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: darken($white-opaque, 3%);
+      .gcicon{
+        margin-right: 8px;
+      }
+    }
+  }
+}
+
+#sidebar-right{
+  height: 100%;
+  width: 230px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  #sidebar-right-inner{
+    background: $off-white;
+    width: 230px;
+    height: 100%;
+    margin-left: -15px;
+    padding: 15px 0 60px;
+    border-left: 1px solid $grey-2;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    .page-options{
+      padding: 0 15px;
+      *[contenteditable=true]{
+        color: $primary-dark;
+        border-bottom: 1px solid transparent;
+        &:focus{
+          border-color: $primary-dark;
+          outline: none;
+        }
+        &:empty{
+          width: 15px;
+          border-color: $primary-dark;
+        }
+      }
+      .deliver{
+        margin-bottom: 15px;
+        display: block;
+        margin-left: 0;
+        margin-right: 0;
+        .save-page{
+          margin-right: 5px;
+        }
+      }
+      .page-title{
+        font-size: 21px;
+        font-weight: 600;
+        display: inline-block;
+      }
+      .url{
+        font-weight: 600;
+        color: $grey-5;
+        margin-bottom: 30px;
+        span{
+          padding-bottom: 1px;
+        }
+      }
+      .status{
+        margin-bottom: 30px;
+        ul{
+          li{
+            margin-bottom: 4px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid $grey-2;
+            &:last-of-type{
+              border-bottom: none;
+            }
+            .gcicon{
+              width: 20px;
+              display: inline-block;
+            }
+            .password-protect{
+              color: $black;
+              width: 100%;
+              display: block;
+              text-align: left;
+              &:hover{
+                color: $primary-dark;
+              }
+              .gcicon-down{
+                top: 2px;
+                position: relative;
+                font-size: 18px;
+                line-height: 14px;
+                float: right;
+              }
+            }
+            .password-collapse{
+              padding: 10px 0 5px 0;
+            }
+            .checkbox{
+              margin: 0;
+              height: 19px;
+              label{
+                width: 100%;
+                display: block;
+                padding-top: 2px;
+                input{
+                  position: relative;
+                }
+              }
+            }
+          }
+          .saved-state{
+            color: $grey-6;
+          }
+        }
+      }
+      .settings-toggle{
+        display: block;
+        margin-bottom: 10px;
+        color: $grey-6;
+        font-size: 16px;
+        &:hover{
+          color: $primary-dark;
+        }
+      }
+      .settings-collapse{
+        .dropdown-wrapper{
+          margin-bottom: 10px;
+        }
+      }
+      .delete{
+        color: $red;
+        &:hover{
+          color: darken($red, 15%);
+        }
+      }
+    }
+  }
+}
+
+
+
 /* -------------------- EDITOR -------------------- */
+
+*[contenteditable=true]{
+ white-space: pre-wrap; 
+}
 
 .input-group{
   .input-group-addon{
@@ -196,388 +586,9 @@ body{
 }
 
 
-/* -------------------- UI -------------------- */
-
-#site-bar{
-  min-height: 34px;
-  height: 34px;
-  background: $grey-9;
-  border: none;
-  a{
-    letter-spacing: 1px;
-    padding: 4px 0;
-    display: block;
-    font-size: 14px;
-    color: $off-white;
-    &:hover{
-      color: $primary-hover;
-    }
-  }
-  .site-link a{
-    font-size: 16px;
-    padding: 6px 0;
-    font-weight: 600;
-  }
-}
-
-#flash_container{
-  padding: 0;
-  #flash{
-    margin: 30px 0;
-    padding: 10px 15px;
-    background: $off-white;
-    border: 1px solid $grey-2;
-    margin: 45px 60px 0;
-    #flash_close{
-      float: right;
-    }
-  }
-}
 
 
 
-/* -------------------- PAGES -------------------- */
-
-.login{
-  background: $off-white;
-  padding-top: 120px;
-  @media (max-width: 767px) {
-    padding-top: 45px;  
-  }
-  h2{
-    margin-bottom: 30px;
-  }
-}
-
-
-
-
-
-.menu-link{
-  width: 60px;
-  height: 60px;
-  background: $primary-color;
-  position: absolute;
-  top: 30px;
-  color: $white;
-  z-index: 10;
-  padding: 15px;
-  @include transition($transition);
-  &:hover{
-    .gcicon{
-      color: $primary-hover;
-    }
-  }
-  .gcicon{
-    color: $white;
-    font-size: 30px;
-  }
-}
-
-.menu-link-left{
-  left: 30px;
-}
-
-
-#sidebar-left{
-  background: $off-white;
-  border-right: 1px solid $grey-2;
-  padding: 45px 0;
-  #sidebar-left-inner{
-    height: 100%;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    li{
-      margin: 0 0 1px;
-      .gcicon{
-        margin-right: 4px;
-        color: $grey-6;
-      }
-      a{
-        padding: 10px 15px 6px;
-        width: 100%;
-        display: block;
-        color: $grey-6;
-        font-size: 16px;
-        letter-spacing: 1px;
-        text-decoration: none;
-        @include transition(0.1s);
-        font-weight: 400;
-        text-transform: uppercase;
-        &:hover{
-          border-bottom: 0;
-          background: $white-opaque;
-          color: $primary-dark;
-          .gcicon{
-            color: $primary-dark;
-          }
-        }
-      }
-      .active{
-        border-right: 2px solid $primary-color;
-        background: $white-opaque;
-      }
-      ul{
-        padding-top: 1px;
-        margin-bottom: 10px;
-        li{
-          a{
-            padding: 4px 15px 4px 30px;
-            font-size: 13px;
-            font-weight: 400;
-            background: $white-opaque;
-          }
-        }
-      }
-    }
-    .list-heading{
-      padding: 10px 15px 6px 30px;
-      font-weight: 600;
-      font-size: 14px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      background: darken($white-opaque, 3%);
-      .gcicon{
-        margin-right: 8px;
-      }
-    }
-  }
-}
-
-#wrapper{
-  background: $white;
-  min-height: 100%;
-  .container{
-    @media (max-width: 1630px) {
-      width: 100%;
-    }
-  }
-  .inner-wrapper{
-    width: calc(100% - 460px);
-    height: calc(100% - 34px);
-    float: left;
-    padding-top: 34px;
-  }
-  .inner-wrapper.single-sidebar{
-    width: calc(100% - 230px);
-  }
-  #sidebar-right{
-    height: 100%;
-    width: 230px;
-    position: fixed;
-    top: 0;
-    right: 0;
-    #sidebar-right-inner{
-      background: $off-white;
-      width: 230px;
-      height: 100%;
-      margin-left: -15px;
-      padding: 15px 0 60px;
-      border-left: 1px solid $grey-2;
-      overflow-y: scroll;
-      overflow-x: hidden;
-      .page-options{
-        padding: 0 15px;
-        *[contenteditable=true]{
-          color: $primary-dark;
-          border-bottom: 1px solid transparent;
-          &:focus{
-            border-color: $primary-dark;
-            outline: none;
-          }
-          &:empty{
-            width: 15px;
-            border-color: $primary-dark;
-          }
-        }
-        .deliver{
-          margin-bottom: 15px;
-          display: block;
-          margin-left: 0;
-          margin-right: 0;
-          .save-page{
-            margin-right: 5px;
-          }
-        }
-        .page-title{
-          font-size: 21px;
-          font-weight: 600;
-          display: inline-block;
-        }
-        .url{
-          font-weight: 600;
-          color: $grey-5;
-          margin-bottom: 30px;
-          span{
-            padding-bottom: 1px;
-          }
-        }
-        .status{
-          margin-bottom: 30px;
-          ul{
-            li{
-              margin-bottom: 4px;
-              padding-bottom: 6px;
-              border-bottom: 1px solid $grey-2;
-              &:last-of-type{
-                border-bottom: none;
-              }
-              .gcicon{
-                width: 20px;
-                display: inline-block;
-              }
-              .password-protect{
-                color: $black;
-                width: 100%;
-                display: block;
-                text-align: left;
-                &:hover{
-                  color: $primary-dark;
-                }
-                .gcicon-down{
-                  top: 2px;
-                  position: relative;
-                  font-size: 18px;
-                  line-height: 14px;
-                  float: right;
-                }
-              }
-              .password-collapse{
-                padding: 10px 0 5px 0;
-              }
-              .checkbox{
-                margin: 0;
-                height: 19px;
-                label{
-                  width: 100%;
-                  display: block;
-                  padding-top: 2px;
-                  input{
-                    position: relative;
-                  }
-                }
-              }
-            }
-            .saved-state{
-              color: $grey-6;
-            }
-          }
-        }
-        .settings-toggle{
-          display: block;
-          margin-bottom: 10px;
-          color: $grey-6;
-          font-size: 16px;
-          &:hover{
-            color: $primary-dark;
-          }
-        }
-        .settings-collapse{
-          .dropdown-wrapper{
-            margin-bottom: 10px;
-          }
-        }
-        .delete{
-          color: $red;
-          &:hover{
-            color: darken($red, 15%);
-          }
-        }
-      }
-    }
-  }
-}
-
-#admin-page-content{
-  padding: 15px 60px 60px 60px;
-  background: $white;
-  height: calc(100% - 34px);
-  top: 34px;
-  position: relative;
-  ul{
-    li{
-      border-bottom: 1px solid $grey-2;
-      margin-bottom: 0;
-      &:last-of-type{
-        border: none;
-        padding-bottom: 0;
-      }
-      .page-row{
-        margin-bottom: 0;
-        &:hover{
-          .actions{
-            opacity: 1;
-          }
-          .page-title{
-            color: $primary-dark;
-          }
-        }
-        .toggle{
-          cursor: pointer;
-        }
-        .page-title{
-          font-size: 18px;
-          letter-spacing: 1px;
-          display: inline-block;
-          width: calc(100% - 185px);
-          padding: 10px 0;
-          color: $grey-6;
-          .label{
-            background: $grey-2;
-            text-transform: capitalize;
-            padding: 2px 8px;
-            font-weight: 600;
-            margin-left: 5px;
-            position: relative;
-            top: -2px;
-          }
-        }
-        .actions{
-          float: right;
-          opacity: 0;
-          position: relative;
-          top: 10px;
-          span{
-            width: 30px;
-            text-align: center;
-            display: inline-block;
-            margin-left: 5px;
-          }
-        }
-      }
-    }
-    ul{
-      list-style: outside none none;
-      margin: 0 0 0 0;
-      padding: 0;
-      &:empty{
-        margin: 0;
-      }
-      li{
-        border-bottom: none;
-        border-top: 1px solid $grey-2;
-        .page-row{
-          padding-left: 30px;
-        }
-      }
-      ul{
-        li .page-row{               padding-left: 60px;  }
-        ul{
-          li .page-row{             padding-left: 90px;  }
-          ul{
-            li .page-row {          padding-left: 120px; }
-            ul{
-              li .page-row{         padding-left: 150px; }
-              ul{
-                li .page-row{       padding-left: 180px; }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
 
 
 .settings{
@@ -600,6 +611,10 @@ body{
     padding-right: 60px;
   }
 }
+
+
+
+
 
 /**** Tooltip Icons *****/
 .tooltip {
