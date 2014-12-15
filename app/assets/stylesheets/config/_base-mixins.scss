@@ -65,6 +65,35 @@ border-top-right-radius: $radius;
 border-bottom-right-radius: $radius;
 }
 
+@mixin flex(){
+  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;      /* TWEENER - IE 10 */
+  display: -webkit-flex;     /* NEW - Chrome */
+  display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+
+@mixin flex-width($flex-width){
+  -webkit-box-flex: $flex-width;      /* OLD - iOS 6-, Safari 3.1-6 */
+  -moz-box-flex: $flex-width;         /* OLD - Firefox 19- */
+  -webkit-flex: $flex-width;          /* Chrome */
+  -ms-flex: $flex-width;              /* IE 10 */
+  flex: $flex-width;                  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+
+@mixin flex-order($flex-order){
+  -webkit-box-ordinal-group: $flex-order;   /* OLD - iOS 6-, Safari 3.1-6 */
+  -moz-box-ordinal-group: $flex-order;      /* OLD - Firefox 19- */
+  -ms-flex-order: $flex-order;              /* TWEENER - IE 10 */
+  -webkit-order: $flex-order;               /* NEW - Chrome */
+  order: $flex-order;                       /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+
+@mixin align($alignment){
+  -webkit-align-items: $alignment;
+  align-items: $alignment;
+}
+
 @mixin box-shadow($shadow...) {
 	 -webkit-box-shadow: $shadow;
 		-moz-box-shadow: $shadow;

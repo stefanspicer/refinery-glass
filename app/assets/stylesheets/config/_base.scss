@@ -93,6 +93,10 @@ p::-moz-selection {
   top: 1px;
 }
 
+.bump-down-2{
+  top: 2px;
+}
+
 .bump-left{
   left: -1px;
 }
@@ -777,6 +781,15 @@ p.notice-top {
 	color: $primary-color;
 	&:hover{
 		color: $primary-hover;
+		text-decoration: none;
+	}
+}
+
+.btn-link-grey{
+	color: $grey-6;
+	&:hover{
+		color: $primary-hover;
+		text-decoration: none;
 	}
 }
 
