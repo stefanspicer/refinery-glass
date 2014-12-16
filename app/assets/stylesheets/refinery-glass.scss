@@ -1,9 +1,8 @@
-@import "bootstrap/variables";
-@import "bootstrap/mixins";
-@import "config/mixins";
 @import "config/variables";
-@import "config/base-mixins";
 @import "config/base-variables";
+@import "bootstrap/variables";
+@import "config/mixins";
+@import "config/base-mixins";
 @import "config/base";
 @import "partials/icons-glass";
 @import "partials/icon-styles-glass";
@@ -145,11 +144,11 @@ body{
   background: $white;
   padding: 15px;
   margin-bottom: 30px;
-  @include flex();
-  @include align(center);
+  display: flex;
+  align-items: center;
   .search {
-    @include flex-width(1); /* take up the rest of the remaining space */
-    @include flex-order(-1);
+    flex: 1; /* take up the rest of the remaining space */
+    order: -1;
     margin-right: 15px;
   }
   .search input {
@@ -175,27 +174,41 @@ body{
   max-width: 1200px;
   ul{
     li{
-      margin-bottom: 2px;
-      background: $white;
-      padding: 0 15px;
-      &:hover{
-        background: $primary-hover;
-      }
+      margin-bottom: 0;
       &:last-of-type{
         padding-bottom: 0;
       }
       .page-row{
-        margin-bottom: 0;
+        margin-bottom: 2px;
+        background: $white;
+        padding: 0 15px;
         &:hover{
+          background: $primary-hover;
+          .gcicon{
+            color: $white;
+          }
           .actions{
             opacity: 1;
           }
           .page-title{
-            color: $primary-dark;
+            color: $white;
           }
         }
-        .toggle{
-          cursor: pointer;
+        .child-toggle{
+          .gcicon-folder{
+            display: none;
+          }
+          .gcicon-folder-open{
+            display: inline-block;
+          }
+        }
+        .child-toggle.collapsed{
+          .gcicon-folder{
+            display: inline-block;
+          }
+          .gcicon-folder-open{
+            display: none;
+          }
         }
         .page-title{
           font-size: 18px;
@@ -204,6 +217,7 @@ body{
           width: calc(100% - 185px);
           padding: 10px 0;
           color: $grey-6;
+          transition: 0;
           .label{
             background: $grey-2;
             text-transform: capitalize;
@@ -219,6 +233,18 @@ body{
           opacity: 0;
           position: relative;
           top: 10px;
+          .circle-icon{
+            color: $white;
+            border-color: $white;
+            &:link, &:visited {
+              color: $white;
+            }
+            &:hover, &:focus{
+              color: $white;
+              border-color: $primary-dark;
+              background: $primary-dark;
+            }
+          }
           span{
             width: 30px;
             text-align: center;
@@ -236,25 +262,32 @@ body{
         margin: 0;
       }
       li{
-        background: lighten($off-white, 4%);
-        margin-left: -15px;
-        margin-right: -15px;
         margin-bottom: 0;
-        border-bottom: 2px solid lighten($off-white, 2%);
         .page-row{
+          background: lighten($off-white, 4%);
           padding-left: 30px;
         }
-      }
-      ul{
-        li .page-row{               padding-left: 60px;  }
         ul{
-          li .page-row{             padding-left: 90px;  }
+          li .page-row{
+            padding-left: 60px;
+          }
           ul{
-            li .page-row {          padding-left: 120px; }
+            li .page-row{
+              padding-left: 90px;
+            }
             ul{
-              li .page-row{         padding-left: 150px; }
+              li .page-row {
+                padding-left: 120px;
+              }
               ul{
-                li .page-row{       padding-left: 180px; }
+                li .page-row{
+                  padding-left: 150px;
+                }
+                ul{
+                  li .page-row{
+                    padding-left: 180px;
+                  }
+                }
               }
             }
           }
