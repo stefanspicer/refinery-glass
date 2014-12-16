@@ -56,9 +56,6 @@ body{
     border-color: $primary-dark;
     background: $primary-dark;
   }
-  .gcicon{
-    position: relative;
-  }
 }
 
 .circle-icon.fluid-width{
@@ -183,6 +180,7 @@ body{
         background: $white;
         padding: 0 15px;
         display: flex;
+        align-items: center;
         &:hover{
           background: $primary-hover;
           .gcicon{
@@ -193,6 +191,7 @@ body{
           }
           .page-title{
             color: $white;
+            flex: 1;
           }
         }
         .child-toggle{
@@ -215,7 +214,6 @@ body{
           font-size: 18px;
           letter-spacing: 1px;
           display: inline-block;
-          width: calc(100% - 185px);
           padding: 10px 0;
           color: $grey-6;
           transition: 0;
@@ -225,15 +223,11 @@ body{
             padding: 2px 8px;
             font-weight: 600;
             margin-left: 5px;
-            position: relative;
             top: -2px;
           }
         }
         .actions{
-          float: right;
           opacity: 0;
-          position: relative;
-          top: 10px;
           .circle-icon{
             color: $white;
             border-color: $white;
@@ -442,7 +436,6 @@ body{
               }
               .gcicon-down{
                 top: 2px;
-                position: relative;
                 font-size: 18px;
                 line-height: 14px;
                 float: right;
@@ -458,9 +451,6 @@ body{
                 width: 100%;
                 display: block;
                 padding-top: 2px;
-                input{
-                  position: relative;
-                }
               }
             }
           }
@@ -513,7 +503,6 @@ body{
 
 #page-preview{
   *[contenteditable=true]{
-      position: relative;
       border-left: 2px solid transparent;
       padding-left: 15px;
       margin-left: -17px;
@@ -538,9 +527,6 @@ body{
       overflow: hidden;
       float: left;
       margin: 0 5px 0 0;
-      .gcicon{
-        position: relative;
-      }
     }
     .add-module{
       .gcicon{
@@ -567,9 +553,6 @@ body{
       }
     }
     .media-type{
-      .gcicon{
-        position: relative;
-      }
     }
     .form-group{
       margin: 0;
@@ -583,7 +566,6 @@ body{
   }
   
   .highlight-editor{
-    position: relative;
     background: $off-white;
     border: 1px solid $grey-2;
     @include border-radius($radius);
@@ -634,7 +616,6 @@ body{
 
 #page-preview{
   header#header{
-    position: relative;
   }
   .navbar-fixed-top{
     position: absolute;
@@ -655,7 +636,6 @@ body{
   background: #22a7f2;
   border: 1px solid #1b82bd;
   word-wrap:break-word;
-  position: relative;
   span {
     display: block;
     padding: 10px;

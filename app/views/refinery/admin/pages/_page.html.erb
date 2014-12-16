@@ -29,6 +29,14 @@
       <% end %>
     </a>
     
+    <span class="secondary-attribute">
+      some attribute
+    </span>
+    
+    <span class="date">
+      2014/04/09
+    </span>
+    
     <span class='actions'>          
       <span class="edit">
         <%= link_to '<i class="gcicon gcicon-edit bump-right"></i>'.html_safe,
@@ -36,15 +44,7 @@
                   :class => "circle-icon",
                   :title => t('edit', :scope => 'refinery.admin.pages') %>
       </span>
-      
-      <span class="preview">
-        <%= link_to '<i class="gcicon gcicon-screen bump-down"></i>'.html_safe,
-                  page.url,
-                  :target => "_blank",
-                  :class => "circle-icon",
-                  :title => t('.view_live_html') %>
-      </span>
-      
+           
       <span class="add-child">           
         <%= link_to '<i class="gcicon gcicon-add"></i>'.html_safe,
                   refinery.new_admin_page_path(:parent_id => page.id),
