@@ -1,4 +1,5 @@
 <nav id="sidebar-left-nav" class="sidebar-nav">
+  <%= link_to Refinery::Core.site_name, '/' %>
   <ul class="list-unstyled">
     <!-- NOTE: refinery/glass/plugin_sorter.rb helps with this sorting -->
     <% ::Refinery::Plugins.active.in_menu.find_all{|p| p.position > 0}.sort_by {|p| p.position}.each do |plugin| -%>
@@ -23,4 +24,6 @@
         :style => "display: none;" %>
     <% end %>
   </ul>
+  <%= link_to (t('.log_out', site_bar_translate_locale_args) + ' <i class="gcicon gcicon-log-out"></i>').html_safe,
+            refinery.logout_path, :id => 'logout' %>
 </nav>

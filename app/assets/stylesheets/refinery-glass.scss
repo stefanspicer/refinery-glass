@@ -34,7 +34,6 @@ img.pull-left{
 
 body{
   height: 100%;
-  padding-top: 34px;
   background: lighten($off-white, 2%) !important;
 }
 
@@ -134,7 +133,7 @@ body{
 
 #wrapper{
   background: lighten($off-white, 2%) !important;
-  padding: 34px 50px 0;
+  padding: 45px 0 60px 0;
 }
 
 .contextual-menu{
@@ -181,18 +180,42 @@ body{
         padding: 0 15px;
         display: flex;
         align-items: center;
+        font-size: 18px;
+        letter-spacing: 1px;
+        color: $grey-6;
         &:hover{
           background: $primary-hover;
           .gcicon{
             color: $white;
           }
           .actions{
-            opacity: 1;
+            display: block;
           }
           .page-title{
             color: $white;
-            flex: 1;
+            .label{
+              background: $white;
+              color: $primary-hover;
+            }
           }
+          .date{
+            display: none;
+          }
+          a.attribute{
+            color: $white;
+            &:hover{
+              text-decoration: underline;
+            }
+          }
+        }
+        .child-toggle{
+          margin-right: 10px;
+          .status-icon{
+            margin-right: 0;
+          }
+        }
+        .status-icon{
+          margin-right: 10px;
         }
         .child-toggle{
           .gcicon-folder{
@@ -211,23 +234,36 @@ body{
           }
         }
         .page-title{
-          font-size: 18px;
-          letter-spacing: 1px;
-          display: inline-block;
+          flex: 1;
+          display: flex;
           padding: 10px 0;
-          color: $grey-6;
           transition: 0;
+          color: $grey-6;
+          .title{
+            flex: 1;
+          }
           .label{
-            background: $grey-2;
+            background: $grey-3;
             text-transform: capitalize;
             padding: 2px 8px;
             font-weight: 600;
             margin-left: 5px;
-            top: -2px;
           }
         }
+        .attribute{
+          padding-right: 60px;
+        }
+        .date{
+          font-size: 14px;
+          display: block;
+          width: 100px;
+          text-align: right;
+          color: $grey-5;
+        }
         .actions{
-          opacity: 0;
+          text-align: right;
+          display: none;
+          width: 100px;
           .circle-icon{
             color: $white;
             border-color: $white;
