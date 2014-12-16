@@ -103,34 +103,33 @@
   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
           
   <div class="glass-module new-module clear">
-    <a id="glass-change-module" href="" class="circle-icon add-module"><i class="gcicon gcicon-plus"></i></a>
-    <p contenteditable="true">Lorum Ipsum</p>
+    <p contenteditable="true" placeholder="New Paragraph..."></p>
   </div>
 
-  <div id="glass-templates" style="display: none;">
+  <div id="glass-parking" style="display: none;">
     <div class="glass-module new-module clear blank">
-      <p contenteditable="true"></p>
+      <p contenteditable="true" placeholder="New Paragraph..."></p>
+    </div>
+    <a id="glass-change-module" href="" class="circle-icon add-module glass-control"><i class="gcicon gcicon-plus"></i></a>
+    <div id="glass-choose-module" class="new-module media-chooser clear glass-control">
+      <a href=""                              class="circle-icon add-module"><i class="gcicon gcicon-plus glass-module-close"></i></a>
+      <a href="" id="glass-choose-module-p"   class="circle-icon media-type"><i class="gcicon gcicon-paragraph bump-down"></i></a>
+      <a href="" id="glass-choose-module-img" class="circle-icon media-type"><i class="gcicon gcicon-photo bump-down"></i></a>
+      <a href="" id="glass-choose-module-vid" class="circle-icon media-type"><i class="gcicon gcicon-film"></i></a>
+    </div>
+    <div id="glass-choose-vid" class="new-module media-chooser clear">
+      <a href="" class="circle-icon add-module"><i class="gcicon gcicon-plus glass-module-close"></i></a>
+      <form role="form">
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon">Vimeo or YouTube URL</div>
+            <input class="form-control" type="text" placeholder="http://...">
+          </div>
+        </div>
+      </form>
     </div>
   </div>
   
-  <div class="new-module media-chooser clear">
-    <a href="" class="circle-icon add-module"><i class="gcicon gcicon-plus"></i></a>
-    <a href="" class="circle-icon media-type"><i class="gcicon gcicon-paragraph bump-down"></i></a>
-    <a href="" class="circle-icon media-type"><i class="gcicon gcicon-photo bump-down"></i></a>
-    <a href="" class="circle-icon media-type"><i class="gcicon gcicon-film"></i></a>
-  </div>
-  
-  <div class="new-module media-chooser clear">
-    <a href="" class="circle-icon add-module"><i class="gcicon gcicon-plus"></i></a>
-    <form role="form">
-      <div class="form-group">
-        <div class="input-group">
-          <div class="input-group-addon">Vimeo or YouTube URL</div>
-          <input class="form-control" type="text" placeholder="http://...">
-        </div>
-      </div>
-    </form>
-  </div>
 </div>
 
 
@@ -142,9 +141,9 @@
       var handle_enter = function(e) {
         if($(this).find('p').is(":focus") && e.which == 13) {
           e.preventDefault();
-          var $new_module = $('#glass-templates .glass-module.blank').clone();
+          var $new_module = $('#glass-parking .glass-module.blank').clone();
           $new_module.removeClass('blank');
-          $new_module.prepend($('#glass-change-module'));
+          $new_module.prepend($('#glass-change-module').show());
           $(this).after($new_module);
           $new_module.find('p').first().focus();
           $(document).trigger('content-ready', $new_module[0]);
@@ -154,6 +153,40 @@
       if ($(element).hasClass('glass-module')) {
         $(element).keypress(handle_enter);
       }
+
+      $(element).find('[contenteditable=true]').each(function () {
+        $(this).focusout(function () {
+          if (!$(this).text().trim()) {
+            $(this).html(''); // For FF, it puts a <br type='-moz'> in there
+          }
+        });
+      });
+      $(element).find('#glass-change-module').click(function (e) {
+        e.preventDefault();
+        replaceModuleContent($(this), '#glass-choose-module');
+      });
+      $(element).find('#glass-choose-module-vid').click(function (e) {
+        e.preventDefault();
+        replaceModuleContent($(this), '#glass-choose-vid');
+      });
+      $(element).find('.glass-module-close, #glass-choose-module-p').click(function (e) {
+        e.preventDefault();
+        var $module = $(this).parents('.glass-module');
+        $module.find('.glass-control').appendTo('#glass-parking');
+        $module.children().each(function () {
+          $(this).fadeIn();
+        });
+      });
     });
+
+    function replaceModuleContent($me, selector) {
+      var $module = $me.parents('.glass-module');
+      var $replacement = $(selector);
+      $module.children().each(function () {
+        $(this).hide();
+      });
+      $module.append($replacement);
+      $replacement.fadeIn();
+    }
   </script>
 <% end %>
