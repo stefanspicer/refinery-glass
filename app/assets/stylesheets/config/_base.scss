@@ -608,24 +608,6 @@ input:focus, .form-control:focus, input[type="submit"]:focus, .btn:focus, input[
 
 /* -------------------- FORM VALIDATION -------------------- */
 
-p.alert, p.notice {
-  margin: 0;
-  padding: 0;
-}
-
-p.notice-top {
-  top: 85px;
-}
-
-.alert, .notice {
-  text-align: center;
-}
-
-.notice {
-  background-color: $yellow-fade;
-  color: $yellow;
-}
-
 #error_explanation h2 {
   display: none;
 }
@@ -636,7 +618,6 @@ p.notice-top {
 
 #error_explanation,
 .errorExplanation,
-.alert,
 .fieldWithErrors {
   color: $red;
 }
@@ -648,15 +629,12 @@ p.notice-top {
 }
 
 #error_explanation,
-.errorExplanation,
-.alert {
+.errorExplanation{
   background-color: $red-fade;
 }
 
 #error_explanation,
-.errorExplanation,
-.alert,
-.notice {
+.errorExplanation{
   border: none;
   border-radius: 4px;
   margin-bottom: 20px;
