@@ -1,8 +1,36 @@
 <% content_for :admin_content do %>
-<section id="admin-page-content">
-  <% cache_if(Refinery::Pages.cache_pages_backend, [Refinery::Core.base_cache_key, "pages_backend", Globalize.locale].join('_')) do %>
-    <%= render 'records' %>
-  <% end %>
+<section class="admin-index container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="contextual-menu">
+        <button class="btn btn-link-grey">
+          <span class="hidden-xs">Filter</span> <i class="gcion gcicon-filter bump-down-2"></i>
+        </button>
+        <button class="btn btn-link-grey">
+          <span class="hidden-xs">Sort</span> <i class="gcicon gcicon-sort"></i>
+        </button>
+        <button class="btn btn-link-grey">
+          <span class="hidden-xs">Reorder</span> <i class="gcicon gcicon-reorder"></i> 
+        </button>
+        <button class="btn btn-link-grey">
+          <span class="hidden-xs">Add page</span> <i class="gcicon gcicon-add"></i> 
+        </button>
+        <div class="search">
+          <div class="input-group">
+            <input type="search" class="form-control" placeholder="Search">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button"><i class="gcicon gcicon-search"></i></button>
+            </span>
+          </div><!-- /input-group -->
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <% cache_if(Refinery::Pages.cache_pages_backend, [Refinery::Core.base_cache_key, "pages_backend", Globalize.locale].join('_')) do %>
+        <%= render 'records' %>
+      <% end %>
+    </div>
+  </div>
 </section>
 <section>
   <%= render 'actions' %>

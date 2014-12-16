@@ -51,12 +51,8 @@ html
     </section>
 
     <section id="wrapper" class="pusher">
-      <div class="ui right floated black launch button">
-        <i class="list layout icon"></i>
-      </div>
       <a href="" class="sidebar-left-opener menu-link menu-link-left"><i class="gcicon gcicon-gear"></i></a>
       
-      <section class="inner-wrapper <%= 'single-sidebar' unless content_for?(:admin_sidebar) %>">
         <div id="flash_container">
           <%= render '/refinery/no_script' %>
           <%= render '/refinery/message' %>
@@ -81,7 +77,6 @@ html
         <% end %>
 
         <%= render 'refinery/admin/glass/modal' %>
-      </section>
 
       <% if content_for?(:admin_sidebar) %>
         <section id="sidebar-right" class="sidebar">
