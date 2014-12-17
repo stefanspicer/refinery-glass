@@ -444,6 +444,9 @@ form{
 }
 
 .input-group{
+  .form-control{
+    border-color: $grey-3;
+  }
   .btn{
     padding: 5px 10px;
   }
@@ -507,6 +510,11 @@ input:focus, .form-control:focus, input[type="submit"]:focus, .btn:focus, input[
   @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075), 0px 0px 6px 0px rgba($primary-color,0.3));
 }
 
+.btn-link:focus, .btn-link-grey:focus{
+  border: 0;
+  box-shadow: none;
+  color: $primary-hover;
+}
 
 .dropdown-wrapper{
   background: $white;
