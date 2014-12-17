@@ -118,7 +118,7 @@
   opacity: 0;
   background: rgba(255,255,255,0.85);
   visibility: visible;
-  transition: all 0.5s 0.1s ease-out, height 0s 1s, width 0s 1s;
+  transition: all 0.5s 0s ease-out, height 0s 1s, width 0s 1s;
 
   will-change: opacity;
   z-index: 1000;
