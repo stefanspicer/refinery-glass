@@ -15,7 +15,6 @@
   will-change: transform;
   -webkit-transform: translate3d(0, 0, 0);
           transform: translate3d(0, 0, 0);
-  visibility: hidden;
   -webkit-overflow-scrolling: touch;
   height: 100% !important;
   border-radius: 0em !important;
@@ -117,8 +116,10 @@
   height: 0px;
   overflow: hidden;
   opacity: 0;
-  -webkit-transition: -webkit-transform 500ms, opacity 500ms;
-          transition: transform 500ms, opacity 500ms;
+  background: rgba(0,0,0,0.6);
+  visibility: visible;
+  transition: opacity 0.7ss 0 ease-out;
+
   will-change: opacity;
   z-index: 1000;
 }
@@ -145,6 +146,8 @@
   width: 100% !important;
   height: 100% !important;
   opacity: 1 !important;
+  transition-delay: 0;
+  transition: opacity 1s ease;
 }
 
 /*--------------
@@ -228,7 +231,7 @@
 
 /* Set-up */
 .ui.overlay.sidebar {
-  z-index: 102;
+  z-index: 102 !important;
 }
 
 /* Animation */
