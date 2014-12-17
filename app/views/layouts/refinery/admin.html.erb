@@ -13,10 +13,8 @@
       <div id="sidebar-left-inner">
         <%= render 'refinery/admin/menu' %>
       </div>
-      <div class="log-out">
         <%= link_to (t('.log_out', site_bar_translate_locale_args) + ' <i class="gcicon gcicon-log-out"></i>').html_safe,
-                refinery.logout_path, :id => 'logout' %>
-      </div>
+                refinery.logout_path, :id => 'logout', :class => 'log-out' %>
     </section>
 
     <section id="wrapper" class="pusher">

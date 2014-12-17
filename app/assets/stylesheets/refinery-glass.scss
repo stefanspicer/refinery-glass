@@ -176,7 +176,6 @@ body{
     flex: 1; /* take up the rest of the remaining space */
     order: -1;
     margin-right: 15px;
-    margin-left: 5px;
   }
   .search input {
     width: 100%;
@@ -477,20 +476,21 @@ body{
     }
   }
   .log-out{
-    background: $grey-1;
+    background: darken($off-white, 3%);
+    display: flex;
     position: fixed;
+    justify-content: space-between;
     bottom: 0;
     width: 100%;
-    padding: 9px 15px;
-    text-align: right;
-    a{
-      color: $grey-6;
-      font-size: 16px;
-      font-weight: 600;
-      &:hover{
-        color: $primary-dark;
-      }
-    }   
+    padding: 9px 15px;   
+    color: $grey-6;
+    font-size: 16px;
+    font-weight: 600;
+    align-items: center;
+    &:hover{
+      background: $primary-hover;
+      color: $white;
+    }
   }
   #sidebar-left-inner{
     top: 65px;
@@ -683,7 +683,7 @@ body{
       
     }
     .actions{
-      display: none;
+      display: none !important;
     }
   }
 }
