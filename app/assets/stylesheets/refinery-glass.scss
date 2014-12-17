@@ -375,6 +375,7 @@ body{
     bottom: 0;
     width: 100%;
     padding: 9px 15px;
+    text-align: right;
     a{
       color: $grey-6;
       font-size: 16px;
@@ -389,6 +390,7 @@ body{
     overflow-y: scroll;
     overflow-x: hidden;
     .site-name{
+      text-align: right;
       background: $grey-1;
       width: 100%;
       padding: 18px 15px;
