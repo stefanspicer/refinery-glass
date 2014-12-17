@@ -126,7 +126,7 @@ body{
   width: 45px;
   height: 45px;
   background: $primary-color;
-  position: absolute;
+  position: fixed;
   top: 10px;
   color: $white;
   z-index: 10;
@@ -369,6 +369,23 @@ body{
   background: $off-white;
   border-right: 1px solid $grey-2;
   padding: 0;
+  .site-name{
+    text-align: right;
+    background: $grey-1;
+    width: 100%;
+    padding: 18px 15px;
+    z-index: 10000;
+    position: fixed;
+    top: 0;
+    a{
+      color: $grey-6;
+      font-size: 21px;
+      font-weight: 600;
+      &:hover{
+        color: $primary-dark;
+      }
+    }
+  }
   .log-out{
     background: $grey-1;
     position: fixed;
@@ -386,23 +403,11 @@ body{
     }   
   }
   #sidebar-left-inner{
-    height: 100%;
+    top: 65px;
+    height: calc(100% - 110px);
     overflow-y: scroll;
     overflow-x: hidden;
-    .site-name{
-      text-align: right;
-      background: $grey-1;
-      width: 100%;
-      padding: 18px 15px;
-      a{
-        color: $grey-6;
-        font-size: 21px;
-        font-weight: 600;
-        &:hover{
-          color: $primary-dark;
-        }
-      }
-    }
+    padding-bottom: 15px;
     li{
       margin: 0 0 1px;
       .gcicon{

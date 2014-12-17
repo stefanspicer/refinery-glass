@@ -1,6 +1,3 @@
-<div class="site-name">
-  <a href="" class="sidebar-left-opener menu-link menu-link-left"><i class="gcicon gcicon-cancel"></i></a> <%= link_to Refinery::Core.site_name, '/' %>
-</div>
 <ul class="list-unstyled">
   <!-- NOTE: refinery/glass/plugin_sorter.rb helps with this sorting -->
   <% ::Refinery::Plugins.active.in_menu.find_all{|p| p.position > 0}.sort_by {|p| p.position}.each do |plugin| -%>
