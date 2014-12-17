@@ -3,23 +3,26 @@
 <%= form_for resource, :as => resource_name,
                       :url => refinery.refinery_user_session_path do |f| %>
   <div class='form-group'>
-    <%= f.label :login %>
-    <%= f.text_field :login, :class => 'form-control input-lg' %>
+    <%= f.text_field :login, :placeholder => 'Email or username', :class => 'form-control input-lg' %>
   </div>
   <div class='form-group'>
-    <%= f.label :password %>
-    <%= f.password_field :password, :autocomplete => 'off', :class => 'form-control input-lg' %>
+    <%= f.password_field :password, :autocomplete => 'off', :placeholder => 'Password', :class => 'form-control input-lg' %>
   </div>
+  
   <% if devise_mapping.rememberable? %>
+  <div class='form-group'>
     <div class='checkbox'>
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+      <label for="refinery_user_remember_me">
+      <%= f.check_box :remember_me %> Remember me
+      </label>
     </div>
+  </div>  
   <% end %>
+  
   <div class="form-group">
     <%= render '/refinery/admin/form_actions', :f => f,
              :submit_button_text => t('.sign_in'),
              :hide_cancel => true %>
-    <%= link_to t('.forgot_password'), refinery.new_refinery_user_password_path, :class => 'btn btn-link' %>
+    <%= link_to t('.forgot_password'), refinery.new_refinery_user_password_path, :class => 'btn btn-link btn-lg' %>
   </div>
 <% end -%>
