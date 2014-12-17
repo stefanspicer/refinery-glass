@@ -152,6 +152,14 @@ body{
   padding: 65px 0;
 }
 
+.admin-title{
+  margin: 0 0 45px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
 .contextual-menu{
   background: $white;
   padding: 15px;
@@ -166,13 +174,43 @@ body{
   .search input {
     width: 100%;
   }
-  .btn{
+  .btn-link-grey{
     font-weight: 300;
+    z-index: 60;
     .gcicon{
       color: $grey-3;
     }
     strong{
       font-weight: 500;
+    }
+  }
+
+  .dropdown-menu{
+    z-index: 50;
+    top: -2px;
+    padding-top: 33px;
+    border-radius: 0;
+    li{
+      &:first-child{
+        border-top: 1px solid $grey-1;
+        &:hover{
+          border-color: transparent;
+        }
+      }
+      a{
+        padding: 5px 12px;
+        transition: 0;
+        &:hover, &:focus{
+          color: $white;
+          background: $primary-hover;
+          .gcicon{
+            color: $white;
+          }
+        }
+      }
+    }
+    .gcicon{
+      color: $grey-3;
     }
   }
 }
@@ -347,12 +385,24 @@ body{
         margin-left: -30px;
       }
       li li .page-row{
-        padding-left: 60px;
+        padding-left: 45px;
         margin-left: -60px;
       }
       li li li .page-row{
-        padding-left: 90px;
+        padding-left: 60px;
         margin-left: -90px;
+      }
+      li li li li .page-row{
+        padding-left: 75px;
+        margin-left: -120px;
+      }
+      li li li li li .page-row{
+        padding-left: 90px;
+        margin-left: -150px;
+      }
+      li li li li li li .page-row{
+        padding-left: 105px;
+        margin-left: -180px;
       }
       li.placeholder{
         padding-left: 30px;
@@ -365,6 +415,18 @@ body{
       li li li.placeholder{
         padding-left: 90px;
         margin-left: -60px;
+      }
+      li li li li.placeholder{
+        padding-left: 120px;
+        margin-left: -90px;
+      }
+      li li li li li.placeholder{
+        padding-left: 150px;
+        margin-left: -90px;
+      }
+      li li li li li li.placeholder{
+        padding-left: 180px;
+        margin-left: -120px;
       }
     }
   }
