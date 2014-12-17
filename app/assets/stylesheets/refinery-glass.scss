@@ -677,6 +677,17 @@ body{
   }
 }
 
+.reordering{
+  .page-row{
+    &:hover{
+      
+    }
+    .actions{
+      display: none;
+    }
+  }
+}
+
 
 
 /* -------------------- EDITOR -------------------- */
