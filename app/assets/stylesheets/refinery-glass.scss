@@ -34,7 +34,6 @@ img.pull-left{
 
 body{
   height: 100%;
-  padding-top: 34px;
   background: lighten($off-white, 2%) !important;
 }
 
@@ -55,9 +54,6 @@ body{
     color: $white;
     border-color: $primary-dark;
     background: $primary-dark;
-  }
-  .gcicon{
-    position: relative;
   }
 }
 
@@ -98,12 +94,28 @@ body{
 
 #flash_container{
   padding: 0;
+  max-width: 1200px;
+  .alert{
+    margin: 0 15px 30px 15px;
+    background: lighten($primary-fade, 16);
+    color: $primary-dark;
+    border-color: saturate(lighten($primary-fade, 12), 20);
+    border-radius: 0;
+    .close{
+      font-size: 25px;
+      color: $primary-color;
+      opacity: 0.6;
+      &:hover{
+        color: $primary-hover;
+      }
+    }
+  }
   #flash{
-    margin: 30px 0;
+    margin: 0 15px 30px 15px;
+    display: block;
     padding: 10px 15px;
-    background: $off-white;
-    border: 1px solid $grey-2;
-    margin: 45px 60px 0;
+    background: $grey-5;
+    color: $white;
     #flash_close{
       float: right;
     }
@@ -137,7 +149,7 @@ body{
 
 #wrapper{
   background: lighten($off-white, 2%) !important;
-  padding: 34px 50px 0;
+  padding: 60px 0;
 }
 
 .contextual-menu{
@@ -153,6 +165,11 @@ body{
   }
   .search input {
     width: 100%;
+  }
+  .btn{
+    .gcicon{
+      color: $grey-3;
+    }
   }
 }
 
@@ -182,17 +199,44 @@ body{
         margin-bottom: 2px;
         background: $white;
         padding: 0 15px;
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+        letter-spacing: 1px;
+        color: $grey-6;
         &:hover{
           background: $primary-hover;
           .gcicon{
             color: $white;
           }
           .actions{
-            opacity: 1;
+            display: block;
           }
           .page-title{
             color: $white;
+            .label{
+              background: $white;
+              color: $primary-hover;
+            }
           }
+          .date{
+            display: none;
+          }
+          a.attribute{
+            color: $white;
+            &:hover{
+              text-decoration: underline;
+            }
+          }
+        }
+        .child-toggle{
+          margin-right: 10px;
+          .status-icon{
+            margin-right: 0;
+          }
+        }
+        .status-icon{
+          margin-right: 10px;
         }
         .child-toggle{
           .gcicon-folder{
@@ -211,28 +255,36 @@ body{
           }
         }
         .page-title{
-          font-size: 18px;
-          letter-spacing: 1px;
-          display: inline-block;
-          width: calc(100% - 185px);
+          flex: 1;
+          display: flex;
           padding: 10px 0;
-          color: $grey-6;
           transition: 0;
+          color: $grey-6;
+          .title{
+            flex: 1;
+          }
           .label{
-            background: $grey-2;
+            background: $grey-3;
             text-transform: capitalize;
             padding: 2px 8px;
             font-weight: 600;
             margin-left: 5px;
-            position: relative;
-            top: -2px;
           }
         }
+        .attribute{
+          padding-right: 60px;
+        }
+        .date{
+          font-size: 14px;
+          display: block;
+          width: 100px;
+          text-align: right;
+          color: $grey-5;
+        }
         .actions{
-          float: right;
-          opacity: 0;
-          position: relative;
-          top: 10px;
+          text-align: right;
+          display: none;
+          width: 100px;
           .circle-icon{
             color: $white;
             border-color: $white;
@@ -316,11 +368,39 @@ body{
 #sidebar-left{
   background: $off-white;
   border-right: 1px solid $grey-2;
-  padding: 45px 0;
+  padding: 0;
+  .log-out{
+    background: $grey-1;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 9px 15px;
+    a{
+      color: $grey-6;
+      font-size: 16px;
+      font-weight: 600;
+      &:hover{
+        color: $primary-dark;
+      }
+    }   
+  }
   #sidebar-left-inner{
     height: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
+    .site-name{
+      background: $grey-1;
+      width: 100%;
+      padding: 18px 15px;
+      a{
+        color: $grey-6;
+        font-size: 21px;
+        font-weight: 600;
+        &:hover{
+          color: $primary-dark;
+        }
+      }
+    }
     li{
       margin: 0 0 1px;
       .gcicon{
@@ -453,7 +533,6 @@ body{
               }
               .gcicon-down{
                 top: 2px;
-                position: relative;
                 font-size: 18px;
                 line-height: 14px;
                 float: right;
@@ -469,9 +548,6 @@ body{
                 width: 100%;
                 display: block;
                 padding-top: 2px;
-                input{
-                  position: relative;
-                }
               }
             }
           }
@@ -524,7 +600,6 @@ body{
 
 #page-preview{
   *[contenteditable=true]{
-      position: relative;
       border-left: 2px solid transparent;
       padding-left: 15px;
       margin-left: -17px;
@@ -549,9 +624,6 @@ body{
       overflow: hidden;
       float: left;
       margin: 0 5px 0 0;
-      .gcicon{
-        position: relative;
-      }
     }
     .add-module{
       .gcicon{
@@ -578,9 +650,6 @@ body{
       }
     }
     .media-type{
-      .gcicon{
-        position: relative;
-      }
     }
     .form-group{
       margin: 0;
@@ -594,7 +663,6 @@ body{
   }
   
   .highlight-editor{
-    position: relative;
     background: $off-white;
     border: 1px solid $grey-2;
     @include border-radius($radius);
@@ -645,7 +713,6 @@ body{
 
 #page-preview{
   header#header{
-    position: relative;
   }
   .navbar-fixed-top{
     position: absolute;
@@ -666,7 +733,6 @@ body{
   background: #22a7f2;
   border: 1px solid #1b82bd;
   word-wrap:break-word;
-  position: relative;
   span {
     display: block;
     padding: 10px;

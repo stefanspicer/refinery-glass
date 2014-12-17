@@ -5,19 +5,21 @@
     <%= render '/refinery/admin/head' %>
   </head>
   <body class="<%= action_name %> <%= I18n.locale %>">
-    <%= render '/refinery/site_bar' %>
-    <!-- div id='tooltip_container'></div -->
 
     <section id="sidebar-left" class="ui large inverted vertical sidebar menu">
       <div id="sidebar-left-inner">
         <%= render 'refinery/admin/menu' %>
+      </div>
+      <div class="log-out">
+        <%= link_to (t('.log_out', site_bar_translate_locale_args) + ' <i class="gcicon gcicon-log-out"></i>').html_safe,
+                refinery.logout_path, :id => 'logout' %>
       </div>
     </section>
 
     <section id="wrapper" class="pusher">
       <a href="" class="sidebar-left-opener menu-link menu-link-left"><i class="gcicon gcicon-gear"></i></a>
       
-        <div id="flash_container">
+        <div id="flash_container" class="container-fluid">
           <%= render '/refinery/no_script' %>
           <%= render '/refinery/message' %>
         </div>
