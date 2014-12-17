@@ -95,11 +95,27 @@ body{
 #flash_container{
   padding: 0;
   max-width: 1200px;
+  .alert{
+    margin: 0 15px 30px 15px;
+    background: lighten($primary-fade, 16);
+    color: $primary-dark;
+    border-color: saturate(lighten($primary-fade, 12), 20);
+    border-radius: 0;
+    .close{
+      font-size: 25px;
+      color: $primary-color;
+      opacity: 0.6;
+      &:hover{
+        color: $primary-hover;
+      }
+    }
+  }
   #flash{
     margin: 0 15px 30px 15px;
     display: block;
     padding: 10px 15px;
-    background: $grey-1;
+    background: $grey-5;
+    color: $white;
     #flash_close{
       float: right;
     }
@@ -133,7 +149,7 @@ body{
 
 #wrapper{
   background: lighten($off-white, 2%) !important;
-  padding: 45px 0 60px 0;
+  padding: 60px 0;
 }
 
 .contextual-menu{
@@ -149,6 +165,11 @@ body{
   }
   .search input {
     width: 100%;
+  }
+  .btn{
+    .gcicon{
+      color: $grey-3;
+    }
   }
 }
 
@@ -300,23 +321,23 @@ body{
         }
         ul{
           li .page-row{
-            padding-left: 60px;
+            padding-left: 45px;
           }
           ul{
             li .page-row{
-              padding-left: 90px;
+              padding-left: 60px;
             }
             ul{
               li .page-row {
-                padding-left: 120px;
+                padding-left: 75px;
               }
               ul{
                 li .page-row{
-                  padding-left: 150px;
+                  padding-left: 90px;
                 }
                 ul{
                   li .page-row{
-                    padding-left: 180px;
+                    padding-left: 105px;
                   }
                 }
               }
@@ -335,11 +356,39 @@ body{
 #sidebar-left{
   background: $off-white;
   border-right: 1px solid $grey-2;
-  padding: 45px 0;
+  padding: 0;
+  .log-out{
+    background: $grey-1;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 9px 15px;
+    a{
+      color: $grey-6;
+      font-size: 16px;
+      font-weight: 600;
+      &:hover{
+        color: $primary-dark;
+      }
+    }   
+  }
   #sidebar-left-inner{
     height: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
+    .site-name{
+      background: $grey-1;
+      width: 100%;
+      padding: 18px 15px;
+      a{
+        color: $grey-6;
+        font-size: 21px;
+        font-weight: 600;
+        &:hover{
+          color: $primary-dark;
+        }
+      }
+    }
     li{
       margin: 0 0 1px;
       .gcicon{
