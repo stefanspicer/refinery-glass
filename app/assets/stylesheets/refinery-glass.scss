@@ -160,6 +160,12 @@ body{
   text-align: center;
 }
 
+.input-group{
+  .form-control, .btn{
+    border-radius: 0;
+  }
+}
+
 .contextual-menu{
   background: $white;
   padding: 15px;
@@ -170,6 +176,7 @@ body{
     flex: 1; /* take up the rest of the remaining space */
     order: -1;
     margin-right: 15px;
+    margin-left: 5px;
   }
   .search input {
     width: 100%;
