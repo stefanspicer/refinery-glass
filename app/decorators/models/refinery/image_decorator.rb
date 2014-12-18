@@ -1,10 +1,13 @@
 Refinery::Image.class_eval do
   ::Refinery::Images::Dragonfly.setup!
+=begin
 
   include Images::Validators
+=end
 
   image_accessor :image
 
+=begin
   validates :image, :presence  => true
   validates_with ImageSizeValidator
   validates_with ImageUpdateValidator, :on => :update
@@ -12,6 +15,7 @@ Refinery::Image.class_eval do
                      :of => :image,
                      :in => ::Refinery::Images.whitelisted_mime_types,
                      :message => :incorrect_format
+=end
 
   # Docs for acts_as_indexed http://github.com/dougal/acts_as_indexed
   acts_as_indexed :fields => [:title]
