@@ -1,7 +1,61 @@
 <%% content_for :admin_content do %>
-  <section id='admin-page-content'>
-    <%%= render 'records' %>
-  </section>
+	<section id='admin-page-content' class='admin-index container-fluid'>
+    <div class="row">
+      <div class="col-sm-12">
+        <h2 class="admin-title"><%%= t('.title') %></h2>
+        <div class="contextual-menu">
+          <!-- FILTERING -->
+          <!--
+          <div class="dropdown">
+            <button class="btn btn-link-grey" type="button" id="dropdown-filter" data-toggle="dropdown" aria-expanded="true">
+              <i class="gcicon gcicon-filter"></i> Filter by: <strong>Cats</strong> <span class="caret"></span>
+            </button>        
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown-filter">
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Newest</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Oldest </a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Alphabetical</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Reverse Alphabetical</a></li>
+            </ul>
+          -->
+
+          <!-- SORTING -->
+          <!--
+          <div class="dropdown">
+            <button class="btn btn-link-grey" type="button" id="dropdown-sort" data-toggle="dropdown" aria-expanded="true">
+              <i class="gcicon gcicon-sort"></i> Sort by: <strong>Newest</strong> <span class="caret"></span>
+            </button>        
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown-sort">
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><i class="gcicon gcicon-sort"></i> Newest</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><i class="gcicon gcicon-sort-two"></i> Oldest </a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><i class="gcicon gcicon-sort-alpha"></i> Alphabetical</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><i class="gcicon gcicon-sort-alpha-two"></i> Reverse Alphabetical</a></li>
+            </ul>
+          </div>    
+          -->
+            
+          <%% if !searching? && ::Refinery::<%= namespacing %>::Admin::<%= class_name.pluralize %>Controller.sortable? && ::Refinery::<%= namespacing %>::<%= class_name %>.many? %>
+            <button id='reorder_action' class="btn btn-link-grey">
+              <i class="gcicon gcicon-reorder bump-down"></i> <span class="hidden-xs"><strong><%%= t('reorder',      :scope => 'refinery.admin.search') %></strong></span>
+            </button>
+            <button id='reorder_action_done' class="btn btn-link-grey" style="display: none;">
+              <i class="gcicon gcicon-reorder bump-down"></i> <span class="hidden-xs"><strong><%%= t('reorder_done', :scope => 'refinery.admin.search') %></strong></span>
+            </button>
+          <%% end %>
+
+          <a href="<%%= refinery.new_<%= namespacing.underscore %>_admin_<%= singular_name %>_path %>" class="btn btn-link-grey">
+            <i class="gcicon gcicon-add"></i> <span class="hidden-xs"><strong><%%= t('.new') %></strong></span>
+          </a>
+          <%% if ::Refinery::<%= namespacing %>::Admin::<%= class_name.pluralize %>Controller.searchable? %>
+            <%%= render '/refinery/admin/search', :url => refinery.<%= namespacing.underscore %>_admin_<%= plural_name %><%= "_index" if plural_name == singular_name%>_path %>
+            <!-- remember to add something like this to your model: "acts_as_indexed :fields => [:title, :body]" -->
+          <%% end %>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <%%= render 'records' %>
+      </div>
+    </div>
+	</section>
   <%%= render '/refinery/admin/make_sortable', :tree => false if !searching? and ::Refinery::<%= namespacing %>::Admin::<%= class_name.pluralize %>Controller.sortable? and ::Refinery::<%= namespacing %>::<%= class_name %>.many? %>
 <%% end %>
 <%%= render 'refinery/<%= namespacing.underscore %>/admin/submenu' %>
