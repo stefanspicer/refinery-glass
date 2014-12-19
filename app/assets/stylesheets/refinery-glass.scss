@@ -176,6 +176,10 @@ body{
   margin-bottom: 30px;
   display: flex;
   align-items: center;
+  .contextual-options{
+    display: flex;
+    align-items: center;
+  }
   .search {
     flex: 1; /* take up the rest of the remaining space */
     order: -1;
@@ -221,6 +225,21 @@ body{
     }
     .gcicon{
       color: $grey-3;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .contextual-menu {
+    flex-wrap: wrap;
+    .contextual-options{
+      width: 100%;
+      order: 1;
+      margin-bottom: 15px;
+    }
+    .search {
+      width: 100%;
+      order: 2;
     }
   }
 }
