@@ -15,3 +15,5 @@
 //= require glass/modules/menus.js
 //= require glass/modules/dimmer.js
 //= require glass/modules/modal-create.js
+//= require glass/modules/image-upload.js
+//= require_tree .

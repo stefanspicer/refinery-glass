@@ -6,6 +6,7 @@
 @import "config/base";
 @import "partials/icons-glass";
 @import "partials/icon-styles-glass";
+@import "partials/images";
 @import "glass/sidebar";
 @import "glass/dimmer";
 
@@ -27,11 +28,6 @@ img.pull-left{
 	padding-top: 120px;
 	width: 100%;
 	margin-bottom: 30px;
-}
-
-#image-upload-form {
-  position: absolute;
-  top: -100px;
 }
 
 /* -------------------- MAIN -------------------- */
