@@ -13,5 +13,6 @@
 //= require canvas/modules/forms.js
 //= require canvas/modules/main.js
 //= require glass/modules/menus.js
+//= require glass/modules/image-upload.js
 //= require glass/modules/dimmer.js
 //= require glass/modules/modal-create.js
