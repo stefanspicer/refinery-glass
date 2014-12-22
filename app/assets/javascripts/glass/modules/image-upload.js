@@ -70,6 +70,8 @@ var RefineryImageUploader = (function($){
         var imageForm = $('#image-upload-form');
         var url = imageForm.attr('action');
         var model = $('.form-with-image').attr('data-model');
+        var form_field = $('.form-with-image').attr('data-field-name');
+
 
         imageForm.submit(function(e){
             $.ajax({
@@ -84,7 +86,7 @@ var RefineryImageUploader = (function($){
                     console.log("Success Response");
                     console.log(response);
                     var newInputField = ['<input id="image-id-field" name="',model,
-                        '[image_id]" type="hidden" value="',response.image_id,'"/>'].join("");
+                        '[',form_field,']" type="hidden" value="',response.image_id,'"/>'].join("");
                     var imageIdField = $('#image-id-field');
 
                     if(imageIdField.length > 0){
