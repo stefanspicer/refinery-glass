@@ -4,6 +4,7 @@ var RefineryImageUploader = (function($){
         imageUploadBtnListener(element);
         fileUploaderListener(element);
         uploadImageHandler();
+        var hasImage = $("#image-id-field").val();
         setPreviewDiv();
 
     });
@@ -24,12 +25,6 @@ var RefineryImageUploader = (function($){
             if(typeof FileReader == "undefined") return true;
             var previewElement = $('.upload > .file-preview');
 
-            if(previewElement.length == 0) {
-                // insert preview element
-                $('#image-upload-btn').after(['<div class="upload">',
-                    '<div class="file-preview"></div>',
-                '</div>'].join(""));
-            }
 
             var elem = $(this);
             var files = e.target.files;
@@ -63,6 +58,7 @@ var RefineryImageUploader = (function($){
 
         if(image !== undefined){
             previewDiv.css({"background-image":"url("+image+")"});
+            previewDiv.fadeIn(500);
         }
     }
 
@@ -71,7 +67,6 @@ var RefineryImageUploader = (function($){
         var url = imageForm.attr('action');
         var model = $('.form-with-image').attr('data-model');
         var form_field = $('.form-with-image').attr('data-field-name');
-
 
         imageForm.submit(function(e){
             $.ajax({
@@ -83,16 +78,12 @@ var RefineryImageUploader = (function($){
                 contentType: false,
                 processData: false,
                 success: function(response){
-                    console.log("Success Response");
-                    console.log(response);
-                    var newInputField = ['<input id="image-id-field" name="',model,
-                        '[',form_field,']" type="hidden" value="',response.image_id,'"/>'].join("");
                     var imageIdField = $('#image-id-field');
 
                     if(imageIdField.length > 0){
-                        imageIdField.replaceWith(newInputField);
+                        imageIdField.val(response.image_id)
                     }
-                    $('#image-upload-btn').after(newInputField);
+                    $('.upload > .file-preview').fadeIn(500);
                 },
                 error: function(response){
                     console.log("fail response");
