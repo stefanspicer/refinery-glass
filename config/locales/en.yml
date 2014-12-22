@@ -3,3 +3,9 @@ en:
     refinery:
       admin:
         log_out: Log Out
+  refinery:
+    admin:
+      search:
+        search_input_notice: Search
+        reorder: Reorder
+        reorder_done: Done
