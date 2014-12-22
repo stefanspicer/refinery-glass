@@ -1,19 +1,21 @@
 var RefineryImageUploader = (function($){
 
     $(document).on('content-ready', function (e, element) {
-        imageUploadBtnListener(element);
+        imageListeners(element);
         fileUploaderListener(element);
         uploadImageHandler();
-        var hasImage = $("#image-id-field").val();
         setPreviewDiv();
-
     });
 
-    function imageUploadBtnListener(element){
+    function imageListeners(element){
         $(element).find('#image-upload-btn').click(function(e){
             e.preventDefault();
             openFileInput();
         });
+        $(element).find('.btn-edit-img').click(function(e){
+            e.preventDefault();
+            openCropModal();
+        })
     }
 
     function openFileInput(){
@@ -92,6 +94,12 @@ var RefineryImageUploader = (function($){
             });
             e.preventDefault();
         });
+    }
+
+    function openCropModal(){
+        $('#modal-edit-image')
+            .modal('show')
+        ;
     }
 
 
