@@ -37,6 +37,8 @@ $text-color:            lighten($grey-6, 10%) !default;
 $link-color:            $brand-primary !default;
 //** Link hover color set via `darken()` function.
 $link-hover-color:      $primary-hover !default;
+//** Link hover decoration.
+$link-hover-decoration: underline !default;
 
 
 //== Typography
@@ -70,6 +72,21 @@ $headings-font-family:    inherit !default;
 $headings-font-weight:    500 !default;
 $headings-line-height:    1.1 !default;
 $headings-color:          $grey-8 !default;
+
+
+//== Iconography
+//
+//## Specify custom location and filename of the included Glyphicons icon font. Useful for those including Bootstrap via Bower.
+
+//** Load fonts from this directory.
+
+// [converter] Asset helpers such as Sprockets and Node.js Mincer do not resolve relative paths
+$icon-font-path: if($bootstrap-sass-asset-helper, "bootstrap/", "../fonts/bootstrap/") !default;
+
+//** File name for all font files.
+$icon-font-name:          "glyphicons-halflings-regular" !default;
+//** Element ID within SVG icon file.
+$icon-font-svg-id:        "glyphicons_halflingsregular" !default;
 
 
 //== Components
@@ -173,8 +190,15 @@ $input-bg-disabled:              $grey-lighter !default;
 $input-color:                    $grey !default;
 //** `<input>` border color
 $input-border:                   $grey-1 !default;
+
+// TODO: Rename `$input-border-radius` to `$input-border-radius-base` in v4
 //** `<input>` border radius
 $input-border-radius:            $border-radius-base !default;
+//** Large `.form-control` border radius
+$input-border-radius-large:      $border-radius-large !default;
+//** Small `.form-control` border radius
+$input-border-radius-small:      $border-radius-small !default;
+
 //** Border color for inputs on focus
 $input-border-focus:             $primary-color !default;
 
@@ -195,6 +219,9 @@ $legend-border-color:            $grey-1 !default;
 $input-group-addon-bg:           $grey-lighter !default;
 //** Border color for textual input addons
 $input-group-addon-border-color: $input-border !default;
+
+//** Disabled cursor for form controls and buttons.
+$cursor-disabled:                not-allowed !default;
 
 
 //== Dropdowns
@@ -615,6 +642,8 @@ $alert-danger-border:         $state-danger-border !default;
 $progress-bg:                 #f5f5f5 !default;
 //** Progress bar text color
 $progress-bar-color:          #fff !default;
+//** Variable for setting rounded corners on progress bar.
+$progress-border-radius:      $border-radius-base !default;
 
 //** Default progress bar color
 $progress-bar-bg:             $brand-primary !default;
@@ -649,7 +678,15 @@ $list-group-active-bg:          $component-active-bg !default;
 $list-group-active-border:      $list-group-active-bg !default;
 $list-group-active-text-color:  lighten($list-group-active-bg, 40%) !default;
 
+//** Text color of disabled list items
+$list-group-disabled-color:      $grey-light !default;
+//** Background color of disabled list items
+$list-group-disabled-bg:         $grey-lighter !default;
+//** Text color for content within disabled list items
+$list-group-disabled-text-color: $list-group-disabled-color !default;
+
 $list-group-link-color:         #555 !default;
+$list-group-link-hover-color:   $list-group-link-color !default;
 $list-group-link-heading-color: #333 !default;
 
 
@@ -659,6 +696,8 @@ $list-group-link-heading-color: #333 !default;
 
 $panel-bg:                    #fff !default;
 $panel-body-padding:          15px !default;
+$panel-heading-padding:       10px 15px !default;
+$panel-footer-padding:        $panel-heading-padding !default;
 $panel-border-radius:         $border-radius-base !default;
 
 //** Border color for elements within panels
@@ -798,6 +837,8 @@ $pre-scrollable-max-height:   340px !default;
 //
 //##
 
+//** Horizontal offset for forms and lists.
+$component-offset-horizontal: 180px !default;
 //** Text muted color
 $text-muted:                  $grey-light !default;
 //** Abbreviations and acronyms border color
@@ -812,6 +853,8 @@ $blockquote-font-size:        ($font-size-base * 1.25) !default;
 $blockquote-border-color:     $grey-lighter !default;
 //** Page header border color
 $page-header-border-color:    $grey-lighter !default;
+//** Width of horizontal description list titles
+$dl-horizontal-offset:        $component-offset-horizontal !default;
 
 
 //== Miscellaneous
