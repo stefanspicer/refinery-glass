@@ -1,7 +1,19 @@
 <% content_for :admin_content do %>
-	<%= render '/refinery/admin/search', :url => refinery.admin_users_path %>
-	<section id='admin-page-content'>
-	  <%= render 'records' %>
+	<%#= render '/refinery/admin/search', :url => refinery.admin_users_path %>
+	<section id='admin-page-content' class='admin-index container-fluid'>
+    <div class="row">
+      <div class="col-sm-12">
+        <h2 class="admin-title">Users</h2>
+        <div class="contextual-menu">
+          <a href="<%= refinery.new_admin_user_path %>" class="btn btn-link-grey">
+            <i class="gcicon gcicon-add"></i> <span class="hidden-xs"><strong>Add user</strong></span>
+          </a>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <%= render 'records' %>
+      </div>
+    </div>
 	</section>
 <% end %>
 <%= render 'refinery/admin/users/submenu' %>

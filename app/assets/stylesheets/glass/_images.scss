@@ -1,0 +1,16 @@
+#image-upload-form {
+  position: absolute;
+  top: -800px;
+}
+
+form div.upload { overflow:hidden; }
+
+form div.upload div.file-preview {
+  display:inline-block;
+  float:left;
+  margin-right:1em;
+  width:300px;
+  height:200px;
+  text-align:center;
+  background-repeat: none;
+}

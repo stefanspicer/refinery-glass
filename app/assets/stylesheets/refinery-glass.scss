@@ -1,13 +1,4 @@
-@import "config/variables";
-@import "config/base-variables";
-@import "bootstrap/variables";
-@import "config/mixins";
-@import "config/base-mixins";
-@import "config/base";
-@import "partials/icons-glass";
-@import "partials/icon-styles-glass";
-@import "glass/sidebar";
-@import "glass/dimmer";
+@import "partials/canvas";
 
 
 /* -------------------- TEMPORARY -------------------- */
@@ -29,12 +20,15 @@ img.pull-left{
 	margin-bottom: 30px;
 }
 
+#image-upload-form {
+  position: absolute;
+  top: -100px;
+}
 
 /* -------------------- MAIN -------------------- */
 
 body{
   height: 100%;
-  padding-top: 34px;
   background: lighten($off-white, 2%) !important;
 }
 
@@ -55,9 +49,6 @@ body{
     color: $white;
     border-color: $primary-dark;
     background: $primary-dark;
-  }
-  .gcicon{
-    position: relative;
   }
 }
 
@@ -98,12 +89,28 @@ body{
 
 #flash_container{
   padding: 0;
+  max-width: 1200px;
+  .alert{
+    margin: 0 15px 30px 15px;
+    background: lighten($primary-fade, 16);
+    color: $primary-dark;
+    border-color: saturate(lighten($primary-fade, 12), 20);
+    border-radius: 0;
+    .close{
+      font-size: 25px;
+      color: $primary-color;
+      opacity: 0.6;
+      &:hover{
+        color: $primary-hover;
+      }
+    }
+  }
   #flash{
-    margin: 30px 0;
+    margin: 0 15px 30px 15px;
+    display: block;
     padding: 10px 15px;
-    background: $off-white;
-    border: 1px solid $grey-2;
-    margin: 45px 60px 0;
+    background: $grey-5;
+    color: $white;
     #flash_close{
       float: right;
     }
@@ -114,7 +121,7 @@ body{
   width: 45px;
   height: 45px;
   background: $primary-color;
-  position: absolute;
+  position: fixed;
   top: 10px;
   color: $white;
   z-index: 10;
@@ -137,7 +144,21 @@ body{
 
 #wrapper{
   background: lighten($off-white, 2%) !important;
-  padding: 34px 50px 0;
+  padding: 65px 0;
+}
+
+.admin-title{
+  margin: 15px 0 45px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.input-group{
+  .form-control, .btn{
+    border-radius: 0;
+  }
 }
 
 .contextual-menu{
@@ -146,6 +167,10 @@ body{
   margin-bottom: 30px;
   display: flex;
   align-items: center;
+  .contextual-options{
+    display: flex;
+    align-items: center;
+  }
   .search {
     flex: 1; /* take up the rest of the remaining space */
     order: -1;
@@ -154,6 +179,60 @@ body{
   .search input {
     width: 100%;
   }
+  .btn-link-grey{
+    font-weight: 300;
+    z-index: 60;
+    .gcicon{
+      color: $grey-3;
+    }
+    strong{
+      font-weight: 500;
+    }
+  }
+
+  .dropdown-menu{
+    z-index: 50;
+    top: -2px;
+    padding-top: 33px;
+    border-radius: 0;
+    li{
+      &:first-child{
+        border-top: 1px solid $grey-1;
+        &:hover{
+          border-color: transparent;
+        }
+      }
+      a{
+        padding: 5px 12px;
+        transition: 0;
+        &:hover, &:focus{
+          color: $white;
+          background: $primary-hover;
+          .gcicon{
+            color: $white;
+          }
+        }
+      }
+    }
+    .gcicon{
+      color: $grey-3;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .contextual-menu {
+    flex-wrap: wrap;
+    .contextual-options{
+      width: 100%;
+      order: 1;
+      margin-bottom: 15px;
+    }
+    .search {
+      width: 100%;
+      order: 2;
+    }
+  }
 }
 
 
@@ -161,12 +240,29 @@ body{
 
 .login{
   background: $off-white;
-  padding-top: 120px;
+  padding-top: 90px;
   @media (max-width: 767px) {
     padding-top: 45px;  
   }
+  .elephant-cms-logo{
+    max-width: 150px;
+  }
   h2{
     margin-bottom: 30px;
+  }
+  form{
+    margin-bottom: 120px;
+    .form-group{
+      margin-bottom: 15px;
+    }
+    .checkbox{
+      label{
+        padding-top: 5px;
+      }
+      input[type="checkbox"]{
+        margin-top: 7px;
+      }
+    }
   }
 }
 
@@ -182,17 +278,44 @@ body{
         margin-bottom: 2px;
         background: $white;
         padding: 0 15px;
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+        letter-spacing: 1px;
+        color: $grey-6;
         &:hover{
           background: $primary-hover;
           .gcicon{
             color: $white;
           }
           .actions{
-            opacity: 1;
+            display: block;
           }
           .page-title{
             color: $white;
+            .label{
+              background: $white;
+              color: $primary-hover;
+            }
           }
+          .date{
+            display: none;
+          }
+          a.attribute{
+            color: $white;
+            &:hover{
+              text-decoration: underline;
+            }
+          }
+        }
+        .child-toggle{
+          margin-right: 10px;
+          .status-icon{
+            margin-right: 0;
+          }
+        }
+        .status-icon{
+          margin-right: 10px;
         }
         .child-toggle{
           .gcicon-folder{
@@ -211,28 +334,36 @@ body{
           }
         }
         .page-title{
-          font-size: 18px;
-          letter-spacing: 1px;
-          display: inline-block;
-          width: calc(100% - 185px);
+          flex: 1;
+          display: flex;
           padding: 10px 0;
-          color: $grey-6;
           transition: 0;
+          color: $grey-6;
+          .title{
+            flex: 1;
+          }
           .label{
-            background: $grey-2;
+            background: $grey-3;
             text-transform: capitalize;
             padding: 2px 8px;
             font-weight: 600;
             margin-left: 5px;
-            position: relative;
-            top: -2px;
           }
         }
+        .attribute{
+          padding-right: 60px;
+        }
+        .date{
+          font-size: 14px;
+          display: block;
+          width: 100px;
+          text-align: right;
+          color: $grey-5;
+        }
         .actions{
-          float: right;
-          opacity: 0;
-          position: relative;
-          top: 10px;
+          text-align: right;
+          display: none;
+          width: 100px;
           .circle-icon{
             color: $white;
             border-color: $white;
@@ -254,6 +385,7 @@ body{
         }
       }
     }
+    /* nested ul */
     ul{
       list-style: outside none none;
       margin: 0 0 0 0;
@@ -261,38 +393,73 @@ body{
       &:empty{
         margin: 0;
       }
-      li{
+      li {
         margin-bottom: 0;
+        margin-left: 30px;
         .page-row{
           background: lighten($off-white, 4%);
-          padding-left: 30px;
-        }
-        ul{
-          li .page-row{
-            padding-left: 60px;
-          }
-          ul{
-            li .page-row{
-              padding-left: 90px;
-            }
-            ul{
-              li .page-row {
-                padding-left: 120px;
-              }
-              ul{
-                li .page-row{
-                  padding-left: 150px;
-                }
-                ul{
-                  li .page-row{
-                    padding-left: 180px;
-                  }
-                }
-              }
-            }
-          }
         }
       }
+      li .page-row{
+        padding-left: 30px;
+        margin-left: -30px;
+      }
+      li li .page-row{
+        padding-left: 45px;
+        margin-left: -60px;
+      }
+      li li li .page-row{
+        padding-left: 60px;
+        margin-left: -90px;
+      }
+      li li li li .page-row{
+        padding-left: 75px;
+        margin-left: -120px;
+      }
+      li li li li li .page-row{
+        padding-left: 90px;
+        margin-left: -150px;
+      }
+      li li li li li li .page-row{
+        padding-left: 105px;
+        margin-left: -180px;
+      }
+      li.placeholder{
+        padding-left: 30px;
+        margin-left:  0px;
+      }
+      li li.placeholder{
+        padding-left: 60px;
+        margin-left: -30px;
+      }
+      li li li.placeholder{
+        padding-left: 90px;
+        margin-left: -60px;
+      }
+      li li li li.placeholder{
+        padding-left: 120px;
+        margin-left: -90px;
+      }
+      li li li li li.placeholder{
+        padding-left: 150px;
+        margin-left: -90px;
+      }
+      li li li li li li.placeholder{
+        padding-left: 180px;
+        margin-left: -120px;
+      }
+    }
+  }
+  .placeholder{
+    border: 1px dashed #CCC;
+    background: lighten($off-white, 4%);
+    height: 50px;
+    margin-bottom: 2px;
+    padding: 10px 0;
+    box-sizing: border-box;
+    &:after{
+      content: 'Move Here';
+      padding-left: 21px;
     }
   }
 }
@@ -304,11 +471,47 @@ body{
 #sidebar-left{
   background: $off-white;
   border-right: 1px solid $grey-2;
-  padding: 45px 0;
+  padding: 0;
+  .site-name{
+    text-align: right;
+    background: $grey-1;
+    width: 100%;
+    padding: 18px 15px;
+    z-index: 10000;
+    position: fixed;
+    top: 0;
+    a{
+      color: $grey-6;
+      font-size: 21px;
+      font-weight: 600;
+      &:hover{
+        color: $primary-dark;
+      }
+    }
+  }
+  .log-out{
+    background: darken($off-white, 3%);
+    display: flex;
+    position: fixed;
+    justify-content: space-between;
+    bottom: 0;
+    width: 100%;
+    padding: 9px 15px;   
+    color: $grey-6;
+    font-size: 16px;
+    font-weight: 600;
+    align-items: center;
+    &:hover{
+      background: $primary-hover;
+      color: $white;
+    }
+  }
   #sidebar-left-inner{
-    height: 100%;
+    top: 65px;
+    height: calc(100% - 110px);
     overflow-y: scroll;
     overflow-x: hidden;
+    padding-bottom: 15px;
     li{
       margin: 0 0 1px;
       .gcicon{
@@ -337,7 +540,7 @@ body{
       }
       .active{
         border-right: 2px solid $primary-color;
-        background: $white-opaque;
+        background: lighten($off-white, 6%);
       }
       ul{
         padding-top: 1px;
@@ -347,7 +550,7 @@ body{
             padding: 4px 15px 4px 30px;
             font-size: 13px;
             font-weight: 400;
-            background: $white-opaque;
+            background: lighten($off-white, 3%);
           }
         }
       }
@@ -441,7 +644,6 @@ body{
               }
               .gcicon-down{
                 top: 2px;
-                position: relative;
                 font-size: 18px;
                 line-height: 14px;
                 float: right;
@@ -457,9 +659,6 @@ body{
                 width: 100%;
                 display: block;
                 padding-top: 2px;
-                input{
-                  position: relative;
-                }
               }
             }
           }
@@ -492,6 +691,17 @@ body{
   }
 }
 
+.reordering{
+  .page-row{
+    &:hover{
+      
+    }
+    .actions{
+      display: none !important;
+    }
+  }
+}
+
 
 
 /* -------------------- EDITOR -------------------- */
@@ -512,7 +722,6 @@ body{
 
 #page-preview{
   *[contenteditable=true]{
-      position: relative;
       border-left: 2px solid transparent;
       padding-left: 15px;
       margin-left: -17px;
@@ -537,9 +746,6 @@ body{
       overflow: hidden;
       float: left;
       margin: 0 5px 0 0;
-      .gcicon{
-        position: relative;
-      }
     }
     .add-module{
       .gcicon{
@@ -566,9 +772,6 @@ body{
       }
     }
     .media-type{
-      .gcicon{
-        position: relative;
-      }
     }
     .form-group{
       margin: 0;
@@ -582,7 +785,6 @@ body{
   }
   
   .highlight-editor{
-    position: relative;
     background: $off-white;
     border: 1px solid $grey-2;
     @include border-radius($radius);
@@ -638,7 +840,6 @@ body{
 
 #page-preview{
   header#header{
-    position: relative;
   }
   .navbar-fixed-top{
     position: absolute;
@@ -659,7 +860,6 @@ body{
   background: #22a7f2;
   border: 1px solid #1b82bd;
   word-wrap:break-word;
-  position: relative;
   span {
     display: block;
     padding: 10px;

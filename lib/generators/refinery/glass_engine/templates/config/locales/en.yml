@@ -13,10 +13,12 @@ en:
             reorder: Reorder <%= singular_name.titleize.pluralize %>
             reorder_done: Done Reordering <%= singular_name.titleize.pluralize %>
         <%= plural_name %>:
-          records:
+          index:
             title: <%= plural_name.titleize %>
+            new: New <%= singular_name.titleize %>
+          records:
             sorry_no_results: Sorry! There are no results found.
-            no_items_yet: There are no <%= singular_name.titleize.pluralize %> yet. Click "Add New <%= singular_name.titleize %>" to add your first <%= singular_name.titleize.downcase %>.
+            no_items_yet: There are no <%= singular_name.titleize.pluralize %> yet. Click "New <%= singular_name.titleize %>" to add your first <%= singular_name.titleize.downcase %>.
           <%= singular_name %>:
             view_live_html: View this <%= singular_name.titleize.downcase %> live <br/><em>(opens in a new window)</em>
             edit: Edit this <%= singular_name.titleize.downcase %>

@@ -1,8 +1,8 @@
 <% title_attribute = (title = attributes.detect { |a| a.type.to_s == "string" }).present? ? title.name : 'title' -%>
 <li class='page-listing' id="<%%= dom_id(<%= singular_name %>) -%>">
   <div class="page-row">
+    <!-- <i class="gcicon gcicon-file"></i> -->
     <a class="page-title" href="<%%= refinery.edit_<%= namespacing.underscore %>_admin_<%= singular_name %>_path(<%= singular_name %>) %>">
-      <i class="gcicon gcicon-file"></i>
       <%%= <%= singular_name %>.<%= title_attribute %> %>
     </a>
     <span class='actions'>
@@ -36,12 +36,6 @@
             :target => "_blank" %>
       </span>
       <% end %>
-
-      <span class="edit">
-        <%%= link_to '<i class="gcicon gcicon-edit"></i>'.html_safe, refinery.edit_<%= namespacing.underscore %>_admin_<%= singular_name %>_path(<%= singular_name %>),
-             :class => "circle-icon",
-             :title => t('.edit') %>
-      </span>
     </span>
   </div>
 </li>
