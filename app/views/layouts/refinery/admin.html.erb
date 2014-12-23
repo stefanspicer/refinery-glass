@@ -55,6 +55,7 @@ html
 
     <section id="wrapper" class="pusher">
       <a href="" class="sidebar-left-opener menu-link menu-link-left"><i class="gcicon gcicon-gear"></i></a>
+      <a href="" class="sidebar-right-opener menu-link menu-link-right"><i class="gcicon gcicon-publish"></i></a>
       
         <div id="flash_container" class="container-fluid">
           <%= render '/refinery/no_script' %>
@@ -80,14 +81,14 @@ html
         <% end %>
 
         <%= render 'refinery/admin/glass/modal' %>
-
-      <% if content_for?(:admin_sidebar) %>
-        <section id="sidebar-right" class="sidebar">
-          <div id="sidebar-right-inner">
-            <%= yield :admin_sidebar %>
-          </div>
-        </section>
-      <% end %>
+        
     </section>
+    <% if content_for?(:admin_sidebar) %>
+    <section id="sidebar-right" class="ui sidebar overlay right">
+      <div id="sidebar-right-inner">
+        <%= yield :admin_sidebar %>
+      </div>
+    </section>
+    <% end %>
   </body>
 </html>

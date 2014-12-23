@@ -13,3 +13,14 @@ var GlassMenus = (function ($) {
   };
 })(jQuery);
 
+var GlassMenus = (function ($) {
+  $(document).on('content-ready', function (e, element) {
+    $('.sidebar-right-opener').click(function (e) { e.preventDefault(); });
+    $('#sidebar-left').first().sidebar('attach events', '.sidebar-left-opener', 'overlay', 'show');
+    $('#sidebar-right').first().sidebar('attach events', '.sidebar-right-opener', 'overlay', 'show');
+  });
+
+  // Return API for other modules
+  return {
+  };
+})(jQuery);
