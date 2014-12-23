@@ -97,11 +97,11 @@ var RefineryImageUploader = (function($){
     }
 
     function openCropModal(){
+
         $('#modal-edit-image')
             .modal('show')
         ;
     }
-
 
     // Return API for other modules
     return {};
