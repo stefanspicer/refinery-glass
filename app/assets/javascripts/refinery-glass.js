@@ -12,4 +12,5 @@
 //= require glass/semantic-ui/sidebar.js
 //= require canvas/modules/forms.js
 //= require canvas/modules/main.js
+//= require canvas/modules/modal.min.js
 //= require_tree ./glass/modules
