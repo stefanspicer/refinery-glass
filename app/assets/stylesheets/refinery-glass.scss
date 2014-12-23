@@ -1,14 +1,14 @@
 @import "config/variables";
-@import "config/base-variables";
-@import "bootstrap/variables";
+@import "canvas/config/base-variables";
+@import "canvas/bootstrap/variables";
 @import "config/mixins";
-@import "config/base-mixins";
-@import "config/base";
-@import "partials/icons-glass";
-@import "partials/icon-styles-glass";
-@import "partials/images";
-@import "glass/sidebar";
-@import "glass/dimmer";
+@import "canvas/config/base-mixins";
+@import "canvas/config/base";
+@import "glass/icons";
+@import "glass/icon-styles";
+@import "glass/images";
+@import "canvas/sidebar";
+@import "canvas/dimmer";
 
 
 /* -------------------- TEMPORARY -------------------- */
