@@ -51,7 +51,7 @@ var RefineryImageUploader = (function($){
 
     function setPreviewDiv(image){
         previewDiv = $('.upload > .file-preview');
-
+        modalImage =
         bgWidth = previewDiv.width();
         previewDiv.css({
             "background-size":bgWidth + "px, auto",
@@ -61,6 +61,17 @@ var RefineryImageUploader = (function($){
         if(image !== undefined){
             previewDiv.css({"background-image":"url("+image+")"});
             previewDiv.fadeIn(500);
+            var editModal = $('#modal-edit-image');
+            // if there is an edit modal, change the image that is being
+            // displayed in it.
+            if(editModal.length > 0 ){
+                var editableImage = editModal.find('.cropper-container > img');
+                if(editableImage.length > 0){
+                    editableImage.attr("src", image);
+                } else {
+                    editModal.find('.cropper-container').append('<img src="'+image+'">');
+                }
+            }
         }
     }
 
@@ -97,10 +108,7 @@ var RefineryImageUploader = (function($){
     }
 
     function openCropModal(){
-
-        $('#modal-edit-image')
-            .modal('show')
-        ;
+        $('#modal-edit-image').modal('show');
     }
 
     // Return API for other modules
