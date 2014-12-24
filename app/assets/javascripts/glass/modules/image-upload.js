@@ -5,6 +5,7 @@ var RefineryImageUploader = (function($){
         fileUploaderListener(element);
         uploadImageHandler();
         setPreviewDiv();
+        initCropper();
     });
 
     function imageListeners(element){
@@ -54,8 +55,7 @@ var RefineryImageUploader = (function($){
         modalImage =
         bgWidth = previewDiv.width();
         previewDiv.css({
-            "background-size":bgWidth + "px, auto",
-            "background-position":"50%, 50%"
+            "background-size":bgWidth + "px, auto"
         });
 
         if(image !== undefined){
@@ -67,12 +67,35 @@ var RefineryImageUploader = (function($){
             if(editModal.length > 0 ){
                 var editableImage = editModal.find('.cropper-container > img');
                 if(editableImage.length > 0){
+                    editableImage.cropper("destroy");
                     editableImage.attr("src", image);
                 } else {
                     editModal.find('.cropper-container').append('<img src="'+image+'">');
                 }
+                initCropper();
             }
         }
+    }
+
+    function initCropper() {
+        var $image = $(".cropper-container > img"),
+            options = {
+                modal: false,
+                data: {width: 640, height: 360},
+                preview: '.cropper-preview',
+                done: function(data) {
+
+                }
+            };
+
+        $image.cropper(options);
+
+        $('.btn-primary[data-method="rotate"]').unbind('click').click(function(e){
+            $image.cropper('rotate', $(this).attr('data-option'));
+        });
+        $('.btn-primary[data-method="zoom"]').unbind('click').click(function(e){
+            $image.cropper('zoom', $(this).attr('data-option'));
+        });
     }
 
     function uploadImageHandler(){
