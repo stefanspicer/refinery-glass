@@ -124,7 +124,7 @@ body{
   position: fixed;
   top: 10px;
   color: $white;
-  z-index: 10;
+  z-index: 100000;
   padding: 9px 10px;
   @include transition($transition);
   &:hover{
@@ -142,9 +142,13 @@ body{
   left: 10px;
 }
 
+.menu-link-right{
+  right: 10px;
+}
+
 #wrapper{
   background: lighten($off-white, 2%) !important;
-  padding: 65px 0;
+  padding: 0 0 60px;
 }
 
 .admin-title{
@@ -268,6 +272,7 @@ body{
 
 .admin-index{
   max-width: 1200px;
+  padding-top: 65px;
   ul{
     li{
       margin-bottom: 0;
@@ -468,12 +473,10 @@ body{
 
 /* -------------------- SIDEBARS -------------------- */
 
-#sidebar-left{
+.sidebar{
   background: $off-white;
-  border-right: 1px solid $grey-2;
   padding: 0;
-  .site-name{
-    text-align: right;
+  .sidebar-top-nav{
     background: $grey-1;
     width: 100%;
     padding: 18px 15px;
@@ -488,6 +491,18 @@ body{
         color: $primary-dark;
       }
     }
+    span{
+      color: $grey-6;
+      font-size: 21px;
+      font-weight: 600;
+    }
+  }
+}
+
+#sidebar-left{
+  border-right: 1px solid $grey-2;
+  .sidebar-top-nav{
+    text-align: right;
   }
   .log-out{
     background: darken($off-white, 3%);
@@ -570,22 +585,18 @@ body{
 }
 
 #sidebar-right{
-  height: 100%;
-  width: 230px;
-  position: fixed;
-  top: 0;
-  right: 0;
+  border-left: 1px solid $grey-2;
+  .sidebar-top-nav{
+    text-align: left;
+  }
   #sidebar-right-inner{
-    background: $off-white;
-    width: 230px;
-    height: 100%;
-    margin-left: -15px;
-    padding: 15px 0 60px;
-    border-left: 1px solid $grey-2;
+    top: 65px;
+    height: calc(100% - 110px);
     overflow-y: scroll;
     overflow-x: hidden;
+    padding-bottom: 15px;
     .page-options{
-      padding: 0 15px;
+      padding: 15px;
       *[contenteditable=true]{
         color: $primary-dark;
         border-bottom: 1px solid transparent;
@@ -822,6 +833,7 @@ body{
 
 [contenteditable=true]:empty:before{
   content: attr(placeholder);
+  color: $grey-4;
   display: block; /* For Firefox */
 }
 

@@ -43,7 +43,7 @@ html
   <body class="<%= action_name %> <%= I18n.locale %>">
 
     <section id="sidebar-left" class="ui sidebar overlay">
-      <div class="site-name">
+      <div class="sidebar-top-nav">
         <a href="" class="sidebar-left-opener menu-link menu-link-left"><i class="gcicon gcicon-cancel"></i></a> <%= link_to Refinery::Core.site_name, '/' %>
       </div>
       <div id="sidebar-left-inner">
@@ -52,10 +52,23 @@ html
         <%= link_to (t('.log_out', site_bar_translate_locale_args) + ' <i class="gcicon gcicon-log-out"></i>').html_safe,
                 refinery.logout_path, :id => 'logout', :class => 'log-out' %>
     </section>
+    
+    <% if content_for?(:admin_sidebar) %>
+    <section id="sidebar-right" class="ui sidebar overlay right">
+      <div class="sidebar-top-nav">
+         <span>Settings</span> <a href="" class="sidebar-right-opener menu-link menu-link-right"><i class="gcicon gcicon-cancel"></i></a>
+      </div>
+      <div id="sidebar-right-inner">
+        <%= yield :admin_sidebar %>
+      </div>
+    </section>
+    <% end %>
 
     <section id="wrapper" class="pusher">
-      <a href="" class="sidebar-left-opener menu-link menu-link-left"><i class="gcicon gcicon-gear"></i></a>
+      <a href="" class="sidebar-left-opener menu-link menu-link-left"><i class="gcicon gcicon-bars"></i></a>
+      <% if content_for?(:admin_sidebar) %>
       <a href="" class="sidebar-right-opener menu-link menu-link-right"><i class="gcicon gcicon-publish"></i></a>
+      <% end %>
       
         <div id="flash_container" class="container-fluid">
           <%= render '/refinery/no_script' %>
@@ -83,12 +96,6 @@ html
         <%= render 'refinery/admin/glass/modal' %>
         
     </section>
-    <% if content_for?(:admin_sidebar) %>
-    <section id="sidebar-right" class="ui sidebar overlay right">
-      <div id="sidebar-right-inner">
-        <%= yield :admin_sidebar %>
-      </div>
-    </section>
-    <% end %>
+    
   </body>
 </html>
