@@ -20,7 +20,7 @@
   border-radius: 0em !important;
   margin: 0em !important;
   overflow-y: auto !important;
-  z-index: 102;
+  z-index: 10002;
 }
 
 /* 3D Rendering */
@@ -86,7 +86,7 @@
   -webkit-transition: -webkit-transform 500ms ease;
           transition: transform 500ms ease;
   will-change: transform;
-  z-index: 101;
+  z-index: 10001;
 }
 
 /*--------------
@@ -121,7 +121,7 @@
   transition: all 0.5s 0s ease-out, height 0s 1s, width 0s 1s;
 
   will-change: opacity;
-  z-index: 1000;
+  z-index: 10000;
 }
 
 /*--------------
@@ -230,7 +230,7 @@
 
 /* Set-up */
 .ui.overlay.sidebar {
-  z-index: 102 !important;
+  z-index: 10002 !important;
 }
 
 /* Animation */
@@ -294,7 +294,7 @@
 .ui.push.sidebar {
   -webkit-transition: -webkit-transform 500ms ease;
           transition: transform 500ms ease;
-  z-index: 102;
+  z-index: 10002;
 }
 .ui.left.push.sidebar {
   -webkit-transform: translate3d(-100%, 0, 0);
@@ -422,7 +422,7 @@
 .ui.scale.down.sidebar {
   -webkit-transition: -webkit-transform 500ms ease;
           transition: transform 500ms ease;
-  z-index: 102;
+  z-index: 10002;
 }
 .ui.left.scale.down.sidebar {
   -webkit-transform: translate3d(-100%, 0, 0);
