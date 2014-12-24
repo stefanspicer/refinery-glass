@@ -4,8 +4,8 @@
 
 var GlassMenus = (function ($) {
   $(document).on('content-ready', function (e, element) {
-    $('.sidebar-left-opener').click(function (e) { e.preventDefault(); });
-    $('#sidebar-left').first().sidebar('attach events', '.sidebar-left-opener', 'overlay', 'show');
+    $(element).find('.sidebar-left-opener').click(function (e) { e.preventDefault(); });
+    $(element).find('#sidebar-left').first().sidebar('attach events', '.sidebar-left-opener', 'overlay', 'show');
   });
 
   // Return API for other modules
