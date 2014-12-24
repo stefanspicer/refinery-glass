@@ -7,10 +7,13 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
+//  # glass/semantic-ui/modal.min # Joe, seems like this isn't quite working
 //  # canvas/bootstrap not needed??
 //= require canvas/jquery.form.min
-//= require glass/semantic-ui/sidebar.js
+//= require glass/semantic-ui/transition
+//= require glass/semantic-ui/sidebar
+//= require glass/cropper.js
 //= require canvas/modules/forms.js
 //= require canvas/modules/main.js
-//= require canvas/modules/modal.min.js
+//= require canvas/modules/watchforchanges
 //= require_tree ./glass/modules

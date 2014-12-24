@@ -9,6 +9,7 @@ module Refinery
                 :searchable => false,
                 :xhr_paging => true
 
+          # NOTE: making searchable: remember to add to your model `acts_as_indexed :fields => [:title, :body]`
       end
     end
   end

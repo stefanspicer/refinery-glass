@@ -5,6 +5,7 @@ var RefineryImageUploader = (function($){
         fileUploaderListener(element);
         uploadImageHandler();
         setPreviewDiv();
+        initCropper();
     });
 
     function imageListeners(element){
@@ -51,17 +52,50 @@ var RefineryImageUploader = (function($){
 
     function setPreviewDiv(image){
         previewDiv = $('.upload > .file-preview');
-
+        modalImage =
         bgWidth = previewDiv.width();
         previewDiv.css({
-            "background-size":bgWidth + "px, auto",
-            "background-position":"50%, 50%"
+            "background-size":bgWidth + "px, auto"
         });
 
         if(image !== undefined){
             previewDiv.css({"background-image":"url("+image+")"});
             previewDiv.fadeIn(500);
+            var editModal = $('#modal-edit-image');
+            // if there is an edit modal, change the image that is being
+            // displayed in it.
+            if(editModal.length > 0 ){
+                var editableImage = editModal.find('.cropper-container > img');
+                if(editableImage.length > 0){
+                    editableImage.cropper("destroy");
+                    editableImage.attr("src", image);
+                } else {
+                    editModal.find('.cropper-container').append('<img src="'+image+'">');
+                }
+                initCropper();
+            }
         }
+    }
+
+    function initCropper() {
+        var $image = $(".cropper-container > img"),
+            options = {
+                modal: false,
+                data: {width: 640, height: 360},
+                preview: '.cropper-preview',
+                done: function(data) {
+
+                }
+            };
+
+        $image.cropper(options);
+
+        $('.btn-primary[data-method="rotate"]').unbind('click').click(function(e){
+            $image.cropper('rotate', $(this).attr('data-option'));
+        });
+        $('.btn-primary[data-method="zoom"]').unbind('click').click(function(e){
+            $image.cropper('zoom', $(this).attr('data-option'));
+        });
     }
 
     function uploadImageHandler(){
@@ -97,11 +131,8 @@ var RefineryImageUploader = (function($){
     }
 
     function openCropModal(){
-        $('#modal-edit-image')
-            .modal('show')
-        ;
+        $('#modal-edit-image').modal('show');
     }
-
 
     // Return API for other modules
     return {};

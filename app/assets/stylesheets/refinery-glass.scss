@@ -20,9 +20,27 @@ img.pull-left{
 	margin-bottom: 30px;
 }
 
+.btn.btn-edit-img {
+  padding-right: 6px;
+  i {
+    margin: 0;
+    padding: 10px 6px 9px 10px;
+    background-color: rgba(0,0,0,0.6);
+    border-radius: 20px;
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+    opacity: 0.6;
+  }
+  &:hover {
+    i {
+      opacity: 0.8;
+    }
+  }
+}
+
 #image-upload-form {
   position: absolute;
-  top: -100px;
+  top: -400px;
 }
 
 /* -------------------- MAIN -------------------- */
