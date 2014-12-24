@@ -1,4 +1,4 @@
-var forms = (function($){
+var CanvasForms = (function($){
   $(document).on('content-ready', function (e, element) {
     initFormSelectsWithin(element);
     initFormOptionalFieldsWithin(element);
@@ -130,6 +130,7 @@ var forms = (function($){
     var $to_update = $(update_selector.data('selector'));
     $tmp.insertAfter($to_update).append($to_update);
     $tmp.load(document.URL + ' ' + update_selector.data('selector'));
+    $(document).trigger('content-ready', $(update_selector.data('selector')));
   }
 
   function replaceContent($orig, $replacement) {
@@ -142,5 +143,6 @@ var forms = (function($){
 
   // Return API for other modules
   return {
+    'replaceContent': replaceContent,
   };
 })(jQuery);

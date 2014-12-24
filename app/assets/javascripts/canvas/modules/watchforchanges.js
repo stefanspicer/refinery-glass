@@ -20,7 +20,7 @@ var WatchForChanges = (function($){
 
   function addWatcher(watcher) {
     if (watchers.length === 0) {
-      setInterval(do_the_watching, 1000);
+      setInterval(do_the_watching, watcher.delay);
     }
     watchers.push(watcher);
   }
@@ -44,15 +44,21 @@ var WatchForChanges = (function($){
 
     var watcher = this;
 
-    args['onchange'].change(function (e) {
-      watcher.formElementChanged($(this));
-    });
+    if (args['onchange']) {
+      args['onchange'].change(function (e) {
+        watcher.formElementChanged($(this));
+      });
+    }
 
-    args['onkeypress'].keypress(function (e) {
-      watcher.formElementChanged($(this));
-    });
+    if (args['onkeypress']) {
+      args['onkeypress'].keypress(function (e) {
+        watcher.formElementChanged($(this));
+      });
+    }
 
     this.callback = args['callback'];
+    this.delay    = args['delay']     || 1000;
+    this.maxdelay = args['maxdelay']  || 10000;
 
     addWatcher(this);
 
@@ -66,11 +72,11 @@ var WatchForChanges = (function($){
 
     this.watch_out = function() {
       var readyToSave = false;
-      if (this.latestChangeTime > this.latestSaveTime) {        // we have unsaved changes
-        if (Date.now() > this.latestChangeTime + 1000) {   // a bit of "no changes" time has passed
+      if (this.latestChangeTime > this.latestSaveTime) {           // we have unsaved changes
+        if (Date.now() > this.latestChangeTime + this.delay) {     // a bit of "no changes" time has passed
           readyToSave = true;
         }
-        if (this.oldestUnsavedTime < Date.now() - 10000) { // unsaved changes are getting too old
+        if (this.oldestUnsavedTime < Date.now() - this.maxdelay) { // unsaved changes are getting too old
           readyToSave = true;
         }
       }
