@@ -1,0 +1,40 @@
+.image-cropper-content{
+  div[class^="col-"] {
+    overflow: hidden !important;
+  }
+  .col-sm-12:first-child {
+    margin-bottom: 10px;
+  }
+}
+.cropper-container {
+  height: 300px !important;
+  vertical-align: top;
+  img {
+    vertical-align: top;
+  }
+}
+.cropper-preview {
+  overflow: hidden !important;
+  display: block;
+
+  &.portrait1{
+    width: 66px;
+    height: 100px;
+  }
+  &.portrait2{
+    width: 80px;
+    height: 100px;
+  }
+  &.square1{
+    width: 100px;
+    height: 100px;
+  }
+  &.landscape1{
+    width: 150px;
+    height: 100px;
+  }
+  &.landscape2{
+    width: 125px;
+    height: 100px;
+  }
+}
