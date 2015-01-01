@@ -407,7 +407,6 @@ ul li{
 
 form{
   label{
-    padding-top: 15px;
     text-align: left;
     font-weight: 400;
   }
@@ -416,6 +415,12 @@ form{
   }
   .required{
     color: $red;
+  }
+}
+
+.form-horizontal{
+  label{
+    padding-top: 15px;
   }
 }
 
