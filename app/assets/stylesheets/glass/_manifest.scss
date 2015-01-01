@@ -1,4 +1,8 @@
-@import "config/variables";
+/******************************************************************************
+ * For full documentation of what is being included where, see:
+ * refinery-glass gem: /app/assets/stylesheets/refinery-glass.scss
+ ******************************************************************************/
+
 @import "canvas/config/base-variables";
 @import "canvas/bootstrap/variables";
 @import "config/mixins";
@@ -13,3 +17,4 @@
 @import "canvas/transition";
 @import "canvas/cropper";
 @import "canvas/image_cropping";
+@import "glass/base";

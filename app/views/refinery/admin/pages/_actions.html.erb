@@ -1,22 +1,7 @@
-<!-- # <%= render '/refinery/admin/search', :url => refinery.admin_pages_path %> -->
 <% content_for :admin_submenu do %>
-<ul id="actions" class="list-unstyled active">
-  <li>
-    <%= link_to '<i class="gcicon gcicon-add"></i>'.html_safe + t('.create_new_page'), refinery.new_admin_page_path %>
-  </li>
-  <!--
-<% if @pages.many? and !searching? %>
+  <ul id="actions" class="list-unstyled active">
     <li>
-      <%= link_to '<i class="gcicon gcicon-reorder"></i>'.html_safe + t('.reorder_pages'),
-                  refinery.admin_pages_path,
-                  :id => "reorder_action" %>
-
-      <%= link_to '<i class="gcicon gcicon-reorder"></i>'.html_safe + t('.reorder_pages_done'),
-                  refinery.admin_pages_path,
-                  :id => "reorder_action_done",
-                  :style => "display: none;" %>
+      <%= link_to '<i class="gcicon gcicon-add"></i>'.html_safe + t('.create_new_page'), refinery.new_admin_page_path %>
     </li>
-  <% end %>
--->
-</ul>
+  </ul>
 <% end %>
