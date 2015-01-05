@@ -6,6 +6,7 @@ var RefineryImageUploader = (function($){
         uploadImageHandler();
         setPreviewDiv();
         initCropper();
+        imageDeleteListener();
     });
 
     function imageListeners(element){
@@ -26,10 +27,7 @@ var RefineryImageUploader = (function($){
     function fileUploaderListener(element){
         $(element).find('input[type=file]').change(function(e) {
             if(typeof FileReader == "undefined") return true;
-            var previewElement = $('.upload > .file-preview');
 
-
-            var elem = $(this);
             var files = e.target.files;
 
             for (var i=0, file; file=files[i]; i++) {
@@ -46,14 +44,15 @@ var RefineryImageUploader = (function($){
                     reader.readAsDataURL(file);
                 }
             }
+            $('.upload > .file-preview').fadeOut(200);
             $('#submit-image-btn').click();
         });
     }
 
     function setPreviewDiv(image){
-        previewDiv = $('.upload > .file-preview');
-        modalImage =
-        bgWidth = previewDiv.width();
+        var previewDiv = $('.upload > .file-preview');
+        var bgWidth = previewDiv.width();
+
         previewDiv.css({
             "background-size":bgWidth + "px, auto"
         });
@@ -126,21 +125,42 @@ var RefineryImageUploader = (function($){
     function handleError(response){
         $('#progress-box').hide();
 
+/*        console.log("upload failed");
+        console.log(response);
+        console.log(response.responseJSON.errors);*/
         GlassFormHelper.insertErrors($('#image-upload-form'), response.responseJSON.errors, true);
     }
 
     function handleSuccess(response){
         var imageIdField = $('#image-id-field');
         var newBtnText = 'Replace Image';
+        var deleteBtn = $("#image-delete-btn");
+        var uploadbtn = $('#image-upload-btn');
 
         if(imageIdField.length > 0){
             imageIdField.val(response.image_id)
+
+        }
+        if(deleteBtn.length > 0){
+            deleteBtn.attr('data-path', '/admin/images/' + response.image_id);
+        } else {
+            var deleteBtn = [
+            '<button id="image-delete-btn" class="btn btn-link"',
+                ' title="Delete" data-path="/admin/images/',response.image_id,'">',
+                '<i class="gcicon gcicon-trash"></i>',
+            '</button>'].join("");
+            uploadbtn.after(deleteBtn);
+            imageDeleteListener();
         }
 
-        $('#image-upload-btn').text(newBtnText);
+        GlassFormHelper.resetState();
+        setTimeout(function(){
+            $('#progress-box').fadeOut(1000);
+        }, 1500);
+
+        uploadbtn.text(newBtnText);
 
         $('.upload > .file-preview').fadeIn(500);
-
     }
 
     function updateProgressBar(percentComplete){
@@ -151,6 +171,40 @@ var RefineryImageUploader = (function($){
         if(percentComplete > 50){
             statusText.css('color','#fff'); // change status text to white after 50%
         }
+    }
+
+    function imageDeleteListener(){
+        $('#image-delete-btn').unbind('click').click(function(e){
+            e.preventDefault();
+            handleImageDelete($(this));
+        });
+    }
+
+    function handleImageDelete(btn){
+
+        $.ajax({
+           type: 'DELETE',
+           url: btn.attr('data-path'),
+           data: {'authenticity_token': $('#auth_token').val()},
+           success: handleDeleteSuccess,
+           error: handleDeleteError
+        });
+    }
+
+    function resetImageUpload() {
+        var addBtnText = 'Add an image';
+        $('#image-id-field').val(null);
+        $('.upload > .file-preview').fadeOut(500);
+        $('#image-upload-btn').text(addBtnText);
+        $('#image-delete-btn').fadeOut(500, function(){$(this).remove()});
+    }
+
+    function handleDeleteSuccess(response) {
+        resetImageUpload();
+    }
+
+    function handleDeleteError(response) {
+
     }
 
     function resetProgressBar(){

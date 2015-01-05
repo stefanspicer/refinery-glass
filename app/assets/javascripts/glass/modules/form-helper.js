@@ -78,6 +78,7 @@ var GlassFormHelper = (function($){
     // Return API for other modules
     return {
         insertStripeErrors: insertStripeErrors,
-        insertErrors: insertErrors
+        insertErrors: insertErrors,
+        resetState: resetState
     };
 })(jQuery);
