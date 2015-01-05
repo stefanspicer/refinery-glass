@@ -100,34 +100,66 @@ var RefineryImageUploader = (function($){
 
     function uploadImageHandler(){
         var imageForm = $('#image-upload-form');
-        var url = imageForm.attr('action');
         var model = $('.form-with-image').attr('data-model');
-        var form_field = $('.form-with-image').attr('data-field-name');
+
+        var options = {
+            target: "#output",
+            beforeSubmit: beforeSubmit,
+            uploadProgress: onProgress,
+            success: handleSuccess,
+            error: handleError,
+            resetForm: true
+        };
 
         imageForm.submit(function(e){
-            $.ajax({
-                method: 'post',
-                url: url,
-                data: new FormData(this),
-                async: false,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function(response){
-                    var imageIdField = $('#image-id-field');
+            $(this).ajaxSubmit(options);
 
-                    if(imageIdField.length > 0){
-                        imageIdField.val(response.image_id)
-                    }
-                    $('.upload > .file-preview').fadeIn(500);
-                },
-                error: function(response){
-                    console.log("fail response");
-                    console.log(response);
-                }
-            });
-            e.preventDefault();
+            return false;
         });
+    }
+
+    function beforeSubmit(){
+        resetProgressBar();
+        $('#progress-box').show();
+    }
+
+    function handleError(response){
+        $('#progress-box').hide();
+
+        GlassFormHelper.insertErrors($('#image-upload-form'), response.responseJSON.errors, true);
+    }
+
+    function handleSuccess(response){
+        var imageIdField = $('#image-id-field');
+        var newBtnText = 'Replace Image';
+
+        if(imageIdField.length > 0){
+            imageIdField.val(response.image_id)
+        }
+
+        $('#image-upload-btn').text(newBtnText);
+
+        $('.upload > .file-preview').fadeIn(500);
+
+    }
+
+    function updateProgressBar(percentComplete){
+        var statusText = $("#status-text");
+        $("#progress-bar").width(percentComplete + '%');
+        statusText.html(percentComplete + '%');
+
+        if(percentComplete > 50){
+            statusText.css('color','#fff'); // change status text to white after 50%
+        }
+    }
+
+    function resetProgressBar(){
+        updateProgressBar(1);
+        $("#status-text").css('color','#000000');
+    }
+
+    function onProgress(event, position, total, percentComplete){
+        updateProgressBar(percentComplete);
     }
 
     function openCropModal(){
