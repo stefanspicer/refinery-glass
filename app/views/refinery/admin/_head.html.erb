@@ -2,7 +2,7 @@
 <title>Elephant - <%= Refinery::Core.site_name -%></title>
 <%= csrf_meta_tags %>
 
-<%= stylesheet_link_tag current_refinery_user.org.present? ? "refinery-glass-#{current_refinery_user.org.slug}" : "refinery-glass" %>
+<%= stylesheet_link_tag current_refinery_user.present? && current_refinery_user.org.present? ? "refinery-glass-#{current_refinery_user.org.slug}" : "refinery-glass" %>
 
 <%#= stylesheet_link_tag 'refinery/refinery' %>
 <% custom_stylesheets.each do |css| %>
