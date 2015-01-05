@@ -6,11 +6,33 @@
 form div.upload { overflow:hidden; }
 
 form div.upload div.file-preview {
-  display:inline-block;
-  float:left;
-  margin-right:1em;
-  width:300px;
-  height:200px;
-  text-align:center;
+  margin-top: 5px;
+  display: inline-block;
+  margin-right: 1em;
+  width: 300px;
+  height: 200px;
+  text-align: center;
   background-repeat: none;
+  float: left;
+}
+
+#progress-box {
+  margin-top: 5px;
+  padding: 1px;
+  width: 300px;
+  display: none;
+  text-align:left;
+  float: left;
+}
+#progress-bar {
+  height: 20px;
+  display: block;
+  width: 1%;
+}
+#status-text {
+  top: 3px;
+  left: 50%;
+  position:absolute;
+  display:inline-block;
+  color: #000000;
 }
