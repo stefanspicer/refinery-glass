@@ -9,7 +9,26 @@ module Refinery
                 :searchable => false,
                 :xhr_paging => true
 
+        before_filter :set_image, :only => [:edit, :new, :create, :update]
+
           # NOTE: making searchable: remember to add to your model `acts_as_indexed :fields => [:title, :body]`
+
+        private
+          def set_image
+            image_attributes = []
+
+            if @<%= singular_name.underscore %>.present?
+              @<%= singular_name.underscore %>.attributes.each_with_index do |attribute, index|
+                if attribute.type.to_s == 'image'
+                  image_attributes.push(attribute.name)
+                end
+              end
+            end
+
+            @image = (@<%= singular_name.underscore %>.present? && @<%= singular_name.underscore %>[image_attributes.first.to_sym].present?) ?
+              @<%= singular_name.underscore -%>[image_attributes.first.to_sym]
+              : Refinery::Image.new
+          end
       end
     end
   end
