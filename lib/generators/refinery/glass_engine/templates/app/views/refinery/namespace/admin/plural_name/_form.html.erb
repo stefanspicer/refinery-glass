@@ -28,6 +28,7 @@
                  :f => f,
                  :model => @<%= singular_name %>,
                  :model_name => '<%= singular_name %>',
+                 :associated_image => @<%= singular_name %>.<%= image_attributes.first %>,
                  :field_name => '<%= image_attributes.first %>'.to_sym
       -%>
     </div>
@@ -76,5 +77,5 @@
 
 <% if image_attributes.any? %>
   <%%= render 'refinery/admin/images/form',
-              :attribute_name => '<%= image_attributes.first %>' -%>
+              :image => @<%= singular_name %>.<%= image_attributes.first %> -%>
 <% end %>
