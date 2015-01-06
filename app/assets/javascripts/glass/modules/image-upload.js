@@ -128,7 +128,7 @@ var RefineryImageUploader = (function($){
 /*        console.log("upload failed");
         console.log(response);
         console.log(response.responseJSON.errors);*/
-        GlassFormHelper.insertErrors($('#image-upload-form'), response.responseJSON.errors, true);
+      CanvasForms.insertErrors($('#image-upload-form'), response.responseJSON.errors, true);
     }
 
     function handleSuccess(response){
@@ -153,7 +153,7 @@ var RefineryImageUploader = (function($){
             imageDeleteListener();
         }
 
-        GlassFormHelper.resetState();
+        CanvasForms.resetState();
         setTimeout(function(){
             $('#progress-box').fadeOut(1000);
         }, 1500);
