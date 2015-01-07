@@ -40,7 +40,8 @@
 
 <div class='form-actions<%= ' form-actions-dialog' if from_dialog? %> pull-left'>
   <div class='form-actions-left'>
-    <%= submit_tag submit_button_text,
+    <%= button_tag submit_button_text,
+                   :type => :submit,
                    :id => submit_button_id,
                    :name => nil,
                    :class => "btn btn-primary btn-lg",
