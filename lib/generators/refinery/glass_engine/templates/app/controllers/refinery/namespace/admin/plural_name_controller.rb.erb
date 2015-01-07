@@ -9,8 +9,17 @@ module Refinery
                 :searchable => false,
                 :xhr_paging => true
 
-          # NOTE: making searchable: remember to add to your model `acts_as_indexed :fields => [:title, :body]`
+        # NOTE: making searchable: remember to add to your model `acts_as_indexed :fields => [:title, :body]`
 
+        # NOTE: This can be moved back into crudify (that's where it came from)
+        # Returns a weighted set of results based on the query specified by the user.
+        def search_all_<%= plural_name %>
+          # First find normal results.
+          find_all_<%= plural_name %>('')
+
+          # Now get weighted results by running the query against the results already found.
+          @<%= plural_name %> = @<%= plural_name %>.with_query('^' + params[:search].split.join(' ^'))
+        end
       end
     end
   end

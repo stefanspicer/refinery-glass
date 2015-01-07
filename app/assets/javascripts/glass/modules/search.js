@@ -17,8 +17,8 @@ var GlassSearch = (function ($){
       watcher = new WatchForChanges.Watcher({
         'onkeypress' : $search_form.find('input#search'),
         'callback'   : do_search,
-        'delay'      : 500,
-        'maxdelay'   : 2000,
+        'delay'      : 400,
+        'maxdelay'   : 1000,
       });
 
       $search_form.ajaxForm({
