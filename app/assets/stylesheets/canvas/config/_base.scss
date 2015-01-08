@@ -463,6 +463,12 @@ form{
 	}
 }
 
+.icon-only{
+  .icon{
+    margin-left: 0;
+  }
+}
+
 .select-area, .form-control{
 	@include transition($transition);
   @include box-shadow(none);
@@ -756,6 +762,18 @@ input:focus, .form-control:focus, input[type="submit"]:focus, .btn:focus, input[
 	}
 }
 
+.btn-light{
+	background: $grey-5;
+	color: $white;
+	&:link, &:visited{
+		color: $white;
+	}
+	&:hover, &:focus, &:active{
+	  background: $primary-hover;
+		color: $white;
+	}
+}
+
 .btn-dark{
 	background: $grey-6;
 	color: $white;
@@ -764,6 +782,18 @@ input:focus, .form-control:focus, input[type="submit"]:focus, .btn:focus, input[
 	}
 	&:hover, &:focus, &:active{
 	  background: $grey-5;
+		color: $white;
+	}
+}
+
+.btn-green{
+	background: $green;
+	color: $white;
+	&:link, &:visited{
+		color: $white;
+	}
+	&:hover, &:focus, &:active{
+	  background: lighten($green, 10);
 		color: $white;
 	}
 }
@@ -790,5 +820,29 @@ input:focus, .form-control:focus, input[type="submit"]:focus, .btn:focus, input[
   }
   &:hover{
     color: $primary-hover;
+  }
+}
+
+.btn-hover-spin{
+  .icon{
+    transition: $transition ease-out;
+  }
+  &:hover{
+    .icon{
+      transform: rotate(180deg) scale(-1, 1) translate(0, 1px);
+    }
+  }
+}
+
+.btn-hover-remove{
+  &:hover{
+    background: $red;
+    color: $white;
+    .icon{
+      display: none;
+    }
+    .icon-minus-circle{
+      display: inline-block;
+    }
   }
 }
