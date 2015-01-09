@@ -834,7 +834,17 @@ input:focus, .form-control:focus, input[type="submit"]:focus, .btn:focus, input[
   }
 }
 
+.btn-hover-red{
+  &:hover{
+    background: $red;
+    color: $white;
+  }
+}
+
 .btn-hover-remove{
+  .icon-minus-circle{
+    display: none;
+  }
   &:hover{
     background: $red;
     color: $white;
