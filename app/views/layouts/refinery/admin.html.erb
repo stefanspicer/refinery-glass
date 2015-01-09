@@ -1,4 +1,40 @@
 <!DOCTYPE html>
+<!-- DOCUMENTATION
+
+html
+  head
+    head_common
+    refinery js (includes some or all of application-base.js)
+  /head
+  body
+    menu (sidebar-left)
+    admin_page_preview
+      _body partial
+        header (main nav)
+        content
+        footer
+      /_body partial
+      js - application.js (frontend specific)
+    /admin_page_preview
+    OR admin_content
+    [OR legacy admin content]
+    modal wrapper
+    admin_sidebar (right side)
+  /body
+/html
+
+html
+  head
+    head_common
+  /head
+  body
+    shared _body partial
+    js - application-base.js (js that admin doesn't need because it is already included there)
+    js - application.js (frontend specific)
+  /body
+/html
+-->
+
 <%= render '/refinery/html_tag' %>
   <% content_for :meta, "<meta refinerycms='#{Refinery.version}' />".html_safe %>
   <head>
@@ -7,7 +43,7 @@
   <body class="<%= action_name %> <%= I18n.locale %>">
 
     <section id="sidebar-left" class="ui sidebar overlay">
-      <div class="site-name">
+      <div class="sidebar-top-nav">
         <a href="" class="sidebar-left-opener menu-link menu-link-left"><i class="gcicon gcicon-cancel"></i></a> <%= link_to Refinery::Core.site_name, '/' %>
       </div>
       <div id="sidebar-left-inner">
@@ -16,9 +52,23 @@
         <%= link_to (t('.log_out', site_bar_translate_locale_args) + ' <i class="gcicon gcicon-log-out"></i>').html_safe,
                 refinery.logout_path, :id => 'logout', :class => 'log-out' %>
     </section>
+    
+    <% if content_for?(:admin_sidebar) %>
+    <section id="sidebar-right" class="ui sidebar overlay right">
+      <div class="sidebar-top-nav">
+         <span>Settings</span> <a href="" class="sidebar-right-opener menu-link menu-link-right"><i class="gcicon gcicon-cancel"></i></a>
+      </div>
+      <div id="sidebar-right-inner">
+        <%= yield :admin_sidebar %>
+      </div>
+    </section>
+    <% end %>
 
     <section id="wrapper" class="pusher">
-      <a href="" class="sidebar-left-opener menu-link menu-link-left"><i class="gcicon gcicon-gear"></i></a>
+      <a href="" class="sidebar-left-opener menu-link menu-link-left"><i class="gcicon gcicon-bars"></i></a>
+      <% if content_for?(:admin_sidebar) %>
+      <a href="" class="sidebar-right-opener menu-link menu-link-right"><i class="gcicon gcicon-publish"></i></a>
+      <% end %>
       
         <div id="flash_container" class="container-fluid">
           <%= render '/refinery/no_script' %>
@@ -27,6 +77,7 @@
         <% if content_for?(:admin_page_preview) %>
           <section id="page-preview">
             <%= render "/refinery/body" %> <!-- this partial yields to :admin_page_preview -->
+            <%= render '/refinery/javascripts' %>
           </section>
         <% elsif content_for?(:admin_content) %>
           <%= yield :admin_content %>
@@ -43,14 +94,8 @@
         <% end %>
 
         <%= render 'refinery/admin/glass/modal' %>
-
-      <% if content_for?(:admin_sidebar) %>
-        <section id="sidebar-right" class="sidebar">
-          <div id="sidebar-right-inner">
-            <%= yield :admin_sidebar %>
-          </div>
-        </section>
-      <% end %>
+        
     </section>
+    
   </body>
 </html>
