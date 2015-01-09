@@ -139,9 +139,9 @@ var RefineryImageUploader = (function ($) {
   function handleError(response) {
     $('#progress-box').hide();
 
-    /*        console.log("upload failed");
+     console.log("upload failed");
      console.log(response);
-     console.log(response.responseJSON.errors);*/
+     console.log(response.responseJSON);
     CanvasForms.insertErrors($('#image-upload-form'), response.responseJSON.errors, true);
   }
 
