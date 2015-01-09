@@ -168,7 +168,7 @@ body{
 
 #wrapper{
   background: lighten($off-white, 2%) !important;
-  padding: 65px 0;
+  padding: 0;
 }
 
 .admin-title{
@@ -496,7 +496,7 @@ body{
   background: $off-white;
   border-right: 1px solid $grey-2;
   padding: 0;
-  .site-name{
+  .sidebar-top-nav{
     text-align: right;
     background: $grey-1;
     width: 100%;
