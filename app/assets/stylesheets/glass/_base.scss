@@ -144,7 +144,7 @@ body{
   position: fixed;
   top: 10px;
   color: $white;
-  z-index: 10;
+  z-index: 1050;
   padding: 9px 10px;
   @include transition($transition);
   &:hover{
@@ -160,6 +160,10 @@ body{
 
 .menu-link-left{
   left: 10px;
+}
+
+.menu-link-right{
+  right: 10px;
 }
 
 #wrapper{
