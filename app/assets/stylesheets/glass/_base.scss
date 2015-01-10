@@ -23,6 +23,7 @@ img.pull-left{
 }
 
 .btn.btn-edit-img {
+  display: none;
   padding-right: 6px;
   i {
     margin: 0;
@@ -594,18 +595,29 @@ body{
 }
 
 #sidebar-right{
+  background: $off-white;
+  border-left: 1px solid $grey-2;
   height: 100%;
   width: 230px;
   position: fixed;
   top: 0;
   right: 0;
+  .sidebar-top-nav{
+    text-align: left;
+    background: $grey-1;
+    width: 100%;
+    padding: 18px 15px;
+    z-index: 10000;
+    position: fixed;
+    top: 0;
+    color: $grey-6;
+    font-size: 21px;
+    font-weight: 600;
+  }
   #sidebar-right-inner{
-    background: $off-white;
     width: 230px;
     height: 100%;
-    margin-left: -15px;
-    padding: 15px 0 60px;
-    border-left: 1px solid $grey-2;
+    padding: 80px 0 60px;
     overflow-y: scroll;
     overflow-x: hidden;
     .page-options{
@@ -640,6 +652,7 @@ body{
         font-weight: 600;
         color: $grey-5;
         margin-bottom: 30px;
+        word-wrap: break-word;
         span{
           padding-bottom: 1px;
         }
