@@ -208,7 +208,6 @@ body{
   }
   .btn-link-grey{
     font-weight: 300;
-    z-index: 60;
     .gcicon{
       color: $grey-3;
     }
@@ -243,6 +242,12 @@ body{
     }
     .gcicon{
       color: $grey-3;
+    }
+  }
+  
+  .open{
+    .btn-link-grey{
+      z-index: 60;
     }
   }
 }
