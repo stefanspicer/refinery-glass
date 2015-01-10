@@ -2,7 +2,7 @@
   <form method='GET' action='<%= url %>' class='search_form'>
     <div class="input-group">
       <%= text_field :search, nil, :id => 'search', :type => 'search', :name => 'search', :value => params[:search],
-                     :class => 'form-contorl',
+                     :class => 'form-control',
                      :placeholder => t('search_input_notice', :scope => 'refinery.admin.search')
       %>
       <%= hidden_field :wymeditor, nil, :name => 'wymeditor', :id => nil, :value => true  if params[:wymeditor].presence %>
