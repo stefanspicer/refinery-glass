@@ -400,7 +400,6 @@ body{
         .actions{
           text-align: right;
           display: none;
-          width: 150px;
           .circle-icon{
             color: $white;
             border-color: $white;
@@ -419,6 +418,24 @@ body{
             display: inline-block;
             margin-left: 5px;
           }
+        }
+        .actions-col-0{
+          width: 0;
+        }
+        .actions-col-1{
+          width: 40px;
+        }
+        .actions-col-2{
+          width: 80px;
+        }
+        .actions-col-3{
+          width: 120px;
+        }
+        .actions-col-4{
+          width: 160px;
+        }
+        .actions-col-5{
+          width: 200px;
         }
       }
     }
