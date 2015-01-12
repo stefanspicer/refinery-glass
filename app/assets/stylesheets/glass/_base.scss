@@ -108,32 +108,35 @@ body{
   }
 }
 
-#flash_container{
-  padding: 0;
-  max-width: 1200px;
-  .alert{
-    margin: 0 15px 30px 15px;
-    background: lighten($primary-fade, 16);
-    color: $primary-dark;
-    border-color: saturate(lighten($primary-fade, 12), 20);
-    border-radius: 0;
-    .close{
-      font-size: 25px;
-      color: $primary-color;
-      opacity: 0.6;
-      &:hover{
-        color: $primary-hover;
+.flash_notice{
+  margin-top: 60px;
+  #flash_container{
+    padding: 0;
+    max-width: 1200px;
+    .alert{
+      margin: 0 15px 30px 15px;
+      background: lighten($primary-fade, 16);
+      color: $primary-dark;
+      border-color: saturate(lighten($primary-fade, 12), 20);
+      border-radius: 0;
+      .close{
+        font-size: 25px;
+        color: $primary-color;
+        opacity: 0.6;
+        &:hover{
+          color: $primary-hover;
+        }
       }
     }
-  }
-  #flash{
-    margin: 0 15px 30px 15px;
-    display: block;
-    padding: 10px 15px;
-    background: $grey-5;
-    color: $white;
-    #flash_close{
-      float: right;
+    #flash{
+      margin: 0 15px 30px 15px;
+      display: block;
+      padding: 10px 15px;
+      background: $grey-5;
+      color: $white;
+      #flash_close{
+        float: right;
+      }
     }
   }
 }
@@ -192,6 +195,7 @@ body{
   margin-bottom: 30px;
   display: flex;
   align-items: center;
+  border-radius: $radius;
   .contextual-options{
     display: flex;
     align-items: center;
@@ -300,6 +304,7 @@ body{
 
 .admin-index{
   max-width: 1200px;
+  padding-top: 60px;
   ul{
     li{
       margin-bottom: 0;
@@ -609,6 +614,7 @@ body{
   position: fixed;
   top: 0;
   right: 0;
+  overflow-y: hidden !important;
   .sidebar-top-nav{
     text-align: left;
     background: $grey-1;
@@ -624,7 +630,8 @@ body{
   #sidebar-right-inner{
     width: 230px;
     height: 100%;
-    padding: 80px 0 60px;
+    padding: 15px 0 60px;
+    top: 62px;
     overflow-y: scroll;
     overflow-x: hidden;
     .page-options{
