@@ -1,3 +1,18 @@
+.btn{
+  &:hover{
+    .ui.loader{
+      color: #ffffff;
+      &:before{
+        border-color: rgba(255, 255, 255, 0.15);
+      }
+      &:after{
+        border-top-color: #ffffff;
+      }
+    }
+  }
+}
+
+
 /* Standard Size */
 .ui.loader {
   display: none;
@@ -76,7 +91,7 @@
 .ui.xs.loader:after {
   width: 16px;
   height: 16px;
-  margin: 0 0 0 -11px;
+  margin: 0 0 0 -8px;
 }
 .ui.sm.loader:before,
 .ui.sm.loader:after {
