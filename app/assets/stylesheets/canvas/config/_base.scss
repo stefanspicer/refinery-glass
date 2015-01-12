@@ -190,6 +190,29 @@ p::-moz-selection {
   color: $black;
 }
 
+.badge, .btn .badge{
+  min-width: 20px;
+  height: 20px;
+  padding: 6px 5px 3px;
+  font-size: 10px;
+  border-radius: 10px;
+  background-color: $grey-2;
+  color: $grey-6;
+  &.floating{
+    position: absolute;
+    top: -7px;
+    right: -7px;
+  }
+  &-dark{
+    background: $grey-6;
+    color: $off-white;
+  }
+  &-red{
+    background: $red;
+    color: $white;
+  }
+}
+
 .video-link{
 	display: block;
 	background: $white;
