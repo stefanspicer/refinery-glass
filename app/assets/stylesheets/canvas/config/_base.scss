@@ -343,14 +343,17 @@ a.pill{
 }
 
 .corner-label{
+  width: 40px;
+  height: 40px;
   top: 0;
   right: 0;
   z-index: 100;
   font-size: .75em;
   border-radius: 0 $radius-double 0 0;
-  border-color: #e8e8e8;
+  border-color: #f2c61f;
   position: absolute;
-color: rgba(0,0,0,.6);
+  color: rgba(0,0,0,.6);
+  overflow: hidden;
   &:after{
     position: absolute;
     content: "";
@@ -370,6 +373,13 @@ color: rgba(0,0,0,.6);
   }
   span{
     transform: rotate(45deg);
+    display: block;
+    top: 1px;
+    position: absolute;
+    right: 3px;
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 600;
   }
 }
 
