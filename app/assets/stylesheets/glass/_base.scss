@@ -181,12 +181,6 @@ body{
   text-align: center;
 }
 
-.input-group{
-  .form-control, .btn{
-    border-radius: 0;
-  }
-}
-
 .contextual-menu{
   background: $white;
   padding: 15px;
@@ -303,6 +297,10 @@ body{
 .admin-index{
   max-width: 1200px;
   padding-top: 60px;
+  .index-listing{
+    border-radius: $radius;
+    overflow: hidden;
+  }
   ul{
     li{
       margin-bottom: 0;
