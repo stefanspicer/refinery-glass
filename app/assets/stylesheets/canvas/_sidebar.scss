@@ -233,6 +233,11 @@
   z-index: 10002 !important;
 }
 
+/* Autocomplete dropdown (jquery-ui) */
+.ui-front {
+  z-index: 10003;
+}
+
 /* Animation */
 .animating.ui.overlay.sidebar,
 .ui.visible.overlay.sidebar {
