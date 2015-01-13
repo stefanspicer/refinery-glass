@@ -729,6 +729,12 @@ body{
         .actions{
           text-align: right;
           display: none;
+          &-visible{
+            display: block;
+          }
+          &-tight-right{
+            right: -10px;
+          }
           &-col-0{
             width: 0;
           }
