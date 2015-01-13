@@ -47,17 +47,18 @@
                    :class => "btn btn-primary btn-lg",
                    :tooltip => submit_button_title unless hide_submit %>
 
-    <%= render '/refinery/admin/continue_editing', :f => f if continue_editing -%>
     <%= hidden_field_tag :continue_editing, false if continue_editing %>
 
     <%= local_assigns[:before_cancel_button] -%>
 
+<!--
     <%= link_to(cancel_button_text, cancel_url,
                 :title => cancel_title,
                 :id => cancel_button_id,
-                :class => "btn btn-default btn-lg") unless hide_cancel %>
+                :class => "btn btn-default") unless hide_cancel %>
+-->
 
-    <%= local_assigns[:after_cancel_button] -%>
+<!--     <%= local_assigns[:after_cancel_button] -%> -->
     <%= local_assigns[:before_delete_button] -%>
     <%= link_to(delete_button_text, delete_url,
                 :title => delete_title,
@@ -66,7 +67,7 @@
                 :data => {
                   :confirm => delete_confirmation
                 },
-                :class => "btn btn-default btn-lg") unless hide_delete %>
+                :class => "btn btn-default") unless hide_delete %>
     <%= local_assigns[:after_delete_button] -%>
   </div>
 </div>

@@ -9,6 +9,8 @@
 //
 //  # glass/semantic-ui/modal.min # Joe, seems like this isn't quite working
 //= require canvas/jquery.form.min
+//= require canvas/jquery.select-to-autocomplete
+//= require canvas/jquery-ui-autocomplete
 //= require glass/semantic-ui/transition
 //= require glass/semantic-ui/sidebar
 //= require glass/cropper.js

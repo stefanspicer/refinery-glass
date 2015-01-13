@@ -5,7 +5,7 @@
     <a class="page-title" href="<%%= refinery.edit_<%= namespacing.underscore %>_admin_<%= singular_name %>_path(<%= singular_name %>) %>">
       <%%= <%= singular_name %>.<%= title_attribute %> %>
     </a>
-    <span class='actions'>
+    <span class='actions actions-col-2'>
       <% if localized? %>
           <%% if Refinery::I18n.frontend_locales.many? %>
             <span class='preview'>

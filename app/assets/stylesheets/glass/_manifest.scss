@@ -5,14 +5,20 @@
 
 @import "canvas/config/base-variables";
 @import "canvas/bootstrap/variables";
+
+/* The jquery-ui is for autocomplete (select-to-autocomplete) */
+@import "canvas/jquery-ui";
+/* @import "canvas/jquery-ui.theme"; */
+/* @import "canvas/jquery-ui.structure"; */
+
 @import "config/mixins";
 @import "canvas/config/base-mixins";
-@import "canvas/config/base";
 @import "glass/icons";
 @import "glass/icon-styles";
 @import "glass/images";
 @import "canvas/sidebar";
 @import "canvas/dimmer";
+@import "canvas/loader";
 @import "canvas/modal";
 @import "canvas/transition";
 @import "canvas/cropper";

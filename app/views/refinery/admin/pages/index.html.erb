@@ -28,7 +28,7 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-12">
+    <div class="col-sm-12 index-listing">
       <% cache_if(Refinery::Pages.cache_pages_backend, [Refinery::Core.base_cache_key, "pages_backend", Globalize.locale].join('_')) do %>
         <%= render 'records' %>
       <% end %>
