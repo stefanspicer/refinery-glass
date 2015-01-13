@@ -142,7 +142,7 @@ var RefineryImageUploader = (function ($) {
      console.log("upload failed");
      console.log(response);
      console.log(response.responseJSON);
-    CanvasForms.insertErrors($('#image-upload-form'), response.responseJSON.errors, true);
+     CanvasForms.insertErrors($('#image-upload-form'), response.responseJSON.errors, true);
   }
 
   function handleSuccess(response) {
