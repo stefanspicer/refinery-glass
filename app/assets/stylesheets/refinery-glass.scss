@@ -28,6 +28,56 @@
  * For each different slug (org OR unique theme), these are dynamically
  * included from in the <head>
  *
+ *
+ *
+ *
+ *
+ *
+ * ***** FEAST MULTI-SITE *****
+ * application-<slug>.css   BOTH                    refinery-glass-<slug>.css
+ *                          config/_variables-<slug>
+ * _application-manifest                            glass/_manifest-admin
+ *                          canvas/_manifest-admin-and-front
+ * canvas/_manifest-front                           _manifest-admin-sub
+ * _manifest-front-sub
+ * canvas/_manifest-front-exclusive
+ * _manifest-front-exclusive-sub
+ *
+ * application-<slug>-wrapped.css
+ * canvas/_manifest-front
+ * _manifest-front-sub
+ * 
+ *
+ * Result: you get:
+ *  - application-<slug>.css
+ *  - refinery-glass-<slug>.css
+ * For each different slug (org OR unique theme), these are dynamically
+ * included from in the <head>
+
+
+
+html
+  head
+    head_common
+    refinery js (includes some or all of application-base.js)
+  /head
+  body
+    admin_page_preview
+      js - application.js (frontend specific)
+    /admin_page_preview
+  /body
+/html
+
+html
+  head
+    head_common
+  /head
+  body
+    js - application-base.js (js that admin doesn't need because it is already included there)
+    js - application.js (frontend specific)
+  /body
+/html
+
  ******************************************************************************/
 
 @import "config/variables";
