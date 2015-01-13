@@ -39,9 +39,10 @@ html
   <% content_for :meta, "<meta refinerycms='#{Refinery.version}' />".html_safe %>
   <head>
     <%= render '/refinery/admin/head' %>
+    <%= render partial: '/refinery/stylesheets', locals: {admin: true} %>
   </head>
-  <body class="<%= action_name %> <%= I18n.locale %>">
 
+  <body class="<%= action_name %> <%= I18n.locale %>">
     <section id="sidebar-left" class="ui sidebar overlay">
       <div class="sidebar-top-nav site-name">
         <a href="" class="sidebar-left-opener menu-link menu-link-left"><i class="gcicon gcicon-cancel"></i></a> <%= link_to Refinery::Core.site_name, '/' %>
@@ -49,53 +50,53 @@ html
       <div id="sidebar-left-inner">
         <%= render 'refinery/admin/menu' %>
       </div>
-        <%= link_to (t('.log_out', site_bar_translate_locale_args) + ' <i class="gcicon gcicon-log-out"></i>').html_safe,
-                refinery.logout_path, :id => 'logout', :class => 'log-out' %>
+      <%= link_to (t('.log_out', site_bar_translate_locale_args) + ' <i class="gcicon gcicon-log-out"></i>').html_safe,
+                  refinery.logout_path, :id => 'logout', :class => 'log-out' %>
     </section>
     
     <% if content_for?(:admin_sidebar) %>
-    <section id="sidebar-right" class="ui sidebar overlay right">
-      <div class="sidebar-top-nav">
-         <span>Settings</span> <a href="" class="sidebar-right-opener menu-link menu-link-right"><i class="gcicon gcicon-cancel"></i></a>
-      </div>
-      <div id="sidebar-right-inner">
-        <%= yield :admin_sidebar %>
-      </div>
-    </section>
+      <section id="sidebar-right" class="ui sidebar overlay right">
+        <div class="sidebar-top-nav">
+           <span>Settings</span> <a href="" class="sidebar-right-opener menu-link menu-link-right"><i class="gcicon gcicon-cancel"></i></a>
+        </div>
+        <div id="sidebar-right-inner">
+          <%= yield :admin_sidebar %>
+        </div>
+      </section>
     <% end %>
 
     <section id="wrapper" class="pusher">
       <a href="" class="sidebar-left-opener menu-link menu-link-left"><i class="gcicon gcicon-bars"></i></a>
       <% if content_for?(:admin_sidebar) %>
-      <a href="" class="sidebar-right-opener menu-link menu-link-right"><i class="gcicon gcicon-publish"></i></a>
+        <a href="" class="sidebar-right-opener menu-link menu-link-right"><i class="gcicon gcicon-publish"></i></a>
       <% end %>
       
-        <div id="flash_container" class="container-fluid">
-          <%= render '/refinery/no_script' %>
-          <%= render '/refinery/message' %>
-        </div>
-        <% if content_for?(:admin_page_preview) %>
-          <section id="page-preview">
-            <%= render "/refinery/body" %> <!-- this partial yields to :admin_page_preview -->
-            <%= render '/refinery/javascripts' %>
-          </section>
-        <% elsif content_for?(:admin_content) %>
-          <%= yield :admin_content %>
-        <% else %>
-          <!-- this is just to display legacy, so we'll grab legacy css -->
-          <%= stylesheet_link_tag 'refinery/refinery' %>
-          <div class="container">
-            <div class="row">
-              <div class="col-sm-12">
-                <%= yield %>
-              </div>
+      <div id="flash_container" class="container-fluid">
+        <%= render '/refinery/no_script' %>
+        <%= render '/refinery/message' %>
+      </div>
+
+      <% if content_for?(:admin_page_preview) %>
+        <section id="page-preview">
+          <%= render "/refinery/body" %> <!-- this partial yields to :admin_page_preview -->
+        </section>
+      <% elsif content_for?(:admin_content) %>
+        <%= yield :admin_content %>
+      <% else %>
+        <!-- this is just to display legacy, so we'll grab legacy css -->
+        <%= stylesheet_link_tag 'refinery/refinery' %>
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12">
+              <%= yield %>
             </div>
           </div>
-        <% end %>
+        </div>
+      <% end %>
 
-        <%= render 'refinery/admin/glass/modal' %>
-        
+      <%= render 'refinery/admin/glass/modal' %>
     </section>
     
+    <%= render partial: '/refinery/javascripts', locals: {admin: true} %>
   </body>
 </html>
