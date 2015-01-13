@@ -297,9 +297,12 @@ body{
 .admin-index{
   max-width: 1200px;
   padding-top: 60px;
-  .index-listing{
-    border-radius: $radius;
+  .index-listing > ul{
     overflow: hidden;
+    border-radius: $radius;
+    li:last-child{
+      margin-bottom: -2px;
+    }
   }
   ul{
     li{
@@ -731,7 +734,7 @@ body{
           }
         }
       }
-      .settings-toggle{
+      .collapse-toggle{
         display: block;
         margin-bottom: 10px;
         color: $grey-6;
