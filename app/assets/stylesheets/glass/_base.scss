@@ -46,15 +46,361 @@ img.pull-left{
   top: -400px;
 }
 
-/* -------------------- MAIN -------------------- */
+#page-preview{
+  header#header{
+  }
+  .navbar-fixed-top{
+    position: absolute;
+    top: 40px;
+  }
+  .page-preview-content{
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+}
+
+
+
+/* -------------------- LAYOUT -------------------- */
 
 body{
   height: 100%;
   background: lighten($off-white, 2%) !important;
 }
 
+#wrapper{
+  background: lighten($off-white, 2%) !important;
+  padding: 0;
+}
 
-/* -------------------- ELEMENTS -------------------- */
+
+
+/* -------------------- SIDEBARS -------------------- */
+
+#sidebar-left{
+  background: $off-white;
+  border-right: 1px solid $grey-2;
+  padding: 0;
+  .sidebar-top-nav{
+    text-align: right;
+    background: $grey-1;
+    width: 100%;
+    padding: 18px 15px;
+    z-index: 10000;
+    position: fixed;
+    top: 0;
+    a{
+      color: $grey-6;
+      font-size: 21px;
+      font-weight: 600;
+      &:hover{
+        color: $primary-dark;
+      }
+    }
+  }
+  .log-out{
+    background: darken($off-white, 3%);
+    display: flex;
+    position: fixed;
+    justify-content: space-between;
+    bottom: 0;
+    width: 100%;
+    padding: 9px 15px;   
+    color: $grey-6;
+    font-size: 16px;
+    font-weight: 600;
+    align-items: center;
+    &:hover{
+      background: $primary-hover;
+      color: $white;
+    }
+  }
+  #sidebar-left-inner{
+    top: 65px;
+    height: calc(100% - 110px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-bottom: 15px;
+    li{
+      margin: 0 0 1px;
+      .gcicon{
+        margin-right: 4px;
+        color: $grey-6;
+      }
+      a{
+        padding: 10px 15px 6px;
+        width: 100%;
+        display: block;
+        color: $grey-6;
+        font-size: 16px;
+        letter-spacing: 1px;
+        text-decoration: none;
+        @include transition(0.1s);
+        font-weight: 400;
+        text-transform: uppercase;
+        &:hover{
+          border-bottom: 0;
+          background: $white-opaque;
+          color: $primary-dark;
+          .gcicon{
+            color: $primary-dark;
+          }
+        }
+      }
+      .active{
+        border-right: 2px solid $primary-color;
+        background: lighten($off-white, 6%);
+      }
+      ul{
+        padding-top: 1px;
+        margin-bottom: 10px;
+        li{
+          a{
+            padding: 4px 15px 4px 30px;
+            font-size: 13px;
+            font-weight: 400;
+            background: lighten($off-white, 3%);
+          }
+        }
+      }
+    }
+    .list-heading{
+      padding: 10px 15px 6px 30px;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: darken($white-opaque, 3%);
+      .gcicon{
+        margin-right: 8px;
+      }
+    }
+  }
+}
+
+#sidebar-right{
+  background: $off-white;
+  border-left: 1px solid $grey-2;
+  height: 100%;
+  width: 230px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  overflow-y: hidden !important;
+  .sidebar-top-nav{
+    text-align: left;
+    background: $grey-1;
+    width: 100%;
+    padding: 18px 15px;
+    z-index: 10000;
+    position: fixed;
+    top: 0;
+    color: $grey-6;
+    font-size: 21px;
+    font-weight: 600;
+  }
+  #sidebar-right-inner{
+    width: 230px;
+    height: 100%;
+    padding: 15px 0 60px;
+    top: 62px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    .page-options{
+      padding: 0 15px;
+      *[contenteditable=true]{
+        color: $primary-dark;
+        border-bottom: 1px solid transparent;
+        &:focus{
+          border-color: $primary-dark;
+          outline: none;
+        }
+        &:empty{
+          width: 15px;
+          border-color: $primary-dark;
+        }
+      }
+      .deliver{
+        margin-bottom: 15px;
+        display: block;
+        margin-left: 0;
+        margin-right: 0;
+        .save-page{
+          margin-right: 5px;
+        }
+      }
+      .page-title{
+        font-size: 21px;
+        font-weight: 600;
+        display: inline-block;
+      }
+      .url{
+        font-weight: 600;
+        color: $grey-5;
+        margin-bottom: 30px;
+        word-wrap: break-word;
+        span{
+          padding-bottom: 1px;
+        }
+      }
+      .sidebar-settings{
+        margin-bottom: 30px;
+        ul{
+          li{
+            margin-bottom: 4px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid $grey-2;
+            &:last-of-type{
+              border-bottom: none;
+            }
+            .gcicon{
+              width: 20px;
+              display: inline-block;
+            }
+<<<<<<< HEAD
+          }
+        }
+        .child-toggle{
+          margin-right: 10px;
+          .status-icon{
+            margin-right: 0;
+          }
+        }
+        .status-icon{
+          margin-right: 10px;
+        }
+        .child-toggle{
+          .gcicon-folder{
+            display: none;
+          }
+          .gcicon-folder-open{
+            display: inline-block;
+          }
+        }
+        .child-toggle.collapsed{
+          .gcicon-folder{
+            display: inline-block;
+          }
+          .gcicon-folder-open{
+            display: none;
+          }
+        }
+        .page-title{
+          flex: 1;
+          display: flex;
+          padding: 10px 0;
+          transition: 0;
+          color: $grey-6;
+          .title{
+            flex: 1;
+          }
+          .label{
+            background: $grey-3;
+            text-transform: capitalize;
+            padding: 2px 8px;
+            font-weight: 600;
+            margin-left: 5px;
+          }
+        }
+        .attribute{
+          padding-right: 60px;
+        }
+        .date{
+          font-size: 14px;
+          display: block;
+          width: 100px;
+          text-align: right;
+          color: $grey-5;
+        }
+        .actions{
+          text-align: right;
+          display: none;
+          &-col-0{
+            width: 0;
+          }
+          &-col-1{
+            width: 40px;
+          }
+          &-col-2{
+            width: 80px;
+          }
+          &-col-3{
+            width: 120px;
+          }
+          &-col-4{
+            width: 160px;
+          }
+          &-col-5{
+            width: 200px;
+          }
+          .circle-icon{
+            color: $white;
+            border-color: $white;
+            &:link, &:visited {
+              color: $white;
+            }
+            .password-protect{
+              color: $black;
+              width: 100%;
+              display: block;
+              text-align: left;
+              &:hover{
+                color: $primary-dark;
+              }
+              .gcicon-down{
+                top: 2px;
+                font-size: 18px;
+                line-height: 14px;
+                float: right;
+              }
+            }
+            .password-collapse{
+              padding: 10px 0 5px 0;
+            }
+            .checkbox{
+              margin: 0;
+              height: 19px;
+              label{
+                width: 100%;
+                display: block;
+                padding-top: 2px;
+              }
+            }
+          }
+          .saved-state{
+            color: $grey-6;
+          }
+        }
+      }
+      .collapse-toggle{
+        display: block;
+        margin-bottom: 0;
+        width: 100%;
+        text-align: left;
+        color: $grey-6;
+        font-size: 16px;
+        &:hover{
+          color: $primary-dark;
+        }
+      }
+      .settings-collapse{
+        .dropdown-wrapper{
+          margin-bottom: 10px;
+        }
+      }
+      .delete{
+        color: $red;
+        &:hover{
+          color: darken($red, 15%);
+        }
+      }
+    }
+  }
+}
+
+
+
+/* -------------------- MODULES -------------------- */
 
 .circle-icon{
   @include circle(30px);
@@ -84,29 +430,7 @@ body{
 
 
 
-/* -------------------- UI -------------------- */
-
-#site-bar{
-  min-height: 34px;
-  height: 34px;
-  background: $grey-9;
-  border: none;
-  a{
-    letter-spacing: 1px;
-    padding: 4px 0;
-    display: block;
-    font-size: 14px;
-    color: $off-white;
-    &:hover{
-      color: $primary-hover;
-    }
-  }
-  .site-link a{
-    font-size: 16px;
-    padding: 6px 0;
-    font-weight: 600;
-  }
-}
+/* -------------------- COMPONENTS -------------------- */
 
 .flash_notice{
   margin-top: 60px;
@@ -166,11 +490,6 @@ body{
     color: $white;
     font-size: 24px;
   }
-}
-
-#wrapper{
-  background: lighten($off-white, 2%) !important;
-  padding: 0;
 }
 
 .admin-title{
@@ -262,6 +581,18 @@ body{
     }
   }
 }
+
+.reordering{
+  .page-row{
+    &:hover{
+      
+    }
+    .actions{
+      display: none !important;
+    }
+  }
+}
+
 
 
 /* -------------------- PAGES -------------------- */
@@ -519,258 +850,6 @@ body{
 
 
 
-/* -------------------- SIDEBARS -------------------- */
-
-#sidebar-left{
-  background: $off-white;
-  border-right: 1px solid $grey-2;
-  padding: 0;
-  .sidebar-top-nav{
-    text-align: right;
-    background: $grey-1;
-    width: 100%;
-    padding: 18px 15px;
-    z-index: 10000;
-    position: fixed;
-    top: 0;
-    a{
-      color: $grey-6;
-      font-size: 21px;
-      font-weight: 600;
-      &:hover{
-        color: $primary-dark;
-      }
-    }
-  }
-  .log-out{
-    background: darken($off-white, 3%);
-    display: flex;
-    position: fixed;
-    justify-content: space-between;
-    bottom: 0;
-    width: 100%;
-    padding: 9px 15px;   
-    color: $grey-6;
-    font-size: 16px;
-    font-weight: 600;
-    align-items: center;
-    &:hover{
-      background: $primary-hover;
-      color: $white;
-    }
-  }
-  #sidebar-left-inner{
-    top: 65px;
-    height: calc(100% - 110px);
-    overflow-y: scroll;
-    overflow-x: hidden;
-    padding-bottom: 15px;
-    li{
-      margin: 0 0 1px;
-      .gcicon{
-        margin-right: 4px;
-        color: $grey-6;
-      }
-      a{
-        padding: 10px 15px 6px;
-        width: 100%;
-        display: block;
-        color: $grey-6;
-        font-size: 16px;
-        letter-spacing: 1px;
-        text-decoration: none;
-        @include transition(0.1s);
-        font-weight: 400;
-        text-transform: uppercase;
-        &:hover{
-          border-bottom: 0;
-          background: $white-opaque;
-          color: $primary-dark;
-          .gcicon{
-            color: $primary-dark;
-          }
-        }
-      }
-      .active{
-        border-right: 2px solid $primary-color;
-        background: lighten($off-white, 6%);
-      }
-      ul{
-        padding-top: 1px;
-        margin-bottom: 10px;
-        li{
-          a{
-            padding: 4px 15px 4px 30px;
-            font-size: 13px;
-            font-weight: 400;
-            background: lighten($off-white, 3%);
-          }
-        }
-      }
-    }
-    .list-heading{
-      padding: 10px 15px 6px 30px;
-      font-weight: 600;
-      font-size: 14px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      background: darken($white-opaque, 3%);
-      .gcicon{
-        margin-right: 8px;
-      }
-    }
-  }
-}
-
-#sidebar-right{
-  background: $off-white;
-  border-left: 1px solid $grey-2;
-  height: 100%;
-  width: 230px;
-  position: fixed;
-  top: 0;
-  right: 0;
-  overflow-y: hidden !important;
-  .sidebar-top-nav{
-    text-align: left;
-    background: $grey-1;
-    width: 100%;
-    padding: 18px 15px;
-    z-index: 10000;
-    position: fixed;
-    top: 0;
-    color: $grey-6;
-    font-size: 21px;
-    font-weight: 600;
-  }
-  #sidebar-right-inner{
-    width: 230px;
-    height: 100%;
-    padding: 15px 0 60px;
-    top: 62px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    .page-options{
-      padding: 0 15px;
-      *[contenteditable=true]{
-        color: $primary-dark;
-        border-bottom: 1px solid transparent;
-        &:focus{
-          border-color: $primary-dark;
-          outline: none;
-        }
-        &:empty{
-          width: 15px;
-          border-color: $primary-dark;
-        }
-      }
-      .deliver{
-        margin-bottom: 15px;
-        display: block;
-        margin-left: 0;
-        margin-right: 0;
-        .save-page{
-          margin-right: 5px;
-        }
-      }
-      .page-title{
-        font-size: 21px;
-        font-weight: 600;
-        display: inline-block;
-      }
-      .url{
-        font-weight: 600;
-        color: $grey-5;
-        margin-bottom: 30px;
-        word-wrap: break-word;
-        span{
-          padding-bottom: 1px;
-        }
-      }
-      .status{
-        margin-bottom: 30px;
-        ul{
-          li{
-            margin-bottom: 4px;
-            padding-bottom: 6px;
-            border-bottom: 1px solid $grey-2;
-            &:last-of-type{
-              border-bottom: none;
-            }
-            .gcicon{
-              width: 20px;
-              display: inline-block;
-            }
-            .password-protect{
-              color: $black;
-              width: 100%;
-              display: block;
-              text-align: left;
-              &:hover{
-                color: $primary-dark;
-              }
-              .gcicon-down{
-                top: 2px;
-                font-size: 18px;
-                line-height: 14px;
-                float: right;
-              }
-            }
-            .password-collapse{
-              padding: 10px 0 5px 0;
-            }
-            .checkbox{
-              margin: 0;
-              height: 19px;
-              label{
-                width: 100%;
-                display: block;
-                padding-top: 2px;
-              }
-            }
-          }
-          .saved-state{
-            color: $grey-6;
-          }
-        }
-      }
-      .collapse-toggle{
-        display: block;
-        margin-bottom: 10px;
-        color: $grey-6;
-        font-size: 16px;
-        &:hover{
-          color: $primary-dark;
-        }
-      }
-      .settings-collapse{
-        .dropdown-wrapper{
-          margin-bottom: 10px;
-        }
-      }
-      .delete{
-        color: $red;
-        &:hover{
-          color: darken($red, 15%);
-        }
-      }
-    }
-  }
-}
-
-.reordering{
-  .page-row{
-    &:hover{
-      
-    }
-    .actions{
-      display: none !important;
-    }
-  }
-}
-
-
-
 /* -------------------- EDITOR -------------------- */
 
 *[contenteditable=true]{
@@ -885,6 +964,7 @@ body{
       }
     }
   }
+<<<<<<< HEAD
 }
 
 
@@ -934,3 +1014,4 @@ body{
 .tooltip, .tooltip span {
   @include border-radius($radius);
 }
+
