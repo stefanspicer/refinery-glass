@@ -399,14 +399,6 @@ body{
         .actions{
           text-align: right;
           display: none;
-          &.actions-1 {
-            width: 50px;
-          }
-          &.actions-2 {
-            width: 100px;
-          }
-          &.actions-3 {
-            width: 150px;
           &-col-0{
             width: 0;
           }
@@ -920,10 +912,6 @@ body{
     padding-right: 60px;
   }
 }
-
-
-
-
 
 /**** Tooltip Icons *****/
 .tooltip {
