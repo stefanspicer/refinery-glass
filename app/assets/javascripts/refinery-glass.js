@@ -7,5 +7,5 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require glass/manifest-back-and-frontend
-//= require       manifest-back-and-frontend
+//= require       manifest-custom-back-and-frontend
 //= require glass/manifest-backend
