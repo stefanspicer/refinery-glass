@@ -38,8 +38,8 @@ html
 <%= render '/refinery/html_tag' %>
   <% content_for :meta, "<meta refinerycms='#{Refinery.version}' />".html_safe %>
   <head>
-    <%= render '/refinery/admin/head' %>
-    <%= render partial: '/refinery/stylesheets', locals: {admin: true} %>
+    <%= render partial: '/glass/head',        locals: {admin: true} %>
+    <%= render partial: '/glass/stylesheets', locals: {admin: true} %>
   </head>
 
   <body class="<%= action_name %> <%= I18n.locale %>">
@@ -78,7 +78,8 @@ html
 
       <% if content_for?(:admin_page_preview) %>
         <section id="page-preview">
-          <%= render "/refinery/body" %> <!-- this partial yields to :admin_page_preview -->
+          <!-- this partial yields to :admin_page_preview -->
+          <%= render partial: '/glass/body', locals: {admin: true} %>
         </section>
       <% elsif content_for?(:admin_content) %>
         <%= yield :admin_content %>
@@ -97,6 +98,6 @@ html
       <%= render 'refinery/admin/glass/modal' %>
     </section>
     
-    <%= render partial: '/refinery/javascripts', locals: {admin: true} %>
+    <%= render partial: '/glass/javascripts', locals: {admin: true} %>
   </body>
 </html>
