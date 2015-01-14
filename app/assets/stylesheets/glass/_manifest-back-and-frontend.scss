@@ -1,0 +1,61 @@
+/******************************************************************************
+ * For full documentation of what is being included where, see:
+ * refinery-glass gem: /app/assets/stylesheets/refinery-glass.scss
+ ******************************************************************************/
+
+// Config
+@import "canvas/config/base-variables";
+@import "canvas/config/base-mixins";
+
+// BOOTSTRAP: Core variables and mixins
+@import "canvas/bootstrap/variables";
+@import "canvas/bootstrap/mixins";
+
+// BOOTSTRAP: Reset
+@import "canvas/bootstrap/normalize";
+@import "canvas/bootstrap/print";
+
+// BOOTSTRAP: Core CSS
+@import "canvas/bootstrap/scaffolding";
+@import "canvas/bootstrap/type";
+@import "canvas/bootstrap/code";
+@import "canvas/bootstrap/grid";
+@import "canvas/bootstrap/tables";
+@import "canvas/bootstrap/forms";
+@import "canvas/bootstrap/buttons";
+
+// BOOTSTRAP: Components
+@import "canvas/bootstrap/component-animations";
+//@import "canvas/bootstrap/glyphicons";
+@import "canvas/bootstrap/dropdowns";
+@import "canvas/bootstrap/button-groups";
+@import "canvas/bootstrap/input-groups";
+@import "canvas/bootstrap/navs";
+@import "canvas/bootstrap/navbar";
+@import "canvas/bootstrap/breadcrumbs";
+@import "canvas/bootstrap/pagination";
+@import "canvas/bootstrap/pager";
+@import "canvas/bootstrap/labels";
+@import "canvas/bootstrap/badges";
+@import "canvas/bootstrap/jumbotron";
+@import "canvas/bootstrap/thumbnails";
+@import "canvas/bootstrap/alerts";
+@import "canvas/bootstrap/progress-bars";
+@import "canvas/bootstrap/_responsive-embed.scss";
+@import "canvas/bootstrap/media";
+@import "canvas/bootstrap/list-group";
+@import "canvas/bootstrap/panels";
+@import "canvas/bootstrap/wells";
+@import "canvas/bootstrap/close";
+
+// BOOTSTRAP: Components w/ JavaScript
+@import "canvas/bootstrap/tooltip";
+@import "canvas/bootstrap/popovers";
+@import "canvas/bootstrap/carousel";
+
+// BOOTSTRAP: Utility classes
+@import "canvas/bootstrap/utilities";
+@import "canvas/bootstrap/responsive-utilities";
+
+// Base
+@import "canvas/config/base";

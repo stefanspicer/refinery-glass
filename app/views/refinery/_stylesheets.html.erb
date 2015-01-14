@@ -1,9 +1,9 @@
-<%= stylesheet_link_tag @org.present? ? "application-#{@org.slug}" : "application" %>
-
 <% if defined?(admin) && admin %>
   <%= stylesheet_link_tag current_refinery_user.present? && current_refinery_user.org.present? ? "refinery-glass-#{current_refinery_user.org.slug}" : "refinery-glass" %>
   <%#= stylesheet_link_tag 'refinery/refinery' %>
   <% custom_stylesheets.each do |css| %>
     <%= stylesheet_link_tag css.path, css.options %>
   <% end %>
+<% else %>
+  <%= stylesheet_link_tag @org.present? ? "site-#{@org.slug}" : "site" %>
 <% end %>

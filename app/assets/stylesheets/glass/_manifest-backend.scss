@@ -3,24 +3,19 @@
  * refinery-glass gem: /app/assets/stylesheets/refinery-glass.scss
  ******************************************************************************/
 
-@import "canvas/config/base-variables";
-@import "canvas/bootstrap/variables";
-
 /* The jquery-ui is for autocomplete (select-to-autocomplete) */
 @import "canvas/jquery-ui";
 /* @import "canvas/jquery-ui.theme"; */
 /* @import "canvas/jquery-ui.structure"; */
 
-@import "config/mixins";
-@import "canvas/config/base-mixins";
-@import "glass/icons";
-@import "glass/icon-styles";
-@import "glass/images";
-@import "canvas/sidebar";
-@import "canvas/dimmer";
 @import "canvas/loader";
 @import "canvas/modal";
 @import "canvas/transition";
+@import "canvas/sidebar";
+@import "canvas/dimmer";
 @import "canvas/cropper";
 @import "canvas/image_cropping";
+@import "glass/icons";
+@import "glass/icon-styles";
+@import "glass/images";
 @import "glass/base";

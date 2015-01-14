@@ -3,58 +3,31 @@
  *      ***** CSS Documentation for use with feast multi-site *****
  *
  * ***** SINGLE SITE *****
- * application.css          BOTH                    refinery-glass.css*
+ * site.css                 BOTH                    refinery-glass.css
  *                          config/_variables
- * _application-manifest                            glass/_manifest
- *                          canvas/_other_stuff
- *                          canvas/_other_stuff2
- * partials/_other_stuff                            glass/_other_stuff
- * partials/_other_stuff2                           glass/_other_stuff2
- *
- * * /admin UI includes both application.css & refinery-glass.css
+ * _manifest-site                                   glass/_manifest-refinery-glass
+ *                          glass/_manifest-back-and-frontend
+ *                          _manifest-back-and-frontend
+ *                           | styles for frontend, that
+ *                           | backend will use too
+ * _manifest-frontend                               glass/_manifest-backend
+ *  | can usually be blank                           | backend specific styles
  *
  *
  *
  *
  * ***** FEAST MULTI-SITE *****
- * application-<slug>.css   BOTH                    refinery-glass-<slug>.css
+ * site-<slug>.css          BOTH                    refinery-glass-<slug>.css
  *                          config/_variables-<slug>
- * _application-manifest                            glass/_manifest
+ * _manifest-site                                   glass/_manifest-refinery-glass
  *               --- same as single site from here down ---
- *
- * Result: you get:
- *  - application-<slug>.css
- *  - refinery-glass-<slug>.css
- * For each different slug (org OR unique theme), these are dynamically
- * included from in the <head>
- *
- *
- *
- *
- *
- *
- * ***** FEAST MULTI-SITE *****
- * application-<slug>.css   BOTH                    refinery-glass-<slug>.css
- *                          config/_variables-<slug>
- * _application-manifest                            glass/_manifest-admin
- *                          canvas/_manifest-admin-and-front
- * canvas/_manifest-front                           _manifest-admin-sub
- * _manifest-front-sub
- * canvas/_manifest-front-exclusive
- * _manifest-front-exclusive-sub
- *
- * application-<slug>-wrapped.css
- * canvas/_manifest-front
- * _manifest-front-sub
  * 
  *
  * Result: you get:
- *  - application-<slug>.css
+ *  - site-<slug>.css
  *  - refinery-glass-<slug>.css
  * For each different slug (org OR unique theme), these are dynamically
  * included from in the <head>
-
-
 
 html
   head
@@ -81,4 +54,4 @@ html
  ******************************************************************************/
 
 @import "config/variables";
-@import "glass/manifest";
+@import "glass/manifest-refinery-glass";
