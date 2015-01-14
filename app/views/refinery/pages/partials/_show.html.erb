@@ -1,0 +1,13 @@
+<div id="basic-page">
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <h1><%= @page.title %></h1>
+          <%= render '/refinery/content_page', { :hide_sections => [:body_content_title] } %>
+          <%= yield :extra_page_content %>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
