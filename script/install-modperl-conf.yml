@@ -1,0 +1,6 @@
+passenger_so:   /var/home/dev/.rvm/gems/ruby-2.1.1@porneffect/gems/passenger-4.0.41/buildout/apache2/mod_passenger.so
+passenger_root: /var/home/dev/.rvm/gems/ruby-2.1.1@porneffect/gems/passenger-4.0.41
+passenger_ruby: /var/home/dev/.rvm/gems/ruby-2.1.1@stpats/wrappers/ruby
+passenger_user: dev
+ror_port: 8013
+ror_env: staging
