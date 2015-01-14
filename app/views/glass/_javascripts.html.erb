@@ -1,4 +1,6 @@
-<% if defined?(admin) && admin %>
+<% admin = false unless defined?(admin) %>
+
+<% if admin %>
   <!-- WAS views/refinery/admin/_javascripts -->
   <script type="text/javascript" >
     var refinery = window.refinery || {};
@@ -6,6 +8,11 @@
   </script>
 
   <%= javascript_include_tag 'refinery-glass' -%>
+
+  <!-- TODO: remove these soon -->
+  <%= javascript_include_tag 'admin' -%>
+  <%= javascript_include_tag 'refinery/refinery' -%>
+  <%= javascript_include_tag 'refinery/wymeditor', "wymeditor/lang/en", "wymeditor/skins/refinery/skin" %>
 
   <%= yield :after_javascript_libraries -%>
   <% custom_javascripts.each do |js| %>
