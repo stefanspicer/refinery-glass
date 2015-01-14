@@ -3,34 +3,32 @@
 
 html
   head
-    head_common
-    refinery js (includes some or all of application-base.js)
+    glass/head
+    glass/stylesheets
   /head
   body
-    menu (sidebar-left)
-    admin_page_preview
-      _body partial
+    sidebar-left (main admin nav)
+    sidebar-right
+    page-preview OR admin_content [OR legacy admin content]
+      _body partial (shared)
         header (main nav)
         content
         footer
       /_body partial
-      js - application.js (frontend specific)
-    /admin_page_preview
-    OR admin_content
-    [OR legacy admin content]
+    /page-preview
     modal wrapper
-    admin_sidebar (right side)
+    glass/javascripts
   /body
 /html
 
 html
   head
-    head_common
+    glass/head
+    glass/stylesheets
   /head
   body
-    shared _body partial
-    js - application-base.js (js that admin doesn't need because it is already included there)
-    js - application.js (frontend specific)
+    _body partial (shared)
+    glass/javascripts
   /body
 /html
 -->

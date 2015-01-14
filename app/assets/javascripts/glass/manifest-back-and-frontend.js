@@ -9,7 +9,3 @@
 //= require canvas/bootstrap
 //= require canvas/modules/forms
 //= require canvas/modules/main
-
-$(function() {
-  $('body').addClass('glass/back-and-front-' + Date.now());
-});

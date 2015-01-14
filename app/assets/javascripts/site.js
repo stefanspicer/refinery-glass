@@ -12,7 +12,3 @@
 //= require       manifest-back-and-frontend
 //= require glass/manifest-frontend
 //= require       manifest-frontend
-
-$(function() {
-  $('body').addClass('application-' + Date.now());
-});

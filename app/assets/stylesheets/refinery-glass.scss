@@ -5,9 +5,9 @@
  * ***** SINGLE SITE *****
  * site.css                 BOTH                    refinery-glass.css
  *                          config/_variables
- * _manifest-site                                   glass/_manifest-refinery-glass
+ * glass/_manifest-site                             glass/_manifest-refinery-glass
  *                          glass/_manifest-back-and-frontend
- *                          _manifest-back-and-frontend
+ *                          _manifest-custom-back-and-frontend
  *                           | styles for frontend, that
  *                           | backend will use too
  * _manifest-frontend                               glass/_manifest-backend
@@ -19,7 +19,7 @@
  * ***** FEAST MULTI-SITE *****
  * site-<slug>.css          BOTH                    refinery-glass-<slug>.css
  *                          config/_variables-<slug>
- * _manifest-site                                   glass/_manifest-refinery-glass
+ * glass/_manifest-site                             glass/_manifest-refinery-glass
  *               --- same as single site from here down ---
  * 
  *
@@ -28,29 +28,6 @@
  *  - refinery-glass-<slug>.css
  * For each different slug (org OR unique theme), these are dynamically
  * included from in the <head>
-
-html
-  head
-    head_common
-    refinery js (includes some or all of application-base.js)
-  /head
-  body
-    admin_page_preview
-      js - application.js (frontend specific)
-    /admin_page_preview
-  /body
-/html
-
-html
-  head
-    head_common
-  /head
-  body
-    js - application-base.js (js that admin doesn't need because it is already included there)
-    js - application.js (frontend specific)
-  /body
-/html
-
  ******************************************************************************/
 
 @import "config/variables";

@@ -33,7 +33,3 @@
 //= require glass/cropper.js
 //= require canvas/modules/watchforchanges
 //= require_tree ./modules
-
-$(function() {
-  $('body').addClass('glass/backend-' + Date.now());
-});
