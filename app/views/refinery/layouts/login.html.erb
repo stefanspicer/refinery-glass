@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <%= render '/refinery/html_tag' %>
-  <%= render '/refinery/admin/head' %>
+  <head>
+    <%= render '/refinery/admin/head' %>
+    <%= render partial: '/refinery/stylesheets', locals: {admin: true} %>
+  </head>
   <body class='login <%= I18n.locale %>'>
     <div class="container">
       <div class="row">
