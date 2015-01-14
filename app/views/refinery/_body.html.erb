@@ -1,0 +1,12 @@
+<div id="page_container">
+  <header id="header">
+    <%= render '/refinery/header' -%>
+  </header>
+  <section id="page">
+    <%# See refinery-glass/app/views/layouts/refinery/admin.html.erb for full structure %>
+    <%= content_for?(:admin_page_preview) ? yield(:admin_page_preview) : yield %>
+  </section>
+  <footer>
+    <%= render '/refinery/footer' -%>
+  </footer>
+</div>
