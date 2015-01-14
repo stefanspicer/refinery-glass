@@ -1,13 +1,19 @@
+<% if File.exist?('config/database.override.yml') %>
+
+<%= begin IO.read('config/database.override.yml') rescue '' end %>
+
+<% else %>
 # SQLite version 3.x
 #   gem install sqlite3
 #
 #   Ensure the SQLite 3 gem is defined in your Gemfile
 #   gem 'sqlite3'
 development:
-  adapter: sqlite3
-  database: db/development.sqlite3
-  pool: 5
-  timeout: 5000
+  adapter: mysql2
+  database: FIXME_staging
+  username: ror
+  password: 0198b8bf8d609cb8
+  host: stagingdb1.cily0rp4hiks.us-west-2.rds.amazonaws.com
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -18,8 +24,17 @@ test:
   pool: 5
   timeout: 5000
 
-production:
-  adapter: sqlite3
-  database: db/production.sqlite3
-  pool: 5
-  timeout: 5000
+staging:
+  adapter: mysql2
+  database: FIXME_staging
+  username: ror
+  password: 0198b8bf8d609cb8
+  host: stagingdb1.cily0rp4hiks.us-west-2.rds.amazonaws.com
+
+#production:
+#  adapter: mysql2
+#  database: FIXME_live
+#  username: FIXME
+#  password: FIXME
+#  host: localhost
+<% end %>
