@@ -120,7 +120,7 @@ var CanvasForms = (function ($) {
               }
             }
           });
-        },
+        }
       });
     });
   }
@@ -183,7 +183,6 @@ var CanvasForms = (function ($) {
         inputSelector.after(errorMessage)
       }
     }
-
   }
 
   function insertStripeErrors(form, messages) {
