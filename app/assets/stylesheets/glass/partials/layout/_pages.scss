@@ -1,0 +1,258 @@
+/* -------------------- PAGES -------------------- */
+
+.login{
+  background: $off-white;
+  padding-top: 90px;
+  @media (max-width: 767px) {
+    padding-top: 45px;  
+  }
+  .elephant-cms-logo{
+    max-width: 150px;
+  }
+  h2{
+    margin-bottom: 30px;
+  }
+  form{
+    margin-bottom: 120px;
+    .form-group{
+      margin-bottom: 15px;
+    }
+    .checkbox{
+      label{
+        padding-top: 5px;
+      }
+      input[type="checkbox"]{
+        margin-top: 7px;
+      }
+    }
+  }
+}
+
+.admin-index{
+  max-width: 1200px;
+  padding-top: 60px;
+  .index-listing > ul{
+    overflow: hidden;
+    border-radius: $radius;
+    li:last-child{
+      margin-bottom: -2px;
+    }
+  }
+  ul{
+    li{
+      margin-bottom: 0;
+      &:last-of-type{
+        padding-bottom: 0;
+      }
+      .page-row{
+        margin-bottom: 2px;
+        background: $white;
+        padding: 0 15px;
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+        letter-spacing: 1px;
+        color: $grey-6;
+        &:hover{
+          background: $primary-hover;
+          .gcicon{
+            color: $white;
+          }
+          .actions{
+            display: block;
+          }
+          .page-title{
+            color: $white;
+            .label{
+              background: $white;
+              color: $primary-hover;
+            }
+          }
+          .date{
+            display: none;
+          }
+          a.attribute{
+            color: $white;
+            &:hover{
+              text-decoration: underline;
+            }
+          }
+        }
+        .child-toggle{
+          margin-right: 10px;
+          .status-icon{
+            margin-right: 0;
+          }
+        }
+        .status-icon{
+          margin-right: 10px;
+        }
+        .child-toggle{
+          .gcicon-folder{
+            display: none;
+          }
+          .gcicon-folder-open{
+            display: inline-block;
+          }
+        }
+        .child-toggle.collapsed{
+          .gcicon-folder{
+            display: inline-block;
+          }
+          .gcicon-folder-open{
+            display: none;
+          }
+        }
+        .page-title{
+          flex: 1;
+          display: flex;
+          padding: 10px 0;
+          transition: 0;
+          color: $grey-6;
+          .title{
+            flex: 1;
+          }
+          .label{
+            background: $grey-3;
+            text-transform: capitalize;
+            padding: 2px 8px;
+            font-weight: 600;
+            margin-left: 5px;
+          }
+        }
+        .attribute{
+          padding-right: 60px;
+        }
+        .date{
+          font-size: 14px;
+          display: block;
+          width: 100px;
+          text-align: right;
+          color: $grey-5;
+        }
+        .actions{
+          text-align: right;
+          display: none;
+          &-visible{
+            display: block;
+          }
+          &-tight-right{
+            right: -10px;
+          }
+          &-col-0{
+            width: 0;
+          }
+          &-col-1{
+            width: 40px;
+          }
+          &-col-2{
+            width: 80px;
+          }
+          &-col-3{
+            width: 120px;
+          }
+          &-col-4{
+            width: 160px;
+          }
+          &-col-5{
+            width: 200px;
+          }
+          .circle-icon{
+            color: $white;
+            border-color: $white;
+            &:link, &:visited {
+              color: $white;
+            }
+            &:hover, &:focus{
+              color: $white;
+              border-color: $primary-dark;
+              background: $primary-dark;
+            }
+          }
+          span{
+            width: 30px;
+            text-align: center;
+            display: inline-block;
+            margin-left: 5px;
+          }
+        }
+      }
+    }
+    /* nested ul */
+    ul{
+      list-style: outside none none;
+      margin: 0 0 0 0;
+      padding: 0;
+      &:empty{
+        margin: 0;
+      }
+      li {
+        margin-bottom: 0;
+        margin-left: 30px;
+        .page-row{
+          background: lighten($off-white, 4%);
+        }
+      }
+      li .page-row{
+        padding-left: 30px;
+        margin-left: -30px;
+      }
+      li li .page-row{
+        padding-left: 45px;
+        margin-left: -60px;
+      }
+      li li li .page-row{
+        padding-left: 60px;
+        margin-left: -90px;
+      }
+      li li li li .page-row{
+        padding-left: 75px;
+        margin-left: -120px;
+      }
+      li li li li li .page-row{
+        padding-left: 90px;
+        margin-left: -150px;
+      }
+      li li li li li li .page-row{
+        padding-left: 105px;
+        margin-left: -180px;
+      }
+      li.placeholder{
+        padding-left: 30px;
+        margin-left:  0px;
+      }
+      li li.placeholder{
+        padding-left: 60px;
+        margin-left: -30px;
+      }
+      li li li.placeholder{
+        padding-left: 90px;
+        margin-left: -60px;
+      }
+      li li li li.placeholder{
+        padding-left: 120px;
+        margin-left: -90px;
+      }
+      li li li li li.placeholder{
+        padding-left: 150px;
+        margin-left: -90px;
+      }
+      li li li li li li.placeholder{
+        padding-left: 180px;
+        margin-left: -120px;
+      }
+    }
+  }
+  .placeholder{
+    border: 1px dashed #CCC;
+    background: lighten($off-white, 4%);
+    height: 50px;
+    margin-bottom: 2px;
+    padding: 10px 0;
+    box-sizing: border-box;
+    &:after{
+      content: 'Move Here';
+      padding-left: 21px;
+    }
+  }
+}

@@ -8,6 +8,7 @@
 /* @import "canvas/jquery-ui.theme"; */
 /* @import "canvas/jquery-ui.structure"; */
 
+// Canvas
 @import "canvas/loader";
 @import "canvas/modal";
 @import "canvas/transition";
@@ -15,7 +16,14 @@
 @import "canvas/dimmer";
 @import "canvas/cropper";
 @import "canvas/image_cropping";
-@import "glass/icons";
-@import "glass/icon-styles";
-@import "glass/images";
-@import "glass/base";
+
+
+// Glass
+@import "glass/partials/layout/editor";
+@import "glass/partials/layout/interface";
+@import "glass/partials/layout/pages";
+@import "glass/partials/layout/temp";
+@import "glass/partials/components/icons";
+@import "glass/partials/components/icon-styles";
+@import "glass/partials/components/images";
+@import "glass/partials/components/ui-elements";
