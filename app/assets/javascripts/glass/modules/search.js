@@ -18,12 +18,18 @@ var GlassSearch = (function ($){
         'onkeypress' : $search_form.find('input#search'),
         'callback'   : do_search,
         'delay'      : 400,
-        'maxdelay'   : 1000,
+        'maxdelay'   : 1000
       });
+
 
       $search_form.ajaxForm({
         complete: function(xhr, status) {
+          var btnContainer = $('#refinery-search-btn');
+          btnContainer.find('.loader').addClass('hidden').fadeOut(100, function(){
+            btnContainer.find('.gcicon-search').fadeIn(100);
+          });
           watcher.resume();
+
           if (status != 'success') {
             console.log('not success');
             $search_form.prepend($error_div);
@@ -36,6 +42,7 @@ var GlassSearch = (function ($){
             }
             if ($content.length > 0) {
               $('#errorExplanation').remove();
+
               console.log('replace content');
               CanvasForms.replaceContent($('.sortable_list'), $content);
             }
@@ -44,7 +51,12 @@ var GlassSearch = (function ($){
               $search_form.prepend($error_div);
             }
           });
-        },
+        }
+      });
+
+      $search_form.find('.btn[type="submit"]').click(function(e){
+        e.preventDefault();
+        do_search($('#refinery-search-btn'));
       });
 
       $search_form.attr('autocomplete', 'off');
@@ -52,8 +64,14 @@ var GlassSearch = (function ($){
   });
 
   function do_search($elem) {
-    console.log('search');
+    var btnContainer = $('#refinery-search-btn');
+
+    btnContainer.find('.gcicon-search').fadeOut(100, function(){
+      btnContainer.find('.loader.hidden').removeClass('hidden').fadeIn(100);
+    });
+
     $elem.parents('form').submit();
+
     watcher.pause();
   }
 
