@@ -19,18 +19,46 @@ body{
 
 /* -------------------- SIDEBARS -------------------- */
 
+.ui.left.sidebar.small{
+  width: 45px;
+  transform: translate3d(0%, 0%, 0);
+  transition: 0.2s 0.3s ease-out;
+  &:hover{
+    width: 230px;
+    transition: 0.2s ease-out;
+  }
+  &.visible{
+    width: 230px;
+  }
+  .menu-link{
+    display: none;
+  }
+  .gcicon-glass-canvas{
+    display: inline !important;
+    visibility: visible !important;
+    margin: 0 10px 0 1px;
+    color: $grey-5;
+  }
+}
+
 #sidebar-left{
   background: $off-white;
   border-right: 1px solid $grey-2;
   padding: 0;
   .sidebar-top-nav{
     text-align: right;
+    display: flex;
+    position: fixed;
+    justify-content: space-between;
+    align-items: center;
     background: $grey-1;
     width: 100%;
     padding: 18px 15px;
     z-index: 10000;
     position: fixed;
     top: 0;
+    width: 230px;
+    white-space: nowrap;
     a{
       color: $grey-6;
       font-size: 21px;
@@ -45,6 +73,7 @@ body{
     display: flex;
     position: fixed;
     justify-content: space-between;
+    align-items: center;
     bottom: 0;
     width: 100%;
     padding: 9px 15px;   
@@ -52,6 +81,9 @@ body{
     font-size: 16px;
     font-weight: 600;
     align-items: center;
+    white-space: nowrap;
+    width: 230px;
+    right: 0;
     &:hover{
       background: $primary-hover;
       color: $white;
@@ -65,6 +97,7 @@ body{
     padding-bottom: 15px;
     li{
       margin: 0 0 1px;
+      white-space: nowrap;
       .gcicon{
         margin-right: 4px;
         color: $grey-6;
@@ -87,6 +120,10 @@ body{
           .gcicon{
             color: $primary-dark;
           }
+        }
+        > .gcicon{
+          margin-right: 7px;
+          margin-left: 1px;
         }
       }
       .active{

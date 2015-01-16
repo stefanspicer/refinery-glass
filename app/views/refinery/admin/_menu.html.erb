@@ -1,6 +1,26 @@
 <ul class="list-unstyled">
   <!-- NOTE: refinery/glass/plugin_sorter.rb helps with this sorting -->
-  <% ::Refinery::Plugins.active.in_menu.find_all{|p| p.position > 0}.sort_by {|p| p.position}.each do |plugin| -%>
+<!--
+    <li>
+      <a href="" id="plugin_articles"><i class="gcicon gcicon-dashboard"></i> Dashboard</a>
+    </li>
+    <li>
+      <a href="" id="plugin_articles"><i class="gcicon gcicon-pages"></i> Pages</a>
+    </li>
+    <li>
+      <a href="" id="plugin_articles"><i class="gcicon gcicon-feather"></i> Articles</a>
+    </li>
+    <li>
+      <a href="" id="plugin_articles"><i class="gcicon gcicon-sliders"></i> My Organization</a>
+    </li>
+    <li>
+      <a href="" id="plugin_articles"><i class="gcicon gcicon-wrench"></i> Superuser</a>
+    </li>
+    <li>
+      <a href="" id="plugin_articles"><i class="gcicon gcicon-group"></i> Users</a>
+    </li>
+-->
+<% ::Refinery::Plugins.active.in_menu.find_all{|p| p.position > 0}.sort_by {|p| p.position}.each do |plugin| -%>
     <li>
       <%= link_to plugin.title, refinery.url_for(plugin.url),
         :class => ("active" if plugin.highlighted?(params)),
