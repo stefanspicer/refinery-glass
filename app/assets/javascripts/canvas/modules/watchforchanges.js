@@ -100,6 +100,6 @@ var WatchForChanges = (function($){
 
   //Return API for other modules
   return {
-    'Watcher': Watcher,
+    'Watcher': Watcher
   };
 })(jQuery);
