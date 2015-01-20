@@ -75,7 +75,7 @@ var GlassContentEditing = (function ($) {
   $(document).on('content-ready', function (e, element) {
     var handle_keypress = function(e) {
       // What non 'p' do we need to worry about?
-      // $(this).find('p').is(":focus") && 
+      // $(this).find('p').is(":focus") &&
       if (e.which == 13) {
         e.preventDefault();
         var $new_module = $('#glass-parking .glass-module.blank').clone();
@@ -135,7 +135,7 @@ var GlassContentEditing = (function ($) {
       $(this).attr('contenteditable', false);
     });
     $elem.find('.glass-control').appendTo('#glass-parking');
-    return $elem.html();
+    return $elem.html().trim();
   }
 
   // Return API for other modules

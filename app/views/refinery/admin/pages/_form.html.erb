@@ -5,16 +5,17 @@
 
   <%= render '/refinery/admin/locale_picker', :current_locale => Globalize.locale %>
 
-  <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title, :class => "larger widest" %>
-  </div>
-
+  <%= f.hidden_field :title %>
   <%= render 'form_fields_after_title', :f => f %>
 
-  <div class='field'>
-    <%= render 'form_page_parts', :f => f %>
-  </div>
+  <%#= render 'form_page_parts', :f => f %>
+  <% part_index = -1 %>
+  <%= f.fields_for :parts do |p| %>
+    <%= render 'page_part_field',
+               :part => p.object,
+               :part_index => (part_index += 1),
+               :new_part => @page.new_record? -%>
+  <% end %>
 
   <%= render 'form_advanced_options', :f => f %>
 
