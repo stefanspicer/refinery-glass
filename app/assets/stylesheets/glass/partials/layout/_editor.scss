@@ -4,6 +4,11 @@
  white-space: pre-wrap; 
 }
 
+[contenteditable=true]:empty:before{
+  content: attr(placeholder);
+  display: block; /* For Firefox */
+}
+
 .input-group{
   .input-group-addon{
     background: $off-white;
