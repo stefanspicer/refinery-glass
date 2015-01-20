@@ -10,11 +10,11 @@ var RefineryImageUploader = (function ($) {
   });
 
   function imageListeners(element) {
-    $(element).find('#image-upload-btn').click(function (e) {
+    $(element).find('#image-upload-btn').unbind('click').click(function (e) {
       e.preventDefault();
       openFileInput();
     });
-    $(element).find('.btn-edit-img').click(function (e) {
+    $(element).find('.btn-edit-img').unbind('click').click(function (e) {
       e.preventDefault();
       openCropModal();
     })
