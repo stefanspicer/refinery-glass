@@ -3,13 +3,6 @@
 <div id="more_options" style="display:none;">
   <div class="hemisquare">
     <h2><%= t('.page_options') %></h2>
-    <div class='field'>
-      <span class='label_with_help'>
-        <%= f.label :parent_id, t('.parent_page') %>
-        <%= refinery_help_tag t('.parent_page_help') %>
-      </span>
-      <%= f.select :parent_id, parent_id_nested_set_options(@page), :include_blank => true %>
-    </div>
     <% if Refinery::Pages.use_layout_templates %>
     <div class='field'>
       <span class='label_with_help'>
@@ -68,15 +61,28 @@
       </script>
       <% end %>
     </div>
-    <div class='field'>
-      <span class='label_with_help'>
-        <%= f.label :show_in_menu, t('.show_in_menu_title'),
-                    :id => 'page_show_in_menu_heading' %>
-        <%= refinery_help_tag t('.show_in_menu_help') %>
-      </span>
-      <%= f.check_box :show_in_menu %>
-      <%= f.label :show_in_menu, t('.show_in_menu_description'),
-                  :class => "stripped" %>
+    <div class='<%= 'hidden' if !current_refinery_user.has_role?(:superuser) %>'>
+      <div class='field'>
+        <span class='label_with_help'>
+          <%= f.label :show_in_menu, t('.show_in_menu_title'),
+                      :id => 'page_show_in_menu_heading' %>
+          <%= refinery_help_tag t('.show_in_menu_help') %>
+        </span>
+        <%= f.check_box :show_in_menu %>
+        <%= f.label :show_in_menu, t('.show_in_menu_description'),
+                    :class => "stripped" %>
+      </div>
+      <div class='field'>
+        <span class='label_with_help'>
+          <%= f.label :parent_id, t('.parent_page') %>
+          <%= refinery_help_tag t('.parent_page_help') %>
+        </span>
+        <%= f.select :parent_id, parent_id_nested_set_options(@page), :include_blank => true %>
+      </div>
+      <div class='field'>
+        <%= f.label :org_id %>
+        <%= f.collection_select :org_id, Refinery::Feast::Org.all, :id, :name, {include_blank: true} %>
+      </div>
     </div>
   </div>
 
