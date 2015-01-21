@@ -1,0 +1,24 @@
+<div id="glass-parking" style="display: none;">
+  <!-- Does this need the "new-module" class? -->
+  <div class="glass-module clear blank">
+    <p class="glass-edit" contenteditable="true" placeholder="New paragraph..."></p>
+  </div>
+  <a id="glass-change-module" href="" class="circle-icon add-module glass-control"><i class="gcicon gcicon-plus"></i></a>
+  <div id="glass-choose-module" class="new-module media-chooser clear glass-control">
+    <a href=""                              class="circle-icon add-module"><i class="gcicon gcicon-plus glass-module-close"></i></a>
+    <a href="" id="glass-choose-module-p"   class="circle-icon media-type"><i class="gcicon gcicon-paragraph bump-down"></i></a>
+    <a href="" id="glass-choose-module-img" class="circle-icon media-type"><i class="gcicon gcicon-photo bump-down"></i></a>
+    <a href="" id="glass-choose-module-vid" class="circle-icon media-type"><i class="gcicon gcicon-film"></i></a>
+  </div>
+  <div id="glass-choose-vid" class="new-module media-chooser clear glass-control">
+    <a href="" class="circle-icon add-module"><i class="gcicon gcicon-plus glass-module-close"></i></a>
+    <form role="form">
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-addon">Vimeo or YouTube URL</div>
+          <input class="form-control" type="text" placeholder="http://...">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
