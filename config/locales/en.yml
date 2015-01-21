@@ -9,3 +9,6 @@ en:
         search_input_notice: Search
         reorder: Reorder
         reorder_done: Done
+    users:
+      new:
+        sign_up: Get started
