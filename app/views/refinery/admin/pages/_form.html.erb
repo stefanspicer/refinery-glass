@@ -34,9 +34,10 @@
              :cancel_url => refinery.admin_pages_path %>
 
   <%= render 'form_new_page_parts', :f => f if Refinery::Pages.new_page_parts %>
-
-  <%= render partial: '/glass/html_editing_assets' %>
 <% end %>
+
+<%= render '/glass/html_editing_assets' %>
+<%= render 'form_outside_main_form' %>
 
 <% content_for :javascripts do %>
   <script>
