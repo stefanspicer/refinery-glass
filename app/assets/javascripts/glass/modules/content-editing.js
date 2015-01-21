@@ -73,18 +73,23 @@ var GlassContentEditing = (function ($) {
   // # Edit and Add HTML content                                 #
   // #############################################################
   $(document).on('content-ready', function (e, element) {
+    function insert_new_module_after($hook) {
+      var $new_module = $('#glass-parking .glass-module.blank').clone();
+      $new_module.removeClass('blank');
+      $new_module.prepend($('#glass-change-module').show());
+      $hook.after($new_module);
+      $hook.after("\n  ");
+      $(document).trigger('content-ready', $new_module[0]);
+      return $new_module;
+    }
+
     var handle_keypress = function(e) {
       // What non 'p' do we need to worry about?
       // $(this).find('p').is(":focus") &&
       if (e.which == 13) {
         e.preventDefault();
-        var $new_module = $('#glass-parking .glass-module.blank').clone();
-        $new_module.removeClass('blank');
-        $new_module.prepend($('#glass-change-module').show());
-        $(this).after($new_module);
-        $(this).after("\n  ");
+        var $new_module = insert_new_module_after($(this));
         $new_module.find('p').first().focus();
-        $(document).trigger('content-ready', $new_module[0]);
       }
 
       // if ($(this).glass().isEmpty() && backspace) remove module
@@ -94,6 +99,12 @@ var GlassContentEditing = (function ($) {
     if ($(element).hasClass('glass-module')) {
       $(element).keypress(handle_keypress);
     }
+
+    $(element).find('#glass-blank-module-hook').each(function () {
+      var $new_module = insert_new_module_after($(this));
+      $(this).remove();
+    });
+
 
     $(element).find('[contenteditable=true]').each(function () {
       $(this).focusout(function () {
