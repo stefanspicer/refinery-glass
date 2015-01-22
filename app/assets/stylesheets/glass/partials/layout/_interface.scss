@@ -15,29 +15,43 @@ body{
   padding: 0;
 }
 
+.container-fluid{
+  max-width: 1200px;
+}
+
+.small-sidebar{
+  .container-fluid{
+    padding-left: 60px;
+  }
+  .menu-link-left{
+    display: none;
+  }
+}
 
 
 /* -------------------- SIDEBARS -------------------- */
 
-.ui.left.sidebar.small{
-  width: 45px;
-  transform: translate3d(0%, 0%, 0);
-  transition: 0.2s 0.3s ease-out;
-  &:hover{
-    width: 230px;
-    transition: 0.2s ease-out;
-  }
-  &.visible{
-    width: 230px;
-  }
-  .menu-link{
-    display: none;
-  }
-  .gcicon-glass-canvas{
-    display: inline !important;
-    visibility: visible !important;
-    margin: 0 10px 0 1px;
-    color: $grey-5;
+.small-sidebar{
+  .ui.left.sidebar{
+    width: 45px;
+    transform: translate3d(0%, 0%, 0);
+    transition: 0.2s 0.3s ease-out;
+    &:hover{
+      width: 230px;
+      transition: 0.2s ease-out;
+    }
+    &.visible{
+      width: 230px;
+    }
+    .menu-link{
+      display: none;
+    }
+    .gcicon-glass-canvas{
+      display: inline !important;
+      visibility: visible !important;
+      margin: 0 10px 0 1px;
+      color: $grey-5;
+    }
   }
 }
 

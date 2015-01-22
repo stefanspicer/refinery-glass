@@ -1,12 +1,13 @@
 /* -------------------- EDITOR -------------------- */
 
 *[contenteditable=true]{
- white-space: pre-wrap; 
+  white-space: pre-wrap;
 }
 
 [contenteditable=true]:empty:before{
   content: attr(placeholder);
   display: block; /* For Firefox */
+  color: $grey-5;
 }
 
 .input-group{
