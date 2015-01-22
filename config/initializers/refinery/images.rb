@@ -30,7 +30,7 @@ Refinery::Images.configure do |config|
   config.s3_access_key_id     = 'AKIAJXTDW47OTT5VLSLA'
   config.s3_secret_access_key = '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'
   config.s3_region            = 'us-west-2'
-  config.s3_bucket_name       = 'nlcc'
+  config.s3_bucket_name       = 'sandbox'
 
   # for the Glass::AssetHelper to put the name in
   config.dragonfly_url_format = "/system/images/:job/:name"
