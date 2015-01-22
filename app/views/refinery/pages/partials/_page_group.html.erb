@@ -21,8 +21,8 @@
           </div>    	   
     	  </div>
     	  <div class="col-sm-8 col-md-9">
-          <h1><%= @page.title %></h1>
-          <%= render '/refinery/content_page', { :hide_sections => [:body_content_title] } %>
+          <h1 class="glass-edit" data-glass-options='{"form_id": "page_title"}' placeholder="Title"><%= @page.title %></h1>
+          <%= render partial: '/glass/page_content' %>
           <%= yield :extra_page_content %>
     	  </div>
       </div>
