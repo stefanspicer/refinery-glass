@@ -149,7 +149,7 @@ var GlassContentEditing = (function ($) {
     };
 
     this.insertNewModuleAfter = function($hook) {
-      var $new_para = $('<p/>', { placeholder: 'New Paragraph...' });
+      var $new_para = $('<p/>', { placeholder: 'New paragraph...' });
       $hook.insertAfter("\n  ");
       $new_para.insertAfter($hook);
       $(document).trigger('content-ready', $new_para[0]);
