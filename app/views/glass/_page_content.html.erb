@@ -1,4 +1,15 @@
-<div class="glass-edit" data-glass-options='{"form_id": "page_parts_attributes_0_body", "type": "html"}'>
-  <% body = @page.content_for(:body) %>
-  <%= raw body.blank? ? '<p placeholder="New paragraph..."></p>' : body %>
+<%
+  parts_hash = {
+    '1' => [0, :body],
+    '2' => [1, :body2],
+    '3' => [2, :body3],
+  }
+
+  if !defined?(part_num)
+    part_num = '1'
+  end
+%>
+<div class="glass-edit" data-glass-options='{"form_id": "page_parts_attributes_<%= parts_hash[part_num][0].to_s %>_body", "type": "html"}'>
+  <% content = @page.content_for(parts_hash[part_num][1]) %>
+  <%= raw content.blank? ? '<p placeholder="New paragraph..."></p>' : content %>
 </div>
