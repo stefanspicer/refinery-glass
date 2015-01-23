@@ -1,8 +1,10 @@
 Refinery::Plugin.class_eval do
   def position
-    if self.name == 'authors'
-      return 0
+    positions_override = Refinery::Core.config.backend_menu_positions
+    if positions_override.present? && positions_override.has_key?(self.name)
+      return positions_override[self.name]
     end
+
     if @position
       return @position
     end
@@ -17,8 +19,7 @@ Refinery::Plugin.class_eval do
     when "refinerycms_inquiries"
       return 85
     when "refinery_users"
-      #return 90
-      return 0
+      return 90
     when "refinery_settings"
       return 0 #hide
     when "refinery_images"
