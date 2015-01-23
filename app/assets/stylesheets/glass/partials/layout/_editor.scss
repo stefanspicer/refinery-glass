@@ -5,7 +5,7 @@
 }
 
 [contenteditable=true]:empty:before{
-  content: attr(placeholder);
+  content: attr(glass-placeholder);
   display: block; /* For Firefox */
   color: $grey-5;
 }
