@@ -1,5 +1,5 @@
 module Glass
-  module AssetHelper
+  module MiscHelper
     # def glass_image_fu(image_uid, geometry = nil, options={})
     #   image_tag(::Dragonfly[:refinery_images].fetch(image_uid).thumb(geometry).url, options)
     # end
