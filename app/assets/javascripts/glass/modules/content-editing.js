@@ -231,12 +231,12 @@ var GlassContentEditing = (function ($) {
       }
     });
     this.m.elem.keypress(function(e) {
-      if (e.which == 13) {
+      if (e.which == 13) { // ENTER
         e.preventDefault();
         var $new_module = this_module.m.editor.insertNewModuleAfter($(this));
       }
 
-      if (e.which == 8 && !$(this).text().trim()) {
+      if ((e.which == 8 || e.which == 46) && !$(this).text().trim()) { // BACKSPACE (& empty)
         e.preventDefault();
         this_module.m.editor.hideControl();
         this_module.m.editor.moduleBefore(this_module).focus();
