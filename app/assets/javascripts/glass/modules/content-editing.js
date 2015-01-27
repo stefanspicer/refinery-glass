@@ -127,14 +127,20 @@ var GlassContentEditing = (function ($) {
       this.hideControl();
     };
 
-    this.attachControl = function(key) {
+    this.attachControl = function(key, position) {
       var $control = this.control(key);
       var stack = this.h.control_stack;
+
       $control.attachToModule(this.curModule());
-      if (stack.length > 0) {
-        stack[stack.length - 1].element().hide();
+
+      if (position == 'replace') {
+        this.curModule().element().hide();
+        // We have a stack for the 'replace' position only
+        if (stack.length > 0) {
+          stack[stack.length - 1].element().hide();
+        }
+        stack.push($control);
       }
-      stack.push($control);
     };
 
     this.closeCurControl = function() {
@@ -149,12 +155,12 @@ var GlassContentEditing = (function ($) {
     };
 
     this.insertNewModuleAfter = function($hook) {
-      var $new_para = $('<p/>', { glass-placeholder: 'New paragraph...' });
+      var $new_para = $('<p/>', { 'glass-placeholder': 'New paragraph...' });
       $hook.insertAfter("\n  ");
       $new_para.insertAfter($hook);
       $(document).trigger('content-ready', $new_para[0]);
       var $new_module = $new_para.glassHtmlModule(this_editor);
-      this.attachControl('change_module');
+      this.attachControl('change_module', 'left');
       return $new_module;
     };
 
@@ -178,21 +184,33 @@ var GlassContentEditing = (function ($) {
       }
     });
 
-    this.h.control['change_module'] = $('#glass-change-module').glassHtmlControl();
+    this.h.control['change_module'] = $('#glass-scms-module').glassHtmlControl();
     this.h.control['choose_module'] = $('#glass-choose-module').glassHtmlControl();
     this.h.control['settings_vid']  = $('#glass-module-settings-vid').glassHtmlControl();
-    //this.h['control']['change_module'] = $('#glass-change-module').glassHtmlControl();
-    //this.h['control']['choose_module'] = $('#glass-choose-module').glassHtmlControl();
-    //this.h['control']['settings_vid']  = $('#glass-module-settings-vid').glassHtmlControl();
 
-    $('#glass-change-module').click(function (e) {
+    $('#glass-scms-module').click(function (e) {
       e.preventDefault();
-      this_editor.attachControl('choose_module');
+      var stack = this_editor.h.control_stack;
+
+      if ($(this).hasClass('glass-close') && stack.length > 0) {
+        stack.pop().element().hide();
+        if (stack.length > 0) {
+          stack[stack.length - 1].element().fadeIn();
+        }
+        else {
+          $(this).removeClass('glass-close rotate-45');
+          this_editor.curModule().element().fadeIn();
+        }
+      }
+      else {
+        $(this).addClass('glass-close rotate-45');
+        this_editor.attachControl('choose_module', 'replace');
+      }
     });
 
     $('#glass-choose-module-vid').click(function (e) {
       e.preventDefault();
-      this_editor.attachControl('settings_vid');
+      this_editor.attachControl('settings_vid', 'replace');
     });
 
     $('.glass-control-close').click(function (e) {
