@@ -110,7 +110,7 @@ body{
     &::-webkit-scrollbar {
       display: none;
     }
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
     padding-bottom: 15px;
     li{
