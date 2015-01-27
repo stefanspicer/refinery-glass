@@ -65,6 +65,21 @@ button{
   left: -1px;
 }
 
+.transitionable{
+  transition: 0.2s ease-out;
+}
+
+.rotate-45{
+  transform: rotate(45deg);
+}
+
+.rotate-90{
+  transform: rotate(90deg);
+}
+
+.rotate-180{
+  transform: rotate(180deg);
+}
 
 
 /* -------------------- LAYOUT -------------------- */
