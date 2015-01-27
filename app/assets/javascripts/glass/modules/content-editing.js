@@ -149,7 +149,7 @@ var GlassContentEditing = (function ($) {
     };
 
     this.insertNewModuleAfter = function($hook) {
-      var $new_para = $('<p/>', { placeholder: 'New paragraph...' });
+      var $new_para = $('<p/>', { glass-placeholder: 'New paragraph...' });
       $hook.insertAfter("\n  ");
       $new_para.insertAfter($hook);
       $(document).trigger('content-ready', $new_para[0]);
@@ -231,12 +231,12 @@ var GlassContentEditing = (function ($) {
       }
     });
     this.m.elem.keypress(function(e) {
-      if (e.which == 13) {
+      if (e.which == 13) { // ENTER
         e.preventDefault();
         var $new_module = this_module.m.editor.insertNewModuleAfter($(this));
       }
 
-      if (e.which == 8 && !$(this).text().trim()) {
+      if ((e.which == 8 || e.which == 46) && !$(this).text().trim()) { // BACKSPACE (& empty)
         e.preventDefault();
         this_module.m.editor.hideControl();
         this_module.m.editor.moduleBefore(this_module).focus();

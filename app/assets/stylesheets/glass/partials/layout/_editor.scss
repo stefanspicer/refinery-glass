@@ -36,49 +36,28 @@
       border-color: rgba($primary-fade, 0.3);
     }
   }
+  .add-module{
+    position: absolute;
+    left: -50px;
+  }
   .new-module{
     display: block;
     clear: both;
-    padding-top: 15px;
     margin-bottom: 15px;
-    a{
-      text-align: center;
-      overflow: hidden;
-      float: left;
-      margin: 0 5px 0 0;
-    }
-    .add-module{
-      .gcicon{
-        top: 1px;
-      }
-    }
-    .media-type{
-      .gcicon{
-        font-size: 14px;
-      }
-    }
+    top: -1px;
   }
   .media-chooser{
-    .add-module{
-      margin-right: 20px; 
-      color: $grey-5;
-      border-color: $grey-5;
-      &:hover{
-        color: $white;
-        border-color: $primary-dark;
-      }
-      .gcicon{
-        @include rotate(45deg);
-      }
-    }
-    .media-type{
-    }
     .form-group{
       margin: 0;
       .input-group{
-        top: -1px;
-        .form-control{
-          width: 300px;
+        top: -5px;
+        max-width: 500px;
+        .input-group-btn{
+          width: auto;
+          display: block;
+          .btn{
+            height: 42px;
+          }
         }
       }
     }
