@@ -66,10 +66,8 @@ body{
     justify-content: space-between;
     align-items: center;
     background: $grey-1;
-    width: 100%;
     padding: 18px 15px;
     z-index: 10000;
-    position: fixed;
     top: 0;
     width: 230px;
     white-space: nowrap;
@@ -89,12 +87,10 @@ body{
     justify-content: space-between;
     align-items: center;
     bottom: 0;
-    width: 100%;
     padding: 9px 15px;   
     color: $grey-6;
     font-size: 16px;
     font-weight: 600;
-    align-items: center;
     white-space: nowrap;
     width: 230px;
     right: 0;

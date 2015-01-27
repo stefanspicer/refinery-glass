@@ -5,22 +5,11 @@
 var GlassMenus = (function ($) {
   $(document).on('content-ready', function (e, element) {
     $(element).find('.sidebar-left-opener').click(function (e) { e.preventDefault(); });
-    $(element).find('#sidebar-left').first().sidebar('attach events', '.sidebar-left-opener', 'overlay', 'show');
-  });
-
-  // Return API for other modules
-  return {
-  };
-})(jQuery);
-
-var GlassMenus = (function ($) {
-  $(document).on('content-ready', function (e, element) {
-    $('.sidebar-right-opener').click(function (e) { e.preventDefault(); });
+    $(element).find('.sidebar-right-opener').click(function (e) { e.preventDefault(); });
     $('#sidebar-left').first().sidebar('attach events', '.sidebar-left-opener', 'overlay', 'show');
     $('#sidebar-right').first().sidebar('attach events', '.sidebar-right-opener', 'overlay', 'show');
   });
 
   // Return API for other modules
-  return {
-  };
+  return {};
 })(jQuery);
