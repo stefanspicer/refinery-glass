@@ -84,7 +84,7 @@ Refinery::Admin::UsersController.class_eval do
   end
 
   def update_password
-    render layout: 'refinery/layouts/login', view: 'refinery/admin/users/update_password'
+    render view: 'refinery/admin/users/update_password', layout: 'refinery/layouts/login'
   end
 
 protected

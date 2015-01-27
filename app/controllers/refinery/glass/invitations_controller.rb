@@ -2,7 +2,7 @@ require 'devise'
 require 'yaml'
 
 class Refinery::Glass::InvitationsController < ::ApplicationController
-  layout'refinery/layouts/login'
+  layout 'refinery/layouts/login'
 
   def accept_invite
 
