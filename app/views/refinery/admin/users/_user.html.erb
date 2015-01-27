@@ -4,7 +4,7 @@
     <a href="<%= current_refinery_user.can_edit?(user) ? refinery.edit_admin_user_path(user) : '#' %>" class="page-title">
       <span class='title'>
         <%= user.username %>
-        <% if user.attributes.keys.include?(:confirmation_token) &&
+        <% if user.attributes.keys.include?('confirmation_token') &&
             user.confirmation_token.present? &&
             !user.confirmed_at.present? %>
           <span class="label">Invitation Sent</span>
