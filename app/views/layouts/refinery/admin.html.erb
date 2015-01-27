@@ -1,4 +1,37 @@
 <!DOCTYPE html>
+<!-- DOCUMENTATION
+
+html
+  head
+    glass/head
+    glass/stylesheets
+  /head
+  body
+    sidebar-left (main admin nav)
+    sidebar-right
+    page-preview OR admin_content [OR legacy admin content]
+      _body partial (shared)
+        header (main nav)
+        content
+        footer
+      /_body partial
+    /page-preview
+    modal wrapper
+    glass/javascripts
+  /body
+/html
+
+html
+  head
+    glass/head
+    glass/stylesheets
+  /head
+  body
+    _body partial (shared)
+    glass/javascripts
+  /body
+/html
+-->
 
 <%= render '/refinery/html_tag' %>
   <% content_for :meta, "<meta refinerycms='#{Refinery.version}' />".html_safe %>
@@ -8,7 +41,7 @@
   </head>
 
   <body class="<%= action_name %> <%= I18n.locale %> small-sidebar">
-    <section id="sidebar-left" class="ui sidebar overlay left">
+    <section id="sidebar-left" class="ui sidebar left overlay">
       <div class="sidebar-top-nav site-name">
         <a href="" class="sidebar-left-opener menu-link menu-link-left"><i class="gcicon gcicon-cancel"></i></a> <i class="gcicon gcicon-glass-canvas hidden"></i> <%= link_to Refinery::Core.site_name, '/' %>
       </div>
