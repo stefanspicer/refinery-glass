@@ -2,12 +2,9 @@ require "yaml"
 
 Refinery::Admin::UsersController.class_eval do
 
-  before_filter :find_org
   before_filter :filter_users,     :only => [:index]
-  before_filter :set_org,          :only => [:create]
   skip_before_filter :restrict_controller, :only => [:update]
   before_filter :check_user,               :only => [:update]
-  after_filter :create_linked_author,      :only => [:create, :update]
 
   def create
     params[:user][:password] = 'password'
@@ -87,7 +84,7 @@ Refinery::Admin::UsersController.class_eval do
   end
 
   def update_password
-    render 'refinery/admin/users/update_password'
+    render layout: 'refinery/layouts/login', view: 'refinery/admin/users/update_password'
   end
 
 protected
@@ -98,10 +95,6 @@ protected
     }.uniq.sort_by { |a| a[:title] }
   end
 
-  def find_org
-    @org = current_refinery_user.org
-  end
-
   def filter_users
     if !current_refinery_user.has_role?(:superuser)
       users = ::Refinery::User.where(:org_id => @org.id).order('username ASC')
@@ -109,12 +102,6 @@ protected
       users = ::Refinery::User.order('username ASC')
     end
     @users = users.paginate(:page => params[:page], :per_page => 50)
-  end
-
-  def set_org
-    if params[:user][:org_id].blank? or !current_refinery_user.has_role?(:superuser)
-      params[:user][:org_id] = @org.id
-    end
   end
 
   # override the default index action
@@ -146,19 +133,6 @@ protected
     else
       redirect_to refinery.admin_dashboard_path,
                   :notice => t('updated', :what => @user.username, :scope => 'refinery.crudify')
-    end
-  end
-
-
-  def create_linked_author
-    if @user.author.blank?
-      begin
-        @user.author = Refinery::Feast::Author.new(:name => @user.username, :email => @user.email, :org_id => @user.org_id)
-        @user.author.save
-        @user.save
-      rescue
-        logger.warn "Something went wrong when trying to create and save author to user: #{@user.inspect}"
-      end
     end
   end
 
