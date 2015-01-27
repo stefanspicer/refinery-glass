@@ -4,13 +4,6 @@ module Refinery
       extend Refinery::Engine
       engine_name :refinery_glass
 
-=begin
-      config.autoload_paths += %W( #{config.root}/app/decorators )
-
-      config.after_initialize do
-        Refinery.register_extension(Refinery::Glass)
-      end
-=end
       config.after_initialize do
         Refinery.register_engine(Refinery::Glass)
       end
