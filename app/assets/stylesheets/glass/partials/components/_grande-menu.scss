@@ -1,0 +1,223 @@
+@font-face {
+  font-family: icomoon;
+  src: url('icomoon/icomoon.ttf'),
+       url('icomoon/icomoon.eot');
+}
+
+@-webkit-keyframes pop-upwards {
+  0% {
+    -webkit-transform:matrix(0.97,0,0,1,0,12);
+    transform:matrix(0.97,0,0,1,0,12);
+    opacity:0
+  }
+  20% {
+    -webkit-transform:matrix(0.99,0,0,1,0,2);
+    transform:matrix(0.99,0,0,1,0,2);
+    opacity:.7
+  }
+  40% {
+    -webkit-transform:matrix(1,0,0,1,0,-1);
+    transform:matrix(1,0,0,1,0,-1);
+    opacity:1
+  }
+  70% {
+    -webkit-transform:matrix(1,0,0,1,0,0);
+    transform:matrix(1,0,0,1,0,0);
+    opacity:1
+  }
+  100% {
+    -webkit-transform:matrix(1,0,0,1,1,1);
+    transform:matrix(1,0,0,1,0,0);
+    opacity:1
+  }
+}
+
+@keyframes pop-upwards{
+  0% {
+    -webkit-transform:matrix(0.97,0,0,1,0,12);
+    transform:matrix(0.97,0,0,1,0,12);
+    opacity:0
+  }
+  20% {
+    -webkit-transform:matrix(0.99,0,0,1,0,2);
+    transform:matrix(0.99,0,0,1,0,2);
+    opacity:.7
+  }
+  40% {
+    -webkit-transform:matrix(1,0,0,1,0,-1);
+    transform:matrix(1,0,0,1,0,-1);
+    opacity:1
+  }
+  70% {
+    -webkit-transform:matrix(1,0,0,1,0,0);
+    transform:matrix(1,0,0,1,0,0);
+    opacity:1
+  }
+  100% {
+    -webkit-transform:matrix(1,0,0,1,0,0);
+    transform:matrix(1,0,0,1,0,0);
+    opacity:1
+  }
+}
+
+.g-body .pos-abs {
+  position: absolute;
+}
+
+.g-body .file-hidden {
+  opacity: 0;
+  width: 90px;
+}
+
+.g-body .file-label {
+  width: 90px;
+}
+
+.g-body .text-menu {
+  -webkit-transition: opacity 180ms, margin 180ms;
+  -ms-transition: opacity 180ms, margin 180ms;
+  transition: opacity 180ms, margin 180ms;
+
+  position: absolute;
+  color: #fff;
+  margin-top: -20px;
+  margin-left: -115px;
+}
+
+.g-body .text-menu.active {
+  -webkit-animation:pop-upwards 180ms forwards linear;
+  -ms-animation:pop-upwards 180ms forwards linear;
+  animation:pop-upwards 180ms forwards linear;
+}
+
+.url {
+  font-size: 16px !important;
+  font-family: 'icomoon' !important;
+}
+
+.image-tooltip {
+  position: absolute;
+}
+
+.image-tooltip.hide, .text-menu.hide {
+  left: -999px;
+  top: -999px;
+}
+
+.text-menu.fade {
+  opacity: 0;
+  margin-top: -5px;
+}
+
+.text-menu .active {
+  color: #60d778;
+}
+
+.text-menu button {
+  -webkit-transition: opacity 400ms;
+  -ms-transition: opacity 400ms;
+  transition: opacity 400ms;
+
+  font-family: inherit;
+  background: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: inherit;
+  padding: 0px;
+  height: 32px;
+  width: 25px;
+  border: 0px;
+  outline: none;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.options {
+  background-color: #262625;
+  box-shadow: 0 0 2px #262625;
+  position: absolute;
+  border-radius: 5px;
+  margin-left: 23px;
+  margin-top: -28px;
+  z-index: 1000;
+  padding: 5px 4px 5px 5px;
+  width: 176px;
+  height: 33px;
+
+  -webkit-transition: all 300ms ease-in-out;
+  -ms-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+}
+
+.options.url-mode {
+  width: 176px;
+}
+
+.options.url-mode .header1,
+.options.url-mode .header2,
+.options.url-mode .bold,
+.options.url-mode .italic,
+.options.url-mode .quote,
+.options.url-mode .url {
+  width: 0px;
+  overflow: hidden;
+  margin-right: 0px;
+  opacity: 0;
+}
+
+.options .italic {
+  font-style: italic;
+}
+
+.options .quote {
+  line-height: 54px !important;
+  font-size: 41px !important;
+}
+
+.options button {
+  float: left;
+  width: 28px;
+  height: 30px;
+  border-radius: 3px;
+  margin-right: 1px;
+}
+
+.options.url-mode input{
+  border-left: 2px solid transparent;
+  padding-right: 5px;
+  padding-left: 5px;
+  width: 155px;
+  background: transparent;
+  color: #fff;
+}
+
+.options input {
+  border-radius: 3px;
+  overflow: hidden;
+  outline: 0px;
+  height: 30px;
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
+  float: left;
+  width: 0px;
+}
+
+.options:before {
+  content: "";
+  border-top: 5px solid rgba(0,0,0,0.9);
+  border-bottom: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  position: absolute;
+  margin-left: -5px;
+  bottom: -15px;
+  height: 5px;
+  width: 0px;
+  left: 50%;
+}
