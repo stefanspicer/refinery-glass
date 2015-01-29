@@ -10,9 +10,19 @@
       <div class="form-group">
         <div class="input-group">
           <div class="input-group-addon">Vimeo or YouTube URL</div>
-          <input class="form-control" type="text" placeholder="http://...">
+          <input id="glass-vid-url-input" class="form-control glass-autofocus" type="text" placeholder="http://...">
+          <span class="input-group-btn">
+            <button id="glass-add-vid-btn" type="button" class="btn btn-default">Insert</button>
+          </span>
         </div>
       </div>
     </form>
+  </div>
+
+  <div id="glass-module-vid-template" class="outer-video">
+    <div class="video-wrapper">
+      <iframe data-video-link="" src="" frameborder="0" allowfullscreen="" mozallowfullscreen="" webkitallowfullscreen="" scrolling="no" hspace="0">
+      </iframe>
+    </div>
   </div>
 </div>

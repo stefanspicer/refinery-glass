@@ -310,6 +310,36 @@ var GlassContentEditing = (function ($) {
       e.preventDefault();
       this_editor.attachControl('settings_vid');
     });
+    $('#glass-add-vid-btn').click(function (e) {
+      var $vid_module = $('#glass-module-vid-template').clone();
+      $vid_module.removeAttr('id'); //The id only stays on the one in the parking
+      var vid_link = $('#glass-vid-url-input').val();
+      $('#glass-vid-url-input').val('');
+      var embed_url = vid_link; // The default, will be changed below
+      $vid_module.attr('data-video-link', vid_link); // Save for later use if needed (to edit??)
+      var matches = vid_link.match(/(vimeo|youtube).com\/(.+)$/);
+
+      if (matches && vid_link.search(/(?:youtube.+embed|player\.vimeo)/) == -1) {
+        var vid_host = matches[1];
+        var vid_path = matches[2];
+        var vid_host_meta = {
+          'youtube': ["//www.youtube.com/embed/",  "",              /[\?\&]v=(\w+)/],
+          'vimeo'  : ["//player.vimeo.com/video/", "?color=8d69bf", /^(\w+)/],
+        };
+        var matches2 = vid_path.match(vid_host_meta[vid_host][2]);
+        if (matches2) {
+          embed_url = vid_host_meta[vid_host][0] + matches2[1] + vid_host_meta[vid_host][1];
+        }
+      }
+      else if (vid_link.search(/^\/\//) == -1) {
+        embed_url = "//" + vid_link.replace(/^https?:\/\//, '');
+      }
+
+      $vid_module.find('iframe').attr('src', embed_url);
+
+      this_editor.curModule().element().replaceWith($vid_module);
+      this_editor.removeGlassControl();
+    });
 
     $('.glass-control-close').click(function (e) {
       e.preventDefault();
@@ -360,8 +390,9 @@ var GlassContentEditing = (function ($) {
     this.c = {'elem': $elem};
 
     this.attachToModule = function($module) {
-      this.c.elem.fadeIn().insertBefore($module.element());
+      this.element().fadeIn().insertBefore($module.element());
       this.c.module = $module;
+      this.focus();
     }
 
     this.element = function() {
@@ -379,6 +410,10 @@ var GlassContentEditing = (function ($) {
       if (this.c.module) {
         this.c.module.element().fadeIn();
       }
+    };
+
+    this.focus = function() {
+      this.element().find('.glass-autofocus').focus();
     };
   }
 
