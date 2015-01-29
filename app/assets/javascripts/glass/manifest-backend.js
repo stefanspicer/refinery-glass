@@ -31,5 +31,6 @@
 //= require glass/semantic-ui/transition
 //= require glass/semantic-ui/sidebar
 //= require glass/cropper.js
+//= require glass/grande
 //= require canvas/modules/watchforchanges
 //= require_tree ./modules

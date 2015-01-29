@@ -13,6 +13,14 @@ body {
   padding-top: 50px;
 }
 
+.g-body {
+  position: static;
+}
+
+.g-body .text-menu {
+  z-index: 3;
+}
+
 .g-body h1,
 .g-body p,
 .g-body blockquote,

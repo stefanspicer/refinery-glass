@@ -209,7 +209,7 @@ var GlassContentEditing = (function ($) {
 
     this.modules = function() {
       var modules = [];
-      this.h.elem.find('p, h1, h2, h3, h4, h5, h6').each(function () {
+      this.h.elem.find('p, h1, h2, h3, h4, h5, h6, ul, ol').each(function () {
         if ($(this).parents('.glass-no-edit').length == 0) {
           modules.push($(this).glassHtmlModule(this_editor));
         }
@@ -324,7 +324,7 @@ var GlassContentEditing = (function ($) {
       this_editor.triggerChangeFocus(null, e);
     });
 
-    //grande.bind(document.querySelectorAll(".article-body"));
+    grande.bind(document.querySelectorAll(".glass-edit-html"));
   }
 
   // #############################################################
