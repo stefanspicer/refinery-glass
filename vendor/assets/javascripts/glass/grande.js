@@ -54,7 +54,7 @@
               <button class='header1'>h1</button> \
               <button class='header2'>h2</button> \
               <button class='quote'>&rdquo;</button> \
-              <button class='url useicons'>&#xe001;</button> \
+              <button class='url'>link</button> \
               <input class='url-input' type='text' placeholder='Paste or type a link'/> \
             </span> \
           </span> \
@@ -488,7 +488,7 @@
       if (typeof url !== "undefined") {
         urlInput.value = url;
       } else {
-        document.execCommand("createLink", false, "/");
+        //document.execCommand("createLink", false, "/");
       }
 
       previouslySelectedText = window.getSelection().getRangeAt(0);
