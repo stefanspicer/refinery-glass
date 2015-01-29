@@ -1,13 +1,19 @@
 /* -------------------- EDITOR -------------------- */
 
 *[contenteditable=true]{
-  white-space: pre-wrap;
+  /* white-space: pre-wrap;  Luke, why was this here?  ..it seems to mess up the choose vid interface */
 }
 
-[contenteditable=true]:empty:before{
+[contenteditable=true]:empty:before,
+[contenteditable=true] p.empty:before{
   content: attr(glass-placeholder);
   display: block; /* For Firefox */
   color: $grey-5;
+}
+
+[contenteditable=true] p.empty:before{
+  content: 'New Paragraph...';
+  position: absolute;
 }
 
 .input-group{
@@ -20,8 +26,13 @@
   }
 }
 
+.glass-debug-cur-module {
+  /*background: $grey-4;*/
+}
+
 #page-preview{
   *[contenteditable=true]{
+      /* white-space: normal; Defaults to displaying all newlines and spaces */
       border-left: 2px solid transparent;
       padding-left: 15px;
       margin-left: -17px;
