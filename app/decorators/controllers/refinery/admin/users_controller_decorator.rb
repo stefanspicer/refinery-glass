@@ -96,7 +96,7 @@ protected
   end
 
   def filter_users
-    if !current_refinery_user.has_role?(:superuser)
+    if !current_refinery_user.has_role?(:superuser) && @org.present?
       users = ::Refinery::User.where(:org_id => @org.id).order('username ASC')
     else
       users = ::Refinery::User.order('username ASC')
