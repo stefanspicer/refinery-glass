@@ -42,6 +42,9 @@ var GlassContentEditing = (function ($) {
       }
       return module;
     },
+    glassIsaModule: function () {
+      return this.data('glass-module') ? true : false;
+    },
     // A glassControl is an action (or set of actions) to be made on a module
     glassHtmlControl: function () {
       var control = this.data('glass-control');
@@ -162,11 +165,6 @@ var GlassContentEditing = (function ($) {
       stack[stack.length - 1].element().fadeIn();
     };
 
-    this.moduleBefore = function($module) {
-      var $prev_elem = $module.element().prev('[contenteditable=true]');
-      return ($prev_elem && $prev_elem.data('glass-module')) ? $prev_elem.glassHtmlModule(this_editor) : null;
-    };
-
     this.removeGlassControl = function() {
       this.h.elem.find('.glass-control').each(function () {
         var $control = $(this).glassHtmlControl();
@@ -194,16 +192,16 @@ var GlassContentEditing = (function ($) {
     this.parentModule = function($elem) {
       var $parent_module = null;
       if ($elem.hasClass('glass-control') || $elem.parents('.glass-control').length > 0 || !this.h.elem.has($elem[0])) {
-        // It is within a control section, or is outside of the editor
-        return $parent_module;
+        // It is within a control section, or is outside of the editor "chunk"
+        return null;
       }
 
-      $.each(this.modules(), function (i, $module) {
-        if ($module.element()[0] == $elem[0] || $.contains($module.element()[0], $elem[0])) {
-          $parent_module = $module;
-          return false;
-        }
-      });
+      var $parent_elem = $elem.parent().hasClass('glass-edit') ? $elem : $elem.parents('.glass-edit > *');
+
+      if ($parent_elem) {
+        $parent_module = $parent_elem.glassHtmlModule(this);
+      }
+
       return $parent_module;
     };
 
@@ -218,24 +216,11 @@ var GlassContentEditing = (function ($) {
     };
 
     this.isaModule = function($elem) {
-      var is_module = false;
-      $.each(this.modules(), function (i, $module) {
-        if ($module.element()[0] == $elem[0]) {
-          is_module = true;
-          return false;
-        }
-      });
-      return is_module;
+      return $elem.glassIsaModule();
     };
 
     this.triggerChangeFocus = function ($elem, e) {
-      var $module = null;
-      if ($elem) {
-        $module = this.parentModule($elem);
-      }
-      else {
-        $module = this.getCurFocusModule();
-      }
+      var $module = $elem ? this.parentModule($elem) : this.getCurFocusModule();
 
       if (!$module) {
         return;
@@ -341,11 +326,6 @@ var GlassContentEditing = (function ($) {
       this_editor.removeGlassControl();
     });
 
-    $('.glass-control-close').click(function (e) {
-      e.preventDefault();
-      this_editor.closeCurControl();
-    });
-
     this.h.elem.mouseup(function(e) {
       this_editor.triggerChangeFocus(null, e);
     });
@@ -413,7 +393,10 @@ var GlassContentEditing = (function ($) {
     };
 
     this.focus = function() {
-      this.element().find('.glass-autofocus').focus();
+      var $autofocus = this.element().find('.glass-autofocus').first();
+      if ($autofocus) {
+        $autofocus.focus();
+      }
     };
   }
 
