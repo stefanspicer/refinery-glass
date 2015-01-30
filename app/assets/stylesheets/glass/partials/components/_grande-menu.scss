@@ -89,6 +89,19 @@
       color: $primary-dark;
     }
   }
+  .header1{
+    sub{
+      bottom: -0.15em;
+    }
+  }
+  .header2{
+    .gcicon{
+      font-size: 12px;
+    }
+    sub{
+      bottom: -0.05em;
+    }
+  }
 }
 
 .highlight-menu-inner.url-mode .menu-buttons {
