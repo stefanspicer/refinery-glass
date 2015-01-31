@@ -133,12 +133,8 @@ var GlassContentEditing = (function ($) {
     this.setCurModule = function($module) {
       if (!this.isCurModule($module)) {
         this.h.cur_module = $module;
-
-        // DEBUG
-        $('.glass-debug-cur-module').removeClass('glass-debug-cur-module');
-        $module.element().addClass('glass-debug-cur-module');
-        // DEBUG
-
+        $('.selected-module').removeClass('selected-module');
+        $module.element().addClass('selected-module');
         this.removeGlassControl();
       }
     };
