@@ -89,14 +89,12 @@
 
     // Trigger on both mousedown and mouseup so that the click on the menu
     // feels more instantaneously active
-    document.onmousedown = triggerTextSelection;
-    document.onmouseup = function(event) {
-      setTimeout(function() {
-        triggerTextSelection(event);
-      }, 1);
-    };
-
-    document.onkeydown = preprocessKeyDown;
+    //document.onmousedown = triggerTextSelection;
+    //document.onmouseup = function(event) {
+    //  setTimeout(function() {
+    //    triggerTextSelection(event);
+    //  }, 1);
+    //};
 
     document.onkeyup = function(event){
       var sel = window.getSelection();
@@ -266,24 +264,6 @@
         }
       }
     });
-  }
-
-  function preprocessKeyDown(event) {
-    var sel = window.getSelection(),
-        parentParagraph = getParentWithTag(sel.anchorNode, "p"),
-        p,
-        isHr;
-
-    if (event.keyCode === 13 && parentParagraph) {
-      prevSibling = parentParagraph.previousSibling;
-      isHr = prevSibling && prevSibling.nodeName === "HR" &&
-        !parentParagraph.textContent.length;
-
-      // Stop enters from creating another <p> after a <hr> on enter
-      if (isHr) {
-        event.preventDefault();
-      }
-    }
   }
 
   function triggerNodeAnalysis(event) {
