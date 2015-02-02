@@ -32,25 +32,31 @@ body{
 /* -------------------- SIDEBARS -------------------- */
 
 .small-sidebar{
-  .ui.left.sidebar{
+  #sidebar-left{
     width: 45px;
     transform: translate3d(0%, 0%, 0);
     transition: 0.2s 0.3s ease-out;
     &:hover{
-      width: 230px;
+      width: 260px;
       transition: 0.2s ease-out;
     }
     &.visible{
-      width: 230px;
+      width: 260px;
     }
     .menu-link{
       display: none;
     }
-    .gcicon-glass-canvas{
-      display: inline !important;
-      visibility: visible !important;
-      margin: 0 10px 0 1px;
-      color: $grey-5;
+    .sidebar-top-nav{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 260px;
+      .gcicon-glass-canvas{
+        display: inline !important;
+        visibility: visible !important;
+        margin: 0 10px 0 1px;
+        color: $grey-5;
+      }
     }
   }
 }
@@ -60,16 +66,13 @@ body{
   border-right: 1px solid $grey-2;
   padding: 0;
   .sidebar-top-nav{
-    text-align: right;
-    display: flex;
     position: fixed;
-    justify-content: space-between;
-    align-items: center;
+    text-align: right;
     background: $grey-1;
     padding: 18px 15px;
     z-index: 10000;
     top: 0;
-    width: 230px;
+    width: 100%;
     white-space: nowrap;
     a{
       color: $grey-6;
@@ -92,7 +95,7 @@ body{
     font-size: 16px;
     font-weight: 600;
     white-space: nowrap;
-    width: 230px;
+    width: 260px;
     right: 0;
     &:hover{
       background: $primary-hover;
@@ -175,11 +178,11 @@ body{
   background: $off-white;
   border-left: 1px solid $grey-2;
   height: 100%;
-  width: 230px;
+  width: 350px;
   position: fixed;
   top: 0;
   right: 0;
-  overflow-y: hidden !important;
+  overflow: hidden !important;
   .sidebar-top-nav{
     text-align: left;
     background: $grey-1;
@@ -193,7 +196,7 @@ body{
     font-weight: 600;
   }
   #sidebar-right-inner{
-    width: 230px;
+    width: 350px;
     height: 90%;
     padding: 15px 0 60px;
     top: 62px;
