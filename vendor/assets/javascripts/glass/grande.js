@@ -4,7 +4,7 @@
 
   var root = this,   // Root object, this is going to be the window for now
       document = this.document, // Safely store a document here for us to use
-      editableNodes = document.querySelectorAll(".g-body article"),
+      editableNodes = document.querySelectorAll(".highlight-menu-wrapper article"),
       editNode = editableNodes[0], // TODO: cross el support for imageUpload
       isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1,
       options = {
@@ -46,42 +46,40 @@
 
   function attachToolbarTemplate() {
     var div = document.createElement("div"),
-        toolbarTemplate = "<div class='options'> \
-          <span class='no-overflow'> \
-            <span class='ui-inputs'> \
-              <button class='bold'>B</button> \
-              <button class='italic'>i</button> \
-              <button class='header1'>h1</button> \
-              <button class='header2'>h2</button> \
-              <button class='quote'>&rdquo;</button> \
-              <button class='url'>link</button> \
-              <input class='url-input' type='text' placeholder='Paste or type a link'/> \
-            </span> \
+        toolbarTemplate = "<div class='highlight-menu-inner'> \
+          <span class='menu-buttons'> \
+            <button class='bold'><i class='gcicon gcicon-bold'></i></button> \
+            <button class='italic'><i class='gcicon gcicon-italic'></i></button> \
+            <button class='header1'><i class='gcicon gcicon-heading'></i><sub>1</sub></button> \
+            <button class='header2'><i class='gcicon gcicon-heading'></i><sub>2</sub></button> \
+            <button class='quote'><i class='gcicon gcicon-quote'></i></button> \
+            <button class='url'><i class='gcicon gcicon-link'></i></button> \
           </span> \
+          <input class='url-input' type='text' placeholder='Paste or type a link'/> \
         </div>",
         imageTooltipTemplate = document.createElement("div"),
         toolbarContainer = document.createElement("div");
 
-    toolbarContainer.className = "g-body";
+    toolbarContainer.className = "highlight-menu-wrapper";
     document.body.appendChild(toolbarContainer);
 
     imageTooltipTemplate.innerHTML = "<div class='pos-abs file-label'>Insert image</div> \
                                         <input class='file-hidden pos-abs' type='file' id='files' name='files[]' accept='image/*' multiple/>";
     imageTooltipTemplate.className = "image-tooltip hide";
 
-    div.className = "text-menu hide";
+    div.className = "highlight-menu hide";
     div.innerHTML = toolbarTemplate;
 
-    if (document.querySelectorAll(".text-menu").length === 0) {
+    if (document.querySelectorAll(".highlight-menu").length === 0) {
       toolbarContainer.appendChild(div);
       toolbarContainer.appendChild(imageTooltipTemplate);
     }
 
     imageInput = document.querySelectorAll(".file-label + input")[0];
     imageTooltip = document.querySelectorAll(".image-tooltip")[0];
-    textMenu = document.querySelectorAll(".text-menu")[0];
-    optionsNode = document.querySelectorAll(".text-menu .options")[0];
-    urlInput = document.querySelectorAll(".text-menu .url-input")[0];
+    textMenu = document.querySelectorAll(".highlight-menu")[0];
+    optionsNode = document.querySelectorAll(".highlight-menu .highlight-menu-inner")[0];
+    urlInput = document.querySelectorAll(".highlight-menu .url-input")[0];
   }
 
   function bindTextSelectionEvents() {
@@ -91,14 +89,12 @@
 
     // Trigger on both mousedown and mouseup so that the click on the menu
     // feels more instantaneously active
-    document.onmousedown = triggerTextSelection;
-    document.onmouseup = function(event) {
-      setTimeout(function() {
-        triggerTextSelection(event);
-      }, 1);
-    };
-
-    document.onkeydown = preprocessKeyDown;
+    //document.onmousedown = triggerTextSelection;
+    //document.onmouseup = function(event) {
+    //  setTimeout(function() {
+    //    triggerTextSelection(event);
+    //  }, 1);
+    //};
 
     document.onkeyup = function(event){
       var sel = window.getSelection();
@@ -217,7 +213,7 @@
   }
 
   function iterateTextMenuButtons(callback) {
-    var textMenuButtons = document.querySelectorAll(".text-menu button"),
+    var textMenuButtons = document.querySelectorAll(".highlight-menu button"),
         i,
         len,
         node,
@@ -268,24 +264,6 @@
         }
       }
     });
-  }
-
-  function preprocessKeyDown(event) {
-    var sel = window.getSelection(),
-        parentParagraph = getParentWithTag(sel.anchorNode, "p"),
-        p,
-        isHr;
-
-    if (event.keyCode === 13 && parentParagraph) {
-      prevSibling = parentParagraph.previousSibling;
-      isHr = prevSibling && prevSibling.nodeName === "HR" &&
-        !parentParagraph.textContent.length;
-
-      // Stop enters from creating another <p> after a <hr> on enter
-      if (isHr) {
-        event.preventDefault();
-      }
-    }
   }
 
   function triggerNodeAnalysis(event) {
@@ -433,7 +411,7 @@
 
           case "a":
             toggleUrlInput();
-            optionsNode.className = "options url-mode";
+            optionsNode.className = "highlight-menu-inner url-mode";
             return;
         }
       }
@@ -445,7 +423,7 @@
   function triggerUrlBlur(event) {
     var url = urlInput.value;
 
-    optionsNode.className = "options";
+    optionsNode.className = "highlight-menu-inner";
     window.getSelection().addRange(previouslySelectedText);
 
     document.execCommand("unlink", false);
@@ -544,7 +522,7 @@
     // The selected text is collapsed, push the menu out of the way
     if (selectedText.isCollapsed) {
       setTextMenuPosition(EDGE, EDGE);
-      textMenu.className = "text-menu hide";
+      textMenu.className = "highlight-menu hide";
     } else {
       range = selectedText.getRangeAt(0);
       clientRectBounds = range.getBoundingClientRect();
@@ -564,9 +542,9 @@
 
     if (options.animate) {
       if (top === EDGE) {
-        textMenu.className = "text-menu hide";
+        textMenu.className = "highlight-menu hide";
       } else {
-        textMenu.className = "text-menu active";
+        textMenu.className = "highlight-menu active";
       }
     }
   }

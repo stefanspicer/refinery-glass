@@ -133,12 +133,8 @@ var GlassContentEditing = (function ($) {
     this.setCurModule = function($module) {
       if (!this.isCurModule($module)) {
         this.h.cur_module = $module;
-
-        // DEBUG
-        $('.glass-debug-cur-module').removeClass('glass-debug-cur-module');
-        $module.element().addClass('glass-debug-cur-module');
-        // DEBUG
-
+        $('.selected-module').removeClass('selected-module');
+        $module.element().addClass('selected-module');
         this.removeGlassControl();
       }
     };
@@ -411,6 +407,19 @@ var GlassContentEditing = (function ($) {
       if ($chunk.getForm()) {
         $form = $chunk.getForm();
       }
+
+      // JQuery seems to get in the way here.. need to work directly on the DOM
+      $(this)[0].addEventListener("paste", function (e) {
+        e.preventDefault();
+
+        if (e && e.clipboardData && e.clipboardData.getData) {
+          var text = e.clipboardData.getData("text/plain");
+          document.execCommand("insertHTML", false, text);
+        }
+        else {
+          alert("Sorry, you will need a different browser in order to paste content"); // FIXME
+        }
+      });
     });
 
     if ($form) {
