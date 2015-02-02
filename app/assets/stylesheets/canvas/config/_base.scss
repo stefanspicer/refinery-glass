@@ -496,6 +496,14 @@ hr {
   background-color: $grey-1;
 }
 
+.article-body hr{
+  margin: 30px auto; //margin subject to change
+  width: 150px;
+  height: 4px;
+  border: 0;
+  background-color: $grey-2;
+}
+
 @media (max-width: 767px){
 	h1{
 		font-size: $font-size-h1 * 0.75;
