@@ -8,16 +8,32 @@ var GlassMenus = (function ($) {
     var leftSidebar = $('#sidebar-left').first();
     var rightSidebar = $('#sidebar-right').first();
 
-    leftSidebar.sidebar('attach events', '.sidebar-left-opener', 'overlay', 'show');
-    rightSidebar.sidebar('attach events', '.sidebar-right-opener', 'overlay', 'show');
+    // set callback listeners for semantic-ui sidebars that cause the no-scroll class to be toggled.
+    leftSidebar.sidebar('attach events', '.sidebar-left-opener', 'overlay', 'show')
+      .sidebar('setting', {
+        onShow : function(){
+          $('#wrapper').addClass('no-scroll');
+        },
+        onHide : function(){
+          $('#wrapper').removeClass('no-scroll');
+        }
+      });
+
+    rightSidebar.sidebar('attach events', '.sidebar-right-opener', 'overlay', 'show')
+      .sidebar('setting', {
+        onShow : function(){
+          $('#wrapper').addClass('no-scroll');
+        },
+        onHide : function(){
+          $('#wrapper').removeClass('no-scroll');
+        }
+      });
 
     $(element).find('.sidebar-left-opener').click(function (e) {
       e.preventDefault();
-      $('body.pushable').toggleClass('no-scroll');
     });
     $(element).find('.sidebar-right-opener').click(function (e) {
       e.preventDefault();
-      $('body.pushable').toggleClass('no-scroll');
     });
 
   });
