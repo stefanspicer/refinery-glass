@@ -32,23 +32,6 @@
 }
 
 #page-preview{
-  .glass-edit-html{
-    *{
-      border-left: 2px solid transparent;
-      padding-left: 15px;
-      margin-left: -17px;
-      border-right: 2px solid transparent;
-      padding-right: 15px;
-      margin-right: -17px;
-      &.selected-module{
-        outline: none;
-        border-color: $primary-fade !important;
-      }
-      &:hover{
-        border-color: rgba($primary-fade, 0.3);
-      }
-    }
-  }
   .add-module{
     position: absolute;
     left: -50px;
