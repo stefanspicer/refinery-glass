@@ -397,33 +397,39 @@ body{
 
 .flash_notice{
   margin-top: 60px;
-  #flash_container{
-    padding: 0;
-    max-width: 1200px;
-    .alert{
-      margin: 0 15px 30px 15px;
-      background: lighten($primary-fade, 16);
-      color: $primary-dark;
-      border-color: saturate(lighten($primary-fade, 12), 20);
-      border-radius: 0;
-      .close{
-        font-size: 25px;
-        color: $primary-color;
-        opacity: 0.6;
-        &:hover{
-          color: $primary-hover;
-        }
+}
+
+#flash_container{
+  padding: 0;
+  max-width: 1200px;
+  .row{
+    .col-sm-12{
+      min-height: 0;
+    }
+  }
+  .alert{
+    margin: 0 15px 30px 15px;
+    background: lighten($primary-fade, 16);
+    color: $primary-dark;
+    border-color: saturate(lighten($primary-fade, 12), 20);
+    border-radius: 0;
+    .close{
+      font-size: 25px;
+      color: $primary-color;
+      opacity: 0.6;
+      &:hover{
+        color: $primary-hover;
       }
     }
-    #flash{
-      margin: 0 15px 30px 15px;
-      display: block;
-      padding: 10px 15px;
-      background: $grey-5;
-      color: $white;
-      #flash_close{
-        float: right;
-      }
+  }
+  #flash{
+    margin: 0 15px 30px 15px;
+    display: block;
+    padding: 10px 15px;
+    background: $grey-5;
+    color: $white;
+    #flash_close{
+      float: right;
     }
   }
 }
