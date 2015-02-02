@@ -92,7 +92,7 @@ var GlassContentEditing = (function ($) {
       var $form_elem = this.getFormElement();
       if ($form_elem) {
         if (this.option('type') == 'text') {
-          $form_elem.val(this.ch.elem.html());
+          $form_elem.val(this.ch.elem.text());
         }
         else if (this.option('type') == 'html') {
           $form_elem.val(this.ch.editor.formatHtml());
