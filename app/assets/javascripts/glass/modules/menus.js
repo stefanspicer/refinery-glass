@@ -4,10 +4,22 @@
 
 var GlassMenus = (function ($) {
   $(document).on('content-ready', function (e, element) {
-    $(element).find('.sidebar-left-opener').click(function (e) { e.preventDefault(); });
-    $(element).find('.sidebar-right-opener').click(function (e) { e.preventDefault(); });
-    $('#sidebar-left').first().sidebar('attach events', '.sidebar-left-opener', 'overlay', 'show');
-    $('#sidebar-right').first().sidebar('attach events', '.sidebar-right-opener', 'overlay', 'show');
+
+    var leftSidebar = $('#sidebar-left').first();
+    var rightSidebar = $('#sidebar-right').first();
+
+    leftSidebar.sidebar('attach events', '.sidebar-left-opener', 'overlay', 'show');
+    rightSidebar.sidebar('attach events', '.sidebar-right-opener', 'overlay', 'show');
+
+    $(element).find('.sidebar-left-opener').click(function (e) {
+      e.preventDefault();
+      $('body.pushable').toggleClass('no-scroll');
+    });
+    $(element).find('.sidebar-right-opener').click(function (e) {
+      e.preventDefault();
+      $('body.pushable').toggleClass('no-scroll');
+    });
+
   });
 
   // Return API for other modules

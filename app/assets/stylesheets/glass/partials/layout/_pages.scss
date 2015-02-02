@@ -1,5 +1,9 @@
 /* -------------------- PAGES -------------------- */
 
+.no-scroll {
+  overflow: hidden;
+}
+
 .login{
   background: $off-white;
   padding-top: 90px;
