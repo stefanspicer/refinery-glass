@@ -87,8 +87,6 @@ html
       <% elsif content_for?(:admin_content) %>
         <%= yield :admin_content %>
       <% else %>
-        <!-- this is just to display legacy, so we'll grab legacy css -->
-        <%= stylesheet_link_tag 'refinery/refinery' %>
         <div class="container">
           <div class="row">
             <div class="col-sm-12">
