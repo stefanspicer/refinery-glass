@@ -585,6 +585,10 @@ form{
   }
 }
 
+.form-actions{
+  display: block;
+}
+
 .input-group{
   .form-control{
     border-color: $grey-3;
