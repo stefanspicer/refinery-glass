@@ -7,7 +7,7 @@
         :class => ("active" if plugin.highlighted?(params)),
         :id => "plugin_#{plugin.name}" %>
       <% if plugin.highlighted?(params) %>
-        <%= yield :admin_submenu %>
+        <%#= yield :admin_submenu %>
       <% end %>
     </li>
   <% end -%>
