@@ -32,6 +32,7 @@ html
   /body
 /html
 -->
+<% is_admin_preview_page =  content_for?(:admin_page_preview) %>
 
 <%= render '/refinery/html_tag' %>
   <% content_for :meta, "<meta refinerycms='#{Refinery.version}' />".html_safe %>
@@ -40,7 +41,7 @@ html
     <%= render partial: '/glass/stylesheets', locals: {admin: true} %>
   </head>
 
-  <body class="<%= action_name %> <%= I18n.locale %> small-sidebar">
+  <body class="<%= action_name %> <%= I18n.locale %> <%= 'small-sidebar' unless is_admin_preview_page %>">
     <section id="sidebar-left" class="ui sidebar left overlay">
       <div class="sidebar-top-nav site-name">
         <a href="" class="sidebar-left-opener menu-link menu-link-left"><i class="gcicon gcicon-cancel"></i></a> <i class="gcicon gcicon-glass-canvas hidden"></i> <%= link_to Refinery::Core.site_name, '/' %>
@@ -78,7 +79,7 @@ html
         </div>
       </div>
 
-      <% if content_for?(:admin_page_preview) %>
+      <% if is_admin_preview_page %>
         <section id="page-preview">
           <!-- this partial yields to :admin_page_preview -->
           <%= render partial: '/glass/body', locals: {admin: true} %>
