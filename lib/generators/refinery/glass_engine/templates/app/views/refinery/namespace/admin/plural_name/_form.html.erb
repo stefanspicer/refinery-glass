@@ -10,7 +10,6 @@
     end
   end
 -%>
-
 <div class="row">
   <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
 
@@ -20,49 +19,46 @@
                   :object => @<%= singular_name %>,
                   :include_object_name => true %>
 
-      <% if localized? -%>
+<% if localized? -%>
         <%%= render '/refinery/admin/locale_picker',
                     :current_locale => Globalize.locale %>
-      <% end -%>
-      <% attributes.each_with_index do |attribute, index| -%>
-      <% if attribute.type.to_s == 'image' -%>
+<% end -%>
+<% attributes.each_with_index do |attribute, index| -%>
+<% if attribute.type.to_s == 'image' -%>
+      <div class='form-group'>
+        <%%= render '/refinery/admin/images/image_input',
+                   :f => f,
+                   :model => @<%= singular_name %>,
+                   :model_name => '<%= singular_name %>',
+                   :associated_image => @<%= singular_name %>.<%= image_attributes.first %>,
+                   :field_name => '<%= image_attributes.first %>'.to_sym
+        -%>
+      </div>
+<% elsif attribute.type.to_s == 'resource' -%>
+      <div class='form-group'>
+        <%%= f.label :<%= attribute.name %> -%>
+        <%%= render '/refinery/admin/resource_picker',
+                   :f => f,
+                   :field => :<%= "#{attribute.name}_id".gsub("_id_id", "_id") %>,
+                   :resource => @<%= singular_name %>.<%= attribute.name.gsub("_id", "") %> -%>
+      </div>
+<% elsif attribute.field_type.to_s == "text_area" and !generated_text_areas -%>
+      <div class='form-group'>
+        <%%= render '/refinery/admin/wysiwyg',
+                    :f => f,
+                    :fields => <%= text_areas.map{|t| t.name.to_sym}.inspect -%>,
+                    :object => "<%= namespacing.underscore -%>/<%= singular_name -%>" -%>
+      </div>
 
-        <div class='form-group'>
-          <%%= render '/refinery/admin/images/image_input',
-                     :f => f,
-                     :model => @<%= singular_name %>,
-                     :model_name => '<%= singular_name %>',
-                     :associated_image => @<%= singular_name %>.<%= image_attributes.first %>,
-                     :field_name => '<%= image_attributes.first %>'.to_sym
-          -%>
-        </div>
+    <% generated_text_areas = true -%>
+<% elsif attribute.field_type.to_s != 'text_area' -%>
+      <div class='form-group'>
+        <%%= f.label :<%= attribute.name %> -%>
+        <%%= f.<%= attribute.field_type -%> :<%= attribute.name -%>, :class => 'form-control'<%= ", :checked => @#{singular_name}[:#{attribute.name}]" if attribute.field_type == :check_box %> -%>
+      </div>
 
-      <% elsif attribute.type.to_s == 'resource' -%>
-        <div class='form-group'>
-          <%%= f.label :<%= attribute.name %> -%>
-          <%%= render '/refinery/admin/resource_picker',
-                     :f => f,
-                     :field => :<%= "#{attribute.name}_id".gsub("_id_id", "_id") %>,
-                     :resource => @<%= singular_name %>.<%= attribute.name.gsub("_id", "") %> -%>
-        </div>
-
-      <% elsif attribute.field_type.to_s == "text_area" and !generated_text_areas -%>
-        <div class='form-group'>
-          <%%= render '/refinery/admin/wysiwyg',
-                      :f => f,
-                      :fields => <%= text_areas.map{|t| t.name.to_sym}.inspect -%>,
-                      :object => "<%= namespacing.underscore -%>/<%= singular_name -%>" -%>
-        </div>
-
-      <% generated_text_areas = true -%>
-      <% elsif attribute.field_type.to_s != 'text_area' -%>
-        <div class='form-group'>
-          <%%= f.label :<%= attribute.name %> -%>
-          <%%= f.<%= attribute.field_type -%> :<%= attribute.name -%>, :class => 'form-control'<%= ", :checked => @#{singular_name}[:#{attribute.name}]" if attribute.field_type == :check_box %> -%>
-        </div>
-
-      <% end -%>
-    <% end -%>
+<% end -%>
+<% end -%>
       <%%= render '/refinery/admin/form_actions', :f => f,
                  :continue_editing => false,
                  :delete_title => t('delete', :scope => 'refinery.<%= namespacing.underscore %>.admin.<%= plural_name %>.<%= singular_name %>'),
