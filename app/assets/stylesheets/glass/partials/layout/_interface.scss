@@ -206,7 +206,6 @@ body{
       padding: 0 15px;
       *[contenteditable=true]{
         color: $primary-dark;
-        border-bottom: 1px solid transparent;
         &:focus{
           border-color: $primary-dark;
           outline: none;
@@ -242,6 +241,7 @@ body{
       .sidebar-settings{
         margin-bottom: 30px;
         ul{
+          padding: 0;
           li{
             margin-bottom: 4px;
             padding-bottom: 6px;
@@ -252,6 +252,15 @@ body{
             .gcicon{
               width: 20px;
               display: inline-block;
+            }
+            .form-group{
+              margin: 0;
+              .checkbox{
+                margin: 0;
+                input[type=checkbox]{
+                  top: 2px;
+                }
+              }
             }
           }
         }
