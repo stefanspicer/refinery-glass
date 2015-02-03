@@ -206,7 +206,7 @@ var RefineryImageUploader = (function ($) {
   }
 
   function resetImageUpload() {
-    var addBtnText = 'Add an image';
+    var addBtnText = 'Upload a photo';
     $('#image-id-field').val(null);
     $('.upload > .file-preview').fadeOut(500);
     $('#image-upload-btn').text(addBtnText);

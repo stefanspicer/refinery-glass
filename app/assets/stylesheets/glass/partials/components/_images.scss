@@ -3,16 +3,17 @@
   top: -800px;
 }
 
-form div.upload { overflow:hidden; }
+.upload { overflow:hidden; }
 
-form div.upload div.file-preview {
-  margin-top: 5px;
+.upload .file-preview {
+  margin-top: 15px;
   display: inline-block;
-  margin-right: 1em;
+  margin-right: 15px;
   width: 300px;
   height: 200px;
   text-align: center;
-  background-repeat: none;
+  background-size: contain !important;
+  background-position: center center;
   float: left;
 }
 
