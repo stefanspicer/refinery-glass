@@ -148,6 +148,30 @@ p::-moz-selection {
   margin-bottom: $margin * 3;
 }
 
+.margin-top-xxs{
+  margin-top: 10px !important;
+}
+
+.margin-top-xs{
+  margin-top: $margin-half;
+}
+
+.margin-top-sm{
+  margin-top: $margin;
+}
+
+.margin-top-md{
+  margin-top: $margin * 1.5;
+}
+
+.margin-top{
+  margin-top: $margin-double;
+}
+
+.margin-top-lg{
+  margin-top: $margin * 3;
+}
+
 .flip-wrapper{
   &:hover{
     .flip-front{
@@ -608,8 +632,8 @@ form{
 	}
 }
 
-.icon-only{
-  .icon{
+.icon-only, .icon-left{
+  .icon, .gcicon{
     margin-left: 0;
   }
 }
