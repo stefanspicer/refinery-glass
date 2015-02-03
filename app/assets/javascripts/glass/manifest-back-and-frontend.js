@@ -9,4 +9,5 @@
 //= require canvas/bootstrap
 //= require canvas/modules/forms
 //= require canvas/modules/main
+//= require canvas/modules/social-sharing
 //= require canvas/modules/carousel
