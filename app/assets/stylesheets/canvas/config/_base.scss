@@ -661,6 +661,9 @@ form{
 
 .form-actions{
   display: block;
+  .form-actions-left{
+    float: left;
+  }
 }
 
 .input-group{
@@ -889,10 +892,12 @@ input:focus, .form-control:focus, input[type="submit"]:focus, .btn:focus, input[
 	background-image: none;
 	border: none;
 	&:active{
+  	outline: 0;
 		@include box-shadow(none);
 	}
 	&:focus{
 		outline: 0;
+		@include box-shadow(none);
 	}
 	&:disabled{
   	cursor: not-allowed;
