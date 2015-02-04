@@ -38,12 +38,13 @@ var CanvasForms = (function ($) {
       }
       var selector = "#" + $(this).attr('id');
       var $form = $(this);
-      $(this).submit(function (e) {
-        var $submit_btn = $(this).find('.btn[type="submit"]');
+      var $submit_btn = $form.find('.btn[type="submit"]');
+      $form.submit(function (e) {
+        $submit_btn.data('orig-btn-txt', $submit_btn.text());
         $submit_btn.html('<div class="ui active inline inverted xs loader"></div> Sending');
         $submit_btn.attr('disabled', 'disabled');
       });
-      $(this).ajaxForm({
+      $form.ajaxForm({
         complete: function (xhr, status) {
           if ($form.hasClass('mailchimp')) {
             $form.find('input[type="email"]').val('Thank you!');
@@ -56,68 +57,79 @@ var CanvasForms = (function ($) {
             return;
           }
           xhr.done(function (data) {
-            var $content = $(data).find(selector);
+            var replace_selector = $form.data('ajax-replace-selector');
+            var $replace_form    = replace_selector ? $(data).find(replace_selector) : $(data).find(selector); // the same form in response, replace it
+            var $page_body       = $(data).find('#body_content');                                              // response is a page, use inner content
+            var $error_response  = ($(data).attr('id') == 'errorExplanation') ? $(data) : $(data).find('#errorExplanation');
+            var $modal           = $(selector).parents('.modal');
+            var $replacement     = null;
 
-            if ($content.length > 0) {
-              replaceContent($(selector), $content);
+            if ($replace_form.length > 0) {
+              $replacement = $replace_form;
+            }
+            else if ($page_body.length > 0) {
+              $replacement = $page_body;
+            }
+            else if ($error_response.length > 0) {
+              var $cur_error = $(selector + ' #errorExplanation');
+              if ($cur_error.length > 0) {
+                replaceContent($cur_error, $error_response);
+              }
+              else {
+                $error_response.insertBefore(selector + ' .form-actions');
+              }
+              $submit_btn.html($submit_btn.data('orig-btn-txt'));
+              $submit_btn.removeAttr('disabled');
             }
             else {
-              if ($(data).attr('id') == 'errorExplanation') {
-                $content = $(data);
-              }
-              else {
-                $content = $(data).find('#errorExplanation');
-              }
+              $replacement = $('<p>Thank you</p>'); // Default response message
+            }
 
-              if ($content.length > 0) {
-                $content.insertBefore(selector + ' .form-actions');
-              }
-              else {
-                var $modal = $(selector).parents('.modal');
+            if ($replacement && $modal.length == 0) {
+              $replacement.find('h1').remove();          // inquiries engine puts an h1 in there
+              replaceContent($(selector), $replacement);
+            }
+            else if ($modal.length > 0) {
+              var close_button = '<button data-dismiss="modal" class="btn btn-primary btn-lg">Close</button>';
+              var $update_selector = $modal.find('.update-on-close');
 
-                if ($modal.length > 0) {
-                  var close_button = '<button data-dismiss="modal" class="btn btn-primary btn-lg">Close</button>';
-                  var update_selector = $modal.find('.update-on-close');
+              if ($update_selector.length > 0) {
+                ajaxUpdateContent($update_selector);
 
-                  if (update_selector) {
-                    ajaxUpdateContent(update_selector);
+                // The button that on click, will trigger the modal that was displayed
+                // before the current modal was displayed.
+                var callback_modal_btn = $('#callback-modal');
 
-                    // The button that on click, will trigger the modal that was displayed
-                    // before the current modal was displayed.
-                    var callback_modal_btn = $('#callback-modal');
-
-                    // If there is another modal to display after this one's form has
-                    // been submitted, then don't hide the modal, but rather, trigger
-                    // the previous modal to be displayed.
-                    if (callback_modal_btn.length > 0) {
-                      $(callback_modal_btn.data('selector')).click();
-                    } else {
-                      $modal.modal('hide');
-                    }
-                    return;
-                  }
+                // If there is another modal to display after this one's form has
+                // been submitted, then don't hide the modal, but rather, trigger
+                // the previous modal to be displayed.
+                if (callback_modal_btn.length > 0) {
+                  $(callback_modal_btn.data('selector')).click();
+                } else {
+                  $modal.modal('hide');
                 }
-
-                // A reset form is a form that doesn't have to be rendered again,
-                // because it already exists on a page and wasn't pulled in using 'load'.
-                // It simply needs its input values wiped.
-                var $resetForm = $('.ajax-reset-form');
-
-                if ($resetForm.length > 0) {
-                  var updateArea = $resetForm.find('.update-on-close');
-                  if (updateArea.length > 0) {
-                    ajaxUpdateContent(updateArea);
-                    // Clear input values from the form (except for hidden values)
-                    $resetForm.trigger("reset");
-                    return;
-                  }
-                }
-
-                var $body = $(data).find('#body_content');
-                var $thank_you = $body.length > 0 ? $body : $('<p>Thank you</p>');
-                $thank_you.find('h1').remove(); // inquiries engine puts an h1 in there
-                replaceContent($(selector), $thank_you);
+                return;
               }
+            }
+
+            // A reset form is a form that doesn't have to be rendered again,
+            // because it already exists on a page and wasn't pulled in using 'load'.
+            // It simply needs its input values wiped.
+            var $resetForm = $('.ajax-reset-form');
+
+            if ($resetForm.length > 0) {
+              var updateArea = $resetForm.find('.update-on-close');
+              if (updateArea.length > 0) {
+                ajaxUpdateContent(updateArea);
+                // Clear input values from the form (except for hidden values)
+                $resetForm.trigger("reset");
+                return;
+              }
+            }
+
+            var callback = $form.data('success-callback');
+            if (callback) {
+              callback($replace_form);
             }
           });
         }
