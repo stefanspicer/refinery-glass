@@ -4,7 +4,27 @@
     <%= render partial: '/glass/head',        locals: {admin: true} %>
     <%= render partial: '/glass/stylesheets', locals: {admin: true} %>
   </head>
-  <body class='login <%= I18n.locale %>'>
+  <body class='login <%= I18n.locale %> '>
+
+    <div class="container browser-update" style="display: none;">
+      <div class="row">
+        <h1>Sorry but it looks like you are using an older browser</h1>
+        <p class="lead">We do not support IE 4, please upgrade to the latest version of one of our recommended browsers.</p>
+        <div class="col-sm-4">
+            <a href="" class="browser-download"><img src="http://glasscanvas.s3.amazonaws.com/chrome-logo.png" class="browser-logo"/>Chrome</a>
+        </div>
+        <div class="col-sm-4">
+            <a href="" class="browser-download"><img src="http://glasscanvas.s3.amazonaws.com/safari-logo.png" class="browser-logo"/>Safari</a>
+        </div>
+        <div class="col-sm-4">
+            <a href="" class="browser-download"><img src="http://glasscanvas.s3.amazonaws.com/firefox-logo.png" class="browser-logo"/>Firefox</a>
+        </div>
+        <div class="col-sm-12">
+            <p>If for some reason you really need to use Internet Explorer please use <a href="http://windows.microsoft.com/en-ca/internet-explorer/ie-11-worldwide-languages">IE 11</a>.</p>
+        </div>
+      </div>
+    </div>
+
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
@@ -21,5 +41,49 @@
         </div>
       </div>
     </div>
+
+
+
+    <%= render partial: '/glass/javascripts', locals: {admin: false} %>
+    <script>
+
+        var $buoop = {
+          vs: {i: 6, f: 2, o: 9.63, s: 2, c: 10},  // browser versions to notify
+          reminder: 24,                   // atfer how many hours should the message reappear
+          // 0 = show all the time
+          /*reminderClosed: 150  */           // if the user closes message it reappears after x hours
+          onshow: function (infos) {
+            console.log(infos);
+            $('.browser-update').fadeIn(500);
+          },      // callback function after the bar has appeared
+          onclick: function (infos) {
+          },     // callback function if bar was clicked
+          onclose: function (infos) {
+          },     //
+
+          l: false,                       // set a language for the message, e.g. "en"
+          // overrides the default detection
+          test: true,                    // true = always show the bar (for testing)
+          text: "",                       // custom notification html text
+          text_xx: "",                    // custom notification text for language "xx"
+          // e.g. text_de for german and text_it for italian
+          newwindow: true                 // open link in new window/tab
+        }
+
+        function $buo_f() {
+          var e = document.createElement("script");
+          e.src = "//browser-update.org/update.js";
+          document.body.appendChild(e);
+        }
+
+        try {
+          document.addEventListener("DOMContentLoaded", $buo_f, false)
+        }
+        catch (e) {
+          window.attachEvent("onload", $buo_f)
+        }
+
+    </script>
+
   </body>
 </html>
