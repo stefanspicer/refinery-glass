@@ -2,9 +2,11 @@
 
 .login{
   background: $off-white;
-  padding-top: 90px;
   @media (max-width: 767px) {
     padding-top: 45px;  
+  }
+  .container{
+    padding-top: 90px;
   }
   .elephant-cms-logo{
     max-width: 150px;

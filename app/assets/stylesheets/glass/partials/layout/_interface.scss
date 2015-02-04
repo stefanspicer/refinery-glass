@@ -411,6 +411,26 @@ body{
 
 /* -------------------- COMPONENTS -------------------- */
 
+.input-lg::-webkit-input-placeholder {
+   font-size: 16px;
+   line-height: 1.6;
+}
+
+.input-lg:-moz-placeholder { /* Firefox 18- */
+   font-size: 16px;
+   line-height: 1.8;
+}
+
+.input-lg::-moz-placeholder {  /* Firefox 19+ */
+   font-size: 16px;
+   line-height: 1.8;
+}
+
+.input-lg:-ms-input-placeholder {  
+   font-size: 16px;
+   line-height: 1.6;
+}
+
 .flash_notice{
   margin-top: 60px;
 }
