@@ -7,6 +7,7 @@
 //= require jquery_ujs
 //= require canvas/jquery.form.min
 //= require canvas/bootstrap
+//= require canvas/livevalidation.min
 //= require canvas/modules/forms
 //= require canvas/modules/main
 //= require canvas/modules/carousel
