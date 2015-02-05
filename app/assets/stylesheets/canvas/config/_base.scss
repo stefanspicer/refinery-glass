@@ -892,12 +892,14 @@ input:focus, .form-control:focus, input[type="submit"]:focus, .btn:focus, input[
 	background-image: none;
 	border: none;
 	&:active{
-  	outline: 0;
 		@include box-shadow(none);
+		outline: 0;
 	}
 	&:focus{
 		outline: 0;
-		@include box-shadow(none);
+	}
+	&:active:focus{
+  	outline: 0;
 	}
 	&:disabled{
   	cursor: not-allowed;
