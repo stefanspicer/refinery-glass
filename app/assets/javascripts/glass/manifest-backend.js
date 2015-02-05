@@ -4,7 +4,7 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //  # START olf refinery includes
-//  # These are all from refinery 2.1.5 and many may not be needed soon
+//  # These are all from refinery 2.1.5 and many may not all be necessary
 //# require jquery
 //# require jquery_ujs
 //= require jquery-ui
@@ -13,11 +13,11 @@
 //= require jquery/jquery.timers
 //= require jquery/jquery.jcarousel
 //= require jquery/jquery.browser
-//= require admin
+//# require admin
 //= require refinery/core
-//= require refinery/site_bar
+//# require refinery/site_bar
 //= require refinery/admin
-//= require refinery/submenu
+//# require refinery/submenu
 //= require refinery/interface
 //= require refinery/sortable_menu
 //= require refinery/submit_continue
