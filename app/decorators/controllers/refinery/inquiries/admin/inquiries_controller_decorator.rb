@@ -11,5 +11,4 @@ Refinery::Inquiries::Admin::InquiriesController.class_eval do
 
 	end
 
-
 end

@@ -8,35 +8,7 @@
             <h2 class="admin-title">Inquiries</h2>
             <div class="contextual-menu">
               <%= render '/refinery/admin/search', :url => request.path.gsub("//", "/") %>
-              <div class="dropdown">
-                <button class="btn btn-link-grey icon-left" type="button" id="dropdown-sort">
-                  <i class="icon icon-file"></i> Inquiries <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                  <li role="presentation">
-                    <%= link_to '<i class="gcicon gcicon-index"></i> '.html_safe + t('.inbox'),
-                                refinery.inquiries_admin_inquiries_path,
-                                { :role =>"menuitem" } %>
-                  </li>
-                  <li role="presentation">
-                    <%= link_to '<i class="gcicon gcicon-trash"></i>'.html_safe + " #{t('.spam')} (#{@spam_count})",
-                                refinery.spam_inquiries_admin_inquiries_path,
-                                { :role =>"menuitem" } %>
-                  </li>
-                  <li role="presentation">
-                    <%= link_to '<i class="gcicon gcicon-edit"></i> '.html_safe + ' Who to notify',
-                                refinery.edit_inquiries_admin_setting_path(:inquiry_notification_recipients),
-                                { :class => 'open-semantic-modal-form', :role =>"menuitem" }
-                    %>
-                  </li>
-                  <li role="presentation">
-                    <%= link_to '<i class="gcicon gcicon-edit"></i> '.html_safe + ' Response email',
-                                refinery.edit_inquiries_admin_setting_path(:inquiry_confirmation_body),
-                                { :class => 'open-semantic-modal-form', :role =>"menuitem"}
-                    %>
-                  </li>
-                </ul>
-              </div>
+              <%= render 'dropdown' %>
             </div>
           </div>
         </div>
