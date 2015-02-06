@@ -20,7 +20,7 @@ var GlassModals = (function ($) {
    */
   function displayFormInModal(anchor, container){
 
-    var titleText = $(container).text();
+    var titleText = $(anchor).text();
     var content = $(container).find('.form-modal .content');
 
     $.get(anchor.attr('href'), function(data){
