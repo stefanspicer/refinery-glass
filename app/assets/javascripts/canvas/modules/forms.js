@@ -38,13 +38,19 @@ var CanvasForms = (function ($) {
       }
       var selector = "#" + $(this).attr('id');
       var $form = $(this);
-      var $submit_btn = $form.find('.btn[type="submit"]');
-      $form.submit(function (e) {
-        $submit_btn.data('orig-btn-txt', $submit_btn.text());
-        $submit_btn.html('<div class="ui active inline inverted xs loader"></div> Sending');
-        $submit_btn.attr('disabled', 'disabled');
-      });
+
       $form.ajaxForm({
+        beforeSubmit: function(arr, $form, options){
+          var $submit_btn = $form.find('.btn[type="submit"]');
+
+          if($form.find('.LV_invalid_field').length > 0){
+            return false;
+          } else {
+            $submit_btn.data('orig-btn-txt', $submit_btn.text());
+            $submit_btn.html('<i class="ui active inline inverted xs loader"></i> Sending');
+            $submit_btn.attr('disabled', 'disabled');
+          }
+        },
         complete: function (xhr, status) {
           if ($form.hasClass('mailchimp')) {
             $form.find('input[type="email"]').val('Thank you!');
