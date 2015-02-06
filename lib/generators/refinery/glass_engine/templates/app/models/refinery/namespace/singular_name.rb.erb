@@ -32,6 +32,12 @@ module Refinery
 
       belongs_to :<%= a.name %>, :class_name => '::Refinery::Resource'
 <% end -%>
+
+      class << self
+        def get_all
+          order('position ASC')
+        end
+      end
     end
   end
 end

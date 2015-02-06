@@ -1,8 +1,6 @@
 <%%= render 'refinery/<%= namespacing.underscore %>/admin/submenu' %>
 
 <%
-  text_areas = attributes.reject{|a| a.field_type.to_s != 'text_area'}
-  generated_text_areas = false
   image_attributes = []
   attributes.each_with_index do |attribute, index|
     if attribute.type.to_s == 'image'
@@ -42,16 +40,7 @@
                    :field => :<%= "#{attribute.name}_id".gsub("_id_id", "_id") %>,
                    :resource => @<%= singular_name %>.<%= attribute.name.gsub("_id", "") %> -%>
       </div>
-<% elsif attribute.field_type.to_s == "text_area" and !generated_text_areas -%>
-      <div class='form-group'>
-        <%%= render '/refinery/admin/wysiwyg',
-                    :f => f,
-                    :fields => <%= text_areas.map{|t| t.name.to_sym}.inspect -%>,
-                    :object => "<%= namespacing.underscore -%>/<%= singular_name -%>" -%>
-      </div>
-
-    <% generated_text_areas = true -%>
-<% elsif attribute.field_type.to_s != 'text_area' -%>
+<% else -%>
       <div class='form-group'>
         <%%= f.label :<%= attribute.name %> -%>
         <%%= f.<%= attribute.field_type -%> :<%= attribute.name -%>, :class => 'form-control'<%= ", :checked => @#{singular_name}[:#{attribute.name}]" if attribute.field_type == :check_box %> -%>
@@ -67,17 +56,6 @@
 
   </div>
 </div>
-
-<% if text_areas.any? -%>
-
-<%% content_for :javascripts do -%>
-  <script>
-    $(document).ready(function(){
-      page_options.init(false, '', '');
-    });
-  </script>
-<%% end -%>
-<% end -%>
 
 <% if image_attributes.any? %>
   <%%= render 'refinery/admin/images/form',
