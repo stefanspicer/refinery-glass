@@ -30,6 +30,7 @@
 //= require canvas/jquery-ui-autocomplete
 //= require glass/semantic-ui/transition
 //= require glass/semantic-ui/sidebar
+//= require glass/semantic-ui/modal.min
 //= require glass/cropper.js
 //= require glass/grande
 //= require canvas/modules/watchforchanges
