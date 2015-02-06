@@ -1,9 +1,12 @@
 <li class='page-listing' id="<%= dom_id(inquiry) -%>">
   <div class="page-row">
 
+    <i class="gcicon gcicon-file"></i>
     <a href="<%= refinery.inquiries_admin_inquiry_path(inquiry) %>" class="page-title">
-      <i class="gcicon gcicon-file"></i>
-      <%= inquiry.name %> <%= t('.said') %>
+      <span>
+        <%= inquiry.name %> <%= t('.said') %>:
+      </span>
+      &nbsp;
       <span class="preview"><%= truncate(strip_tags(sanitize(inquiry.message)), :length => 60) -%></span>
     </a>
 
