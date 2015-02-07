@@ -31,8 +31,15 @@
             <%= attribute.name %>
           <%% end %>
         </p>
-<% elsif attribute.type.to_s == 'string' -%>
-        <h1><%%=raw @<%= singular_name %>.<%= attribute.name %> %></h1>
+<%
+  elsif attribute.type.to_s == 'string'
+    live_editor_options = include_live_editor? ? "  class=\"glass-edit\"                 data-glass-options=\'{\"form_id\": \"#{singular_name}_#{attribute.name}\"}\' glass-placeholder=\"#{attribute.name.titleize}\"" : ""
+-%>
+        <h1<%= live_editor_options %>><%%= @<%= singular_name %>.<%= attribute.name %> %></h1>
+<% elsif attribute.field_type.to_s == 'text_area' and include_live_editor? -%>
+        <div class="glass-edit glass-edit-html" data-glass-options='{"form_id": "<%= singular_name %>_<%= attribute.name %>", "type": "html"}'>
+          <%%= raw @<%= singular_name %>.<%= attribute.name %>.present? ? @<%= singular_name %>.<%= attribute.name %> : '<p><br></p>' %>
+        </div>
 <% else -%>
         <%%=raw @<%= singular_name %>.<%= attribute.name %> %>
 <% end -%>

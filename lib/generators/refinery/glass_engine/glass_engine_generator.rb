@@ -17,6 +17,16 @@ module Refinery
       options[:skip_frontend]
     end
 
+    class_option :live_editor,
+                 :desc => 'Edit items from the frontend show view: real WYSIWYG',
+                 :type => :boolean,
+                 :default => false,
+                 :required => false
+
+    def include_live_editor?
+      options[:live_editor]
+    end
+
     def generate
       default_generate!
     end
