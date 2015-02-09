@@ -431,12 +431,7 @@ body{
    line-height: 1.6;
 }
 
-.flash_notice{
-  margin-top: 60px;
-}
-
 #flash_container{
-  padding: 0;
   max-width: 1200px;
   .row{
     .col-sm-12{
@@ -444,11 +439,11 @@ body{
     }
   }
   .alert{
-    margin: 0 15px 30px 15px;
     background: lighten($primary-fade, 16);
     color: $primary-dark;
     border-color: saturate(lighten($primary-fade, 12), 20);
     border-radius: 0;
+    margin: 45px 0 0 0;
     .close{
       font-size: 25px;
       color: $primary-color;
@@ -459,7 +454,6 @@ body{
     }
   }
   #flash{
-    margin: 0 15px 30px 15px;
     display: block;
     padding: 10px 15px;
     background: $grey-5;
@@ -526,11 +520,23 @@ body{
     height: 37px;
     line-height: 1.2;
   }
-  .btn{
+  &>.btn{
     @include transition-fix();
     font-weight: 400;
+    &:first-child{
+      margin-right: 15px;
+    }
+    &:last-child{
+      margin-left: 15px;
+    }
   }
   .btn-link-grey{
+    &:first-child{
+      margin-right: 0;
+    }
+    &:last-child{
+      margin-left: 0;
+    }
     .gcicon{
       color: $grey-3;
     }
