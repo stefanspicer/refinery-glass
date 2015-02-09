@@ -45,8 +45,10 @@ html
     <%#= render '/glass/alerts_status' %>
     <% if !defined?(@hide_main_nav) || !@hide_main_nav %> 
       <section id="sidebar-left" class="ui sidebar left overlay">
-        <div class="sidebar-top-nav site-name">
-          <a href="" class="sidebar-left-opener menu-link menu-link-left"><i class="gcicon gcicon-cancel"></i></a> <i class="gcicon gcicon-glass-canvas hidden"></i> <%= link_to Refinery::Core.site_name, '/' %>
+        <div class="sidebar-top-nav">
+          <div class="site-name">
+            <a href="" class="sidebar-left-opener menu-link menu-link-left"><i class="gcicon gcicon-cancel"></i></a> <i class="gcicon gcicon-glass-canvas hidden"></i> <%= link_to Refinery::Core.site_name, '/' %>
+          </div>
         </div>
         <div id="sidebar-left-inner">
           <%= render 'refinery/admin/menu' %>

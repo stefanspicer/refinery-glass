@@ -643,7 +643,7 @@
                               <td valign="top" class="mcnTextContent" style="padding-top:20px; padding-right: 30px; padding-bottom: 45px; padding-left: 30px;">
                                 <p><%= I18n.t("devise.mailer.invitation_instructions.hello", email: @email) %>!</p>
 
-                                <p>Someone has invited you to sign up for LifeCollective.io:</p>
+                                <p>Someone has invited you to sign up for lifecollective.io:</p>
 
                                 <p><%= link_to 'Activate your account here', "#{Rails.configuration.devise[:invite_url]}?cf=#{@token}" %></p>
 
@@ -652,9 +652,6 @@
                               </td>
                             </tr>
                             </tbody>
-                            <tfoot>
-                              <tr><td><p><em><%= I18n.t("devise.mailer.invitation_instructions.ignore").html_safe %></em></p></td></tr>
-                            </tfoot>
                           </table>
                         </td>
                       </tr>
@@ -680,25 +677,8 @@
                             <tbody>
                             <tr>
                               <td valign="top" class="mcnTextContent" style="padding-top:30px; padding-right: 0; padding-bottom: 9px; padding-left: 0;">
-                                <!--
-<em>Copyright © *|CURRENT_YEAR|* *|LIST:COMPANY|*, All rights reserved.</em>
-                                 <br>
-                                 *|IFNOT:ARCHIVE_PAGE|*
-                                 *|LIST:DESCRIPTION|*
-                                 <br>
-                                 <br>
-                                 <strong>Our mailing address is:</strong>
-                                 <br>
-                                 *|HTML:LIST_ADDRESS_HTML|* *|END:IF|*
-                                 <br>
-                                 <br>
-                                 <a href="*|UNSUB|*" class="utilityLink">unsubscribe from this list</a>&nbsp;&nbsp;&nbsp;
-                                 <a href="*|UPDATE_PROFILE|*" class="utilityLink">update subscription preferences</a>&nbsp;
-                                 <br>
-                                 <br>
-                                 *|IF:REWARDS|* *|HTML:REWARDS|*
-                                 *|END:IF|*
--->
+                                Your account won't be created until you access the link above and set your password.<br/><br/>
+                                If you don't want to accept the invitation, please ignore this email.
                               </td>
                             </tr>
                             </tbody>
