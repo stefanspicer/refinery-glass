@@ -399,7 +399,7 @@ var GlassContentEditing = (function ($) {
   $(document).on('content-ready', function (e, element) {
     var $container = $(element).find('#page-preview').length > 0 ? $(element).find('#page-preview') : $(element);
 
-    if ($container.attr('id') != 'page-preview' && $conainer.parents('#page-preview').length < 1) {
+    if ($container.attr('id') != 'page-preview' && $container.parents('#page-preview').length < 1) {
       return;
     }
 
