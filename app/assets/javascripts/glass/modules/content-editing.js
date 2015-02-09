@@ -397,7 +397,13 @@ var GlassContentEditing = (function ($) {
   }
 
   $(document).on('content-ready', function (e, element) {
-    var $glass_editables = $(element).find('.glass-edit');
+    var $container = $(element).find('#page-preview').length > 0 ? $(element).find('#page-preview') : $(element);
+
+    if ($container.attr('id') != 'page-preview' && $conainer.parents('#page-preview').length < 1) {
+      return;
+    }
+
+    var $glass_editables = $container.find('.glass-edit');
 
     var $form = null;
     $glass_editables.each(function () {

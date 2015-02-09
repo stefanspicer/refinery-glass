@@ -42,16 +42,19 @@ html
   </head>
 
   <body class="<%= action_name %> <%= I18n.locale %> <%= 'small-sidebar' unless is_admin_preview_page %>">
-    <section id="sidebar-left" class="ui sidebar left overlay">
-      <div class="sidebar-top-nav site-name">
-        <a href="" class="sidebar-left-opener menu-link menu-link-left"><i class="gcicon gcicon-cancel"></i></a> <i class="gcicon gcicon-glass-canvas hidden"></i> <%= link_to Refinery::Core.site_name, '/' %>
-      </div>
-      <div id="sidebar-left-inner">
-        <%= render 'refinery/admin/menu' %>
-      </div>
-      <%= link_to (t('.log_out', site_bar_translate_locale_args) + ' <i class="gcicon gcicon-log-out"></i>').html_safe,
-                  refinery.logout_path, :id => 'logout', :class => 'log-out' %>
-    </section>
+    <%#= render '/glass/alerts_status' %>
+    <% if !defined?(@hide_main_nav) || !@hide_main_nav %> 
+      <section id="sidebar-left" class="ui sidebar left overlay">
+        <div class="sidebar-top-nav site-name">
+          <a href="" class="sidebar-left-opener menu-link menu-link-left"><i class="gcicon gcicon-cancel"></i></a> <i class="gcicon gcicon-glass-canvas hidden"></i> <%= link_to Refinery::Core.site_name, '/' %>
+        </div>
+        <div id="sidebar-left-inner">
+          <%= render 'refinery/admin/menu' %>
+        </div>
+        <%= link_to (t('.log_out', site_bar_translate_locale_args) + ' <i class="gcicon gcicon-log-out"></i>').html_safe,
+                    refinery.logout_path, :id => 'logout', :class => 'log-out' %>
+      </section>
+    <% end %>
     
     <% if content_for?(:admin_sidebar) %>
       <section id="sidebar-right" class="ui sidebar overlay right">
@@ -65,9 +68,11 @@ html
     <% end %>
 
     <section id="wrapper" class="pusher">
-      <a href="" class="sidebar-left-opener menu-link menu-link-left"><i class="gcicon gcicon-bars"></i></a>
-      <% if content_for?(:admin_sidebar) %>
-        <a href="" class="sidebar-right-opener menu-link menu-link-right"><i class="gcicon gcicon-publish"></i></a>
+      <% if !defined?(@hide_main_nav) || !@hide_main_nav %> 
+        <a href="" class="sidebar-left-opener menu-link menu-link-left"><i class="gcicon gcicon-bars"></i></a>
+        <% if content_for?(:admin_sidebar) %>
+          <a href="" class="sidebar-right-opener menu-link menu-link-right"><i class="gcicon gcicon-publish"></i></a>
+        <% end %>
       <% end %>
       
       <div id="flash_container" class="container-fluid">
