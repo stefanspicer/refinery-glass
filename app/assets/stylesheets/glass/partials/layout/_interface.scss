@@ -121,6 +121,7 @@ body{
       }
       a{
         padding: 10px 15px 6px;
+        min-width: 200px;
         width: 100%;
         display: block;
         color: $grey-6;
@@ -128,6 +129,8 @@ body{
         letter-spacing: 1px;
         text-decoration: none;
         @include transition(0.1s);
+        @include transition-fix();
+        @include ellipsis($ellipsis-width);
         font-weight: 400;
         text-transform: uppercase;
         &:hover{
