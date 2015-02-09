@@ -4,12 +4,12 @@
 
 var GlassAjaxReloads = (function ($) {
   $(document).on('content-ready', function (e, element) {
-    $(element).find('#sidebar-left-inner a').click(function (e) {
-      e.preventDefault();
-      $('#sidebar-left-inner a').removeClass('active');
-      $(this).addClass('active');
-      ajaxUpdate($(this).attr('href'), '#wrapper');
-    });
+    //$(element).find('#sidebar-left-inner a').click(function (e) {
+    //  e.preventDefault();
+    //  $('#sidebar-left-inner a').removeClass('active');
+    //  $(this).addClass('active');
+    //  ajaxUpdate($(this).attr('href'), '#wrapper');
+    //});
   });
 
   function ajaxUpdate(url, selector) {
