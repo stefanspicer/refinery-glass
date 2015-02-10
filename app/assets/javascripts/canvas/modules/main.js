@@ -30,6 +30,20 @@ var Main = (function($){
 
   function contentReady(element) {
     $(document).trigger('content-ready', element);
+
+    btnAnchorInitialization(element);
+  }
+
+  function btnAnchorInitialization(element){
+    $(element).find('.btn-anchor').unbind('click').click(function (e) {
+      e.preventDefault();
+      // if the btn has the class btn-anchor-outbound its url should be opened in a new window.
+      if($(this).hasClass('btn-anchor-outbound')){
+        window.open($(this).attr('data-url'));
+      } else {
+        window.location = $(this).attr('data-url');
+      }
+    });
   }
 
   // Return API for other modules
