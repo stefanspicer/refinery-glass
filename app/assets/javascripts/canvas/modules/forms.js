@@ -3,6 +3,12 @@ var CanvasForms = (function ($) {
     initFormSelectsWithin(element);
     initFormOptionalFieldsWithin(element);
     initFormSubmitWithin(element);
+
+    $('[data-confim]').unbind();
+    $(element).find('a#delete_button').unbind('click').click(function(e){
+      e.preventDefault();
+      openDeleteConfirmModal($(this));
+    });
   });
 
   function initFormSelectsWithin(element) {
@@ -227,6 +233,42 @@ var CanvasForms = (function ($) {
     }, 500);
 
     form.find('button').prop('disabled', false);
+  }
+
+  function openDeleteConfirmModal(btn){
+
+
+    if($('#delete-confirm-modal').length == 0){
+      $('body').append([
+        '<div id="delete-confirm-modal" class="ui basic modal">',
+        '<i class="close icon"></i>',
+        '<div class="header">',
+        'Confirm Deletion',
+        '</div>',
+        '<div class="content">',
+        '<div class="description">',
+        '<p>','</p>',
+        '</div>',
+        '</div>',
+        '<div class="actions">',
+        '<div class="two fluid ui inverted buttons">',
+        '<div class="ui red basic inverted button">',
+        '<i class="remove icon"></i>',
+        'No',
+        '</div>',
+        '<div class="ui green basic inverted button">',
+        '<i class="checkmark icon"></i>',
+        'Yes',
+        '</div>',
+        '</div>',
+        '</div>',
+        '</div>'].join(""));
+    }
+
+    var deletionModal = $('#delete-confirm-modal');
+
+    deletionModal.find('.content .description p').text($(btn).attr('data-confirm'));
+    deletionModal.modal('show');
   }
 
 
