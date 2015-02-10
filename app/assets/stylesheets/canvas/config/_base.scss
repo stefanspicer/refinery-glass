@@ -500,9 +500,9 @@ a.pill{
   }
   &-sm{
     &:after{
-      height: 30px;
+      height: 60px;
       top: 50%;
-      margin-top: 15px;
+      margin-top: -30px;
     }
   }
 }
