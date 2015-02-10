@@ -6,7 +6,7 @@ Refinery::Pages.configure do |config|
   # end
 
   # Configure global page default parts
-  # config.default_parts = ["Body", "Side Body"]
+	config.default_parts = ["content0", "content1", "content2", "content3", "content4", "content5", "content6"]
 
   # Configure whether to allow adding new page parts
   # config.new_page_parts = false
