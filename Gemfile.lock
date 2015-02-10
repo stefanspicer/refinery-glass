@@ -53,6 +53,7 @@ PATH
   specs:
     refinerycms-glass (1.0)
       refinerycms-core (~> 2.1.2)
+      refinerycms-settings (~> 2.1.1)
 
 GEM
   remote: https://rubygems.org/
@@ -256,6 +257,8 @@ GEM
     refinerycms-i18n (2.1.0)
       rails-i18n (~> 0.7.3)
       routing-filter (~> 0.3.0)
+    refinerycms-settings (2.1.1)
+      refinerycms-core (~> 2.1.1)
     routing-filter (0.3.1)
       actionpack
     sass (3.4.9)

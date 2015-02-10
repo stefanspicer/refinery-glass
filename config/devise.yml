@@ -1,0 +1,11 @@
+development:
+  invite_url: "http://localhost:3000/accept-invitation"
+
+test:
+  invite_url: "http://localhost:3000/accept-invitation"
+
+staging:
+  invite_url: ""
+
+production:
+  invite_url: ""
