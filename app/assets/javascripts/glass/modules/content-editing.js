@@ -80,6 +80,10 @@ var GlassContentEditing = (function ($) {
       if (!this.ch.form_elem) {
         this.ch.form_elem = this.option('form_id') ? $('#' + this.option('form_id')) : null;
       }
+      if (this.ch.form_elem.length < 1) {
+        console.log("WARNING: editable field couldn't find form element: #" + this.option('form_id'));
+        console.log("WARNING: suggestion, you might need to add page parts to config/initializers/refinery/pages.rb");
+      }
       return this.ch.form_elem;
     };
 
