@@ -12,6 +12,10 @@
   position: absolute;
 }
 
+[contenteditable=true] p.empty{
+  min-height: 20px;
+}
+
 [contenteditable=true]{
   outline: none;
   border-color: $primary-fade !important;

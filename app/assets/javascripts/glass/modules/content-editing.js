@@ -178,7 +178,8 @@ var GlassContentEditing = (function ($) {
 
     this.getCurFocusModule = function() {
       var focus_elem = window.getSelection().focusNode;
-      if (!this.isaModule($(focus_elem))) {
+      if (!focus_elem) { return null; }
+      if (!this.isaModule($(focus_elem)) && $(focus_elem).prop("tagName") != 'P') {
         focus_elem = focus_elem.parentNode;
       }
 
