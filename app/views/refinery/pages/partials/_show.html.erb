@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
-          <h1 class="glass-edit" data-glass-options='{"form_id": "page_title"}' placeholder="Title"><%= @page.title %></h1>
+          <h1 class="glass-edit" data-glass-options='{"form_id": "page_title"}' glass-placeholder="Title"><%= @page.title %></h1>
           <%= render partial: '/glass/page_content' %>
           <%= yield :extra_page_content %>
         </div>
