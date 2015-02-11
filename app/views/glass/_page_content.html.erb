@@ -16,7 +16,7 @@
 
 <% content = @page.content_for("content#{part_num}".to_sym) %>
 <<%= html_tag %>
-  class="glass-edit" glass-placeholder="Title"
+  class="glass-edit <%= 'glass-edit-html' if content_type == 'html' %>" glass-placeholder="Title"
   data-glass-options='{"form_id": "page_part_content<%= part_num %>_body", "type": "<%= content_type %>"}'
 ><%=
   raw content.blank? ? default_content : content
