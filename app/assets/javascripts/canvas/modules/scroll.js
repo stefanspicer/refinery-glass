@@ -4,8 +4,8 @@ function scrollTo(target_selector, top_offset) {
   if ($target.length > 0) {
     var destval = $target.offset().top - top_offset;
     var speed = Math.floor(Math.abs(destval - $(window).scrollTop()) / 200) * 100; // rounded down 100
-    if (speed < 900) {
-      speed = 900;
+    if (speed < 800) {
+      speed = Math.floor(400 + (speed / 2));
     }
     if (speed < 2000) {
       $('html, body').animate({
