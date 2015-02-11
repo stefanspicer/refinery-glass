@@ -41,7 +41,7 @@ html
     <%= render partial: '/glass/stylesheets', locals: {admin: true} %>
   </head>
 
-  <body class="<%= action_name %> <%= I18n.locale %> <%= 'small-sidebar' if !is_admin_preview_page && !@hide_main_nav %>">
+  <body class="<%= yield :body_class %> <%= action_name %> <%= I18n.locale %> <%= 'small-sidebar' if !is_admin_preview_page && !@hide_main_nav %>">
     <%#= render '/glass/alerts_status' %>
     <% if !defined?(@hide_main_nav) || !@hide_main_nav %> 
       <section id="sidebar-left" class="ui sidebar left overlay">
