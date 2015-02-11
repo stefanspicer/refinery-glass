@@ -13,6 +13,9 @@ Refinery::Admin::UsersController.class_eval do
     @selected_plugin_names = params[:user][:plugins] || []
     @selected_role_names = params[:user][:roles] || []
 
+    @user[:inviting_user_name] = current_refinery_user.name.split.map(&:capitalize).join(' ') # capitalizes the first letter of each word
+    @user[:invitee_name] = @user.name.split.map(&:capitalize).join(' ')
+
     if @user.save
       flash.now[:notice] = "Invitation sent to #{@user.email}"
       create_successful
