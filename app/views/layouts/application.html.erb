@@ -4,7 +4,7 @@
     <%= render partial: '/glass/head',        locals: {admin: false} %>
     <%= render partial: '/glass/stylesheets', locals: {admin: false} %>
   </head>
-  <body>
+  <body class="<%= yield :body_class %>">
     <%= render partial: '/glass/body',        locals: {admin: false} %>
     <%= render partial: '/glass/javascripts', locals: {admin: false} %>
   </body>
