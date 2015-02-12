@@ -641,14 +641,14 @@
                             <tbody>
                             <tr>
                               <td valign="top" class="mcnTextContent" style="padding-top:20px; padding-right: 30px; padding-bottom: 45px; padding-left: 30px;">
-                                <p>Hello <%= @resource[:invitee_name].present? ? @resource[:invitee_name] : @email %>!</p>
+                                <p>Hello <%= @email %>!</p>
 
-                                <p><%=@resource[:inviting_user_name].present? ? @resource[:inviting_user_name] : 'Someone' %> has invited you to sign up for an account on a website:</p>
+                                <p>Someone has invited you to sign up for an account on a website:</p>
 
                                 <p><%= link_to 'Activate your account here', "#{Rails.configuration.devise[:invite_url]}?cf=#{@token}" %></p>
 
                                 <br>
-                                <p>If you have questions please visit <a href="http://lifecollective.io" target="_blank">lifecollective.io</a></p>
+                                <p>If you have questions please visit <a href="http://google.com" target="_blank">website.com</a></p>
                               </td>
                             </tr>
                             </tbody>
