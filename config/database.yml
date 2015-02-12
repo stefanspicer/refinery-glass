@@ -1,6 +1,21 @@
 <% if File.exist?('config/database.override.yml') %>
+<% override_content = begin IO.read('config/database.override.yml') rescue '' end %>
+<% if override_content.start_with?('sqlite') %>
+<% sitename = begin IO.read('.ruby-gemset').strip rescue 'ror' end %>
+development:
+  adapter: sqlite3
+  database: db/development.<%= sitename %>.sqlite3
+  pool: 5
+  timeout: 5000
 
-<%= begin IO.read('config/database.override.yml') rescue '' end %>
+test:
+  adapter: sqlite3
+  database: db/test.<%= sitename %>.sqlite3
+  pool: 5
+  timeout: 5000
+<% else %>
+<%= override_content %>
+<% end %>
 
 <% else %>
 # SQLite version 3.x
