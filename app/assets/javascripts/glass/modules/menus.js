@@ -39,7 +39,12 @@ var GlassMenus = (function ($) {
   });
 
   function hideSidebar(){
+    console.log('hide');
     var wrapperDiv = $('#wrapper');
+    if(wrapperDiv.length == 0){
+      wrapperDiv = $('.pusher').first();
+    }
+    console.log(wrapperDiv);
     var top = wrapperDiv.css('top');
 
     wrapperDiv.css({top : '0px'}).removeClass('no-scroll');
@@ -47,9 +52,17 @@ var GlassMenus = (function ($) {
   }
 
   function showSidebar(){
-    $('#wrapper').css({top : '-'+$('body').scrollTop()+'px'}).addClass('no-scroll');
+    console.log('show');
+    var wrapperDiv = $('#wrapper');
+    if(wrapperDiv.length == 0){
+      wrapperDiv = $('.pusher').first();
+    }
+    wrapperDiv.css({top : '-'+$('body').scrollTop()+'px'}).addClass('no-scroll');
   }
 
   // Return API for other modules
-  return {};
+  return {
+    hideSidebar: hideSidebar,
+    showSidebar: showSidebar
+  };
 })(jQuery);
