@@ -117,9 +117,11 @@ body{
     top: 65px;
     height: calc(100% - 110px);
     /* Hide scrollbar in chrome. */
+/*
     &::-webkit-scrollbar {
       display: none;
     }
+*/
     overflow-y: auto;
     overflow-x: hidden;
     padding-bottom: 15px;
