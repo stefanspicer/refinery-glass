@@ -179,6 +179,10 @@ p::-moz-selection {
   margin-top: $margin * 3;
 }
 
+.margin-right-sm{
+  margin-right: $margin;
+}
+
 .flip-wrapper{
   &:hover{
     .flip-front{
