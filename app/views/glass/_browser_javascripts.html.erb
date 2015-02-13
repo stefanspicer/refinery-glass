@@ -44,9 +44,10 @@
       default:
         break;
     }
-    var browserUpdateContainer = $('.browser-update-div');
+    var browserUpdateContainer = $('.browser-update-wrapper');
     browserUpdateContainer.find('.current-browser').text(browserAbr + infos.browser.v);
     browserUpdateContainer.fadeIn(500);
+    console.log(browserUpdateContainer);
   }
 
   try {
