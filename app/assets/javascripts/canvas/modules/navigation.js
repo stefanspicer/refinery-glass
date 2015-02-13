@@ -10,12 +10,12 @@ var menus = (function($){
   });
 
   function initMainNav() {
-    $mainmenu = $('.navbar');
+    $mainmenu = $('.navbar-fixed-top');
 
 		// Hide navigation
 		$('.cover').waypoint(function(direction) {
     	if (direction === 'down') {
-	    	$( ".navbar-default" ).addClass( "navbar-hide" );	    	
+        $mainmenu.addClass( "navbar-hide" );
 	    }
 		}, { 
 			offset: function() {
@@ -25,7 +25,7 @@ var menus = (function($){
 		
 		$('.cover').waypoint(function(direction) {
     	if (direction === 'up') {
-	    	$( ".navbar-default" ).removeClass( "navbar-hide" );
+        $mainmenu.removeClass( "navbar-hide" );
 	    }
 		}, { 
 			offset: function() {
