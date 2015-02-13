@@ -179,8 +179,28 @@ p::-moz-selection {
   margin-top: $margin * 3;
 }
 
+.margin-right-xxs{
+  margin-right: 10px !important;
+}
+
+.margin-right-xs{
+  margin-right: $margin-half;
+}
+
 .margin-right-sm{
   margin-right: $margin;
+}
+
+.margin-right-md{
+  margin-right: $margin * 1.5;
+}
+
+.margin-right{
+  margin-right: $margin-double;
+}
+
+.margin-right-lg{
+  margin-right: $margin * 3;
 }
 
 .flip-wrapper{
