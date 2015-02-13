@@ -104,6 +104,10 @@ button{
   display: flex;
 }
 
+.no-flex-sm{
+  display: block;
+}
+
 .align-items-center{
   align-items: center;
 }
@@ -492,21 +496,23 @@ a.pill{
   }
 }
 
-.divider-right{
-  &:after{
-    position: absolute;
-    content: "";
-    right: 14px;
-    height: 100%;
-    width: 2px;
-    background-color: $grey-1;
-    top: 0;
-  }
-  &-sm{
+@media (min-width: 768px) {
+  .divider-right{
     &:after{
-      height: 60px;
-      top: 50%;
-      margin-top: -30px;
+      position: absolute;
+      content: "";
+      right: 14px;
+      height: 100%;
+      width: 2px;
+      background-color: $grey-1;
+      top: 0;
+    }
+    &-sm{
+      &:after{
+        height: 60px;
+        top: 50%;
+        margin-top: -30px;
+      }
     }
   }
 }
