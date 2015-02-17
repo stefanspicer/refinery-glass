@@ -34,5 +34,4 @@
 //= require glass/cropper.js
 //= require glass/grande
 //= require canvas/modules/watchforchanges
-//= require feast/modules/org
 //= require_tree ./modules
