@@ -22,10 +22,10 @@
 //= require refinery/sortable_menu
 //= require refinery/submit_continue
 //= require refinery/ajaxy_pagination
+
 //  # END old refinery includes
 //
 //
-//  # glass/semantic-ui/modal.min # Joe, seems like this isn't quite working
 //= require canvas/jquery.select-to-autocomplete
 //= require canvas/jquery-ui-autocomplete
 //= require glass/semantic-ui/transition
@@ -34,4 +34,5 @@
 //= require glass/cropper.js
 //= require glass/grande
 //= require canvas/modules/watchforchanges
+//= require feast/modules/org
 //= require_tree ./modules

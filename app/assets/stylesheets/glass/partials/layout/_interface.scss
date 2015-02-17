@@ -685,6 +685,13 @@ body{
   padding: 30px 0;
 }
 
+.alert-sticky {
+	position: fixed;
+	top: 0;
+	right: 0;
+	z-index: 99;
+}
+
 @media (max-width: 767px) {
   .contextual-menu {
     flex-wrap: wrap;
