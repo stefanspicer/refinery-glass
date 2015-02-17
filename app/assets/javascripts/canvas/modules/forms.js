@@ -271,12 +271,24 @@ var CanvasForms = (function ($) {
     deletionModal.modal('show');
   }
 
+  function liveValidateRequiredFields(fields){
+    var waitTimeMS = 500;
+    var field;
+    for(var index in fields){
+      if($('#' + fields[index].id).length > 0) {
+        field = new LiveValidation(fields[index].id, {validMessage: " ", wait: waitTimeMS});
+        field.add(Validate.Presence, {failureMessage: fields[index].failureMessage});
+      }
+    }
+  }
 
   // Return API for other modules
   return {
     'replaceContent': replaceContent,
     insertStripeErrors: insertStripeErrors,
     insertErrors: insertErrors,
-    resetState: resetState
+    resetState: resetState,
+    showAndGoToErrors: showAndGoToErrors,
+    liveValidateRequiredFields: liveValidateRequiredFields
   };
 })(jQuery);
