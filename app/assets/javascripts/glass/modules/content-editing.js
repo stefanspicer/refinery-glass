@@ -297,7 +297,7 @@ var GlassContentEditing = (function ($) {
       this_editor.attachControl('settings_vid');
     });
     $('#glass-add-vid-btn').click(function (e) {
-      var $vid_module = $('#glass-module-vid-template').clone();
+      var $vid_module = $('#glass-parking #glass-module-vid-template').clone();
       $vid_module.removeAttr('id'); //The id only stays on the one in the parking
       var vid_link = $('#glass-vid-url-input').val();
       $('#glass-vid-url-input').val('');
@@ -324,6 +324,13 @@ var GlassContentEditing = (function ($) {
       $vid_module.find('iframe').attr('src', embed_url);
 
       this_editor.curModule().element().replaceWith($vid_module);
+      this_editor.removeGlassControl();
+    });
+    $('#glass-choose-custom').click(function (e) {
+      e.preventDefault();
+      var $new_module = $('#glass-parking #glass-module-custom-html').clone();
+      $new_module.removeAttr('id'); //The id only stays on the one in the parking
+      this_editor.curModule().element().replaceWith($new_module);
       this_editor.removeGlassControl();
     });
 
