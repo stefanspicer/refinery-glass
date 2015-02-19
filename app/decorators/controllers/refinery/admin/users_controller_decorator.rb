@@ -5,6 +5,8 @@ Refinery::Admin::UsersController.class_eval do
   before_filter :filter_users,     :only => [:index]
   skip_before_filter :restrict_controller, :only => [:update]
   before_filter :check_user,               :only => [:update]
+  # after_filter  :after_create_methods,   only: :create
+  # after_filter  :after_update_methods,   only: :update
 
   def create
     params[:user][:password] = 'password'
@@ -15,8 +17,14 @@ Refinery::Admin::UsersController.class_eval do
 
     @user[:inviting_user_name] = current_refinery_user.name.split.map(&:capitalize).join(' ') # capitalizes the first letter of each word
     @user[:invitee_name] = @user.name.split.map(&:capitalize).join(' ')
+    @user[:onboarding] = false
+
+    if params[:onboarding].present? && params[:onboarding]
+	    @user[:onboarding] = true
+    end
 
     if @user.save
+
       flash.now[:notice] = "Invitation sent to #{@user.email}"
       create_successful
     else
@@ -91,6 +99,27 @@ Refinery::Admin::UsersController.class_eval do
   end
 
 protected
+
+
+  def after_update_methods
+	  # send_onboarding_email(:update)
+  end
+
+  def after_create_methods
+	  # send_onboarding_email(:create)
+  end
+
+  # def send_onboarding_email(action)
+  # 	# If the user has had the onboarding checkbox checked or if they are the first admin for the org
+  # 	# then send them the onboarding email.
+  # 	if (params[:onboarding].present? && params[:onboarding]) || (@user.org.admins.count == 1 && action == :create)
+  # 		begin
+  # 			Refinery::Feast::Mailer.onboarding_email(@user, request).deliver
+  # 		rescue => e
+  # 			logger.warn "There was an error delivering the onboarding email to #{@user.name}.:\n#{e.message}\n"
+  # 		end
+  # 	end
+  # end
 
   def find_available_plugins
     @available_plugins = Refinery::Plugins.registered.in_menu.map { |a|
