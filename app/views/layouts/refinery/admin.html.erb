@@ -76,16 +76,16 @@ html
           <a href="" class="sidebar-right-opener menu-link menu-link-right"><i class="gcicon gcicon-publish"></i></a>
         <% end %>
       <% end %>
-      
-      <div id="flash_container" class="container-fluid">
-        <div class="row">
-          <div class="col-sm-12">
-            <%= render '/refinery/no_script' %>
-            <%= render '/refinery/message' %>
+      <% unless current_refinery_user.has_role?(:superuser) %>
+        <div id="flash_container" class="container-fluid">
+          <div class="row">
+            <div class="col-sm-12">
+              <%= render '/refinery/no_script' %>
+              <%= render '/refinery/message' %>
+            </div>
           </div>
         </div>
-      </div>
-
+      <% end %>
       <% if is_admin_preview_page %>
         <section id="page-preview">
           <!-- this partial yields to :admin_page_preview -->
