@@ -699,6 +699,38 @@ ul li{
   }
 }
 
+.list-circle-icon {
+	counter-reset: li; /* Initiate a counter */
+	margin-left: 0; /* Remove the default left margin */
+	padding-left: 0; /* Remove the default left padding */
+	margin-bottom: 30px;
+	&> li {
+		margin: 0 0 6px 30px; /* Give each list item a left margin to make room for the numbers */
+		padding: 4px 8px 4px 15px; /* Add some spacing around the content */
+		list-style: none; /* Disable the normal item numbering */
+		.gcicon{
+			/* Position and style the number */
+			position: absolute;
+			top: 0px;
+			left: -2em;
+			-moz-box-sizing: border-box;
+			-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+			width: 2em;
+			/* Some space between the number and the content in browsers that support
+					generated content but not positioning it (Camino 2 is one example) */
+			border: 1px solid $grey-6;
+			color: $grey-6;
+			@include border-radius(50%);
+			text-align: center;
+			width: 26px;
+			height: 26px;
+			margin: 5px 0 0;
+			font-size: 12px;
+			line-height: 26px;
+		}
+	}
+}
 
 
 /* -------------------- FORMS -------------------- */

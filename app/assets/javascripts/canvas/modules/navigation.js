@@ -1,4 +1,4 @@
-var menus = (function($){
+var CanvasMenus = (function($){
   var $mainmenu;
   var lastScrolltop = 0;
   var lastLowPoint  = 0;
