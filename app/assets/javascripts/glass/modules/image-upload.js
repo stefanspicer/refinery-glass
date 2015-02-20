@@ -1,33 +1,42 @@
 var RefineryImageUploader = (function ($) {
 
+  var $currentImageContainer, $uploadPreviewContainer;
+
   $(document).on('content-ready', function (e, element) {
     imageListeners(element);
     fileUploaderListener(element);
     uploadImageHandler();
-    setPreviewDiv();
+    // setPreviewDiv();
     initCropper();
     imageDeleteListener();
   });
 
   function imageListeners(element) {
-    $(element).find('#image-upload-btn').unbind('click').click(function (e) {
+    // Click listener for upload button
+    $(element).find('.image-upload-btn').unbind('click').click(function (e) {
       e.preventDefault();
+      $uploadPreviewContainer = $(this).parents('.upload-preview-container');
+      $currentImageContainer = $('.image-upload-container[data-field-name=' + $uploadPreviewContainer.attr('data-field-name') +']');
       openFileInput();
     });
+    // Click listener for edit button
     $(element).find('.btn-edit-img').unbind('click').click(function (e) {
       e.preventDefault();
+      $uploadPreviewContainer = $(this).parents('.upload-preview-container');
+      $currentImageContainer = $('.image-upload-container[data-field-name=' + $uploadPreviewContainer.attr('data-field-name') +']');
       openCropModal();
-    })
+    });
   }
 
   function openFileInput() {
-    $('#refinery-image-input').click();
+    var imageInputField = $('#refinery-image-input');
+    imageInputField.click();
   }
 
   function fileUploaderListener(element) {
     var maxFileSizeBytes = (5242880 * 20);
 
-    $(element).find('input[type=file]').change(function (e) {
+    $(element).find('#refinery-image-input').change(function (e) {
       if (typeof FileReader == "undefined") return true;
       var isImage = true;
       var name = $(this).attr('name');
@@ -36,7 +45,11 @@ var RefineryImageUploader = (function ($) {
       for (var i = 0, file; file = files[i]; i++) {
         if (file.type.match('image.*')) {
           if (file.size >= maxFileSizeBytes){
-            CanvasForms.insertErrors($('#image-upload-form'), {image: ['Image is too large. Max size is 100 mb']}, true);
+
+            CanvasForms.insertErrors($('#image-upload-form'), {
+              image: ['Image is too large. Max size is 100 mb']
+            }, true);
+
             isImage = false;
             return true;
           }
@@ -57,14 +70,16 @@ var RefineryImageUploader = (function ($) {
 
       if (isImage) {
         CanvasForms.resetState();
-        $('.upload > .file-preview').fadeOut(200);
+        $uploadPreviewContainer.find('.file-preview').fadeOut(200);
         $('#submit-image-btn').click();
       }
     });
   }
 
   function setPreviewDiv(image) {
-    var previewDiv = $('.upload > .file-preview');
+
+    var previewDiv = $uploadPreviewContainer.find('.file-preview');
+
     var bgWidth = previewDiv.width();
 
     previewDiv.css({
@@ -72,6 +87,7 @@ var RefineryImageUploader = (function ($) {
     });
 
     if (image !== undefined) {
+
       previewDiv.css({"background-image": "url(" + image + ")"});
       previewDiv.fadeIn(500);
       var editModal = $('#modal-edit-image');
@@ -96,9 +112,7 @@ var RefineryImageUploader = (function ($) {
         modal: false,
         data: {width: 640, height: 360},
         preview: '.cropper-preview',
-        done: function (data) {
-
-        }
+        done: function (data) {}
       };
 
     $image.cropper(options);
@@ -133,11 +147,11 @@ var RefineryImageUploader = (function ($) {
 
   function beforeSubmit() {
     resetProgressBar();
-    $('#progress-box').show();
+    $uploadPreviewContainer.find('.progress-box').show();
   }
 
   function handleError(response) {
-    $('#progress-box').hide();
+    $uploadPreviewContainer.find('.progress-box').hide();
 
      console.log("upload failed");
      console.log(response);
@@ -146,20 +160,20 @@ var RefineryImageUploader = (function ($) {
   }
 
   function handleSuccess(response) {
-    var imageIdField = $('#image-id-field');
+    var imageIdField = $currentImageContainer.find('.image-id-field');
     var newBtnText = 'Replace Image';
-    var deleteBtn = $("#image-delete-btn");
-    var uploadbtn = $('#image-upload-btn');
+    var deleteBtn = $uploadPreviewContainer.find('.image-delete-btn');
+    var uploadbtn = $uploadPreviewContainer.find('.image-upload-btn');
 
     if (imageIdField.length > 0) {
       imageIdField.val(response.image_id)
-
     }
+
     if (deleteBtn.length > 0) {
       deleteBtn.attr('data-path', '/admin/images/' + response.image_id);
     } else {
       var deleteBtn = [
-        '<button id="image-delete-btn" class="btn btn-link"',
+        '<button class="image-delete-btn btn btn-link"',
         ' title="Delete" data-path="/admin/images/', response.image_id, '">',
         '<i class="gcicon gcicon-trash"></i>',
         '</button>'].join("");
@@ -168,18 +182,18 @@ var RefineryImageUploader = (function ($) {
     }
 
     CanvasForms.resetState();
+
     setTimeout(function () {
-      $('#progress-box').fadeOut(1000);
+      $uploadPreviewContainer.find('.progress-box').fadeOut(1500, function(){
+        uploadbtn.text(newBtnText);
+        $uploadPreviewContainer.find('.file-preview').fadeIn(500);
+      });
     }, 1500);
-
-    uploadbtn.text(newBtnText);
-
-    $('.upload > .file-preview').fadeIn(500);
   }
 
   function updateProgressBar(percentComplete) {
-    var statusText = $("#status-text");
-    $("#progress-bar").width(percentComplete + '%');
+    var statusText = $uploadPreviewContainer.find('.status-text');
+    $uploadPreviewContainer.find('.progress-bar').width(percentComplete + '%').attr('aria-valuenow', percentComplete);
     statusText.html(percentComplete + '%');
 
     if (percentComplete > 50) {
@@ -188,17 +202,18 @@ var RefineryImageUploader = (function ($) {
   }
 
   function imageDeleteListener() {
-    $('#image-delete-btn').unbind('click').click(function (e) {
+    $('.image-delete-btn').unbind('click').click(function (e) {
       e.preventDefault();
       handleImageDelete($(this));
     });
   }
 
-  function handleImageDelete(btn) {
-
+  function handleImageDelete($btn) {
+    $uploadPreviewContainer = $btn.parents('.upload-preview-container');
+    $currentImageContainer = $('.image-upload-container[data-field-name=' + $uploadPreviewContainer.attr('data-field-name') +']');
     $.ajax({
       type: 'DELETE',
-      url: btn.attr('data-path'),
+      url: $btn.attr('data-path'),
       data: {'authenticity_token': $('#auth_token').val()},
       success: handleDeleteSuccess,
       error: handleDeleteError
@@ -207,10 +222,10 @@ var RefineryImageUploader = (function ($) {
 
   function resetImageUpload() {
     var addBtnText = 'Upload a photo';
-    $('#image-id-field').val(null);
-    $('.upload > .file-preview').fadeOut(500);
-    $('#image-upload-btn').text(addBtnText);
-    $('#image-delete-btn').fadeOut(500, function () {
+    $currentImageContainer.find('.image-id-field').val(null);
+    $uploadPreviewContainer.find('.file-preview').fadeOut(500);
+    $uploadPreviewContainer.find('.image-upload-btn').text(addBtnText);
+    $uploadPreviewContainer.find('.image-delete-btn').fadeOut(500, function () {
       $(this).remove()
     });
   }
@@ -220,12 +235,12 @@ var RefineryImageUploader = (function ($) {
   }
 
   function handleDeleteError(response) {
-
+    // TODO: Do something here.
   }
 
   function resetProgressBar() {
     updateProgressBar(1);
-    $("#status-text").css('color', '#000000');
+    $uploadPreviewContainer.find('.status-text').css('color', '#000000');
   }
 
   function onProgress(event, position, total, percentComplete) {
