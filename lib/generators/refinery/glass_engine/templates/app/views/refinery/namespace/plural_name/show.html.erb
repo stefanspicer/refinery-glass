@@ -20,7 +20,7 @@
 <% if attribute.type.to_s == 'image' -%>
         <h4><%= attribute.name.titleize %></h4>
         <p>
-          <%%= image_fu @<%= singular_name %>.<%= attribute.name %>, nil %>
+          <%%= image_fu @<%= singular_name %>.<%= attribute.name %>, '300x200' %>
         </p>
 <% elsif attribute.type.to_s == 'resource' -%>
         <h4><%= attribute.name.titleize %></h4>
