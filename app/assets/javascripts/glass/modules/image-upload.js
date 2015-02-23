@@ -125,7 +125,6 @@ var RefineryImageUploader = (function ($) {
 
   function uploadImageHandler() {
     var imageForm = $('#image-upload-form');
-    var model = $('.form-with-image').attr('data-model');
 
     var options = {
       target: "#output",
