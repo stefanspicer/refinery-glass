@@ -1,6 +1,6 @@
 var RefineryImageUploader = (function ($) {
 
-  var $currentImageContainer, $uploadPreviewContainer;
+  var $currentImageContainer, $uploadPreviewContainer, $uploadPreviewContainers;
 
   $(document).on('content-ready', function (e, element) {
     imageListeners(element);
@@ -15,15 +15,17 @@ var RefineryImageUploader = (function ($) {
     // Click listener for upload button
     $(element).find('.image-upload-btn').unbind('click').click(function (e) {
       e.preventDefault();
-      $uploadPreviewContainer = $(this).parents('.upload-preview-container');
-      $currentImageContainer = $('.image-upload-container[data-field-name=' + $uploadPreviewContainer.attr('data-field-name') +']');
+      $uploadPreviewContainer  = $(this).parents('.upload-preview-container');
+      $uploadPreviewContainers = $('.upload-preview-container[data-field-name=' + $uploadPreviewContainer.attr('data-field-name') +']');
+      $currentImageContainer   = $('.image-upload-container[data-field-name='   + $uploadPreviewContainer.attr('data-field-name') +']');
       openFileInput();
     });
     // Click listener for edit button
     $(element).find('.btn-edit-img').unbind('click').click(function (e) {
       e.preventDefault();
-      $uploadPreviewContainer = $(this).parents('.upload-preview-container');
-      $currentImageContainer = $('.image-upload-container[data-field-name=' + $uploadPreviewContainer.attr('data-field-name') +']');
+      $uploadPreviewContainer  = $(this).parents('.upload-preview-container');
+      $uploadPreviewContainers = $('.upload-preview-container[data-field-name=' + $uploadPreviewContainer.attr('data-field-name') +']');
+      $currentImageContainer   = $('.image-upload-container[data-field-name=' + $uploadPreviewContainer.attr('data-field-name') +']');
       openCropModal();
     });
   }
@@ -70,7 +72,7 @@ var RefineryImageUploader = (function ($) {
 
       if (isImage) {
         CanvasForms.resetState();
-        $uploadPreviewContainer.find('.file-preview').fadeOut(200);
+        //$uploadPreviewContainers.find('.file-preview').fadeOut(200);
         $('#submit-image-btn').click();
       }
     });
@@ -78,18 +80,14 @@ var RefineryImageUploader = (function ($) {
 
   function setPreviewDiv(image) {
 
-    var previewDiv = $uploadPreviewContainer.find('.file-preview');
-
-    var bgWidth = previewDiv.width();
-
-    previewDiv.css({
-      "background-size": bgWidth + "px, auto"
-    });
+    var $previewDivs = $uploadPreviewContainers.find('.file-preview');
 
     if (image !== undefined) {
+      $('[data-glass-img-id="' + $uploadPreviewContainer.attr('data-field-name') + '"]').attr('src', image);
+      $('[data-glass-bg-img-id="' + $uploadPreviewContainer.attr('data-field-name') + '"]').css({"background-image": "url(" + image + ")"});
 
-      previewDiv.css({"background-image": "url(" + image + ")"});
-      previewDiv.fadeIn(500);
+      $previewDivs.css({"background-image": "url(" + image + ")"});
+      $previewDivs.fadeIn(500);
       var editModal = $('#modal-edit-image');
       // if there is an edit modal, change the image that is being
       // displayed in it.
@@ -147,11 +145,11 @@ var RefineryImageUploader = (function ($) {
 
   function beforeSubmit() {
     resetProgressBar();
-    $uploadPreviewContainer.find('.progress-box').show();
+    $uploadPreviewContainers.find('.progress-box').show();
   }
 
   function handleError(response) {
-    $uploadPreviewContainer.find('.progress-box').hide();
+    $uploadPreviewContainers.find('.progress-box').hide();
 
      console.log("upload failed");
      console.log(response);
@@ -162,38 +160,29 @@ var RefineryImageUploader = (function ($) {
   function handleSuccess(response) {
     var imageIdField = $currentImageContainer.find('.image-id-field');
     var newBtnText = 'Replace Image';
-    var deleteBtn = $uploadPreviewContainer.find('.image-delete-btn');
-    var uploadbtn = $uploadPreviewContainer.find('.image-upload-btn');
+    var $deleteBtns = $uploadPreviewContainers.find('.image-delete-btn');
+    var $uploadBtns = $uploadPreviewContainers.find('.image-upload-btn');
 
     if (imageIdField.length > 0) {
       imageIdField.val(response.image_id)
     }
 
-    if (deleteBtn.length > 0) {
-      deleteBtn.attr('data-path', '/admin/images/' + response.image_id);
-    } else {
-      var deleteBtn = [
-        '<button class="image-delete-btn btn btn-link"',
-        ' title="Delete" data-path="/admin/images/', response.image_id, '">',
-        '<i class="gcicon gcicon-trash"></i>',
-        '</button>'].join("");
-      uploadbtn.after(deleteBtn);
-      imageDeleteListener();
-    }
+    $deleteBtns.attr('data-path', '/admin/images/' + response.image_id);
+    $deleteBtns.fadeIn(500);
 
     CanvasForms.resetState();
 
+    $uploadPreviewContainers.find('.progress-box').fadeOut(1500);
+
     setTimeout(function () {
-      $uploadPreviewContainer.find('.progress-box').fadeOut(1500, function(){
-        uploadbtn.text(newBtnText);
-        $uploadPreviewContainer.find('.file-preview').fadeIn(500);
-      });
+      $uploadBtns.text(newBtnText);
+      $uploadPreviewContainers.find('.file-preview').fadeIn(500);
     }, 1500);
   }
 
   function updateProgressBar(percentComplete) {
-    var statusText = $uploadPreviewContainer.find('.status-text');
-    $uploadPreviewContainer.find('.progress-bar').width(percentComplete + '%').attr('aria-valuenow', percentComplete);
+    var statusText = $uploadPreviewContainers.find('.status-text');
+    $uploadPreviewContainers.find('.progress-bar').width(percentComplete + '%').attr('aria-valuenow', percentComplete);
     statusText.html(percentComplete + '%');
 
     if (percentComplete > 50) {
@@ -204,30 +193,36 @@ var RefineryImageUploader = (function ($) {
   function imageDeleteListener() {
     $('.image-delete-btn').unbind('click').click(function (e) {
       e.preventDefault();
+      $uploadPreviewContainer  = $(this).parents('.upload-preview-container');
+      $uploadPreviewContainers = $('.upload-preview-container[data-field-name=' + $uploadPreviewContainer.attr('data-field-name') +']');
+      $currentImageContainer   = $('.image-upload-container[data-field-name='   + $uploadPreviewContainer.attr('data-field-name') +']');
       handleImageDelete($(this));
     });
   }
 
   function handleImageDelete($btn) {
-    $uploadPreviewContainer = $btn.parents('.upload-preview-container');
-    $currentImageContainer = $('.image-upload-container[data-field-name=' + $uploadPreviewContainer.attr('data-field-name') +']');
-    $.ajax({
-      type: 'DELETE',
-      url: $btn.attr('data-path'),
-      data: {'authenticity_token': $('#auth_token').val()},
-      success: handleDeleteSuccess,
-      error: handleDeleteError
-    });
+    handleDeleteSuccess();
+
+    //
+    // This code below actually deletes the image...   BUT   this introduces a slight permissions problem.  Users can delete other users images
+    //
+    //$uploadPreviewContainer = $btn.parents('.upload-preview-container');
+    //$currentImageContainer = $('.image-upload-container[data-field-name=' + $uploadPreviewContainer.attr('data-field-name') +']');
+    //$.ajax({
+    //  type: 'DELETE',
+    //  url: $btn.attr('data-path'),
+    //  data: {'authenticity_token': $('#auth_token').val()},
+    //  success: handleDeleteSuccess,
+    //  error: handleDeleteError
+    //});
   }
 
   function resetImageUpload() {
-    var addBtnText = 'Upload a photo';
+    var addBtnText = 'Upload an Image';
     $currentImageContainer.find('.image-id-field').val(null);
-    $uploadPreviewContainer.find('.file-preview').fadeOut(500);
-    $uploadPreviewContainer.find('.image-upload-btn').text(addBtnText);
-    $uploadPreviewContainer.find('.image-delete-btn').fadeOut(500, function () {
-      $(this).remove()
-    });
+    $uploadPreviewContainers.find('.file-preview').fadeOut(500);
+    $uploadPreviewContainers.find('.image-upload-btn').text(addBtnText);
+    $uploadPreviewContainers.find('.image-delete-btn').fadeOut(500);
   }
 
   function handleDeleteSuccess(response) {
@@ -240,7 +235,7 @@ var RefineryImageUploader = (function ($) {
 
   function resetProgressBar() {
     updateProgressBar(1);
-    $uploadPreviewContainer.find('.status-text').css('color', '#000000');
+    $uploadPreviewContainers.find('.status-text').css('color', '#000000');
   }
 
   function onProgress(event, position, total, percentComplete) {
