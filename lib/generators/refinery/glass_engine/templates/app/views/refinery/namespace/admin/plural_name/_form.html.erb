@@ -1,15 +1,8 @@
 <%%= render 'refinery/<%= namespacing.underscore %>/admin/submenu' %>
-<%
-  image_attributes = []
-  attributes.each_with_index do |attribute, index|
-    if attribute.type.to_s == 'image'
-      image_attributes.push(attribute.name)
-    end
-  end
--%>
 
 <%
   delete_title = (title = attributes.detect { |a| a.type.to_s == "string" }).present? ? ", :title => @#{singular_name}.#{title.name}" : ''
+  has_image_attribute = false
 -%>
 <% form_actions = <<-ENDHTML
 <%= render '/refinery/admin/form_actions', :f => f, #{':sidebar => true,' if include_live_editor? }
@@ -24,11 +17,15 @@ ENDHTML
 <%% end %>
 <%% content_for :admin_sidebar do %>
 <% end -%>
+
+<% if include_live_editor? -%>
+<div class="page-options">
+  <div>
+<% else -%>
 <div class="row">
   <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-
-    <%%= form_for [refinery, :<%= namespacing.underscore %>_admin, @<%= singular_name %>], html:
-    <%= image_attributes.any? ? {'data-model' => singular_name , class: 'form-with-image margin-bottom', 'data-field-name' => image_attributes.first} : {} %> do |f| -%>
+<% end -%>
+    <%%= form_for [refinery, :<%= namespacing.underscore %>_admin, @<%= singular_name %>] do |f| -%>
       <%%= render '/refinery/admin/error_messages',
                   :object => @<%= singular_name %>,
                   :include_object_name => true %>
@@ -44,13 +41,17 @@ ENDHTML
 <% if attribute.type.to_s == 'image' -%>
       <div class='form-group'>
         <%%= render '/refinery/admin/images/image_input',
-                   :f => f,
-                   :model => @<%= singular_name %>,
-                   :model_name => '<%= singular_name %>',
-                   :associated_image => @<%= singular_name %>.<%= image_attributes.first %>,
-                   :field_name => '<%= image_attributes.first %>'.to_sym
+          :f => f,
+          :field_name => :<%= attribute.name %>,
+          :image => @<%= singular_name %>.<%= attribute.name %>
+        -%>
+        <%%= render '/refinery/admin/images/image_preview',
+          :f => f,
+          :field_name => :<%= attribute.name %>,
+          :image => @<%= singular_name %>.<%= attribute.name %>
         -%>
       </div>
+<% has_image_attribute = true -%>
 <% elsif attribute.type.to_s == 'resource' -%>
       <div class='form-group'>
         <%%= f.label :<%= attribute.name %> -%>
@@ -79,12 +80,11 @@ ENDHTML
   </div>
 </div>
 
+<% if has_image_attribute %>
+  <%%= render 'refinery/admin/images/form' -%>
+<% end %>
+
 <% if include_live_editor? -%>
   <%%= render partial: '/glass/html_editing_assets' %>
 <%% end # content_for :admin_sidebar %>
 <% end -%>
-
-<% if image_attributes.any? %>
-  <%%= render 'refinery/admin/images/form',
-              :image => @<%= singular_name %>.<%= image_attributes.first %> -%>
-<% end %>
