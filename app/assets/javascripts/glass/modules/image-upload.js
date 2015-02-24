@@ -113,9 +113,12 @@ var RefineryImageUploader = (function ($) {
           initCropper();
         }
       } else {
-        var $deleteBtn = '<button class="circle-icon delete-content-btn"><i class="gcicon gcicon-trash"></i></button>';
-        var $imageContainer = ['<div class="selected-module inline-editable-image-container" contenteditable=false>',$deleteBtn,'<img class="inline-editable-image img-responsive" src="',image,'"/></div>'].join('');
+        var $deleteBtn = '<button class="circle-icon delete-content-btn glass-control"><i class="gcicon gcicon-trash"></i></button>';
+
+        var $progressBar = '<div class="progress progress-box glass-control" style="display:none;"><div class="progress-bar progress-bar-success" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div><div class="status-text"></div></div>'
+        var $imageContainer = ['<div class="selected-module inline-editable-image-container" contenteditable=false>',$deleteBtn,$progressBar,'<img class="inline-editable-image img-responsive" src="',image,'"/></div>'].join('');
         $('.selected-module').replaceWith($imageContainer);
+
         $('.delete-content-btn').unbind('click').click(function(e){
           e.preventDefault();
           $(this).parents('.inline-editable-image-container').fadeOut(500, function(){
@@ -124,6 +127,17 @@ var RefineryImageUploader = (function ($) {
         });
       }
     }
+
+    if($uploadPreviewContainer === undefined){
+      $uploadPreviewContainer = $('.inline-editable-image-container');
+      $uploadPreviewContainers = $uploadPreviewContainer;
+    }
+    resetProgressBar();
+
+    if($uploadPreviewContainer.length > 0 && $uploadPreviewContainers !== undefined){
+      $uploadPreviewContainers.find('.progress-box').show();
+    }
+
   }
 
   function initCropper() {
@@ -165,10 +179,7 @@ var RefineryImageUploader = (function ($) {
   }
 
   function beforeSubmit() {
-    resetProgressBar();
-    if($uploadPreviewContainers !== undefined){
-      $uploadPreviewContainers.find('.progress-box').show();
-    }
+
   }
 
   function handleError(response) {
@@ -181,25 +192,37 @@ var RefineryImageUploader = (function ($) {
   }
 
   function handleSuccess(response) {
-    if($currentImageContainer !== undefined && $uploadPreviewContainers !== undefined) {
-      var imageIdField = $currentImageContainer.find('.image-id-field');
-      var newBtnText = 'Replace Image';
-      var $deleteBtns = $uploadPreviewContainers.find('.image-delete-btn');
-      var $uploadBtns = $uploadPreviewContainers.find('.image-upload-btn');
 
+
+    if($currentImageContainer !== undefined){
+      var imageIdField = $currentImageContainer.find('.image-id-field');
       if (imageIdField.length > 0) {
         imageIdField.val(response.image_id)
       }
+    }
+    if($uploadPreviewContainers !== undefined) {
 
-      $deleteBtns.attr('data-path', '/admin/images/' + response.image_id);
-      $deleteBtns.fadeIn(500);
+      var newBtnText = 'Replace Image';
+      var $deleteBtns = $uploadPreviewContainers.find('.image-delete-btn');
+      var $uploadBtns = $uploadPreviewContainers.find('.image-upload-btn');
+      var $focusInlineImage = $('.selected-module.inline-editable-image-container .inline-editable-image');
+
+      if($focusInlineImage.length > 0){
+        $focusInlineImage.attr('src', response.url);
+      }
+      if ($deleteBtns.length > 0){
+        $deleteBtns.attr('data-path', '/admin/images/' + response.image_id);
+        $deleteBtns.fadeIn(500);
+      }
 
       CanvasForms.resetState();
 
       $uploadPreviewContainers.find('.progress-box').fadeOut(1500);
 
       setTimeout(function () {
-        $uploadBtns.text(newBtnText);
+        if($uploadBtns.length > 0){
+          $uploadBtns.text(newBtnText);
+        }
         $uploadPreviewContainers.find('.file-preview').fadeIn(500);
       }, 1500);
     }

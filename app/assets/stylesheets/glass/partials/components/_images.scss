@@ -22,10 +22,8 @@
   display: none;
   text-align:left;
   position: absolute;
-  z-index: 100;
   bottom: 10px;
-  width: 270px;
-  left: 15px;
+  left: 0;
 	.status-text {
 		top: 2px;
 		left: 50%;
@@ -35,6 +33,13 @@
 		position: absolute;
 		color: #000000;
 	}
+}
+.progress {
+	width: 98%;
+	padding-left: 1%;
+	padding-right: 1%;
+	z-index: 998;
+	background-color: rgba(0,0,0,0.4) !important;
 }
 .progress-bar {
   display: block;
@@ -50,12 +55,6 @@
 		text-align: right;
 		padding: 5px 15px;
 		z-index: 999;
-	}
-	.progress {
-		width: 98%;
-		z-index: 998;
-		margin: 5px auto;
-		background-color: rgba(0,0,0,0.4) !important;
 	}
 	&.top {
 		.upload-preview-container {
