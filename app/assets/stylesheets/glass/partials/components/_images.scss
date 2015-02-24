@@ -4,7 +4,12 @@
 	opacity: 0;
 }
 
-.upload-preview-container { overflow:hidden; }
+.upload-preview-container {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .upload-preview-container .file-preview {
   margin-top: 15px;
