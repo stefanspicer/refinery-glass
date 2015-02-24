@@ -256,8 +256,6 @@ var GlassContentEditing = (function ($) {
 
     // Initialization
     // ##########################################
-    console.log('FIXME: init');
-
     this.h.elem.attr('contenteditable', true);
 
     this.h.control['module_switch'] = $('#glass-module-switcher').glassHtmlControl();
@@ -267,71 +265,6 @@ var GlassContentEditing = (function ($) {
     // modules() initializes them as well as returns them
     $.each(this.modules(), function (i, $module) {
       this_editor.triggerChangeFocus($module.element(), null);
-    });
-
-    $('#glass-module-switcher').click(function (e) {
-      e.preventDefault();
-      var stack = this_editor.h.control_stack;
-
-      if ($(this).hasClass('glass-close') && stack.length > 0) {
-        var $control = stack.pop();
-
-        if (stack.length > 0) {
-          stack[stack.length - 1].element().fadeIn();
-        }
-        else {
-          $(this).removeClass('glass-close rotate-45');
-          $control.bringBackModule();
-        }
-
-        $control.detatchFromModule();
-      }
-      else {
-        $(this).addClass('glass-close rotate-45');
-        this_editor.attachControl('choose_module');
-      }
-    });
-
-    $('#glass-choose-module-vid').click(function (e) {
-      e.preventDefault();
-      this_editor.attachControl('settings_vid');
-    });
-    $('#glass-add-vid-btn').click(function (e) {
-      var $vid_module = $('#glass-parking #glass-module-vid-template').clone();
-      $vid_module.removeAttr('id'); //The id only stays on the one in the parking
-      var vid_link = $('#glass-vid-url-input').val();
-      $('#glass-vid-url-input').val('');
-      var embed_url = vid_link; // The default, will be changed below
-      $vid_module.attr('data-video-link', vid_link); // Save for later use if needed (to edit??)
-      var matches = vid_link.match(/(vimeo|youtube).com\/(.+)$/);
-
-      if (matches && vid_link.search(/(?:youtube.+embed|player\.vimeo)/) == -1) {
-        var vid_host = matches[1];
-        var vid_path = matches[2];
-        var vid_host_meta = {
-          'youtube': ["//www.youtube.com/embed/",  "",              /[\?\&]v=(\w+)/],
-          'vimeo'  : ["//player.vimeo.com/video/", "?color=8d69bf", /^(\w+)/],
-        };
-        var matches2 = vid_path.match(vid_host_meta[vid_host][2]);
-        if (matches2) {
-          embed_url = vid_host_meta[vid_host][0] + matches2[1] + vid_host_meta[vid_host][1];
-        }
-      }
-      else if (vid_link.search(/^\/\//) == -1) {
-        embed_url = "//" + vid_link.replace(/^https?:\/\//, '');
-      }
-
-      $vid_module.find('iframe').attr('src', embed_url);
-
-      this_editor.curModule().element().replaceWith($vid_module);
-      this_editor.removeGlassControl();
-    });
-    $('#glass-choose-custom').click(function (e) {
-      e.preventDefault();
-      var $new_module = $('#glass-parking #glass-module-custom-html').clone();
-      $new_module.removeAttr('id'); //The id only stays on the one in the parking
-      this_editor.curModule().element().replaceWith($new_module);
-      this_editor.removeGlassControl();
     });
 
     this.h.elem.mouseup(function(e) {
@@ -366,6 +299,10 @@ var GlassContentEditing = (function ($) {
       this.m.elem.remove();
     }
 
+    this.editor = function() {
+      return this.m.editor;
+    }
+
     // Initialization
     // ##########################################
     //this.focus();
@@ -375,6 +312,7 @@ var GlassContentEditing = (function ($) {
   // # Control - actions on a module (change type, delete...)    #
   // #############################################################
   function GlassControl($elem) {
+    var this_control = this;
     this.c = {'elem': $elem};
 
     this.attachToModule = function($module) {
@@ -387,6 +325,10 @@ var GlassContentEditing = (function ($) {
       return this.c.elem;
     };
 
+    this.module = function() {
+      return this.c.module;
+    };
+
     this.detatchFromModule = function() {
       this.element().hide();
       this.c.module = null;
@@ -395,8 +337,8 @@ var GlassContentEditing = (function ($) {
     };
 
     this.bringBackModule = function() {
-      if (this.c.module) {
-        this.c.module.element().fadeIn();
+      if (this.module()) {
+        this.module().element().fadeIn();
       }
     };
 
@@ -406,6 +348,77 @@ var GlassContentEditing = (function ($) {
         $autofocus.focus();
       }
     };
+
+    if (this.element().attr('id') == 'glass-module-switcher') {
+      this.element().click(function (e) {
+        e.preventDefault();
+        // FIXME: move stack stuff into editor
+        var editor = this_control.module().editor();
+        var stack =  editor.h.control_stack;
+
+        if ($(this).hasClass('glass-close') && stack.length > 0) {
+          var $control = stack.pop();
+
+          if (stack.length > 0) {
+            stack[stack.length - 1].element().fadeIn();
+          }
+          else {
+            $(this).removeClass('glass-close rotate-45');
+            $control.bringBackModule();
+          }
+
+          $control.detatchFromModule();
+        }
+        else {
+          $(this).addClass('glass-close rotate-45');
+          editor.attachControl('choose_module');
+        }
+      });
+    }
+
+    this.element().find('#glass-choose-module-vid').click(function (e) {
+      e.preventDefault();
+      this_control.module().editor().attachControl('settings_vid');
+    });
+
+    this.element().find('#glass-add-vid-btn').click(function (e) {
+      var $vid_module = $('#glass-parking #glass-module-vid-template').clone();
+      $vid_module.removeAttr('id'); //The id only stays on the one in the parking
+      var vid_link = $('#glass-vid-url-input').val();
+      $('#glass-vid-url-input').val('');
+      var embed_url = vid_link; // The default, will be changed below
+      $vid_module.attr('data-video-link', vid_link); // Save for later use if needed (to edit??)
+      var matches = vid_link.match(/(vimeo|youtube).com\/(.+)$/);
+
+      if (matches && vid_link.search(/(?:youtube.+embed|player\.vimeo)/) == -1) {
+        var vid_host = matches[1];
+        var vid_path = matches[2];
+        var vid_host_meta = {
+          'youtube': ["//www.youtube.com/embed/",  "",              /[\?\&]v=(\w+)/],
+          'vimeo'  : ["//player.vimeo.com/video/", "?color=8d69bf", /^(\w+)/],
+        };
+        var matches2 = vid_path.match(vid_host_meta[vid_host][2]);
+        if (matches2) {
+          embed_url = vid_host_meta[vid_host][0] + matches2[1] + vid_host_meta[vid_host][1];
+        }
+      }
+      else if (vid_link.search(/^\/\//) == -1) {
+        embed_url = "//" + vid_link.replace(/^https?:\/\//, '');
+      }
+
+      $vid_module.find('iframe').attr('src', embed_url);
+
+      this_control.module().element().replaceWith($vid_module);
+      this_control.module().editor().removeGlassControl();
+    });
+
+    this.element().find('#glass-choose-custom').click(function (e) {
+      e.preventDefault();
+      var $new_module = $('#glass-parking #glass-module-custom-html').clone();
+      $new_module.removeAttr('id'); //The id only stays on the one in the parking
+      this_control.module().element().replaceWith($new_module);
+      this_control.module().editor().removeGlassControl();
+    });
   }
 
   $(document).on('content-ready', function (e, element) {
