@@ -161,8 +161,21 @@ var GlassContentEditing = (function ($) {
 
     this.closeCurControl = function() {
       var stack = this.h.control_stack;
-      stack.pop().element().hide();
-      stack[stack.length - 1].element().fadeIn();
+
+      if (stack.length > 0) {
+        var $control = stack.pop();
+
+        if (stack.length == 0) {
+          $control.bringBackModule();
+        }
+        else {
+          stack[stack.length - 1].element().fadeIn();
+        }
+
+        $control.detatchFromModule();
+      }
+
+      return (stack.length > 0);
     };
 
     this.removeGlassControl = function() {
@@ -192,7 +205,7 @@ var GlassContentEditing = (function ($) {
 
     this.parentModule = function($elem) {
       var $parent_module = null;
-      if ($elem.hasClass('glass-control') || $elem.parents('.glass-control').length > 0 || !this.h.elem.has($elem[0])) {
+      if ($elem.hasClass('glass-control') || $elem.parents('.glass-control').length > 0 || $elem.parents('.glass-edit').length == 0) {
         // It is within a control section, or is outside of the editor "chunk"
         return null;
       }
@@ -352,22 +365,12 @@ var GlassContentEditing = (function ($) {
     if (this.element().attr('id') == 'glass-module-switcher') {
       this.element().click(function (e) {
         e.preventDefault();
-        // FIXME: move stack stuff into editor
         var editor = this_control.module().editor();
-        var stack =  editor.h.control_stack;
 
-        if ($(this).hasClass('glass-close') && stack.length > 0) {
-          var $control = stack.pop();
-
-          if (stack.length > 0) {
-            stack[stack.length - 1].element().fadeIn();
-          }
-          else {
+        if ($(this).hasClass('glass-close')) {
+          if (!editor.closeCurControl()) {
             $(this).removeClass('glass-close rotate-45');
-            $control.bringBackModule();
           }
-
-          $control.detatchFromModule();
         }
         else {
           $(this).addClass('glass-close rotate-45');
