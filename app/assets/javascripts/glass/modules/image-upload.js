@@ -9,7 +9,15 @@ var RefineryImageUploader = (function ($) {
     // setPreviewDiv();
     initCropper();
     imageDeleteListener();
+    $(element).find('#glass-choose-module-img').click(ceImageAddLister);
   });
+
+  function ceImageAddLister(e){
+    e.preventDefault();
+    console.log('I want to add an image');
+    // Open file input field in hidden form
+    openFileInput();
+  }
 
   function imageListeners(element) {
     // Click listener for upload button
@@ -80,26 +88,40 @@ var RefineryImageUploader = (function ($) {
 
   function setPreviewDiv(image) {
 
-    var $previewDivs = $uploadPreviewContainers.find('.file-preview');
+    if($uploadPreviewContainers !== undefined){
+      var $previewDivs = $uploadPreviewContainers.find('.file-preview');
+    }
 
     if (image !== undefined) {
-      $('[data-glass-img-id="' + $uploadPreviewContainer.attr('data-field-name') + '"]').attr('src', image);
-      $('[data-glass-bg-img-id="' + $uploadPreviewContainer.attr('data-field-name') + '"]').css({"background-image": "url(" + image + ")"});
+      if ($uploadPreviewContainer !== undefined){
+        $('[data-glass-img-id="' + $uploadPreviewContainer.attr('data-field-name') + '"]').attr('src', image);
+        $('[data-glass-bg-img-id="' + $uploadPreviewContainer.attr('data-field-name') + '"]').css({"background-image": "url(" + image + ")"});
 
-      $previewDivs.css({"background-image": "url(" + image + ")"});
-      $previewDivs.fadeIn(500);
-      var editModal = $('#modal-edit-image');
-      // if there is an edit modal, change the image that is being
-      // displayed in it.
-      if (editModal.length > 0) {
-        var editableImage = editModal.find('.cropper-container > img');
-        if (editableImage.length > 0) {
-          editableImage.cropper("destroy");
-          editableImage.attr("src", image);
-        } else {
-          editModal.find('.cropper-container').append('<img src="' + image + '">');
+        $previewDivs.css({"background-image": "url(" + image + ")"});
+        $previewDivs.fadeIn(500);
+        var editModal = $('#modal-edit-image');
+        // if there is an edit modal, change the image that is being
+        // displayed in it.
+        if (editModal.length > 0) {
+          var editableImage = editModal.find('.cropper-container > img');
+          if (editableImage.length > 0) {
+            editableImage.cropper("destroy");
+            editableImage.attr("src", image);
+          } else {
+            editModal.find('.cropper-container').append('<img src="' + image + '">');
+          }
+          initCropper();
         }
-        initCropper();
+      } else {
+        var $deleteBtn = '<button class="circle-icon delete-content-btn"><i class="gcicon gcicon-trash"></i></button>';
+        var $imageContainer = ['<div class="selected-module inline-editable-image-container" contenteditable=false>',$deleteBtn,'<img class="inline-editable-image img-responsive" src="',image,'"/></div>'].join('');
+        $('.selected-module').replaceWith($imageContainer);
+        $('.delete-content-btn').unbind('click').click(function(e){
+          e.preventDefault();
+          $(this).parents('.inline-editable-image-container').fadeOut(500, function(){
+            $(this).replaceWith('<p class="selected-module empty"><br/></p>');
+          });
+        });
       }
     }
   }
@@ -144,7 +166,9 @@ var RefineryImageUploader = (function ($) {
 
   function beforeSubmit() {
     resetProgressBar();
-    $uploadPreviewContainers.find('.progress-box').show();
+    if($uploadPreviewContainers !== undefined){
+      $uploadPreviewContainers.find('.progress-box').show();
+    }
   }
 
   function handleError(response) {
@@ -157,35 +181,39 @@ var RefineryImageUploader = (function ($) {
   }
 
   function handleSuccess(response) {
-    var imageIdField = $currentImageContainer.find('.image-id-field');
-    var newBtnText = 'Replace Image';
-    var $deleteBtns = $uploadPreviewContainers.find('.image-delete-btn');
-    var $uploadBtns = $uploadPreviewContainers.find('.image-upload-btn');
+    if($currentImageContainer !== undefined && $uploadPreviewContainers !== undefined) {
+      var imageIdField = $currentImageContainer.find('.image-id-field');
+      var newBtnText = 'Replace Image';
+      var $deleteBtns = $uploadPreviewContainers.find('.image-delete-btn');
+      var $uploadBtns = $uploadPreviewContainers.find('.image-upload-btn');
 
-    if (imageIdField.length > 0) {
-      imageIdField.val(response.image_id)
+      if (imageIdField.length > 0) {
+        imageIdField.val(response.image_id)
+      }
+
+      $deleteBtns.attr('data-path', '/admin/images/' + response.image_id);
+      $deleteBtns.fadeIn(500);
+
+      CanvasForms.resetState();
+
+      $uploadPreviewContainers.find('.progress-box').fadeOut(1500);
+
+      setTimeout(function () {
+        $uploadBtns.text(newBtnText);
+        $uploadPreviewContainers.find('.file-preview').fadeIn(500);
+      }, 1500);
     }
-
-    $deleteBtns.attr('data-path', '/admin/images/' + response.image_id);
-    $deleteBtns.fadeIn(500);
-
-    CanvasForms.resetState();
-
-    $uploadPreviewContainers.find('.progress-box').fadeOut(1500);
-
-    setTimeout(function () {
-      $uploadBtns.text(newBtnText);
-      $uploadPreviewContainers.find('.file-preview').fadeIn(500);
-    }, 1500);
   }
 
   function updateProgressBar(percentComplete) {
-    var statusText = $uploadPreviewContainers.find('.status-text');
-    $uploadPreviewContainers.find('.progress-bar').width(percentComplete + '%').attr('aria-valuenow', percentComplete);
-    statusText.html(percentComplete + '%');
+    if($uploadPreviewContainers !== undefined){
+      var statusText = $uploadPreviewContainers.find('.status-text');
+      $uploadPreviewContainers.find('.progress-bar').width(percentComplete + '%').attr('aria-valuenow', percentComplete);
+      statusText.html(percentComplete + '%');
 
-    if (percentComplete > 50) {
-      statusText.css('color', '#fff'); // change status text to white after 50%
+      if (percentComplete > 50) {
+        statusText.css('color', '#fff'); // change status text to white after 50%
+      }
     }
   }
 
@@ -234,7 +262,9 @@ var RefineryImageUploader = (function ($) {
 
   function resetProgressBar() {
     updateProgressBar(1);
-    $uploadPreviewContainers.find('.status-text').css('color', '#000000');
+    if($uploadPreviewContainers !== undefined){
+      $uploadPreviewContainers.find('.status-text').css('color', '#000000');
+    }
   }
 
   function onProgress(event, position, total, percentComplete) {
