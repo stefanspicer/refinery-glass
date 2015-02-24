@@ -439,18 +439,19 @@ var GlassContentEditing = (function ($) {
         $form = $chunk.getForm();
       }
 
+      // FIXME - this breaks the vid input (can't paste)
       // JQuery seems to get in the way here.. need to work directly on the DOM
-      $(this)[0].addEventListener("paste", function (e) {
-        e.preventDefault();
+      //$(this)[0].addEventListener("paste", function (e) {
+      //  e.preventDefault();
 
-        if (e && e.clipboardData && e.clipboardData.getData) {
-          var text = e.clipboardData.getData("text/plain");
-          document.execCommand("insertHTML", false, text);
-        }
-        else {
-          alert("Sorry, you will need a different browser in order to paste content"); // FIXME
-        }
-      });
+      //  if (e && e.clipboardData && e.clipboardData.getData) {
+      //    var text = e.clipboardData.getData("text/plain");
+      //    document.execCommand("insertHTML", false, text);
+      //  }
+      //  else {
+      //    alert("Sorry, you will need a different browser in order to paste content"); // FIXME
+      //  }
+      //});
     });
 
     if ($form) {
