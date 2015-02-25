@@ -8,6 +8,7 @@
 //= require canvas/jquery.form.min
 //= require canvas/bootstrap-sprockets
 //= require canvas/livevalidation.min
+//= require canvas/waypoints
 //= require canvas/modules/forms
 //= require canvas/modules/main
 //= require canvas/modules/carousel
