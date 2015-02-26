@@ -28,9 +28,9 @@
 //
 //= require canvas/jquery.select-to-autocomplete
 //= require canvas/jquery-ui-autocomplete
-//= require glass/semantic-ui/transition
-//= require glass/semantic-ui/sidebar
-//= require glass/semantic-ui/modal.min
+//= require canvas/semantic-ui/transition
+//= require canvas/semantic-ui/sidebar
+//= require canvas/semantic-ui/modal.min
 //= require glass/cropper.js
 //= require glass/grande
 // # require glass/react/reactize.min
