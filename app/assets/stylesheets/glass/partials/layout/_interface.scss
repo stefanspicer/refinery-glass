@@ -534,6 +534,12 @@ body{
     display: flex;
     align-items: center;
   }
+  .relative-nav-item{
+    min-width: 80px;
+  }
+  .btn-group .btn-link-grey{
+    border: 1px solid $grey-3;
+  }
   .search {
     flex: 1; /* take up the rest of the remaining space */
     order: -1;
