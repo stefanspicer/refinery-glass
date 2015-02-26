@@ -1208,6 +1208,33 @@ input:focus, .form-control:focus, input[type="submit"]:focus, .btn:focus, input[
 	width: 0px;
 }
 
+.left-inner-addon input {
+	padding-left: 30px;
+}
+
+.right-inner-addon input {
+	padding-right: 30px;
+}
+
+.left-inner-addon .addon, .right-inner-addon .addon{
+	position: absolute;
+	padding: 8px 12px 6px;
+	pointer-events: none;
+	z-index: 999;
+	color: #aeaeae;
+}
+
+.right-inner-addon .addon {
+	right: 0;
+}
+.left-inner-addon .addon {
+	left: 0;
+}
+
+.right-inner-addon, .left-inner-addon {
+	position: relative;
+}
+
 .inline-block {
 	display: inline-block;
 }
