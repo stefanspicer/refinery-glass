@@ -153,6 +153,23 @@ var CanvasForms = (function ($) {
     });
   }
 
+  function confirmDeleteListener(){
+    $('.confirm-model-delete').unbind('click').click(function(e){
+      e.preventDefault();
+      var $confirmBtn = $(this);
+      $.ajax({
+        url: $confirmBtn.attr('data-url'),
+        type: 'DELETE',
+        success: function(result) {
+          console.log('Deletion Successful');
+          console.log(result);
+        }
+      }).always(function(){
+        window.location.href = $confirmBtn.attr('data-redirect-url');
+      });
+    });
+  }
+
   function ajaxUpdateContent(update_selector) {
     var $tmp = $("<div></div>");
     var $to_update = $(update_selector.data('selector'));
@@ -239,7 +256,7 @@ var CanvasForms = (function ($) {
     form.find('button').prop('disabled', false);
   }
 
-  function openDeleteConfirmModal(btn){
+  function openDeleteConfirmModal($btn){
 
 
     if($('#delete-confirm-modal').length == 0){
@@ -256,16 +273,18 @@ var CanvasForms = (function ($) {
         '<div class="actions">',
         '<div class="two fluid ui inverted buttons">',
         '<div class="ui red basic inverted button">',
-        '<i class="remove icon"></i>No',
+        '<i class="gcicon gcicon-close"></i> No',
         '</div>',
-        '<div class="ui green basic inverted button">',
-        '<i class="checkmark icon"></i>Yes',
+        '<div class="ui green basic inverted button confirm-model-delete" data-url="',
+        $btn.attr('data-url'),'" data-redirect-url="',$btn.attr('data-redirect-url'),'">',
+        '<i class="gcicon gcicon-check"></i> Yes',
         '</div></div></div></div>'].join(""));
     }
 
     var deletionModal = $('#delete-confirm-modal');
 
-    deletionModal.find('.content .description p').text($(btn).attr('data-text'));
+    deletionModal.find('.content .description p').text($btn.attr('data-text'));
+    confirmDeleteListener();
     deletionModal.modal('show');
   }
 

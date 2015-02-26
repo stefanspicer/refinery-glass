@@ -1,5 +1,5 @@
  /*
- * # Semantic UI
+ * # Semantic UI - 1.10.2
  * https://github.com/Semantic-Org/Semantic-UI
  * http://www.semantic-ui.com/
  *
@@ -113,7 +113,7 @@
 .ui.modal > .content > .image[class*="top aligned"] {
   vertical-align: top;
 }
-.ui.modal > .content > .image[class*="top aligned"] {
+.ui.modal > .content > .image[class*="middle aligned"] {
   vertical-align: middle;
 }
 
@@ -250,6 +250,7 @@
 .ui.basic.modal {
   background-color: transparent;
   border: none;
+  border-radius: 0em;
   box-shadow: 0px 0px 0px 0px;
   color: #ffffff;
 }
