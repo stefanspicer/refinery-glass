@@ -9,6 +9,10 @@ var CanvasForms = (function ($) {
       e.preventDefault();
       openDeleteConfirmModal($(this));
     });
+    $(element).find('.delete-model').unbind('click').click(function(e){
+      e.preventDefault();
+      openDeleteConfirmModal($(this));
+    });
   });
 
   function initFormSelectsWithin(element) {
@@ -247,27 +251,21 @@ var CanvasForms = (function ($) {
         '</div>',
         '<div class="content">',
         '<div class="description">',
-        '<p>','</p>',
-        '</div>',
-        '</div>',
+        '<p></p>',
+        '</div></div>',
         '<div class="actions">',
         '<div class="two fluid ui inverted buttons">',
         '<div class="ui red basic inverted button">',
-        '<i class="remove icon"></i>',
-        'No',
+        '<i class="remove icon"></i>No',
         '</div>',
         '<div class="ui green basic inverted button">',
-        '<i class="checkmark icon"></i>',
-        'Yes',
-        '</div>',
-        '</div>',
-        '</div>',
-        '</div>'].join(""));
+        '<i class="checkmark icon"></i>Yes',
+        '</div></div></div></div>'].join(""));
     }
 
     var deletionModal = $('#delete-confirm-modal');
 
-    deletionModal.find('.content .description p').text($(btn).attr('data-confirm'));
+    deletionModal.find('.content .description p').text($(btn).attr('data-text'));
     deletionModal.modal('show');
   }
 
