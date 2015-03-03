@@ -110,7 +110,7 @@ var CanvasForms = (function ($) {
               replaceContent($(selector), $replacement);
             }
             else if ($modal.length > 0) {
-              var close_button = '<button data-dismiss="modal" class="btn btn-primary btn-lg">Close</button>';
+
               var $update_selector = $modal.find('.update-on-close');
 
               if ($update_selector.length > 0) {
