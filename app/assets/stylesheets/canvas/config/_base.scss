@@ -1259,3 +1259,7 @@ input:focus, .form-control:focus, input[type="submit"]:focus, .btn:focus, input[
 	cursor: inherit;
 	display: block;
 }
+
+.ui.modal > .content {
+	font-size: $font-size-base !important
+}
