@@ -288,6 +288,11 @@ var CanvasForms = (function ($) {
 
     deletionModal.find('.content .description p').text($btn.attr('data-text'));
     confirmDeleteListener();
+    // Check if there are sidebars. If there are, close them.
+    var $sidebars = $('.ui.sidebar');
+    if($sidebars.length > 0){
+      $sidebars.sidebar('hide');
+    }
     deletionModal.modal('show');
   }
 
