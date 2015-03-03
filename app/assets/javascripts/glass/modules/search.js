@@ -31,23 +31,18 @@ var GlassSearch = (function ($){
           watcher.resume();
 
           if (status != 'success') {
-            console.log('not success');
             $search_form.prepend($error_div);
             return;
           }
           xhr.done(function(data) {
             var $content = $(data).find('.sortable_list');
-            if ($(data).hasClass('sortable_list')) {
-              $content = $(data);
-            }
+
             if ($content.length > 0) {
               $('#errorExplanation').remove();
 
-              console.log('replace content');
               CanvasForms.replaceContent($('.sortable_list'), $content);
             }
             else {
-              console.log('done - error');
               $search_form.prepend($error_div);
             }
           });
