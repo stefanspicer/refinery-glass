@@ -1,4 +1,4 @@
-<%= will_paginate @users %>
-<ul class="list-unstyled">
+<%= will_paginate @users if Refinery::Admin::UsersController.pageable? %>
+<ul id='sortable_list' class='list-unstyled'>
   <%= render :partial => 'user', :collection => @users %>
 </ul>

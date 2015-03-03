@@ -5,12 +5,15 @@
       <div class="col-sm-12">
         <h2 class="admin-title">Users</h2>
         <div class="contextual-menu">
+          <% if ::Refinery::Admin::UsersController.searchable? %>
+            <%= render '/refinery/admin/search', :url => refinery.admin_users_path %>
+          <% end %>
           <a href="<%= refinery.new_admin_user_path %>" class="btn btn-link-grey">
             <i class="gcicon gcicon-add"></i> <span class="hidden-xs"><strong>Add user</strong></span>
           </a>
         </div>
       </div>
-      <div class="col-sm-12 index-listing">
+      <div class="col-sm-12 index-listing sortable_list">
         <%= render 'records' %>
       </div>
     </div>

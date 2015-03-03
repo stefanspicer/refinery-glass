@@ -8,6 +8,13 @@ Refinery::Admin::UsersController.class_eval do
   # after_filter  :after_create_methods,   only: :create
   # after_filter  :after_update_methods,   only: :update
 
+  crudify :'refinery/feast/author',
+          :title_attribute => 'name',
+          :searchable => true,
+          :sortable   => false,
+          :paging     => true,
+          :xhr_paging => false
+
   def create
     params[:user][:password] = 'password'
     params[:user][:password_confirmation] = 'password'
@@ -133,7 +140,10 @@ protected
     else
       users = ::Refinery::User.order('username ASC')
     end
-    @users = users.paginate(:page => params[:page], :per_page => 50)
+    puts params[:search].inspect
+    puts params[:search].present?.inspect
+    users = users.where("username LIKE '%#{params[:search]}%'") if params[:search].present?
+    @users = users.paginate(:page => params[:page], :per_page => 15)
   end
 
   # override the default index action

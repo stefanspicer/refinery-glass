@@ -4,6 +4,8 @@ Refinery::User.class_eval do
 
   attr_accessible :org_id, :confirmed_at, :confirmation_token
 
+  acts_as_indexed :fields => [:username, :email]
+
 	def name
 		self.username
 	end
