@@ -43,6 +43,7 @@ var CanvasForms = (function ($) {
       // if ($(this).hasClass('no-ajax') || !$(this).attr('id')) {
       //   return;
       // }
+
       if (!($(this).hasClass('ajax-form') || $(this).parents('.modal').length > 0)) {
         return;
       }
@@ -62,6 +63,9 @@ var CanvasForms = (function ($) {
           }
         },
         complete: function (xhr, status) {
+
+          $form.trigger('form-submit-complete');
+
           if ($form.hasClass('mailchimp')) {
             $form.find('input[type="email"]').val('Thank you!');
             return;
@@ -258,7 +262,6 @@ var CanvasForms = (function ($) {
 
   function openDeleteConfirmModal($btn){
 
-
     if($('#delete-confirm-modal').length == 0){
       $('body').append([
         '<div id="delete-confirm-modal" class="ui basic modal">',
@@ -306,6 +309,7 @@ var CanvasForms = (function ($) {
     insertErrors: insertErrors,
     resetState: resetState,
     showAndGoToErrors: showAndGoToErrors,
-    liveValidateRequiredFields: liveValidateRequiredFields
+    liveValidateRequiredFields: liveValidateRequiredFields,
+    initFormSubmitWithin: initFormSubmitWithin
   };
 })(jQuery);
