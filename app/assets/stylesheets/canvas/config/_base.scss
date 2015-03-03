@@ -112,6 +112,17 @@ button{
   align-items: center;
 }
 
+.vertical-align{
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.horizontal-align{
+  display: flex;
+  justify-content: space-around;
+}
+
 .space-around{
   justify-content: space-around;
 }
@@ -201,6 +212,30 @@ p::-moz-selection {
 
 .margin-right-lg{
   margin-right: $margin * 3;
+}
+
+.margin-left-xxs{
+  margin-left: 10px !important;
+}
+
+.margin-left-xs{
+  margin-left: $margin-half;
+}
+
+.margin-left-sm{
+  margin-left: $margin;
+}
+
+.margin-left-md{
+  margin-left: $margin * 1.5;
+}
+
+.margin-left{
+  margin-left: $margin-double;
+}
+
+.margin-left-lg{
+  margin-left: $margin * 3;
 }
 
 .flip-wrapper{
@@ -588,6 +623,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-weight: 400;
     letter-spacing: 0.05em;
     color: $grey-8;
+    &:first-child{
+      margin-top: 0;
+    }
 }
 
 h1{
