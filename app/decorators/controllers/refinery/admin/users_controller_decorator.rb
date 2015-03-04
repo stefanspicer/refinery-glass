@@ -8,13 +8,6 @@ Refinery::Admin::UsersController.class_eval do
   # after_filter  :after_create_methods,   only: :create
   # after_filter  :after_update_methods,   only: :update
 
-  crudify :'refinery/user',
-          :title_attribute => 'name',
-          :searchable => true,
-          :sortable   => false,
-          :paging     => true,
-          :xhr_paging => false
-
   def create
     params[:user][:password] = 'password'
     params[:user][:password_confirmation] = 'password'
