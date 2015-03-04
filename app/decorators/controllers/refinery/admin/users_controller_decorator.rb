@@ -8,7 +8,7 @@ Refinery::Admin::UsersController.class_eval do
   # after_filter  :after_create_methods,   only: :create
   # after_filter  :after_update_methods,   only: :update
 
-  crudify :'refinery/feast/author',
+  crudify :'refinery/user',
           :title_attribute => 'name',
           :searchable => true,
           :sortable   => false,
