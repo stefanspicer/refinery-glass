@@ -276,11 +276,11 @@ var CanvasForms = (function ($) {
         '<div class="actions">',
         '<div class="two fluid ui inverted buttons">',
         '<div class="ui red basic inverted button">',
-        '<i class="gcicon gcicon-close"></i> No',
+        'No',
         '</div>',
         '<div class="ui green basic inverted button confirm-model-delete" data-url="',
         $btn.attr('data-url'),'" data-redirect-url="',$btn.attr('data-redirect-url'),'">',
-        '<i class="gcicon gcicon-check"></i> Yes',
+        'Yes',
         '</div></div></div></div>'].join(""));
     }
 
