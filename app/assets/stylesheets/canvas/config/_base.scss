@@ -104,8 +104,16 @@ button{
   display: flex;
 }
 
-.no-flex-sm{
-  display: block;
+@media (max-width: 991px) {
+  .no-flex-sm{
+    display: block !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .no-flex-xs{
+    display: block !important;
+  }
 }
 
 .align-items-center{
