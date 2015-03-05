@@ -1,12 +1,11 @@
-var RefineryImageUploader = (function ($) {
+var GlassImageUploader = (function ($) {
 
   var $currentImageContainer, $uploadPreviewContainer, $uploadPreviewContainers;
 
   $(document).on('content-ready', function (e, element) {
     imageListeners(element);
     fileUploaderListener(element);
-    uploadImageHandler();
-    // setPreviewDiv();
+    uploadImageHandler(element);
     initCropper();
     imageDeleteListener();
     $(element).find('#glass-choose-module-img').click(ceImageAddLister);
@@ -159,8 +158,8 @@ var RefineryImageUploader = (function ($) {
     });
   }
 
-  function uploadImageHandler() {
-    var imageForm = $('#image-upload-form');
+  function uploadImageHandler(element) {
+    var imageForm = $(element).find('#image-upload-form');
 
     var options = {
       target: "#output",
@@ -240,8 +239,8 @@ var RefineryImageUploader = (function ($) {
     }
   }
 
-  function imageDeleteListener() {
-    $('.image-delete-btn').unbind('click').click(function (e) {
+  function imageDeleteListener(element) {
+    $(element).find('.image-delete-btn').unbind('click').click(function (e) {
       e.preventDefault();
       $uploadPreviewContainer  = $(this).parents('.upload-preview-container');
       $uploadPreviewContainers = $('.upload-preview-container[data-field-name=' + $uploadPreviewContainer.attr('data-field-name') +']');
@@ -299,5 +298,9 @@ var RefineryImageUploader = (function ($) {
   }
 
   // Return API for other modules
-  return {};
+  return {
+    imageListeners: imageListeners,
+    fileUploaderListener: fileUploaderListener,
+    uploadImageHandler: uploadImageHandler
+  };
 })(jQuery);
