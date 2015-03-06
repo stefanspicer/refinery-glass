@@ -550,14 +550,13 @@ body{
     height: 37px;
     line-height: 1.2;
   }
-  &>.btn{
+  .btn{
     @include transition-fix();
-    font-weight: 400;
     &:first-child{
-      margin-right: 15px;
+      margin-left: 0;
     }
     &:last-child{
-      margin-left: 15px;
+      margin-right: 0;
     }
   }
   .btn-link-grey{

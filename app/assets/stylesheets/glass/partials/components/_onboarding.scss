@@ -128,7 +128,7 @@
 .cover-image-picker{
   margin-top: 30px;
   #preview-area {
-  	calc(100% - 10px);
+  	width: calc(100% - 10px);
   	height: 175px;
   	padding: 15px;
   	padding-bottom: 0;
@@ -136,6 +136,7 @@
   	display: flex;
   	align-items: center;
   	font-weight: 600px;
+  	border: 1px solid $grey-2;
   }
   
   #cover-carousel .carousel-inner > .item {
