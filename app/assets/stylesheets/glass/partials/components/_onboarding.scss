@@ -32,7 +32,6 @@
     padding: 18px;
     color: $grey-4;
     margin: 0;
-    cursor: not-allowed;
     &:last-child{
       border-right: 0;
     }
@@ -41,7 +40,6 @@
     }
     &.completed-step{
       box-shadow: none;
-      cursor: pointer;
       .gcicon-check{
         color: $green;
       }
@@ -55,7 +53,6 @@
     &.active{
       color: $grey-6;
       box-shadow: none;
-      cursor: pointer;
       &:hover{
         color: $primary-hover;
         .gcicon{
@@ -129,18 +126,22 @@
 /* -------------------- COVER IMAGE PICKER -------------------- */
 
 .cover-image-picker{
+  margin-top: 30px;
   #preview-area {
-  	width: 100%;
-  	height: 183px;
-  	padding: 5px 10px;
+  	calc(100% - 10px);
+  	height: 175px;
+  	padding: 15px;
   	padding-bottom: 0;
   	overflow: hidden;
+  	display: flex;
+  	align-items: center;
+  	font-weight: 600px;
   }
   
   #cover-carousel .carousel-inner > .item {
     background: none !important;
-    padding-right: 5px;
-    padding-left: 5px;
+    padding-right: 11px;
+    padding-left: 11px;
   	&.well {
   		margin-bottom: 0;
   	}
@@ -185,13 +186,14 @@
   }
   #preview-area {
     background-size: cover;
+    border-radius: $radius;
   	button {
   		vertical-align: middle;
   	}
   }
   
   .carousel-control{
-    width: 45px;
+    width: 30px;
     background: none !important;
     .icon{
       color: $grey-5;
@@ -199,13 +201,13 @@
       margin-top: -16px;
     }
     &.left{
-      left: - 45px;
+      left: -30px;
       .icon{
         left: 0;
       }
     }
     &.right{
-      right: -45px;
+      right: -30px;
       .icon{
         right: 0;
       }
