@@ -820,7 +820,10 @@ form{
 }
 
 .form-group{
-  .form-control, textarea, .btn{
+  .form-control, textarea{
+	  @include border-radius($radius);
+  }
+  .btn{
 	  @include border-radius($radius);
   }
   textarea{
@@ -1087,6 +1090,9 @@ input:focus, .form-control:focus, input[type="submit"]:focus, .btn:focus, input[
 	}
 	&:disabled{
   	cursor: not-allowed;
+	}
+	&.bold{
+  	font-weight: 600;
 	}
 }
 
