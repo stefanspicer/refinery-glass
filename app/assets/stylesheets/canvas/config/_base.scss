@@ -574,6 +574,13 @@ a.pill{
       background-color: $grey-1;
       top: 0;
     }
+    &-md{
+      &:after{
+        height: 120px;
+        top: 50%;
+        margin-top: -60px;
+      }
+    }
     &-sm{
       &:after{
         height: 60px;
@@ -776,6 +783,18 @@ ul li{
 			line-height: 26px;
 		}
 	}
+}
+
+.light{
+  font-weight: 400;
+}
+
+.normal{
+  font-weight: 500;
+}
+
+.bold{
+  font-weight: 600;
 }
 
 
