@@ -35,8 +35,19 @@
     &:last-child{
       border-right: 0;
     }
+    &:hover{
+      color: $primary-hover;
+      .gcicon{
+        color: $primary-hover;
+      }
+    }
     .gcicon{
       transition: $transition;
+    }
+    .icon{
+      margin: 0 auto 5px;
+      display: block;
+      font-size: 24px;
     }
     &.completed-step{
       box-shadow: none;
@@ -53,6 +64,7 @@
     &.active{
       color: $grey-6;
       box-shadow: none;
+      font-weight: 600;
       &:hover{
         color: $primary-hover;
         .gcicon{
@@ -72,6 +84,12 @@
     text-align: left;
     font-size: 21px;
     line-height: 1.8em;
+  }
+  .feature-icon{
+    color: $grey-2;
+    font-size: 160px;
+    display: block;
+    margin: 0 auto 15px;
   }
 }
 
