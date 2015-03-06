@@ -3,6 +3,7 @@
 		font-size: 32px;
 		color: $grey-6;
 		margin-top: 75px;
+		line-height: 1.6;
 		&:after {
 			margin: 35px auto;
 			width: 100px;
@@ -31,20 +32,16 @@
     padding: 18px;
     color: $grey-4;
     margin: 0;
+    cursor: not-allowed;
     &:last-child{
       border-right: 0;
-    }
-    &:hover{
-      color: $primary-hover;
-      .gcicon{
-        color: $primary-hover;
-      }
     }
     .gcicon{
       transition: $transition;
     }
     &.completed-step{
       box-shadow: none;
+      cursor: pointer;
       .gcicon-check{
         color: $green;
       }
@@ -58,6 +55,13 @@
     &.active{
       color: $grey-6;
       box-shadow: none;
+      cursor: pointer;
+      &:hover{
+        color: $primary-hover;
+        .gcicon{
+          color: $primary-hover;
+        }
+      }
     }
   }
 }
@@ -268,6 +272,7 @@ $color_choice_dimension: 40px;
 
 .input-color-block {
   margin-top: 60px;
+  margin-bottom: 45px;
 	.color-sampler {
 		width: $color_choice_dimension;
 		height: $color_choice_dimension;
