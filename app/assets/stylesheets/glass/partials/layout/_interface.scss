@@ -563,15 +563,20 @@ body{
   .btn-link-grey{
     &:first-child{
       margin-right: 0;
+      margin-left: 0;
     }
     &:last-child{
       margin-left: 0;
+      margin-right: 0;
     }
     .gcicon{
       color: $grey-3;
     }
     strong{
     }
+  }
+  .btn{
+    margin: 0 7px;
   }
   
   .dropdown{
