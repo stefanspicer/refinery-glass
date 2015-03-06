@@ -82,8 +82,8 @@
   position: fixed;
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
-  -webkit-transition: -webkit-transform 200ms ease;
-          transition: transform 200ms ease;
+  -webkit-transition: -webkit-transform .3s ease;
+          transition: transform .3s ease;
   will-change: transform;
   z-index: 10001;
 }
@@ -97,8 +97,7 @@
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
   min-height: 100%;
-  -webkit-transition: -webkit-transform 200ms ease;
-          transition: transform 200ms ease;
+  transition: transform .4s ease;
   z-index: 2;
 }
 
@@ -117,7 +116,7 @@
   opacity: 0;
   background: rgba(255,255,255,0.85);
   visibility: visible;
-  transition: all .2s 0s ease-out, height 0s 1s, width 0s 1s;
+  transition: all .3s 0s ease-out, height 0s 1s, width 0s 1s;
 
   will-change: opacity;
   z-index: 10000;
@@ -145,7 +144,7 @@
   width: 100% !important;
   height: 100% !important;
   opacity: 1 !important;
-  transition: opacity 0.2s 0s ease-out;
+  transition: opacity 0.3s 0s ease-out;
 }
 
 /*--------------
@@ -240,8 +239,8 @@
 /* Animation */
 .animating.ui.overlay.sidebar,
 .ui.visible.overlay.sidebar {
-  -webkit-transition: -webkit-transform 200ms ease;
-          transition: transform 200ms ease;
+  -webkit-transition: -webkit-transform .3s ease;
+          transition: transform .3s ease;
 }
 
 /*--- Left ---*/
@@ -296,8 +295,8 @@
 
 /* Initial */
 .ui.push.sidebar {
-  -webkit-transition: -webkit-transform 200ms ease;
-          transition: transform 200ms ease;
+  -webkit-transition: -webkit-transform .3s ease;
+          transition: transform .3s ease;
   z-index: 10002;
 }
 .ui.left.push.sidebar {
@@ -339,8 +338,8 @@
 .ui.visible.uncover.sidebar {
   -webkit-transform: translate3d(0, 0, 0);
           transform: translate3d(0, 0, 0);
-  -webkit-transition: -webkit-transform 200ms ease;
-          transition: transform 200ms ease;
+  -webkit-transition: -webkit-transform .3s ease;
+          transition: transform .3s ease;
 }
 
 /*--------------
@@ -369,8 +368,8 @@
           transform: translate3d(0%, 50%, 0);
 }
 .ui.animating.slide.along.sidebar {
-  -webkit-transition: -webkit-transform 200ms ease;
-          transition: transform 200ms ease;
+  -webkit-transition: -webkit-transform .3s ease;
+          transition: transform .3s ease;
 }
 
 /* End */
@@ -407,8 +406,8 @@
 
 /* Animation */
 .ui.animating.slide.out.sidebar {
-  -webkit-transition: -webkit-transform 200ms ease;
-          transition: transform 200ms ease;
+  -webkit-transition: -webkit-transform .3s ease;
+          transition: transform .3s ease;
 }
 
 /* End */
@@ -424,8 +423,8 @@
 
 /* Initial */
 .ui.scale.down.sidebar {
-  -webkit-transition: -webkit-transform 200ms ease;
-          transition: transform 200ms ease;
+  -webkit-transition: -webkit-transform .3s ease;
+          transition: transform .3s ease;
   z-index: 10002;
 }
 .ui.left.scale.down.sidebar {
@@ -467,8 +466,8 @@
 
 /* Animation */
 .ui.animating.scale.down > .visible.ui.sidebar {
-  -webkit-transition: -webkit-transform 200ms ease;
-          transition: transform 200ms ease;
+  -webkit-transition: -webkit-transform .3s ease;
+          transition: transform .3s ease;
 }
 .ui.visible.scale.down.sidebar ~ .pusher,
 .ui.animating.scale.down.sidebar ~ .pusher {
