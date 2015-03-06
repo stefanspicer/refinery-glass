@@ -1,5 +1,8 @@
 /**
- * Created by jkrump on 06/02/15.
+ * Methods involving Semantic-UI modals
+ * @author Jkrump
+ * @created  12-06-2014
+ * @upadated 03-06-2015
  */
 var GlassModals = (function ($) {
 
@@ -51,8 +54,8 @@ var GlassModals = (function ($) {
    * @param modalSelector    <String>     - The unique selector for the modal that is to be displayed.
    * @param $modal           <DOM Object> - The modal that will display and contain the form.
    * @param successCallback  <function>   - A method to call upon form successfully being submitted.
-   * @param validationMethod <function>   - A validation method to call on the form.
-   * @param validationParams <Object>     - Parameters to pass to the validation method.
+   * @param validationMethod <function>   - (optional) A validation method to call on the form.
+   * @param validationParams <Object>     - (optional) Parameters to pass to the validation method.
    */
   function loadAndDisplayFormModal(formSourceUrl, $modalContent, modalSelector, $modal, successCallback, validationMethod, validationParams){
     var $saveBtn      = $modal.find('.positive');
@@ -61,7 +64,10 @@ var GlassModals = (function ($) {
       // Remove the default actions from the form.
       $(this).find('.form-actions').remove();
 
-      validationMethod(validationParams);
+      if(validationMethod !== undefined){
+        validationMethod(validationParams);
+      }
+
       // Call initializers for image uploading to work for the form within the
       // modal.
       GlassImageUploader.imageListeners('#form-wrapper');
