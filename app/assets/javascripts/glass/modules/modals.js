@@ -31,7 +31,6 @@ var GlassModals = (function ($) {
     var $modal        = $(modalSelector);
     var $modalContent = $(modalSelector + ' .description');
     var url           = $openBtn.attr('data-url');
-    console.log('handler');
     // Check if this modal will be displaying a form.
     //
     if($modalContent.find('#form-wrapper').length == 0){
