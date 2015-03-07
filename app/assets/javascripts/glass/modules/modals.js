@@ -63,6 +63,7 @@ var GlassModals = (function ($) {
     $modalContent.load( formSourceUrl + ' #form-wrapper', function(){
       // Remove the default actions from the form.
       $(this).find('.form-actions').remove();
+      $(this).find('.deliver').remove();
 
       if(validationMethod !== undefined){
         validationMethod(validationParams);
@@ -70,9 +71,9 @@ var GlassModals = (function ($) {
 
       // Call initializers for image uploading to work for the form within the
       // modal.
-      GlassImageUploader.imageListeners('#form-wrapper');
-      GlassImageUploader.fileUploaderListener('#form-wrapper');
-      GlassImageUploader.uploadImageHandler('#form-wrapper');
+      GlassImageUploader.imageListeners($(this));
+      GlassImageUploader.fileUploaderListener($(this));
+      GlassImageUploader.uploadImageHandler($(this));
 
       // Setup author form to use ajax form.
       CanvasForms.initFormSubmitWithin($modalContent);
@@ -88,10 +89,9 @@ var GlassModals = (function ($) {
           // Reset the form fields.
           // $(modalSelector + ' form')[0].reset();
           // Remove form (Simple solution atm to remove image)
-          $modalContent.find('#form-wrapper').remove();
-
           successCallback();
-
+          $modal.modal('hide');
+          $modalContent.find('#form-wrapper').remove();
           // reopen the right sidebar
           $('#sidebar-right').sidebar('show');
         });

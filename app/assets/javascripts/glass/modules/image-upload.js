@@ -13,7 +13,7 @@ var GlassImageUploader = (function ($) {
 
   function ceImageAddLister(e){
     e.preventDefault();
-    console.log('I want to add an image');
+
     // Open file input field in hidden form
     openFileInput();
   }
@@ -22,6 +22,7 @@ var GlassImageUploader = (function ($) {
     // Click listener for upload button
     $(element).find('.image-upload-btn').unbind('click').click(function (e) {
       e.preventDefault();
+      console.log('set');
       $uploadPreviewContainer  = $(this).parents('.upload-preview-container');
       $uploadPreviewContainers = $('.upload-preview-container[data-field-name=' + $uploadPreviewContainer.attr('data-field-name') +']');
       $currentImageContainer   = $('.image-upload-container[data-field-name='   + $uploadPreviewContainer.attr('data-field-name') +']');
@@ -79,7 +80,7 @@ var GlassImageUploader = (function ($) {
 
       if (isImage) {
         CanvasForms.resetState();
-        //$uploadPreviewContainers.find('.file-preview').fadeOut(200);
+        $uploadPreviewContainers.find('.file-preview').fadeOut(200);
         $('#submit-image-btn').click();
       }
     });
@@ -184,9 +185,6 @@ var GlassImageUploader = (function ($) {
   function handleError(response) {
     $uploadPreviewContainers.find('.progress-box').hide();
 
-     console.log("upload failed");
-     console.log(response);
-     console.log(response.responseJSON);
      CanvasForms.insertErrors($('#image-upload-form'), response.responseJSON.errors, true);
   }
 
