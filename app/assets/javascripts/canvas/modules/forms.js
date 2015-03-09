@@ -84,6 +84,14 @@ var CanvasForms = (function ($) {
             var $modal           = $(selector).parents('.modal');
             var $replacement     = null;
 
+            var callback = $form.data('success-callback');
+            if (callback) {
+              var result = callback($replace_form);
+              if (result === false) {
+                return;
+              }
+            }
+
             if ($replace_form.length > 0) {
               $replacement = $replace_form;
             }
@@ -145,11 +153,6 @@ var CanvasForms = (function ($) {
                 $resetForm.trigger("reset");
                 return;
               }
-            }
-
-            var callback = $form.data('success-callback');
-            if (callback) {
-              callback($replace_form);
             }
           });
         }
