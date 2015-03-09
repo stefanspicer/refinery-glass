@@ -920,7 +920,7 @@ form{
    line-height: 1.6;
 }
 
-input:focus, .form-control:focus, input[type="submit"]:focus, .btn:focus, input[type="select"]:focus,{
+input:focus, .form-control:focus, input[type="submit"]:focus, .btn:focus, input[type="select"]:focus, .dropdown-wrapper select:focus{
   border-color: $primary-hover !important;
   outline: 0;
   @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075), 0px 0px 6px 0px rgba($primary-color,0.3));
@@ -948,6 +948,8 @@ input:focus, .form-control:focus, input[type="submit"]:focus, .btn:focus, input[
     padding: 5px 10px !important;
     line-height: 1.2;
     z-index: 10;
+    border-color: $grey-3;
+    
   }
   select::-ms-expand {
 		display: none; /* to ie 10 */
