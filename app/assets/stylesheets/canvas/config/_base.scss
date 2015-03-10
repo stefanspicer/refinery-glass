@@ -797,6 +797,10 @@ ul li{
   font-weight: 600;
 }
 
+.scrollable{
+  overflow-y: scroll;
+}
+
 
 /* -------------------- FORMS -------------------- */
 
@@ -1070,6 +1074,19 @@ input:focus, .form-control:focus, input[type="submit"]:focus, .btn:focus, input[
 
 
 /* -------------------- BUTTONS -------------------- */
+
+button{
+  &:active{
+		@include box-shadow(none);
+		outline: 0;
+	}
+  &:focus{
+		outline: 0;
+	}
+	&:active:focus{
+  	outline: 0;
+	}
+}
 
 .btn{
 	font-weight: 400;
