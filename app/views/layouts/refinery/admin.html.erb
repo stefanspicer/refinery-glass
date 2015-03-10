@@ -43,6 +43,8 @@ html
 
   <body class="<%= yield :body_class %> <%= action_name %> <%= I18n.locale %> <%= 'small-sidebar' if !is_admin_preview_page && !@hide_main_nav %>">
     <%#= render '/glass/alerts_status' %>
+    <%= render 'refinery/admin/custom_layout' %>
+    <%= yield :body_top %>
     <% if !defined?(@hide_main_nav) || !@hide_main_nav %> 
       <section id="sidebar-left" class="ui sidebar left overlay">
         <div class="sidebar-top-nav">
@@ -76,7 +78,7 @@ html
           <a href="" class="sidebar-right-opener menu-link menu-link-right"><i class="gcicon gcicon-publish"></i></a>
         <% end %>
       <% end %>
-      <% unless current_refinery_user.has_role?(:superuser) %>
+      <% if !current_refinery_user.has_role?(:superuser) %>
         <div id="flash_container" class="container-fluid">
           <div class="row">
             <div class="col-sm-12">
@@ -94,7 +96,7 @@ html
       <% elsif content_for?(:admin_content) %>
         <%= yield :admin_content %>
       <% else %>
-        <div class="container admin-page">
+        <div class="admin-page container-fluid">
           <div class="row">
             <div class="col-sm-12">
               <%= yield %>
