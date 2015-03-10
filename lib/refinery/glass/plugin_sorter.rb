@@ -33,4 +33,12 @@ Refinery::Plugin.class_eval do
   def icon=(val)
     @icon_str = val
   end
+
+  def show_for_superuser_only=(val)
+    @show_for_superuser_only = val
+  end
+
+  def show_for_superuser_only
+    return @show_for_superuser_only
+  end
 end
