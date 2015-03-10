@@ -93,8 +93,14 @@
 		}
 	}
 	.input-lg {
-		font-size: 32px;
+		font-size: 21px;
+		text-align: left;
 	}
+	
+  .input-lg::-webkit-input-placeholder {
+     font-size: 16px;
+     line-height: 1.8 !important;
+  }
   .onboarding-footer {
 		margin-top: 75px;
 		margin-bottom: 90px;
@@ -102,6 +108,22 @@
   		margin-bottom: 60px;
 		}
 	}
+	.subscription-collapse{
+  	margin-bottom: 45px;
+  	.form-group{
+      text-align: left;
+    	margin: 10px 0 0 0;
+  	}
+	}
+	#mail_address{
+  	h4{
+    	margin-top: 30px;
+  	}
+	}
+}
+
+.scrollable{
+	max-height: 300px;
 }
 
 #org-setup-nav {
@@ -133,9 +155,20 @@
 	.btn-success {
 		margin-bottom: 45px;
 	}
+	footer{
+  	span{
+    	a{
+      	font-weight: 600;
+      	color: $primary-color;
+      	&:hover{
+        	color: $primary-hover;
+      	}
+    	}
+  	}
+	}
 }
 .well {
-	color: $black !important;
+	color: $grey-6 !important;
 }
 
 .btn-success {
@@ -317,7 +350,7 @@ $color_choice_dimension: 40px;
 	height: 100px;
 	position: relative;
 	margin-top: 55px;
-	margin-bottom: 50px;
+	margin-bottom: 75px;
 	padding-top: 50px;
 	padding-bottom: 60px;
 	display: block;
