@@ -638,9 +638,9 @@ body{
   .collapse-toggle{
     display: block;
     width: 100%;
-    padding: 0 15px;
-    background: $white;
+    padding: 10px 15px;
     border: 1px solid $grey-3;
+    text-align: left;
     &:focus{
       border: 1px solid $primary-hover !important;
       h4{
@@ -680,12 +680,17 @@ body{
     }
     .gcicon{
       color: $grey-6;
+      margin-right: 10px;
+      top: 1px;
     }
     .collapse-heading{
       display: flex;
-      justify-content: space-between;
       align-items: center;
       width: 100%;
+    }
+    h4{
+      margin: 0;
+      font-size: 14px;
     }
   }
 }
