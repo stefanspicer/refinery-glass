@@ -6,7 +6,7 @@ var GlassSearch = (function ($){
   var watcher;
   var $error_div = [
     '<div id="errorExplanation" class="errorExplanation text-center">',
-      '<p>An error occured. Please try again or send us an email</p>',
+      '<p>An unexpected error occurred. Please try again or send us an email</p>',
     '</div>'
   ].join('');
 
