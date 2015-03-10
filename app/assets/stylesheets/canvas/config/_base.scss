@@ -1240,6 +1240,7 @@ button{
 }
 
 .btn-link-grey{
+  color: $grey-6;
   &:link, &:visited{
 	  color: $grey-6;
 	}
@@ -1248,6 +1249,18 @@ button{
 		text-decoration: none;
 	}
 }
+
+.btn-link-red{
+  color: $red;
+  &:link, &:visited{
+	  color: $red;
+	}
+	&:hover{
+		color: lighten($red, 15);
+		text-decoration: none;
+	}
+}
+
 
 .btn-link-basic{
   &:link, &:visited{
