@@ -49,7 +49,11 @@ html
       <section id="sidebar-left" class="ui sidebar left overlay">
         <div class="sidebar-top-nav">
           <div class="site-name">
-            <a href="" class="sidebar-left-opener menu-link menu-link-left"><i class="gcicon gcicon-cancel"></i></a> <i class="gcicon gcicon-glass-canvas hidden"></i> <%= link_to Refinery::Core.site_name, '/' %>
+            <% if current_refinery_user.org.present? %>
+              <i class="gcicon gcicon-glass-canvas hidden"></i><a href="<%= "/#{current_refinery_user.org.slug}" %>" target="_blank">My Site</a>
+            <% else %>
+              <i class="gcicon gcicon-glass-canvas hidden"></i> <%= link_to Refinery::Core.site_name, '/' %>
+            <% end %>
           </div>
         </div>
         <div id="sidebar-left-inner">
