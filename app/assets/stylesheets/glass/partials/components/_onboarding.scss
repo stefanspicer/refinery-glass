@@ -181,29 +181,24 @@
 .lesson{
   .step-display{
     padding: 5px 20px !important;
-  }  
-  .previous-step{
+  }
+
+  .next-step, .next-lesson, .previous-step, .previous-lesson{
     font-size: 32px;
     top: -8px;
     position: absolute;
-    left: -40px;
     color: $grey-5;
     &:hover{
       cursor: pointer;
       color: $primary-hover;
     }
   }
-  .next-step, .next-lesson{
-    font-size: 32px;
-    top: -8px;
-    position: absolute;
-    right: -40px;
-    color: $grey-5;
-    &:hover{
-      cursor: pointer;
-      color: $primary-hover;
-    }
-  }
+	.previous-step, .previous-lesson{
+		left: -40px;
+	}
+	.next-step, .next-lesson {
+		right: -40px;
+	}
 }
 
 
