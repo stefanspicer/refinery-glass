@@ -92,6 +92,23 @@
 			content: "";
 		}
 	}
+	.step-heading{
+  	.step-display{
+    	border: 0 !important;
+    	span{
+      	font-size: 32px;
+        color: $grey-6;
+        line-height: 1.6;
+      	&:after {
+    			margin: 35px auto;
+    			width: 100px;
+    			display: block;
+    			border-bottom: 6px solid $primary-color;
+    			content: "";
+    		}
+    	}
+  	}
+	}	
 	.input-lg {
 		font-size: 21px;
 		text-align: left;
@@ -181,11 +198,12 @@
 .lesson{
   .step-display{
     padding: 5px 20px !important;
+    display: inline-block;
   }
 
   .next-step, .next-lesson, .previous-step, .previous-lesson{
     font-size: 32px;
-    top: -8px;
+    top: 15px;
     position: absolute;
     color: $grey-5;
     &:hover{
