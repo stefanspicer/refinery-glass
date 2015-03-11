@@ -39,13 +39,12 @@ var Main = (function($){
       e.preventDefault();
       var $btn = $(this);
       // if the btn has the class btn-anchor-outbound its url should be opened in a new window.
-      if(! $btn.hasAttribute('disabled')){
-        if($(this).hasClass('btn-anchor-outbound')){
-          window.open($(this).attr('data-url'));
-        } else {
-          window.location.href = $(this).attr('data-url');
-        }
+      if($(this).hasClass('btn-anchor-outbound')){
+        window.open($(this).attr('data-url'));
+      } else {
+        window.location.href = $(this).attr('data-url');
       }
+
     });
   }
 
