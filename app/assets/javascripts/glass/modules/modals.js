@@ -34,10 +34,11 @@ var GlassModals = (function ($) {
     var $modal        = $(modalSelector);
     var $modalContent = $(modalSelector + ' .description');
     var url           = $openBtn.attr('data-url');
+    var formSelector  = $openBtn.attr('data-form-selector') || '';
     // Check if this modal will be displaying a form.
     //
     if($modalContent.find('#form-wrapper').length == 0){
-      loadAndDisplayFormModal(url, $modalContent, modalSelector, $modal, successCallback, validationMethod, validationParams);
+      loadAndDisplayFormModal(url, formSelector, $modalContent, modalSelector, $modal, successCallback, validationMethod, validationParams);
     } else {
       // If the modal already has a form in it, then just re-show the modal.
       $modal.modal('show');
@@ -50,6 +51,7 @@ var GlassModals = (function ($) {
    * Loads a form from some URL into a modal and displays it.
    *
    * @param formSourceUrl    <String>     - The url that points to the view that contains the form to display.
+   * @param formSourceSelector <String>   - The selector for the form
    * @param $modalContent    <DOM Object> - The content in the main body of the modal
    * @param modalSelector    <String>     - The unique selector for the modal that is to be displayed.
    * @param $modal           <DOM Object> - The modal that will display and contain the form.
@@ -57,10 +59,10 @@ var GlassModals = (function ($) {
    * @param validationMethod <function>   - (optional) A validation method to call on the form.
    * @param validationParams <Object>     - (optional) Parameters to pass to the validation method.
    */
-  function loadAndDisplayFormModal(formSourceUrl, $modalContent, modalSelector, $modal, successCallback, validationMethod, validationParams){
+  function loadAndDisplayFormModal(formSourceUrl, formSourceSelector, $modalContent, modalSelector, $modal, successCallback, validationMethod, validationParams){
     var $saveBtn      = $modal.find('.positive');
 
-    $modalContent.load( formSourceUrl + ' #form-wrapper', function(){
+    $modalContent.load(formSourceUrl + ' ' + formSourceSelector, function(){
       // Remove the default actions from the form.
       $(this).find('.form-actions').remove();
       $(this).find('.deliver').remove();
@@ -77,6 +79,7 @@ var GlassModals = (function ($) {
 
       // Setup author form to use ajax form.
       CanvasForms.initFormSubmitWithin($modalContent);
+      $(document).trigger('content-ready', $modalContent);
 
       $saveBtn.unbind().click(function(e){
         e.preventDefault();
