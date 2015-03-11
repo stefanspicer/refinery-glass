@@ -127,7 +127,17 @@ var GlassContentEditing = (function ($) {
       else if (this.option('type') == 'html') {
         this.ch.editor = this.ch.elem.glassHtmlEditor();
       }
-    }
+    };
+
+    this.tabTo = function(next_chunk) {
+      this.ch.elem.keydown(function(e) {
+        if (e && e.which == 9) { // TAB key - go to next editable
+          e.preventDefault();
+          next_chunk.ch.elem.focus();
+          return false;
+        }
+      });
+    };
   }
 
   // #############################################################
@@ -456,6 +466,7 @@ var GlassContentEditing = (function ($) {
     var $glass_editables = $container.find('.glass-edit');
 
     var $form = null;
+    var $prev_chunk = null;
     $glass_editables.each(function () {
       var $chunk  = $(this).glassChunk();
       $chunk.makeEditable();
@@ -463,6 +474,11 @@ var GlassContentEditing = (function ($) {
       if ($chunk.getForm()) {
         $form = $chunk.getForm();
       }
+
+      if ($prev_chunk) {
+        $prev_chunk.tabTo($chunk);
+      }
+      $prev_chunk = $chunk;
     });
 
     if ($form) {
