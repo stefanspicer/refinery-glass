@@ -53,11 +53,10 @@ var CanvasForms = (function ($) {
       }
       var selector = "#" + $(this).attr('id');
       var $form = $(this);
+      var $submit_btn = $form.find('.btn[type="submit"]');
 
       $form.ajaxForm({
         beforeSubmit: function(arr, $form, options){
-          var $submit_btn = $form.find('.btn[type="submit"]');
-
           if($form.find('.LV_invalid_field').length > 0){
             return false;
           } else {
