@@ -4,6 +4,10 @@ var CanvasForms = (function ($) {
     initFormOptionalFieldsWithin(element);
     initFormSubmitWithin(element);
 
+    // remove the disabled attribute from all buttons within
+    // forms once the js has loaded.
+    $('form button').removeAttr('disabled');
+
     $('[data-confim]').unbind();
     $(element).find('a#delete_button').unbind('click').click(function(e){
       e.preventDefault();
