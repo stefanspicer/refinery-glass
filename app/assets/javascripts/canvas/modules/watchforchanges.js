@@ -39,8 +39,8 @@ var WatchForChanges = (function($){
     this.latestSaveTime        = Date.now() + 1;
     this.paused                = false;
 
-    this.pause  = function() { this.paused = true; }
-    this.resume = function() { this.paused = false; }
+    this.pause  = function() { this.paused = true; };
+    this.resume = function() { this.paused = false; };
 
     var watcher = this;
 
@@ -68,7 +68,7 @@ var WatchForChanges = (function($){
       if (this.oldestUnsavedTime == Number.MAX_VALUE) {
         this.oldestUnsavedTime   = Date.now();
       }
-    }
+    };
 
     this.watch_out = function() {
       var readyToSave = false;
@@ -85,13 +85,13 @@ var WatchForChanges = (function($){
         this.clean_reset();
         this.callback(this.latestChangedElement);
       }
-    }
+    };
 
     this.clean_reset = function() {
       // This serves to stop saving while another is in progress
       this.latestSaveTime       = Date.now();
       this.oldestUnsavedTime    = Number.MAX_VALUE;
-    }
+    };
     
     this.manually_triggered = function() {
       this.clean_reset();
