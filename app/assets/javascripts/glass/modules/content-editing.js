@@ -288,6 +288,10 @@ var GlassContentEditing = (function ($) {
       this_editor.triggerChangeFocus(null, e);
     });
 
+    $('body').on('new-p', function () {
+      this_editor.triggerChangeFocus(null, null);
+    });
+
     grande.bind(document.querySelectorAll(".glass-edit-html"));
   }
 
