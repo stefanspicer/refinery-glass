@@ -30,18 +30,21 @@ var Main = (function($){
 
   function contentReady(element) {
     $(document).trigger('content-ready', element);
-
+    $('.btn-anchor').removeAttr('disabled');
     btnAnchorInitialization(element);
   }
 
   function btnAnchorInitialization(element){
     $(element).find('.btn-anchor').unbind('click').click(function (e) {
       e.preventDefault();
+      var $btn = $(this);
       // if the btn has the class btn-anchor-outbound its url should be opened in a new window.
-      if($(this).hasClass('btn-anchor-outbound')){
-        window.open($(this).attr('data-url'));
-      } else {
-        window.location = $(this).attr('data-url');
+      if(! $btn.hasAttribute('disabled')){
+        if($(this).hasClass('btn-anchor-outbound')){
+          window.open($(this).attr('data-url'));
+        } else {
+          window.location.href = $(this).attr('data-url');
+        }
       }
     });
   }
