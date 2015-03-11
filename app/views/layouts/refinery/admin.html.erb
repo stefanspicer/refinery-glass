@@ -45,8 +45,6 @@ html
     <%#= render '/glass/alerts_status' %>
     <%= render 'refinery/admin/custom_layout' %>
 
-    <%= yield :body_top %>
-
     <% if !defined?(@hide_main_nav) || !@hide_main_nav %> 
       <section id="sidebar-left" class="ui sidebar left overlay">
         <div class="sidebar-top-nav">
@@ -66,6 +64,7 @@ html
       </section>
     <% end %>
 
+    <%= yield :body_top %>
 
 
     <% if content_for?(:admin_sidebar) %>
