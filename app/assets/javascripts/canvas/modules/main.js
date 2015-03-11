@@ -39,10 +39,10 @@ var Main = (function($){
       e.preventDefault();
       var $btn = $(this);
       // if the btn has the class btn-anchor-outbound its url should be opened in a new window.
-      if($(this).hasClass('btn-anchor-outbound')){
-        window.open($(this).attr('data-url'));
+      if($btn.hasClass('btn-anchor-outbound')){
+        window.open($btn.attr('data-url'));
       } else {
-        window.location.href = $(this).attr('data-url');
+        window.location.href = $btn.attr('data-url');
       }
 
     });
