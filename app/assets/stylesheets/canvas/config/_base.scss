@@ -104,6 +104,10 @@ button{
   display: flex;
 }
 
+.flex-1{
+  flex: 1;
+}
+
 @media (max-width: 991px) {
   .no-flex-sm{
     display: block !important;
@@ -1193,18 +1197,6 @@ button{
 	}
 }
 
-.btn-light{
-	background: $grey-5;
-	color: $white;
-	&:link, &:visited{
-		color: $white;
-	}
-	&:hover, &:focus, &:active{
-	  background: $primary-hover;
-		color: $white;
-	}
-}
-
 .btn-dark{
 	background: $grey-6;
 	color: $white;
@@ -1213,6 +1205,18 @@ button{
 	}
 	&:hover, &:focus, &:active{
 	  background: $grey-5;
+		color: $white;
+	}
+}
+
+.btn-light{
+	background: $grey-5;
+	color: $white;
+	&:link, &:visited{
+		color: $white;
+	}
+	&:hover, &:focus, &:active{
+	  background: $primary-hover;
 		color: $white;
 	}
 }
