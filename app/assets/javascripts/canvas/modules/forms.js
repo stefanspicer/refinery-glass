@@ -305,12 +305,7 @@ var CanvasForms = (function ($) {
   function liveValidateRequiredFields(fields){
     var waitTimeMS = 500;
     var field;
-    for(var index in fields){
-      if($('#' + fields[index].id).length > 0) {
-        field = new LiveValidation(fields[index].id, {validMessage: " ", wait: waitTimeMS});
-        field.add(Validate.Presence, {failureMessage: fields[index].failureMessage});
-      }
-    }
+    // TODO: Once usages of this method have been removed. Delete this method.
   }
 
   // Return API for other modules
