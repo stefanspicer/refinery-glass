@@ -175,7 +175,11 @@ var GlassContentEditing = (function ($) {
       var $control;
       switch(key) {
         case 'module_switch':
-          $control = $('#glass-module-switcher').glassHtmlControl();
+          var $switcher = $('#glass-module-switcher');
+          if ($switcher.length < 1) {
+            $switcher = $('#glass-module-switcher-template').clone().attr('id', 'glass-module-switcher');
+          }
+          $control = $switcher.glassHtmlControl();
           break;
         case 'choose_module':
           $control = $('#glass-choose-module').glassHtmlControl();
