@@ -1,5 +1,8 @@
 var CanvasForms = (function ($) {
   $(document).on('content-ready', function (e, element) {
+    // initialize verify (form validation library)
+    initVerify();
+
     initFormSelectsWithin(element);
     initFormOptionalFieldsWithin(element);
     initFormSubmitWithin(element);
@@ -25,6 +28,27 @@ var CanvasForms = (function ($) {
         $('html').addClass('moz-appearance');
       }
     }
+  }
+
+  var count = 0;
+
+  function initVerify(){
+    $.verify({
+      prompt: function(element, text) {
+
+        $(element).siblings('.tip').html(text || '');
+        // after a short delay, scroll to the input with the error.
+        if(count < 1 && text != null){
+          count++;
+          setTimeout(function(){
+            $('html, body').animate({
+              scrollTop: $(element).offset().top - 73
+            }, 500);
+            count = 0;
+          }, 100);
+        }
+      }
+    });
   }
 
   function initFormOptionalFieldsWithin(element) {
@@ -269,22 +293,24 @@ var CanvasForms = (function ($) {
   function openDeleteConfirmModal($btn){
 
     if($('#delete-confirm-modal').length == 0){
+      // Add a semantic modal to the body of the page.
       $('body').append([
         '<div id="delete-confirm-modal" class="ui basic modal">',
-        '<i class="close icon"></i>',
-        '<div class="header">',
-        'Confirm Deletion',
-        '</div>',
-        '<div class="content">',
-        '<div class="description">',
-        '<p></p>',
-        '</div></div>',
-        '<div class="actions">',
-        '<div class="two fluid ui inverted buttons">',
-        '<div class="ui red basic inverted button">',
-        'No',
-        '</div>',
-        '<div class="ui green basic inverted button confirm-model-delete" data-url="',
+          '<i class="close icon"></i>',
+          '<div class="header">',
+            'Confirm Deletion',
+          '</div>',
+          '<div class="content">',
+            '<div class="description">',
+              '<p></p>',
+            '</div>',
+          '</div>',
+          '<div class="actions">',
+            '<div class="two fluid ui inverted buttons">',
+            '<div class="ui red basic inverted button">',
+              'No',
+            '</div>',
+            '<div class="ui green basic inverted button confirm-model-delete" data-url="',
         $btn.attr('data-url'),'" data-redirect-url="',$btn.attr('data-redirect-url'),'">',
         'Yes',
         '</div></div></div></div>'].join(""));
@@ -316,6 +342,7 @@ var CanvasForms = (function ($) {
     resetState: resetState,
     showAndGoToErrors: showAndGoToErrors,
     liveValidateRequiredFields: liveValidateRequiredFields,
-    initFormSubmitWithin: initFormSubmitWithin
+    initFormSubmitWithin: initFormSubmitWithin,
+    initVerify: initVerify
   };
 })(jQuery);
