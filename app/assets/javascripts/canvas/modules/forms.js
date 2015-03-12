@@ -33,6 +33,7 @@ var CanvasForms = (function ($) {
   var count = 0;
 
   function initVerify(){
+
     $.verify({
       prompt: function(element, text) {
 
@@ -49,6 +50,24 @@ var CanvasForms = (function ($) {
         }
       },
       skipHiddenFields : false
+    });
+    $.verify.addRules({
+      required_w_name: function(r) {
+        var $label = $(r.field).parents('.form-group').find('label');
+        var validationPrefix = $(r.field).data('pre-val-msg');
+        var message;
+        var inputValue = r.val();
+        if((inputValue == '') || (inputValue == undefined) || (inputValue == null))
+        {
+          if (validationPrefix !== undefined){
+            message = validationPrefix + ' is required';
+          } else {
+            message = ($label.length > 0) ? 'The ' + $label.text() + ' is required' : 'This field is required'
+          }
+          return message;
+        }
+        return true;
+      }
     });
   }
 
