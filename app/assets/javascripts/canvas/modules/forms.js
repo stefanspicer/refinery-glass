@@ -113,11 +113,17 @@ var CanvasForms = (function ($) {
             $form.find('input[type="email"]').val('Thank you!');
             return;
           }
-          if (status != 'success') {
-            console.log(xhr);
-            //$(selector).append('<div id="errorExplanation" ' +
-            //  'class="errorExplanation text-center"><p>An error occured.' +
-            //  ' Please try again or send us an email</p></div>');
+
+          var $previousError = $('#errorExplanation');
+          if($previousError.length > 0){
+            $previousError.remove();
+          }
+
+          if (status !== 'success') {
+            if(xhr.responseJSON.message !== undefined){
+
+              $(selector).append(['<div id="errorExplanation" class="errorExplanation text-center">',xhr.responseJSON.message,'</div>'].join(''));
+            }
             return;
           }
           xhr.done(function (data) {
