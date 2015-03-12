@@ -472,7 +472,8 @@ body{
           right: 0;
           margin: 0;
           width: 100%;
-          opacity: 0.75;
+          height: 100%;
+          opacity: 0.5;
           background-size: cover !important;
         }
       }
@@ -485,6 +486,17 @@ body{
     border-bottom: 1px solid $grey-3;
     &:last-child{
       border: 0;
+    }
+    .collapse-toggle{
+      .gcicon-down{
+        transition: .2s ease-out;
+        transform: rotate(180deg); 
+      }
+      &.collapsed{
+        .gcicon-down{
+          transform: rotate(360deg); 
+        }
+      }
     }
     .sidebar-section-heading{
       padding: 15px;
