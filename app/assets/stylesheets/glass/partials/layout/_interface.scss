@@ -429,7 +429,41 @@ body{
       }
       .upload-preview-container{
         padding-top: 60%;
-        margin: 0 -15px;
+        margin: 0;
+        background: $grey-6;
+        .upload-preview-inner{
+      		position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+          margin: 0;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          .upload-overlay{
+            text-align: center;
+            span{
+              display: block !important;
+              visibility: visible !important;
+              color: $white;
+              font-size: 21px;
+              font-weight: 600;
+              margin-bottom: 15px;
+            }
+            .btn-primary{
+              background: transparent;
+              box-shadow: none;
+              border: 1px solid $white;
+              color: $white;
+              &:hover{
+                background: $white;
+                color: $primary-color;
+              }
+            }
+          }
+    		}
         .file-preview{
           position: absolute;
           top: 0;
@@ -438,6 +472,7 @@ body{
           right: 0;
           margin: 0;
           width: 100%;
+          opacity: 0.75;
           background-size: cover !important;
         }
       }
@@ -451,10 +486,21 @@ body{
     &:last-child{
       border: 0;
     }
-    .sidebar-section-inner{
+    .sidebar-section-heading{
       padding: 15px;
       display: flex;
       align-items: center;
+      .gcicon{
+        &:first-child{
+          margin-right: 10px;
+        }
+      }
+    }
+    .sidebar-section-body{
+      padding: 0 15px 15px;
+      .form-group{
+        margin: 0;
+      }
     }
   }
 }

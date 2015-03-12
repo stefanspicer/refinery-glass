@@ -9,6 +9,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  .image-delete-btn{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: $white;
+    color: $red;
+    border-color: $white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    box-shadow: none;
+    padding: 0;
+    &:hover{
+      color: $white;
+      background: $red;
+      border-color: $red;
+    }
+  }
 }
 
 .upload-preview-container .file-preview {
