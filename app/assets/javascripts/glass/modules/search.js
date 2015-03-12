@@ -4,11 +4,6 @@
 
 var GlassSearch = (function ($){
   var watcher;
-  var $error_div = [
-    '<div id="errorExplanation" class="errorExplanation text-center">',
-      '<p>An unexpected error occurred. Please try again or send us an email</p>',
-    '</div>'
-  ].join('');
 
   $(document).on('content-ready', function (e, element) {
     var $search_form = $(element).find('form.search_form');
@@ -30,8 +25,20 @@ var GlassSearch = (function ($){
           });
           watcher.resume();
 
-          if (status != 'success') {
-            $search_form.prepend($error_div);
+          if (status !== 'success') {
+            if($('#errorExplanation').length > 0){
+              $('#errorExplanation').remove();
+            }
+
+            if(xhr.responseJSON.message !== undefined){
+              console.log('there is an error message');
+              // insert the error div into the page if there is a message returned from the server.
+              $search_form.prepend([
+                '<div id="errorExplanation" class="errorExplanation text-center">',
+                xhr.responseJSON.message,
+                '</div>'
+              ].join(''));
+            }
             return;
           }
           xhr.done(function(data) {
