@@ -425,6 +425,7 @@
     var url = urlInput.value;
 
     optionsNode.className = "highlight-menu-inner";
+    window.getSelection().removeAllRanges();
     window.getSelection().addRange(previouslySelectedText);
 
     document.execCommand("unlink", false);
