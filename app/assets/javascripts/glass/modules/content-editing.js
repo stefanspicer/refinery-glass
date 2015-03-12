@@ -338,8 +338,10 @@ var GlassContentEditing = (function ($) {
 
     $(document).on('image-uploaded', function (e, img_src) {
       var $img = this_editor.h.elem.find('.cur-uploading-img');
-      $img.attr('src', img_src);
-      $img.removeClass('cur-uploading-img');
+      if ($img.length > 0) {
+        $img.attr('src', img_src);
+        $img.removeClass('cur-uploading-img');
+      }
     });
 
     grande.bind(document.querySelectorAll(".glass-edit-html"));
@@ -479,14 +481,16 @@ var GlassContentEditing = (function ($) {
     if (this.element().attr('id') == 'glass-choose-module') {
       $(document).on('image-preview', function (e, image) {
         var $cur_module = this_control.module();
-        var $new_module = this_control.module().createModuleAfter('glass-module-img');
-        $new_module.element().find('img').attr('src', image);
-        $new_module.element().find('img').addClass('cur-uploading-img');
-        $cur_module.remove();
-        var $new_p = $new_module.createModuleAfter('glass-module-p');
-        // FIXME - this doesn't seem to want to focus()
-        // FIXME: $new_p.element().attr('contenteditable', true);
-        // FIXME: $new_p.element().focus();
+        if ($cur_module.length > 0) {
+          var $new_module = $cur_module.createModuleAfter('glass-module-img');
+          $new_module.element().find('img').attr('src', image);
+          $new_module.element().find('img').addClass('cur-uploading-img');
+          $cur_module.remove();
+          var $new_p = $new_module.createModuleAfter('glass-module-p');
+          // FIXME - this doesn't seem to want to focus()
+          // FIXME: $new_p.element().attr('contenteditable', true);
+          // FIXME: $new_p.element().focus();
+        }
       });
     }
 
