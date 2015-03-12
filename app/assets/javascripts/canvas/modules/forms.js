@@ -81,13 +81,9 @@ var CanvasForms = (function ($) {
 
       $form.ajaxForm({
         beforeSubmit: function(arr, $form, options){
-          if($form.find('.LV_invalid_field').length > 0){
-            return false;
-          } else {
-            $submit_btn.data('orig-btn-txt', $submit_btn.text());
-            $submit_btn.html('<i class="ui active inline inverted xs loader"></i> Sending');
-            $submit_btn.attr('disabled', 'disabled');
-          }
+          $submit_btn.data('orig-btn-txt', $submit_btn.text());
+          $submit_btn.html('<i class="ui active inline inverted xs loader"></i> Sending');
+          $submit_btn.attr('disabled', 'disabled');
         },
         complete: function (xhr, status) {
 
