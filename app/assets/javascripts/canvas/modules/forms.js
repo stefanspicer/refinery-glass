@@ -36,7 +36,7 @@ var CanvasForms = (function ($) {
     $.verify({
       prompt: function(element, text) {
 
-        $(element).siblings('.tip').html(text || '');
+        $(element).parents('.form-group').find('.tip.text-danger').html(text || '');
         // after a short delay, scroll to the input with the error.
         if(count < 1 && text != null){
           count++;
@@ -47,7 +47,8 @@ var CanvasForms = (function ($) {
             count = 0;
           }, 100);
         }
-      }
+      },
+      skipHiddenFields : false
     });
   }
 
