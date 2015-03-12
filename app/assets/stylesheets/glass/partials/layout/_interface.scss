@@ -811,12 +811,25 @@ body{
 	top: 15px;
 	right: 15px;
 	z-index: 99;
-	background: rgba(0,0,0,0.6);
-	&.circle-icon {
-		color: $primary-color;
-		border-color: $primary-color;
+	background: white;
+	color: $red;
+	border-color: $white;
+	background: $white;
+	&:hover {
+		color: $white;
+		border-color: $red;
+		background: $red;
 	}
-
+  &.circle-icon{
+    color: $red;
+    border-color: $white;
+    background: $white;
+    &:hover {
+  		color: $white;
+  		border-color: $red;
+  		background: $red;
+  	}
+  }
 }
 
 .sticky-logout{
