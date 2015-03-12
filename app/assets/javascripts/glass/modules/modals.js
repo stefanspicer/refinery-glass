@@ -1,8 +1,8 @@
 /**
  * Methods involving Semantic-UI modals
  * @author Jkrump
- * @created  12-06-2014
- * @upadated 03-06-2015
+ * @created 12-06-2014
+ * @updated 03-06-2015
  */
 var GlassModals = (function ($) {
 
@@ -35,10 +35,12 @@ var GlassModals = (function ($) {
     var $modalContent = $(modalSelector + ' .description');
     var url           = $openBtn.attr('data-url');
     var formSelector  = $openBtn.attr('data-form-selector') || '';
+    console.log(formSelector);
+    console.log($openBtn.attr('data-form-selector'));
     // Check if this modal will be displaying a form.
     //
     if($modalContent.find('#form-wrapper').length == 0){
-      loadAndDisplayFormModal(url, formSelector, $modalContent, modalSelector, $modal, successCallback, validationMethod, validationParams);
+      loadAndDisplayFormModal(url, formSelector, $modalContent, $modal, successCallback, validationMethod, validationParams);
     } else {
       // If the modal already has a form in it, then just re-show the modal.
       $modal.modal('show');
@@ -53,13 +55,12 @@ var GlassModals = (function ($) {
    * @param formSourceUrl    <String>     - The url that points to the view that contains the form to display.
    * @param formSourceSelector <String>   - The selector for the form
    * @param $modalContent    <DOM Object> - The content in the main body of the modal
-   * @param modalSelector    <String>     - The unique selector for the modal that is to be displayed.
    * @param $modal           <DOM Object> - The modal that will display and contain the form.
    * @param successCallback  <function>   - A method to call upon form successfully being submitted.
    * @param validationMethod <function>   - (optional) A validation method to call on the form.
    * @param validationParams <Object>     - (optional) Parameters to pass to the validation method.
    */
-  function loadAndDisplayFormModal(formSourceUrl, formSourceSelector, $modalContent, modalSelector, $modal, successCallback, validationMethod, validationParams){
+  function loadAndDisplayFormModal(formSourceUrl, formSourceSelector, $modalContent, $modal, successCallback, validationMethod, validationParams){
     var $saveBtn      = $modal.find('.positive');
 
     $modalContent.load(formSourceUrl + ' ' + formSourceSelector, function(){
@@ -89,8 +90,6 @@ var GlassModals = (function ($) {
         // Listen for 'form-submit-complete' event fired from
         // CanvasForms after success.
         $form.on('form-submit-complete',function(){
-          // Reset the form fields.
-          // $(modalSelector + ' form')[0].reset();
           // Remove form (Simple solution atm to remove image)
           successCallback();
           $modal.modal('hide');
