@@ -481,7 +481,7 @@ var GlassContentEditing = (function ($) {
     if (this.element().attr('id') == 'glass-choose-module') {
       $(document).on('image-preview', function (e, image) {
         var $cur_module = this_control.module();
-        if ($cur_module.length > 0) {
+        if ($cur_module) {
           var $new_module = $cur_module.createModuleAfter('glass-module-img');
           $new_module.element().find('img').attr('src', image);
           $new_module.element().find('img').addClass('cur-uploading-img');
