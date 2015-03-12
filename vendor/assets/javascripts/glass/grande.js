@@ -428,7 +428,7 @@
     window.getSelection().removeAllRanges();
     window.getSelection().addRange(previouslySelectedText);
 
-    document.execCommand("unlink", false);
+    //document.execCommand("unlink", false);
 
     if (url === "") {
       return false;
@@ -438,7 +438,9 @@
       url = "http://" + url;
     }
 
-    document.execCommand("createLink", false, url);
+    //document.execCommand("createLink", false, url);
+    //document.execCommand('insertHTML', false, '<a href="' + url + '" target="_blank">' + document.getSelection() + '</a>');
+    $('a[href="/temporary"]').attr('href', url).attr('target', '_blank');
 
     urlInput.value = "";
   }
@@ -468,7 +470,7 @@
       if (typeof url !== "undefined") {
         urlInput.value = url;
       } else {
-        //document.execCommand("createLink", false, "/");
+        document.execCommand("createLink", false, "/temporary");
       }
 
       previouslySelectedText = window.getSelection().getRangeAt(0);
