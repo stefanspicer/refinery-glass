@@ -8,15 +8,7 @@ var GlassImageUploader = (function ($) {
     uploadImageHandler(element);
     initCropper();
     imageDeleteListener();
-    $(element).find('#glass-choose-module-img').click(ceImageAddLister);
   });
-
-  function ceImageAddLister(e){
-    e.preventDefault();
-
-    // Open file input field in hidden form
-    openFileInput();
-  }
 
   function imageListeners(element) {
     // Click listener for upload button
@@ -80,7 +72,9 @@ var GlassImageUploader = (function ($) {
 
       if (isImage) {
         CanvasForms.resetState();
-        $uploadPreviewContainers.find('.file-preview').fadeOut(200);
+        if($uploadPreviewContainers !== undefined){
+          $uploadPreviewContainers.find('.file-preview').fadeOut(200);
+        }
         $('#submit-image-btn').click();
       }
     });
@@ -93,6 +87,8 @@ var GlassImageUploader = (function ($) {
     }
 
     if (image !== undefined) {
+      $(document).trigger('image-preview', image);
+
       if ($uploadPreviewContainer !== undefined){
         $('[data-glass-img-id="' + $uploadPreviewContainer.attr('data-field-name') + '"]').attr('src', image);
         $('[data-glass-bg-img-id="' + $uploadPreviewContainer.attr('data-field-name') + '"]').css({"background-image": "url(" + image + ")"});
@@ -112,19 +108,6 @@ var GlassImageUploader = (function ($) {
           }
           initCropper();
         }
-      } else {
-        var $deleteBtn = '<button class="circle-icon delete-content-btn glass-control"><i class="gcicon gcicon-trash"></i></button>';
-
-        var $progressBar = '<div class="progress progress-box glass-control" style="display:none;"><div class="progress-bar progress-bar-success" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div><div class="status-text"></div></div>'
-        var $imageContainer = ['<div class="selected-module inline-editable-image-container" contenteditable=false>',$deleteBtn,$progressBar,'<img class="inline-editable-image img-responsive" src="',image,'"/></div>'].join('');
-        $('.selected-module').replaceWith($imageContainer);
-
-        $('.delete-content-btn').unbind('click').click(function(e){
-          e.preventDefault();
-          $(this).parents('.inline-editable-image-container').fadeOut(500, function(){
-            $(this).replaceWith('<p class="selected-module empty"><br/></p>');
-          });
-        });
       }
     }
 
@@ -202,11 +185,9 @@ var GlassImageUploader = (function ($) {
       var newBtnText = 'Replace Image';
       var $deleteBtns = $uploadPreviewContainers.find('.image-delete-btn');
       var $uploadBtns = $uploadPreviewContainers.find('.image-upload-btn');
-      var $focusInlineImage = $('.selected-module.inline-editable-image-container .inline-editable-image');
 
-      if($focusInlineImage.length > 0){
-        $focusInlineImage.attr('src', response.url);
-      }
+      $(document).trigger('image-uploaded', response.url);
+
       if ($deleteBtns.length > 0){
         $deleteBtns.attr('data-path', '/admin/images/' + response.image_id);
         $deleteBtns.fadeIn(500);
@@ -299,6 +280,7 @@ var GlassImageUploader = (function ($) {
   return {
     imageListeners: imageListeners,
     fileUploaderListener: fileUploaderListener,
-    uploadImageHandler: uploadImageHandler
+    uploadImageHandler: uploadImageHandler,
+    openFileInput: openFileInput,
   };
 })(jQuery);

@@ -1,23 +1,24 @@
 <div id="glass-parking" style="display: none;">
-  <a id="glass-module-switcher" href="" class="circle-icon add-module glass-control transitionable" contenteditable=false><i class="gcicon gcicon-plus"></i></a>
-  <div id="glass-choose-module" class="new-module media-chooser clear glass-control" contenteditable=false>
+  <a id="glass-module-switcher" href="" class="circle-icon add-module glass-control singleton transitionable" contenteditable=false><i class="gcicon gcicon-plus"></i></a>
+  <div id="glass-choose-module" class="new-module media-chooser clear glass-control singleton" contenteditable=false>
     <a href="" id="glass-choose-module-img" class="circle-icon media-type"><i class="gcicon gcicon-photo bump-down"></i></a>
     <a href="" id="glass-choose-module-vid" class="circle-icon media-type"><i class="gcicon gcicon-film"></i></a>
     <a href="" id="glass-choose-custom"     class="circle-icon media-type">&lt;</a>
   </div>
-  <div id="glass-module-settings-vid" class="new-module media-chooser clear glass-control" contenteditable=false>
-    <form role="form">
+  <div id="glass-module-settings-vid" class="new-module media-chooser clear glass-control singleton" contenteditable=false>
+    <form id="glass-add-vid-form" role="form">
       <div class="form-group">
         <div class="input-group">
           <div class="input-group-addon">Vimeo or YouTube URL</div>
-          <input id="glass-vid-url-input" class="form-control glass-autofocus" type="text" placeholder="http://...">
+          <input class="url-input form-control glass-autofocus" type="text" placeholder="http://...">
           <span class="input-group-btn">
-            <button id="glass-add-vid-btn" type="button" class="btn btn-default">Insert</button>
+            <button type="submit" class="btn btn-default">Insert</button>
           </span>
         </div>
       </div>
     </form>
   </div>
+  <button class="circle-icon delete-module glass-control"><i class="gcicon gcicon-trash"></i></button>
 
   <div id="glass-module-vid-template" class="outer-video">
     <div class="video-wrapper">
@@ -26,7 +27,15 @@
     </div>
   </div>
 
-  <div id="glass-module-custom-html" class="glass-no-edit" contenteditable=false>
+  <div id="glass-module-img-template" class="inline-editable-image-container glass-no-edit" contenteditable=false>
+    <div class="progress progress-box glass-control">
+      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+      <div class="status-text"></div>
+    </div>
+    <img class="inline-editable-image img-responsive" src=""/>
+  </div>
+
+  <div id="glass-module-custom-template" class="glass-no-edit" contenteditable=false>
     <div class="whatever-you-want-here">
       <p>Change this to custom html</p>
     </div>

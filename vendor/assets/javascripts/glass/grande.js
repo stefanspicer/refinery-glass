@@ -276,6 +276,7 @@
       // Enters should replace it's parent <div> with a <p>
       if (sel.anchorNode.nodeName === "DIV") {
         toggleFormatBlock("p");
+        $(document).trigger('new-p');
       }
 
       parentParagraph = getParentWithTag(sel.anchorNode, "p");
@@ -364,11 +365,11 @@
             ["p", "div"].indexOf(insertedNode.parentNode.nodeName.toLocaleLowerCase()) >= 0;
 
     if (unwrap) {
-      //node = sel.anchorNode;
-      //parent = insertedNode.parentNode;
-      //parent.parentNode.insertBefore(insertedNode, parent);
-      //parent.parentNode.removeChild(parent);
-      //moveCursorToBeginningOfSelection(sel, node);
+      node = sel.anchorNode;
+      parent = insertedNode.parentNode;
+      parent.parentNode.insertBefore(insertedNode, parent);
+      parent.parentNode.removeChild(parent);
+      moveCursorToBeginningOfSelection(sel, node);
     }
   }
 
