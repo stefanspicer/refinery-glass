@@ -39,7 +39,7 @@ var CanvasForms = (function ($) {
 
         $(element).parents('.form-group').find('.tip.text-danger').html(text || '');
         // after a short delay, scroll to the input with the error.
-        if(count < 1 && text != null){
+        if(count < 1 && text !== null){
           count++;
           setTimeout(function(){
             $('html, body').animate({
@@ -57,12 +57,12 @@ var CanvasForms = (function ($) {
         var validationPrefix = $(r.field).data('pre-val-msg');
         var message;
         var inputValue = r.val();
-        if((inputValue == '') || (inputValue == undefined) || (inputValue == null))
+        if((inputValue.trim() === '') || (inputValue === undefined) || (inputValue === null))
         {
           if (validationPrefix !== undefined){
             message = validationPrefix + ' is required';
           } else {
-            message = ($label.length > 0) ? 'The ' + $label.text() + ' is required' : 'This field is required'
+            message = ($label.length > 0) ? 'The ' + $label.text() + ' is required' : 'This field is required';
           }
           return message;
         }
@@ -74,13 +74,13 @@ var CanvasForms = (function ($) {
   function initFormOptionalFieldsWithin(element) {
     $(element).find("#registration_situation").change(function () {
       $("#registration_situation_other").parents('.form-group')
-        .toggle($(this).val() == "Other");
+        .toggle($(this).val() === "Other");
       $("#registration_situation_contraception").parents('.form-group')
         .toggle($(this).val().match(/contracept/i) != null);
     });
     $(element).find("#registration_how_find").change(function () {
       $("#registration_how_find_other").parents('.form-group')
-        .toggle($(this).val() == "Other");
+        .toggle($(this).val() === "Other");
     });
     $(element).find("#registration_situation").change();
     $(element).find("#registration_how_find").change();
@@ -114,9 +114,10 @@ var CanvasForms = (function ($) {
             return;
           }
           if (status != 'success') {
-            $(selector).append('<div id="errorExplanation" ' +
-              'class="errorExplanation text-center"><p>An error occured.' +
-              ' Please try again or send us an email</p></div>');
+            console.log(xhr);
+            //$(selector).append('<div id="errorExplanation" ' +
+            //  'class="errorExplanation text-center"><p>An error occured.' +
+            //  ' Please try again or send us an email</p></div>');
             return;
           }
           xhr.done(function (data) {
@@ -156,8 +157,9 @@ var CanvasForms = (function ($) {
               $replacement = $('<p>Thank you</p>'); // Default response message
             }
 
-            if ($replacement && $modal.length == 0) {
-              $replacement.find('h1').remove();          // inquiries engine puts an h1 in there
+            if ($replacement && $modal.length === 0) {
+              // inquiries engine puts an h1 in there
+              $replacement.find('h1').remove();
               replaceContent($(selector), $replacement);
             }
             else if ($modal.length > 0) {
@@ -211,8 +213,7 @@ var CanvasForms = (function ($) {
         url: $confirmBtn.attr('data-url'),
         type: 'DELETE',
         success: function(result) {
-          console.log('Deletion Successful');
-          console.log(result);
+          // TODO: perhaps do something on success... JK
         }
       }).always(function(){
         window.location.href = $confirmBtn.attr('data-redirect-url');
