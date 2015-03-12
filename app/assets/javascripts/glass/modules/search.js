@@ -32,7 +32,6 @@ var GlassSearch = (function ($){
           }
 
           if (status !== 'success') {
-            
             if(xhr.responseJSON.message !== undefined){
               // insert the error div into the page if there is a message returned from the server.
               $search_form.prepend([
