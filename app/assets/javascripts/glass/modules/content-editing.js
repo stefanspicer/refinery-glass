@@ -145,10 +145,10 @@ var GlassContentEditing = (function ($) {
   // #############################################################
   function GlassHtmlEditor($elem) {
     var this_editor = this;
-    this.h = {'elem': $elem, 'control': {}, 'control_stack': []};
+    this.h = {'elem': $elem, 'control_stack': []};
 
-    this.control = function(key) {
-      return this.h.control[key];
+    this.element = function() {
+      return this.h.elem;
     };
 
     this.curModule = function() {
@@ -169,13 +169,32 @@ var GlassContentEditing = (function ($) {
       }
     };
 
-    this.attachControl = function(key) {
-      var $control = this.control(key);
+    this.attachControl = function(key, $module) {
+      $module = (typeof $module === 'undefined') ? this.curModule() : $module;
+
+      var $control;
+      switch(key) {
+        case 'module_switch':
+          $control = $('#glass-module-switcher').glassHtmlControl();
+          break;
+        case 'choose_module':
+          $control = $('#glass-choose-module').glassHtmlControl();
+          break;
+        case 'settings_vid':
+          $control = $('#glass-module-settings-vid').glassHtmlControl();
+          break;
+        case 'delete_btn':
+          $control = $('#glass-parking .delete-module').clone().glassHtmlControl();
+          break;
+        default:
+          $control = null;
+      }
+
       var stack = this.h.control_stack;
 
-      $control.attachToModule(this.curModule());
+      $control.attachToModule($module);
 
-      if (key != 'module_switch') {
+      if (key != 'module_switch' && key != 'delete_btn') {
         this.curModule().element().hide();
         // We have a stack for modules that replace the content
         if (stack.length > 0) {
@@ -205,7 +224,7 @@ var GlassContentEditing = (function ($) {
     };
 
     this.removeGlassControl = function() {
-      this.h.elem.find('.glass-control').each(function () {
+      this.h.elem.find('.glass-control.singleton').each(function () {
         var $control = $(this).glassHtmlControl();
         $control.bringBackModule();
         $control.detatchFromModule();
@@ -216,6 +235,7 @@ var GlassContentEditing = (function ($) {
     this.formatHtml = function() {
       this.h.elem.find('[contenteditable=true]').removeAttr('contenteditable');
       this.removeGlassControl();
+      this.h.elem.find('.glass-control').remove(); // All the delete btns and stuff
       return this.h.elem.html().trim();
     };
 
@@ -247,8 +267,9 @@ var GlassContentEditing = (function ($) {
 
     this.modules = function() {
       var modules = [];
-      this.h.elem.find('p, h1, h2, h3, h4, h5, h6, ul, ol').each(function () {
-        if ($(this).parents('.glass-no-edit').length == 0) {
+      this.h.elem.children().each(function () {
+        //if ($(this).parents('.glass-no-edit').length == 0) {
+        if (!$(this).hasClass('glass-control')) {
           modules.push($(this).glassHtmlModule(this_editor));
         }
       });
@@ -289,17 +310,14 @@ var GlassContentEditing = (function ($) {
         $cur_elem.removeClass('empty');
         this.removeGlassControl();
       }
-    };
 
+      return $module;
+    };
 
 
     // Initialization
     // ##########################################
     this.h.elem.attr('contenteditable', true);
-
-    this.h.control['module_switch'] = $('#glass-module-switcher').glassHtmlControl();
-    this.h.control['choose_module'] = $('#glass-choose-module').glassHtmlControl();
-    this.h.control['settings_vid']  = $('#glass-module-settings-vid').glassHtmlControl();
 
     // modules() initializes them as well as returns them
     $.each(this.modules(), function (i, $module) {
@@ -314,8 +332,14 @@ var GlassContentEditing = (function ($) {
       this_editor.triggerChangeFocus(null, e);
     });
 
-    $('body').on('new-p', function () {
+    $(document).on('new-p', function () {
       this_editor.triggerChangeFocus(null, null);
+    });
+
+    $(document).on('image-uploaded', function (e, img_src) {
+      var $img = this_editor.h.elem.find('.cur-uploading-img');
+      $img.attr('src', img_src);
+      $img.removeClass('cur-uploading-img');
     });
 
     grande.bind(document.querySelectorAll(".glass-edit-html"));
@@ -339,18 +363,38 @@ var GlassContentEditing = (function ($) {
     };
 
     this.remove = function() {
+      this.m.editor.removeGlassControl();
       this.m.elem.remove();
-    }
+    };
 
     this.editor = function() {
       return this.m.editor;
-    }
+    };
+
+    this.createModuleAfter = function(module_id) {
+      var $module_html = $('#glass-parking #' + module_id + '-template');
+      if ($module_html.length > 0) {
+        $module_html = $module_html.clone();
+        $module_html.removeAttr('id'); //The id only stays on the one in the parking
+      }
+      else if (module_id == 'glass-module-p') {
+        $module_html = $('<p />');
+      }
+
+      $module_html.insertAfter(this.element());
+      this.editor().removeGlassControl();                   // Reset state
+      return this.editor().triggerChangeFocus($module_html, null); // Creates a module & initializes it
+    };
 
     // Initialization
     // ##########################################
     //this.focus();
 
     filterPasteEvents(this.m.elem[0]);
+
+    if (this.element().find('img, iframe').length > 0 || this.element().hasClass('glass-no-edit')) {
+      this.editor().attachControl('delete_btn', this);
+    }
   }
 
   // #############################################################
@@ -361,7 +405,13 @@ var GlassContentEditing = (function ($) {
     this.c = {'elem': $elem};
 
     this.attachToModule = function($module) {
-      this.element().fadeIn().insertBefore($module.element());
+      this.element().fadeIn();
+      if (this.element().hasClass('delete-module')) {
+        this.element().prependTo($module.element());
+      }
+      else {
+        this.element().insertBefore($module.element());
+      }
       this.c.module = $module;
       this.focus();
     }
@@ -377,8 +427,13 @@ var GlassContentEditing = (function ($) {
     this.detatchFromModule = function() {
       this.element().hide();
       this.c.module = null;
-      this.element().appendTo('#glass-parking');
-      this.element().removeClass('glass-close rotate-45');
+      if (this.element().hasClass('singleton')) {
+        this.element().appendTo('#glass-parking');
+        this.element().removeClass('glass-close rotate-45');
+      }
+      else {
+        this.element().remove();
+      }
     };
 
     this.bringBackModule = function() {
@@ -416,11 +471,75 @@ var GlassContentEditing = (function ($) {
       this_control.module().editor().attachControl('settings_vid');
     });
 
+    this.element().find('#glass-choose-module-img').click(function (e) {
+      e.preventDefault();
+      GlassImageUploader.openFileInput();
+    });
+
+    if (this.element().attr('id') == 'glass-choose-module') {
+      $(document).on('image-preview', function (e, image) {
+        var $cur_module = this_control.module();
+        var $new_module = this_control.module().createModuleAfter('glass-module-img');
+        $new_module.element().find('img').attr('src', image);
+        $new_module.element().find('img').addClass('cur-uploading-img');
+        $cur_module.remove();
+        var $new_p = $new_module.createModuleAfter('glass-module-p');
+        // FIXME - this doesn't seem to want to focus()
+        // FIXME: $new_p.element().attr('contenteditable', true);
+        // FIXME: $new_p.element().focus();
+      });
+    }
+
+    if (this.element().hasClass('delete-module')) {
+      this.element().click(function (e) {
+        e.preventDefault();
+        this_control.module().element().fadeOut(500, function() {
+          this_control.module().remove();
+        });
+      });
+    }
+
+    this.element().find('#glass-add-vid-form').submit(function (e) {
+      e.preventDefault();
+      var $cur_module = this_control.module();
+      var $new_module = $cur_module.createModuleAfter('glass-module-vid');
+      $cur_module.element().remove();
+      var $input_elem = this_control.element().find('.url-input');
+      var vid_link = $input_elem.val();
+      $input_elem.val('');
+      var embed_url = vid_link; // The default, will be changed below
+      $new_module.element().attr('data-video-link', vid_link); // Save for later use if needed (to edit??)
+      var matches = vid_link.match(/(vimeo|youtube).com\/(.+)$/);
+
+      if (matches && vid_link.search(/(?:youtube.+embed|player\.vimeo)/) == -1) {
+        var vid_host = matches[1];
+        var vid_path = matches[2];
+        var vid_host_meta = {
+          'youtube': ["//www.youtube.com/embed/",  "",              /[\?\&]v=(\w+)/],
+          'vimeo'  : ["//player.vimeo.com/video/", "?color=8d69bf", /^(\w+)/],
+        };
+        var matches2 = vid_path.match(vid_host_meta[vid_host][2]);
+        if (matches2) {
+          embed_url = vid_host_meta[vid_host][0] + matches2[1] + vid_host_meta[vid_host][1];
+        }
+      }
+      else if (vid_link.search(/^\/\//) == -1) {
+        embed_url = "//" + vid_link.replace(/^https?:\/\//, '');
+      }
+
+      $new_module.element().find('iframe').attr('src', embed_url);
+      var $new_p = $new_module.createModuleAfter('glass-module-p');
+    });
+
     this.element().find('#glass-add-vid-btn').click(function (e) {
+      // Insert
       var $vid_module = $('#glass-parking #glass-module-vid-template').clone();
       $vid_module.removeAttr('id'); //The id only stays on the one in the parking
+
+      // Update link
       var vid_link = $('#glass-vid-url-input').val();
       $('#glass-vid-url-input').val('');
+
       var embed_url = vid_link; // The default, will be changed below
       $vid_module.attr('data-video-link', vid_link); // Save for later use if needed (to edit??)
       var matches = vid_link.match(/(vimeo|youtube).com\/(.+)$/);
@@ -449,10 +568,10 @@ var GlassContentEditing = (function ($) {
 
     this.element().find('#glass-choose-custom').click(function (e) {
       e.preventDefault();
-      var $new_module = $('#glass-parking #glass-module-custom-html').clone();
-      $new_module.removeAttr('id'); //The id only stays on the one in the parking
-      this_control.module().element().replaceWith($new_module);
-      this_control.module().editor().removeGlassControl();
+      var $cur_module = this_control.module();
+      var $new_module = $cur_module.createModuleAfter('glass-module-custom');
+      $cur_module.element().remove();
+      var $new_p = $new_module.createModuleAfter('glass-module-p');
     });
   }
 

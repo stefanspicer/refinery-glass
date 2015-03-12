@@ -276,7 +276,7 @@
       // Enters should replace it's parent <div> with a <p>
       if (sel.anchorNode.nodeName === "DIV") {
         toggleFormatBlock("p");
-        $('body').trigger('new-p');
+        $(document).trigger('new-p');
       }
 
       parentParagraph = getParentWithTag(sel.anchorNode, "p");
