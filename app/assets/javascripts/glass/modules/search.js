@@ -25,11 +25,14 @@ var GlassSearch = (function ($){
           });
           watcher.resume();
 
-          if (status !== 'success') {
-            if($('#errorExplanation').length > 0){
-              $('#errorExplanation').remove();
-            }
+          var $previousError = $('#errorExplanation');
 
+          if($previousError.length > 0){
+            $previousError.remove();
+          }
+
+          if (status !== 'success') {
+            
             if(xhr.responseJSON.message !== undefined){
               // insert the error div into the page if there is a message returned from the server.
               $search_form.prepend([
