@@ -3,6 +3,7 @@
                :url => (refinery.admin_page_path(@page.nested_url) if @page.persisted?) do |f| %>
 
     <%= render '/refinery/admin/error_messages', :object => @page, :include_object_name => true %>
+    <%= render 'customize_form', :f => f -%>
 
     <div class="sidebar-section">
       <button type="button" class="collapse-toggle collapsed" data-toggle="collapse" data-target="#status-collapse" aria-expanded="true" aria-controls="demo">
@@ -69,6 +70,7 @@
       </div>
     </div>
 
+    <%= yield :after_main_options %>
 
     <div class="sidebar-section">
       <div class="sidebar-section-heading">
@@ -111,7 +113,7 @@
   <% end %>
 
   <%= render '/glass/html_editing_assets' %>
-  <%= render 'form_outside_main_form' %>
+  <%= yield :outside_main_form %>
 </div>
 
 <% content_for :javascripts do %>
