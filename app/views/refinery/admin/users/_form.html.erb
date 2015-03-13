@@ -98,14 +98,12 @@
 <%= render 'refinery/admin/users/submenu' %>
 
 <% content_for :javascripts do %>
-  <!--
   <script>
     $(document).ready(function() {
       $('#user_plugins_enable_all').click(function(e, a) {
-        $('div.field.plugin_access ul#plugins li input:checkbox').attr('checked', true);
+        $('div.plugin_access ul#plugins li input:checkbox').attr('checked', true);
         e.preventDefault();
       });
     });
   </script>
-  -->
 <% end %>
