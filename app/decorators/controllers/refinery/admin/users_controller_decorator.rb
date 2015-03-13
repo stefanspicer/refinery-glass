@@ -16,7 +16,8 @@ Refinery::Admin::UsersController.class_eval do
     @selected_role_names = params[:user][:roles] || []
 
     @user[:inviting_user_name] = current_refinery_user.name.split.map(&:capitalize).join(' ') # capitalizes the first letter of each word
-    @user[:invitee_name] = @user.name.split.map(&:capitalize).join(' ')
+
+    @user[:onboarding_name] = @user.name.split.map(&:capitalize).join(' ')
     @user[:onboarding] = false
 
     if params[:onboarding].present? && params[:onboarding]
