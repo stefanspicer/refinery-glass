@@ -34,6 +34,7 @@ var CanvasForms = (function ($) {
 
   function initVerify(){
 
+
     $.verify({
       prompt: function(element, text) {
 
@@ -51,24 +52,28 @@ var CanvasForms = (function ($) {
       },
       skipHiddenFields : false
     });
-    $.verify.addRules({
-      required_w_name: function(r) {
-        var $label = $(r.field).parents('.form-group').find('label');
-        var validationPrefix = $(r.field).data('pre-val-msg');
-        var message;
-        var inputValue = r.val();
-        if((inputValue.trim() === '') || (inputValue === undefined) || (inputValue === null))
-        {
-          if (validationPrefix !== undefined){
-            message = validationPrefix + ' is required';
-          } else {
-            message = ($label.length > 0) ? 'The ' + $label.text() + ' is required' : 'This field is required';
+
+    // if this rule has not yet been added, then add it now.
+    if($.verify._hidden.ruleManager.getRawRule('required_w_name') === undefined){
+      $.verify.addRules({
+        required_w_name: function(r) {
+          var $label = $(r.field).parents('.form-group').find('label');
+          var validationPrefix = $(r.field).data('pre-val-msg');
+          var message;
+          var inputValue = r.val();
+          if((inputValue.trim() === '') || (inputValue === undefined) || (inputValue === null))
+          {
+            if (validationPrefix !== undefined){
+              message = validationPrefix + ' is required';
+            } else {
+              message = ($label.length > 0) ? 'The ' + $label.text() + ' is required' : 'This field is required';
+            }
+            return message;
           }
-          return message;
+          return true;
         }
-        return true;
-      }
-    });
+      });
+    }
   }
 
   function initFormOptionalFieldsWithin(element) {
@@ -76,7 +81,7 @@ var CanvasForms = (function ($) {
       $("#registration_situation_other").parents('.form-group')
         .toggle($(this).val() === "Other");
       $("#registration_situation_contraception").parents('.form-group')
-        .toggle($(this).val().match(/contracept/i) != null);
+        .toggle($(this).val().match(/contracept/i) !== null);
     });
     $(element).find("#registration_how_find").change(function () {
       $("#registration_how_find_other").parents('.form-group')
