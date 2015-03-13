@@ -4,15 +4,12 @@ var CanvasForms = (function ($) {
 
   $(document).on('content-ready', function (e, element) {
     // initialize verify (form validation library)
+
     initVerify();
 
     initFormSelectsWithin(element);
     initFormOptionalFieldsWithin(element);
     initFormSubmitWithin(element);
-
-    // remove the disabled attribute from all buttons within
-    // forms once the js has loaded.
-    $('form button').removeAttr('disabled');
 
     $('[data-confim]').unbind();
     $(element).find('a#delete_button').unbind('click').click(function(e){
@@ -35,32 +32,77 @@ var CanvasForms = (function ($) {
 
   var count = 0;
 
+  // Set custom validation rules and initialize verify.
   function initVerify(){
+    // Add the disabled attribute to buttons in the form
+    var $formButtons = $('form button');
+    $formButtons.attr('disabled', 'disabled');
+    // Set data values for evaluating unique fields
+    var url;
+
+    $('[data-unique-collection-url]').each(function(){
+      var $element = $(this);
+      url = $element.data('unique-collection-url');
+      $.get(url, function(response) {
+        var collection = response.collection;
+        if(collection !== undefined){
+          $element.data('unique-collection', collection);
+        }
+      });
+    });
 
     // if this rule has not yet been added, then add it now.
     if($.verify._hidden.ruleManager.getRawRule('required_w_name') === undefined){
-      $.verify.addRules({
-        required_w_name: function(r) {
-          var $label = $(r.field).parents('.form-group').find('label');
-          var validationPrefix = $(r.field).data('pre-val-msg');
-          var message;
-          var inputValue = r.val();
-          if((inputValue.trim() === '') || (inputValue === undefined) || (inputValue === null))
-          {
-            if (validationPrefix !== undefined){
-              message = validationPrefix + ' is required';
-            } else {
-              message = ($label.length > 0) ? 'The ' + $label.text() + ' is required' : 'This field is required';
-            }
-            return message;
-          }
-          return true;
-        }
-      });
+      $.verify.addRules(customValidationRules());
     }
-
     initVerifyForm();
+    // remove the disabled attribute from all buttons within
+    // forms once the js has loaded.
+    $formButtons.removeAttr('disabled');
   }
+
+  var customValidationRules = function(){
+    return {
+      required_w_name: function(r) {
+        var $label = $(r.field).parents('.form-group').find('label');
+        var fieldName = $(r.field).data('val-field');
+        var message;
+        var inputValue = r.val();
+        if((inputValue.trim() === '') || (inputValue === undefined) || (inputValue === null))
+        {
+          if (fieldName !== undefined){
+            message = 'The ' + fieldName + ' is required';
+          } else {
+            message = ($label.length > 0) ? 'The ' + $label.text() + ' is required' : 'This field is required';
+          }
+          return message;
+        }
+        return true;
+      },
+      unique_value: function(r) {
+        var $label = $(r.field).parents('.form-group').find('label');
+        var fieldName = $(r.field).data('val-field');
+        var message;
+        var inputValue = r.val().toLowerCase();
+        var returnVal = true;
+
+        var collection = $(r.field).data('unique-collection');
+
+        if(collection.length > 0){
+          if(collection.indexOf(inputValue) !== -1)
+          {
+            if (fieldName !== undefined){
+              message = 'That ' + fieldName + ' is already in use';
+            } else {
+              message = ($label.length > 0) ? 'That ' + $label.text() + ' is already in use' : 'That value is already taken';
+            }
+            returnVal =  message;
+          }
+        }
+        return returnVal;
+      }
+    };
+  };
 
   function initVerifyForm(){
     $("form").filter(function() {
