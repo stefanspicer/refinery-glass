@@ -273,7 +273,7 @@ var CanvasForms = (function ($) {
   function insertMessage(attribute, errorMessages) {
     var errorMessage = ['<span class="help-inline text-danger">', errorMessages[attribute][0], '</span>'].join("");
 
-    if (attribute == 'image') {
+    if (attribute === 'image') {
       $('.file-preview').addClass('error').after(errorMessage);
     } else {
       var inputSelector = $('input[name="' + attribute + '"]');
@@ -282,7 +282,7 @@ var CanvasForms = (function ($) {
       if (inputSelector.parents('.input-group').length > 0) {
         inputSelector.parents('.input-group').after(errorMessage);
       } else {
-        inputSelector.after(errorMessage)
+        inputSelector.after(errorMessage);
       }
     }
   }
