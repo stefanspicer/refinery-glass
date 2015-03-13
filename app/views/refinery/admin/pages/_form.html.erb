@@ -1,46 +1,117 @@
-<div class="row">
-  <div class="col-sm-10 col-sm-offset-1">
-    <%= form_for [refinery, :admin, @page],
-                 :url => (refinery.admin_page_path(@page.nested_url) if @page.persisted?) do |f| %>
+<div class="page-options">
+  <%= form_for [refinery, :admin, @page],
+               :url => (refinery.admin_page_path(@page.nested_url) if @page.persisted?) do |f| %>
 
-      <%= render '/refinery/admin/error_messages', :object => @page, :include_object_name => true %>
+    <%= render '/refinery/admin/error_messages', :object => @page, :include_object_name => true %>
 
-      <%= render '/refinery/admin/form_actions', :f => f, :sidebar => true,
-                 :continue_editing => true,
-                 :delete_title => t('delete', :scope => 'refinery.admin.pages'),
-                 :delete_confirmation => t('message', :scope => 'refinery.admin.delete', :title => @page.title),
-                 :before_cancel_button => submit_tag(
-                   t('.preview'),
-                   :id => 'preview-button',
-                   :title => 'Preview page',
-                   :name => nil,
-                   :class => "wymupdate button",
-                   :tooltip => t('.preview_changes')
-                 ),
-                 :cancel_url => refinery.admin_pages_path %>
+    <div class="sidebar-section">
+      <button type="button" class="collapse-toggle collapsed" data-toggle="collapse" data-target="#status-collapse" aria-expanded="true" aria-controls="demo">
+        <div class="sidebar-section-heading">
+          <i class="gcicon gcicon-pencil"></i> <span class="flex-1">Status: <strong>Draft</strong></span><i class="gcicon gcicon-down"></i>
+        </div>
+      </button>
+      <div id="status-collapse" class="collapse">
+        <div class="sidebar-section-body">
+          <div class="form-group">
+            <div class="radio">
+              <label>
+                <input type="radio" name="status-published" id="status-published" value="option1" checked>
+                Published
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="status-draft" id="status-draft" value="option2">
+                Draft
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-      <%= render '/refinery/admin/locale_picker', :current_locale => Globalize.locale %>
+    <div class="sidebar-section">
+      <div class="sidebar-section-heading">
+        <div class="page-title" contenteditable="true">Page title</div>
+      </div>
+    </div>
 
-      <%= f.hidden_field :title %>
-      <%= render 'form_fields_after_title', :f => f %>
-
-      <%#= render 'form_page_parts', :f => f %>
-      <% part_index = -1 %>
-      <%= f.fields_for :parts do |p| %>
-        <%= render 'page_part_field',
-                   :part => p.object,
-                   :part_index => (part_index += 1),
-                   :new_part => @page.new_record? -%>
-      <% end %>
-
-      <%= render 'form_advanced_options', :f => f %>
-
-      <%= render 'form_new_page_parts', :f => f if Refinery::Pages.new_page_parts %>
+    <% if Refinery::Pages.use_custom_slugs %>
+      <div class="sidebar-section no-border">
+        <div class="sidebar-section-heading">
+          <div class="url">http://stpatsvan.com/<span class="slug" contenteditable="true">page-title</span>/</div>
+        </div>
+      </div>
+      <div class='hidden FIXME'>
+        <span class='label_with_help'>
+          <%= f.label :custom_slug, t('.custom_slug') %>
+          <%= refinery_help_tag t('.custom_slug_help') %>
+        </span>
+        <%= f.text_field :custom_slug, :class => 'form-control input-lg' %>
+      </div>
     <% end %>
 
-    <%= render '/glass/html_editing_assets' %>
-    <%= render 'form_outside_main_form' %>
-  </div>
+    <div class="sidebar-section">
+      <button type="button" class="collapse-toggle collapsed" data-toggle="collapse" data-target="#template-collapse" aria-expanded="true" aria-controls="demo">
+        <div class="sidebar-section-heading">
+          <i class="gcicon gcicon-gears"></i> <span class="flex-1">Page Template</span> <i class="gcicon gcicon-down"></i>
+        </div>
+      </button>
+      <div id="template-collapse" class="collapse">
+        <div class="sidebar-section-body">
+          <div class='form-group'>
+            <div class="dropdown-wrapper">
+              <%= f.select :view_template, @valid_view_templates.map { |t| [t.titleize, t] },
+                           template_options(:view_template, @page) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-heading">
+        <h3>Advanced Settings</h3>
+      </div>
+    </div>
+
+    <%= render 'form_advanced_options', :f => f %>
+    <%# FIXME = render 'form_advanced_options_seo', :f => f %>
+
+    <%= render '/refinery/admin/form_actions', :f => f, :sidebar => false,
+               :continue_editing => true,
+               :delete_title => t('delete', :scope => 'refinery.admin.pages'),
+               :delete_confirmation => t('message', :scope => 'refinery.admin.delete', :title => @page.title),
+               :before_cancel_button => submit_tag(
+                 t('.preview'),
+                 :id => 'preview-button',
+                 :title => 'Preview page',
+                 :name => nil,
+                 :class => "wymupdate button",
+                 :tooltip => t('.preview_changes')
+               ),
+               :cancel_url => refinery.admin_pages_path %>
+
+    <%= render '/refinery/admin/locale_picker', :current_locale => Globalize.locale %>
+
+    <%= f.hidden_field :title %>
+    <%= render 'form_fields_after_title', :f => f %>
+
+    <%#= render 'form_page_parts', :f => f %>
+    <% part_index = -1 %>
+    <%= f.fields_for :parts do |p| %>
+      <%= render 'page_part_field',
+                 :part => p.object,
+                 :part_index => (part_index += 1),
+                 :new_part => @page.new_record? -%>
+    <% end %>
+
+    <%= render 'form_new_page_parts', :f => f if Refinery::Pages.new_page_parts %>
+  <% end %>
+
+  <%= render '/glass/html_editing_assets' %>
+  <%= render 'form_outside_main_form' %>
 </div>
 
 <% content_for :javascripts do %>
