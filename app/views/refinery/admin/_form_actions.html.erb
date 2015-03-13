@@ -39,16 +39,14 @@
 <% end %>
 
 <% in_sidebar = defined?(sidebar) ? sidebar : false  %>
-<% if in_sidebar %>
+<!--
 <div class="deliver row">
   <div class="pull-left">
     <a href="" class="circle-icon"><i class="gcicon gcicon-screen bump-down"></i></a>
   </div>
   <div class="pull-right">
-    <!--
     <a href="" class="circle-icon save-page"><i class="gcicon gcicon-save"></i></a>
     <a href="" class="circle-icon fluid-width publish-page"><i class="gcicon gcicon-publish"></i> <span>Publish</span></a>
-    -->
     <%= button_tag "<i class='gcicon gcicon-save'></i> <span>#{submit_button_text}</span>".html_safe,
                    :type => :submit,
                    :id => submit_button_id,
@@ -59,10 +57,11 @@
 </div>
 
 <a href="" class="delete"><i class="gcicon gcicon-trash"></i> Delete</a>
-<% else %>
-<div class='form-actions<%= ' form-actions-dialog' if from_dialog? %>'>
-  <div class='form-actions-left'>
-    <%= button_tag submit_button_text,
+-->
+
+<div class='form-actions<%= ' sidebar-section no-border margin-top-sm' if in_sidebar %><%= ' form-actions-dialog' if from_dialog? %>'>
+  <div class='<%= in_sidebar ? "sidebar-section-body" : "form-actions-left" %>'>
+    <%= button_tag "<i class='gcicon gcicon-publish'></i> <span>#{submit_button_text}</span>".html_safe,
                    :type => :submit,
                    :id => submit_button_id,
                    :name => nil,
@@ -71,9 +70,10 @@
 
     <%= hidden_field_tag :continue_editing, false if continue_editing %>
 
+<!--
+    FIXME: I don't know what these local_assigns is doing... it is bringing in the "preview" button so removing it for now (SS)
     <%= local_assigns[:before_cancel_button] -%>
 
-<!--
     <%= link_to(cancel_button_text, cancel_url,
                 :title => cancel_title,
                 :id => cancel_button_id,
@@ -82,14 +82,13 @@
 
 <!--     <%= local_assigns[:after_cancel_button] -%> -->
     <%= local_assigns[:before_delete_button] -%>
-    <%= link_to(delete_button_text, delete_url,
+    <%= link_to("<i class='gcicon gcicon-trash'></i> <span>#{delete_button_text}</span>".html_safe, delete_url,
                 :title => delete_title,
                 :id => delete_button_id,
                 :data => {
                   :confirm => delete_confirmation
                 },
-                :class => "btn btn-default") unless hide_delete %>
+                :class => "btn btn-link-red btn-lg") unless hide_delete %>
     <%= local_assigns[:after_delete_button] -%>
   </div>
 </div>
-<% end %>
