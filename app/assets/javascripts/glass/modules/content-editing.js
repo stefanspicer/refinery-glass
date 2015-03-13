@@ -376,8 +376,14 @@ var GlassContentEditing = (function ($) {
     this.m = {'elem': $elem, 'editor': $editor};
 
     this.focus = function() {
-      //$new_module.find('p').first().focus();
-      this.m.elem.focus();
+      if (this.m.elem.prop("tagName") == 'P') {
+        //this.m.elem.focus();
+        window.getSelection().removeAllRanges();
+        var range = document.createRange();
+        range.setStart(this.m.elem[0], 0);
+        range.setEnd(this.m.elem[0], 0);
+        window.getSelection().addRange(range);
+      }
       //this.m.editor.setCurModule(this);
     };
 
