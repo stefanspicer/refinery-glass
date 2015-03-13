@@ -1,4 +1,7 @@
 var CanvasForms = (function ($) {
+
+  setVerify();
+
   $(document).on('content-ready', function (e, element) {
     // initialize verify (form validation library)
     initVerify();
@@ -34,25 +37,6 @@ var CanvasForms = (function ($) {
 
   function initVerify(){
 
-
-    $.verify({
-      prompt: function(element, text) {
-
-        $(element).parents('.form-group').find('.tip.text-danger').html(text || '');
-        // after a short delay, scroll to the input with the error.
-        if(count < 1 && text !== null){
-          count++;
-          setTimeout(function(){
-            $('html, body').animate({
-              scrollTop: $(element).offset().top - 73
-            }, 500);
-            count = 0;
-          }, 100);
-        }
-      },
-      skipHiddenFields : false
-    });
-
     // if this rule has not yet been added, then add it now.
     if($.verify._hidden.ruleManager.getRawRule('required_w_name') === undefined){
       $.verify.addRules({
@@ -74,6 +58,35 @@ var CanvasForms = (function ($) {
         }
       });
     }
+
+    initVerifyForm();
+  }
+
+  function initVerifyForm(){
+    $("form").filter(function() {
+      return $(this).find("[" + $.verify.globals.validateAttribute + "]").length > 0;
+    }).verify();
+  }
+
+  function setVerify(){
+    $.verify({
+      autoInit: false,
+      prompt: function(element, text) {
+
+        $(element).parents('.form-group').find('.tip.text-danger').html(text || '');
+        // after a short delay, scroll to the input with the error.
+        if(count < 1 && text !== null){
+          count++;
+          setTimeout(function(){
+            $('html, body').animate({
+              scrollTop: $(element).offset().top - 73
+            }, 500);
+            count = 0;
+          }, 100);
+        }
+      },
+      skipHiddenFields : false
+    });
   }
 
   function initFormOptionalFieldsWithin(element) {
