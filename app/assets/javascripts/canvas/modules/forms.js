@@ -71,21 +71,21 @@ var CanvasForms = (function ($) {
   function setVerify(){
     $.verify({
       autoInit: false,
+      skipHiddenFields : false,
+      hideErrorOnChange: true,
       prompt: function(element, text) {
-
         $(element).parents('.form-group').find('.tip.text-danger').html(text || '');
         // after a short delay, scroll to the input with the error.
-        if(count < 1 && text !== null){
+        if (count < 1 && text !== null) {
           count++;
-          setTimeout(function(){
+          setTimeout(function () {
             $('html, body').animate({
               scrollTop: $(element).offset().top - 73
             }, 500);
             count = 0;
           }, 100);
         }
-      },
-      skipHiddenFields : false
+      }
     });
   }
 
