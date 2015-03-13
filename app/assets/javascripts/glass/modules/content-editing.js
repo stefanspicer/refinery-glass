@@ -174,21 +174,24 @@ var GlassContentEditing = (function ($) {
 
       var $control;
       switch(key) {
-        case 'module_switch':
+        case 'module-switcher':
           var $switcher = $('#glass-module-switcher');
           if ($switcher.length < 1) {
             $switcher = $('#glass-module-switcher-template').clone().attr('id', 'glass-module-switcher');
           }
           $control = $switcher.glassHtmlControl();
           break;
-        case 'choose_module':
+        case 'choose-module':
           $control = $('#glass-choose-module').glassHtmlControl();
           break;
-        case 'settings_vid':
+        case 'settings-vid':
           $control = $('#glass-module-settings-vid').glassHtmlControl();
           break;
-        case 'delete_btn':
+        case 'delete-btn':
           $control = $('#glass-parking .delete-module').clone().glassHtmlControl();
+          break;
+        case 'click-pads':
+          $control = $('#glass-parking .click-pads').clone().glassHtmlControl();
           break;
         default:
           $control = null;
@@ -198,7 +201,7 @@ var GlassContentEditing = (function ($) {
 
       $control.attachToModule($module);
 
-      if (key != 'module_switch' && key != 'delete_btn') {
+      if (key == 'choose-module' || key == 'settings-vid') {
         this.curModule().element().hide();
         // We have a stack for modules that replace the content
         if (stack.length > 0) {
@@ -251,6 +254,20 @@ var GlassContentEditing = (function ($) {
       }
 
       return this.parentModule($(focus_elem));
+    };
+
+    this.newModule = function(module_id, before_after, $module) {
+      var $new_html = $module.newModuleHtml(module_id);
+      if (before_after == 'before') {
+        $new_html.insertBefore($module.element());
+      }
+      else {
+        $new_html.insertAfter($module.element());
+      }
+      this.removeGlassControl();                   // Reset state
+      var $new_module = this.triggerChangeFocus($new_html, null); // Creates a module & initializes it
+      $new_module.focus();
+      return $new_module;
     };
 
     this.parentModule = function($elem) {
@@ -308,7 +325,7 @@ var GlassContentEditing = (function ($) {
 
       if (newly_empty) {
         $cur_elem.addClass('empty');
-        this.attachControl('module_switch');
+        this.attachControl('module-switcher');
       }
       else if ($cur_elem.hasClass('empty') && $cur_elem.text().trim()) { // Not empty (but has the empty class)
         $cur_elem.removeClass('empty');
@@ -377,7 +394,7 @@ var GlassContentEditing = (function ($) {
       return this.m.editor;
     };
 
-    this.createModuleAfter = function(module_id) {
+    this.newModuleHtml = function(module_id) {
       var $module_html = $('#glass-parking #' + module_id + '-template');
       if ($module_html.length > 0) {
         $module_html = $module_html.clone();
@@ -386,10 +403,7 @@ var GlassContentEditing = (function ($) {
       else if (module_id == 'glass-module-p') {
         $module_html = $('<p />');
       }
-
-      $module_html.insertAfter(this.element());
-      this.editor().removeGlassControl();                   // Reset state
-      return this.editor().triggerChangeFocus($module_html, null); // Creates a module & initializes it
+      return $module_html;
     };
 
     // Initialization
@@ -399,7 +413,9 @@ var GlassContentEditing = (function ($) {
     filterPasteEvents(this.m.elem[0]);
 
     if (this.element().find('img, iframe').length > 0 || this.element().hasClass('glass-no-edit')) {
-      this.editor().attachControl('delete_btn', this);
+      this.element().attr('contenteditable', false);
+      this.editor().attachControl('delete-btn', this);
+      this.editor().attachControl('click-pads', this);
     }
   }
 
@@ -412,8 +428,8 @@ var GlassContentEditing = (function ($) {
 
     this.attachToModule = function($module) {
       this.element().fadeIn();
-      if (this.element().hasClass('delete-module')) {
-        this.element().prependTo($module.element());
+      if (this.element().hasClass('append')) {
+        this.element().appendTo($module.element());
       }
       else {
         this.element().insertBefore($module.element());
@@ -467,14 +483,14 @@ var GlassContentEditing = (function ($) {
         }
         else {
           $(this).addClass('glass-close rotate-45');
-          editor.attachControl('choose_module');
+          editor.attachControl('choose-module');
         }
       });
     }
 
     this.element().find('#glass-choose-module-vid').click(function (e) {
       e.preventDefault();
-      this_control.module().editor().attachControl('settings_vid');
+      this_control.module().editor().attachControl('settings-vid');
     });
 
     this.element().find('#glass-choose-module-img').click(function (e) {
@@ -486,11 +502,11 @@ var GlassContentEditing = (function ($) {
       $(document).on('image-preview', function (e, image) {
         var $cur_module = this_control.module();
         if ($cur_module) {
-          var $new_module = $cur_module.createModuleAfter('glass-module-img');
+          var $new_module = $cur_module.editor().newModule('glass-module-img', 'after', $cur_module);
           $new_module.element().find('img').attr('src', image);
           $new_module.element().find('img').addClass('cur-uploading-img');
           $cur_module.remove();
-          var $new_p = $new_module.createModuleAfter('glass-module-p');
+          var $new_p = $new_module.editor().newModule('glass-module-p', 'after', $new_module);
           // FIXME - this doesn't seem to want to focus()
           // FIXME: $new_p.element().attr('contenteditable', true);
           // FIXME: $new_p.element().focus();
@@ -507,10 +523,23 @@ var GlassContentEditing = (function ($) {
       });
     }
 
+    var selectedText;
+
+    if (this.element().hasClass('click-pads')) {
+      this.element().find('.click-pad').click(function (e) {
+        var before_or_after = 'after';
+        if ($(this).hasClass('top') || $(this).hasClass('left')) {
+          before_or_after = 'before';
+        }
+        var $module   = this_control.module();
+        var $new_p    = $module.editor().newModule('glass-module-p', before_or_after, $module);
+      });
+    }
+
     this.element().find('#glass-add-vid-form').submit(function (e) {
       e.preventDefault();
       var $cur_module = this_control.module();
-      var $new_module = $cur_module.createModuleAfter('glass-module-vid');
+      var $new_module = $cur_module.editor().newModule('glass-module-vid', 'after', $cur_module);
       $cur_module.element().remove();
       var $input_elem = this_control.element().find('.url-input');
       var vid_link = $input_elem.val();
@@ -536,7 +565,7 @@ var GlassContentEditing = (function ($) {
       }
 
       $new_module.element().find('iframe').attr('src', embed_url);
-      var $new_p = $new_module.createModuleAfter('glass-module-p');
+      var $new_p = $new_module.editor().newModule('glass-module-p', 'after', $new_module);
     });
 
     this.element().find('#glass-add-vid-btn').click(function (e) {
@@ -577,9 +606,9 @@ var GlassContentEditing = (function ($) {
     this.element().find('#glass-choose-custom').click(function (e) {
       e.preventDefault();
       var $cur_module = this_control.module();
-      var $new_module = $cur_module.createModuleAfter('glass-module-custom');
+      var $new_module = $cur_module.editor().newModule('glass-module-custom', 'after', $cur_module);
       $cur_module.element().remove();
-      var $new_p = $new_module.createModuleAfter('glass-module-p');
+      var $new_p = $new_module.editor().newModule('glass-module-p', 'after', $new_module);
     });
   }
 

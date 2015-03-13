@@ -86,3 +86,23 @@
     padding-right: 60px;
   }
 }
+
+.click-pads {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  .click-pad {
+    width: 100%;
+    height: 20px;
+    cursor: text;
+    position: absolute;
+    &.top {
+      top: -20px;
+    }
+    &.bottom {
+      bottom: -20px;
+    }
+  }
+}
