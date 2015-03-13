@@ -433,13 +433,25 @@ var GlassContentEditing = (function ($) {
     this.c = {'elem': $elem};
 
     this.attachToModule = function($module) {
-      this.element().fadeIn();
-      if (this.element().hasClass('append')) {
-        this.element().appendTo($module.element());
+      var $element = this.element();
+      $element.fadeIn();
+      if ($element.hasClass('append')) {
+        $element.appendTo($module.element());
       }
       else {
-        this.element().insertBefore($module.element());
+        $element.insertBefore($module.element());
       }
+
+      if ($element.hasClass('click-pads')) {
+        var sp_bottom = parseInt($module.element().css("margin-bottom" ).replace("px", ""));
+        //sp_bottom    += parseInt($module.element().css("padding-bottom").replace("px", ""));
+        if (sp_bottom < 20) {
+          sp_bottom = 20;
+        }
+        $element.find('.click-pad.bottom').css('height',       sp_bottom + 'px');
+        $element.find('.click-pad.bottom').css('bottom', '-' + sp_bottom + 'px');
+      }
+
       this.c.module = $module;
       this.focus();
     }

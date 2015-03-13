@@ -405,6 +405,9 @@ $color_choice_dimension: 40px;
 		&.color-input-container-lg {
 			margin-top: 80px;
 		}
+		.color-field{
+  		max-width: 150px;
+		}
 	}
 	.divider-right{
     &:after{
