@@ -5,7 +5,6 @@ class Refinery::Glass::InvitationsController < ::ApplicationController
   layout 'refinery/layouts/login'
 
   def accept_invite
-
     # try to confirm the user
     if params.has_key?(:cf) || session[:cf].present?
       previous_attempt = params.has_key?(:cf) && session[:cf].present?
@@ -32,11 +31,11 @@ class Refinery::Glass::InvitationsController < ::ApplicationController
         if cookies[:pass_errors].present?
           set_user_errors
         end
-        return render 'refinery/admin/users/update_password'
       end
+      return render 'refinery/admin/users/update_password'
+    else
+      redirect_to '/'
     end
-
-    redirect_to '/'
   end
 
   private
