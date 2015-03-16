@@ -1,18 +1,24 @@
 /* -------------------- EDITOR -------------------- */
 
-[contenteditable=true]:empty:before,
-[contenteditable=true] p.empty:before{
+[contenteditable=true]:empty,
+[contenteditable=true] .empty{
+  &:before{
   content: attr(glass-placeholder);
   display: block; /* For Firefox */
   color: $grey-5;
+  transition: .15s ease-out;
+  }
+  &:focus{
+    &:before{
+      color: $grey-4;
+    }
+  }
 }
 
-/*
 [contenteditable=true] p.empty:before{
-  content: 'New Paragraph...';
+  content: 'New paragraph...';
   position: absolute;
 }
-*/
 
 [contenteditable=true] p.empty{
   min-height: 18px;
