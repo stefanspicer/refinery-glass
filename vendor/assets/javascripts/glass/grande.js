@@ -317,7 +317,7 @@
     }
     prevPrevSibling = prevSibling.previousSibling;
 
-    if (prevSibling.nodeName === "P" && !prevSibling.textContent.length && prevPrevSibling.nodeName !== "HR") {
+    if (!parentParagraph.textContent.length && prevSibling.nodeName === "P" && !prevSibling.textContent.length && prevPrevSibling.nodeName !== "HR") {
       hr = document.createElement("hr");
       hr.contentEditable = false;
       parentParagraph.parentNode.replaceChild(hr, prevSibling);
