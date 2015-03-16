@@ -15,10 +15,12 @@
   }
 }
 
+/*
 [contenteditable=true] p.empty:before{
   content: 'New paragraph...';
   position: absolute;
 }
+*/
 
 [contenteditable=true] p.empty{
   min-height: 18px;
