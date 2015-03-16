@@ -38,8 +38,8 @@
       tagClassMap = {
         "b": "bold",
         "i": "italic",
-        "h1": "header1",
         "h2": "header2",
+        "h3": "header3",
         "a": "url",
         "blockquote": "quote"
       };
@@ -50,8 +50,8 @@
           <span class='menu-buttons'> \
             <button class='bold'><i class='gcicon gcicon-bold'></i></button> \
             <button class='italic'><i class='gcicon gcicon-italic'></i></button> \
-            <button class='header1'><i class='gcicon gcicon-heading'></i><sub>1</sub></button> \
-            <button class='header2'><i class='gcicon gcicon-heading'></i><sub>2</sub></button> \
+            <button class='header2'><i class='gcicon gcicon-heading'></i><sub>1</sub></button> \
+            <button class='header3'><i class='gcicon gcicon-heading'></i><sub>2</sub></button> \
             <button class='quote'><i class='gcicon gcicon-quote'></i></button> \
             <button class='url'><i class='gcicon gcicon-link'></i></button> \
           </span> \
@@ -465,11 +465,14 @@
 
   function toggleUrlInput() {
     setTimeout(function() {
-      var url = getParentHref(getFocusNode());
+      parentAnchor = getParentWithTag(getFocusNode(), 'a');
+      //var url = getParentHref(getFocusNode());
 
-      if (typeof url !== "undefined") {
-        urlInput.value = url;
-      } else {
+      if (parentAnchor && parentAnchor.href !== "undefined") {
+        urlInput.value = parentAnchor.href;
+        parentAnchor.href = "/temporary";
+      }
+      else {
         document.execCommand("createLink", false, "/temporary");
       }
 
@@ -527,6 +530,8 @@
     if (selectedText.isCollapsed) {
       setTextMenuPosition(EDGE, EDGE);
       textMenu.className = "highlight-menu hide";
+
+      // if (hasParentWithTag(getFocusNode(), 'a')) // TODO - show the url input menu here
     } else {
       range = selectedText.getRangeAt(0);
       clientRectBounds = range.getBoundingClientRect();
