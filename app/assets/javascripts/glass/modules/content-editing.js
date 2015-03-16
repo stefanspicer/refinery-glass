@@ -554,18 +554,29 @@ var GlassContentEditing = (function ($) {
 
     if (this.element().hasClass('click-pads')) {
       this.element().find('.click-pad').click(function (e) {
-        var before_or_after = 'after';
+        var before_or_after = '';
+        var $module   = this_control.module();
+        var $sibling;
+
         if ($(this).hasClass('top') || $(this).hasClass('left')) {
           before_or_after = 'before';
+          $sibling = $module.element().prev();
         }
-        var $module   = this_control.module();
-        var $new_p    = $module.editor().newModule('glass-module-p', before_or_after, $module);
+        else {
+          before_or_after = 'after';
+          $sibling = $module.element().next();
+        }
 
-        var $elem = $new_p.element();
-        var elemPos = $elem.offset().top + parseInt($elem.height() / 2);
+        if (!$sibling || $sibling.hasClass('glass-no-edit') || $sibling.hasClass('glass-control')) {
+          $sibling = $module.editor().newModule('glass-module-p', before_or_after, $module).element();
+        }
+
+        var elemPos = $sibling.offset().top + parseInt($sibling.height() / 2);
+
+        $module.editor().parentModule($sibling).focus();
 
         if (elemPos < $(window).scrollTop() || elemPos > $(window).scrollTop() + $(window).height()) {
-          scrollTo($new_p.element());
+          scrollTo($sibling);
         }
       });
     }
