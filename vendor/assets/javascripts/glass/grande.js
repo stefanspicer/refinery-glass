@@ -378,13 +378,13 @@
             ["ul", "ol"].indexOf(insertedNode.nodeName.toLocaleLowerCase()) >= 0 &&
             ["p", "div"].indexOf(insertedNode.parentNode.nodeName.toLocaleLowerCase()) >= 0;
 
-    if (unwrap) {
-      node = sel.anchorNode;
-      parent = insertedNode.parentNode;
-      parent.parentNode.insertBefore(insertedNode, parent);
-      parent.parentNode.removeChild(parent);
-      moveCursorToBeginningOfSelection(sel, node);
-    }
+    //if (unwrap) {
+    //  node = sel.anchorNode;
+    //  parent = insertedNode.parentNode;
+    //  parent.parentNode.insertBefore(insertedNode, parent);
+    //  parent.parentNode.removeChild(parent);
+    //  moveCursorToBeginningOfSelection(sel, node);
+    //}
   }
 
   function moveCursorToBeginningOfSelection(selection, node) {
