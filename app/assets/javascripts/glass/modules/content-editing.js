@@ -130,8 +130,9 @@ var GlassContentEditing = (function ($) {
     };
 
     this.tabTo = function(next_chunk) {
+      var ch_type = this.option('type');
       this.ch.elem.keydown(function(e) {
-        if (e && e.which == 9) { // TAB key - go to next editable
+        if ((e && e.which == 9) || (ch_type == 'text' && e && e.which == 13)) { // TAB or ENTER key - go to next editable
           e.preventDefault();
           next_chunk.ch.elem.focus();
           return false;
@@ -272,12 +273,12 @@ var GlassContentEditing = (function ($) {
 
     this.parentModule = function($elem) {
       var $parent_module = null;
-      if ($elem.hasClass('glass-control') || $elem.parents('.glass-control').length > 0 || $elem.parents('.glass-edit').length == 0) {
+      if ($elem.hasClass('glass-control') || $elem.parents('.glass-control').length > 0 || $elem.parents('.glass-edit-html').length == 0) {
         // It is within a control section, or is outside of the editor "chunk"
         return null;
       }
 
-      var $parent_elem = $elem.parent().hasClass('glass-edit') ? $elem : $elem.parents('.glass-edit > *');
+      var $parent_elem = $elem.parent().hasClass('glass-edit-html') ? $elem : $elem.parents('.glass-edit-html > *');
 
       if ($parent_elem) {
         $parent_module = $parent_elem.glassHtmlModule(this);
