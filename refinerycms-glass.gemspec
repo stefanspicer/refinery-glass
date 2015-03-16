@@ -14,6 +14,4 @@ Gem::Specification.new do |s|
   # Runtime dependencies
   s.add_dependency             'refinerycms-core',     '~> 2.1.2'
   s.add_dependency             'refinerycms-settings', '~> 2.1.1'
-  s.add_dependency             'momentjs-rails',       '>= 2.8.1'
-  s.add_dependency             'bootstrap3-datetimepicker-rails', '~> 4.0.0'
 end
