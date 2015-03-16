@@ -7,10 +7,12 @@
   color: $grey-5;
 }
 
+/*
 [contenteditable=true] p.empty:before{
   content: 'New Paragraph...';
   position: absolute;
 }
+*/
 
 [contenteditable=true] p.empty{
   min-height: 20px;
