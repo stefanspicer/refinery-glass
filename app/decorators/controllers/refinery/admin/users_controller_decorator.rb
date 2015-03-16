@@ -97,8 +97,8 @@ Refinery::Admin::UsersController.class_eval do
   def get_emails
     begin
       users = Refinery::User.select('email')
-      if params[:email].present?
-        users = users.where('email != ?', [params[:email]])
+      if params[:user_id].present?
+        users = users.where("id NOT IN ('#{params[:user_id]}')").select('email')
       end
       render json: {collection: users.map!{|u| u.email.downcase} }, status: 200
     rescue Exception => e
@@ -111,7 +111,7 @@ Refinery::Admin::UsersController.class_eval do
     begin
       users = Refinery::User.select('username')
       if params[:username].present?
-        users = users.where('username != ?', [params[:username]])
+        users = users.where("username NOT IN ('#{params[:username].strip}')").select('username')
       end
       render json: {collection: users.map!{|u| u.username.downcase} }, status: 200
     rescue Exception => e

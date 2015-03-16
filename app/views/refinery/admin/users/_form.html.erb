@@ -24,7 +24,7 @@
   <%= yield :after_username %>
 
   <div class='form-group'>
-    <%= f.text_field :email, :class => 'form-control input-lg', :placeholder => 'Email','data-validate'=>'unique_value,email,required_w_name', 'data-val-field' => 'email', 'data-unique-collection-url' => "#{refinery.admin_emails_path @user.email}"  %>
+    <%= f.text_field :email, :class => 'form-control input-lg', :placeholder => 'Email','data-validate'=>'unique_value,email,required_w_name', 'data-val-field' => 'email', 'data-unique-collection-url' => "#{refinery.admin_emails_path(@user.id)}"  %>
     <div class="tip text-danger"></div>
   </div>
   <% if @edit_user.present? %>
