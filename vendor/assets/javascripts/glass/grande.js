@@ -96,6 +96,8 @@
     //  }, 1);
     //};
 
+    document.onkeydown = preprocessKeyDown;
+
     document.onkeyup = function(event){
       var sel = window.getSelection();
 
@@ -266,13 +268,30 @@
     });
   }
 
+  function preprocessKeyDown(event) {
+    var sel = window.getSelection(),
+        parentParagraph = getParentWithTag(sel.anchorNode, "p"),
+        p,
+        isHr;
+
+    if (event.keyCode === 13 && parentParagraph) {
+      prevSibling = parentParagraph.previousSibling;
+      isHr = prevSibling && prevSibling.nodeName === "HR" &&
+        !parentParagraph.textContent.length;
+
+      // Stop enters from creating another <p> after a <hr> on enter
+      if (isHr) {
+        event.preventDefault();
+      }
+    }
+  }
+
   function triggerNodeAnalysis(event) {
     var sel = window.getSelection(),
         anchorNode,
         parentParagraph;
 
     if (event.keyCode === 13) {
-
       // Enters should replace it's parent <div> with a <p>
       if (sel.anchorNode.nodeName === "DIV") {
         toggleFormatBlock("p");
@@ -293,15 +312,10 @@
         hr;
 
     prevSibling = parentParagraph.previousSibling;
-    prevPrevSibling = prevSibling;
-
-    while (prevPrevSibling) {
-      if (prevPrevSibling.nodeType != Node.TEXT_NODE) {
-        break;
-      }
-
-      prevPrevSibling = prevPrevSibling.previousSibling;
+    if (prevSibling.nodeName === "A") {
+      prevSibling = prevSibling.previousSibling;
     }
+    prevPrevSibling = prevSibling.previousSibling;
 
     if (prevSibling.nodeName === "P" && !prevSibling.textContent.length && prevPrevSibling.nodeName !== "HR") {
       hr = document.createElement("hr");
