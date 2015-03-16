@@ -1,6 +1,4 @@
-<div class="row">
-  <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 margin-bottom-xs">
-    <h2 class="admin-title hide-in-modal"><%= @user.id.present? ? "#{@user.username}'s Profile" : 'Add A New Admin' %></h2>
+<h2 class="admin-title hide-in-modal"><%= @user.id.present? ? "#{@user.username}'s Profile" : 'Add A New Admin' %></h2>
 
 <%
   html_options = {
@@ -15,10 +13,14 @@
              :object => @user,
              :include_object_name => true %>
 
+  <%= render 'customize_form', :f => f %>
+
   <div class='form-group'>
     <%= f.label :username, "Username for login" %>
     <%= f.text_field :username, :placeholder => 'Username', :class => 'form-control input-lg' %>
   </div>
+
+  <%= yield :after_username %>
 
   <div class='form-group'>
     <%= f.text_field :email, :class => 'form-control input-lg', :placeholder => 'Email' %>
@@ -38,7 +40,10 @@
       <%= f.password_field :password_confirmation, :autocomplete => 'off', :class => 'form-control input-lg' %>
     </div>
   <% end %>
-  <div class='form-group plugin_access' style="<%= current_refinery_user.has_role?(:superuser) ? '' : 'display: none;' %>"> 
+
+  <%= yield :before_plugin_access %>
+
+  <div class='form-group plugin_access'>
     <span class='label_with_help'>
       <%= f.label :plugin_access, t('.plugin_access'), :class => "title_label" %>
       <%= link_to "(#{t('.enable_all')})", "", :id => "user_plugins_enable_all" %>
@@ -91,9 +96,6 @@
              :delete_title => t('delete', :scope => 'refinery.admin.users'),
              :delete_confirmation => t('message', :scope => 'refinery.admin.delete', :title => @user.username) %>
 <% end %>
-
-  </div>
-</div>
 
 <%= render 'refinery/admin/users/submenu' %>
 
