@@ -35,4 +35,5 @@
 //= require glass/grande
 // # require glass/react/reactize.min
 //= require canvas/modules/watchforchanges
+//= require canvas/modules/scroll
 //= require_tree ./modules

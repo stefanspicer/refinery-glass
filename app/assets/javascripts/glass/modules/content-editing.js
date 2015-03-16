@@ -407,7 +407,7 @@ var GlassContentEditing = (function ($) {
         $module_html.removeAttr('id'); //The id only stays on the one in the parking
       }
       else if (module_id == 'glass-module-p') {
-        $module_html = $('<p />');
+        $module_html = $('<p><br></p>');
       }
       return $module_html;
     };
@@ -450,6 +450,14 @@ var GlassContentEditing = (function ($) {
         }
         $element.find('.click-pad.bottom').css('height',       sp_bottom + 'px');
         $element.find('.click-pad.bottom').css('bottom', '-' + sp_bottom + 'px');
+
+        var sp_top = parseInt($module.element().css("margin-top" ).replace("px", ""));
+        //sp_top    += parseInt($module.element().css("padding-top").replace("px", ""));
+        if (sp_top < 20) {
+          sp_top = 20;
+        }
+        $element.find('.click-pad.top').css('height',    sp_top + 'px');
+        $element.find('.click-pad.top').css('top', '-' + sp_top + 'px');
       }
 
       this.c.module = $module;
@@ -551,6 +559,13 @@ var GlassContentEditing = (function ($) {
         }
         var $module   = this_control.module();
         var $new_p    = $module.editor().newModule('glass-module-p', before_or_after, $module);
+
+        var $elem = $new_p.element();
+        var elemPos = $elem.offset().top + parseInt($elem.height() / 2);
+
+        if (elemPos < $(window).scrollTop() || elemPos > $(window).scrollTop() + $(window).height()) {
+          scrollTo($new_p.element());
+        }
       });
     }
 
