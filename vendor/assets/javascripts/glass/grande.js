@@ -13,7 +13,7 @@
       textMenu,
       optionsNode,
       urlInput,
-      previouslySelectedText,
+      //previouslySelectedText,
       imageTooltip,
       imageInput,
       imageBound;
@@ -426,7 +426,7 @@
 
     optionsNode.className = "highlight-menu-inner";
     window.getSelection().removeAllRanges();
-    window.getSelection().addRange(previouslySelectedText);
+    //window.getSelection().addRange(previouslySelectedText);
 
     //document.execCommand("unlink", false);
 
@@ -476,7 +476,7 @@
         document.execCommand("createLink", false, "/temporary");
       }
 
-      previouslySelectedText = window.getSelection().getRangeAt(0);
+      //previouslySelectedText = window.getSelection().getRangeAt(0);
 
       urlInput.focus();
     }, 150);
