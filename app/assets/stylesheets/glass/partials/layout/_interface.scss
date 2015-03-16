@@ -856,6 +856,32 @@ body{
   }
 }
 
+.ui-autocomplete{
+  border-radius: 0;
+  border: none;
+  box-shadow: $shadow;
+  padding-top: 5px;
+  max-height: 300px;
+  overflow-y: auto;
+  .ui-menu-item{
+    font-size: 18px;
+    font-weight: normal;
+    padding: 5px 12px;
+    transition: 0;
+    border: none;
+    font-family: $primary-font;
+  }
+  .ui-state-focus{
+    color: $white;
+    background: $primary-hover;
+    border: none;
+  } 
+  .gcicon{
+    color: $grey-3;
+  }
+}
+
+
 .sticky-logout{
   position: fixed;
   top: 15px;
