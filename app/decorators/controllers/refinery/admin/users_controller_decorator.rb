@@ -94,6 +94,31 @@ Refinery::Admin::UsersController.class_eval do
     render view: 'refinery/admin/users/update_password', layout: 'refinery/layouts/login'
   end
 
+  def get_emails
+    begin
+      users = Refinery::User.select('email')
+      if params[:email].present?
+        users = users.where('email != ?', [params[:email]])
+      end
+      render json: {collection: users.map!{|u| u.email.downcase} }, status: 200
+    rescue Exception => e
+      logger.warn(e)
+      render json: {message: e.message}, status: 500
+    end
+  end
+
+  def get_usernames
+    begin
+      users = Refinery::User.select('username')
+      if params[:username].present?
+        users = users.where('username != ?', [params[:username]])
+      end
+      render json: {collection: users.map!{|u| u.username.downcase} }, status: 200
+    rescue Exception => e
+      logger.warn(e)
+      render json: {message: e.message}, status: 500
+    end
+  end
 protected
 
 

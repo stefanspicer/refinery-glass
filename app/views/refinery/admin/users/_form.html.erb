@@ -17,13 +17,15 @@
 
   <div class='form-group'>
     <%= f.label :username, "Username for login" %>
-    <%= f.text_field :username, :placeholder => 'Username', :class => 'form-control input-lg' %>
+    <%= f.text_field :username, :placeholder => 'Username', :class => 'form-control input-lg','data-validate'=>'unique_value,required_w_name', 'data-val-field' => 'username', 'data-unique-collection-url' => "#{refinery.admin_usernames_path @user.username}"  %>
+    <div class="tip text-danger"></div>
   </div>
 
   <%= yield :after_username %>
 
   <div class='form-group'>
-    <%= f.text_field :email, :class => 'form-control input-lg', :placeholder => 'Email' %>
+    <%= f.text_field :email, :class => 'form-control input-lg', :placeholder => 'Email','data-validate'=>'unique_value,email,required_w_name', 'data-val-field' => 'email', 'data-unique-collection-url' => "#{refinery.admin_emails_path @user.email}"  %>
+    <div class="tip text-danger"></div>
   </div>
   <% if @edit_user.present? %>
     <div class='form-group'>
