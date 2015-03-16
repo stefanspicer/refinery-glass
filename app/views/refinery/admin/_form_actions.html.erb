@@ -61,7 +61,7 @@
 
 <div class='form-actions<%= ' sidebar-section no-border margin-top-sm' if in_sidebar %><%= ' form-actions-dialog' if from_dialog? %>'>
   <div class='<%= in_sidebar ? "sidebar-section-body" : "form-actions-left" %>'>
-    <%= button_tag "<i class='gcicon gcicon-publish'></i> <span>#{submit_button_text}</span>".html_safe,
+    <%= button_tag "#{'<i class="gcicon gcicon-publish"></i>' if in_sidebar} <span>#{submit_button_text}</span>".html_safe,
                    :type => :submit,
                    :id => submit_button_id,
                    :name => nil,
