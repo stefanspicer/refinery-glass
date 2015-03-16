@@ -15,7 +15,8 @@
 */
 
 [contenteditable=true] p.empty{
-  min-height: 20px;
+  min-height: 18px;
+  z-index: 0;
 }
 
 [contenteditable=true]{
