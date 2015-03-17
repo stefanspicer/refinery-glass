@@ -129,12 +129,21 @@ var GlassContentEditing = (function ($) {
       }
     };
 
+    this.focus = function() {
+      if (this.option('type') == 'text') {
+        this.ch.elem.focus();
+      }
+      else if (this.option('type') == 'html') {
+        this.ch.editor.focus();
+      }
+    };
+
     this.tabTo = function(next_chunk) {
       var ch_type = this.option('type');
       this.ch.elem.keydown(function(e) {
         if ((e && e.which == 9) || (ch_type == 'text' && e && e.which == 13)) { // TAB or ENTER key - go to next editable
           e.preventDefault();
-          next_chunk.ch.elem.focus();
+          next_chunk.focus();
           return false;
         }
       });
@@ -168,6 +177,17 @@ var GlassContentEditing = (function ($) {
         $module.element().addClass('selected-module');
         this.removeGlassControl();
       }
+    };
+
+    this.focus = function() {
+      var this_editor = this;
+      $.each(this_editor.modules(), function (i, $module) {
+        if (!$module.element().hasClass('glass-no-edit')) {
+          this_editor.triggerChangeFocus($module.element(), null);
+          $module.focus();
+          return false;
+        }
+      });
     };
 
     this.attachControl = function(key, $module) {
@@ -331,6 +351,10 @@ var GlassContentEditing = (function ($) {
       else if ($cur_elem.hasClass('empty') && $cur_elem.text().trim()) { // Not empty (but has the empty class)
         $cur_elem.removeClass('empty');
         this.removeGlassControl();
+      }
+
+      if (!$cur_elem.attr('contenteditable')) {
+        $cur_elem.attr('contenteditable', true);
       }
 
       return $module;

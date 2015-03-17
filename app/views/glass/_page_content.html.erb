@@ -11,7 +11,7 @@
     html_tag = content_type == 'html' ? 'div' : 'span'
   end
 
-  default_content   = content_type == 'html' ? '<p glass-placeholder="New paragraph..." class="empty"><br></p>' : ''
+  default_content   = content_type == 'html' ? '<p><br></p>' : ''
 %>
 
 <% content = @page.content_for("content#{part_num}".to_sym) %>

@@ -15,6 +15,11 @@
   }
 }
 
+[contenteditable=true] p.empty:first-of-type:before{
+  content: 'New paragraph...';
+  position: absolute;
+}
+
 [contenteditable=true] p.empty{
   min-height: 18px;
   z-index: 0;
