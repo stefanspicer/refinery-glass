@@ -165,10 +165,12 @@ var CanvasForms = (function ($) {
           $submit_btn.html('<i class="ui active inline inverted xs loader"></i> Sending');
           $submit_btn.attr('disabled', 'disabled');
         },
+
+        success: function(e, response, statusText, xhr, element) {
+          $form.trigger('form-submit-success', [e, response, statusText, xhr, element]);
+        },
+
         complete: function (xhr, status) {
-
-          $form.trigger('form-submit-complete');
-
           if ($form.hasClass('mailchimp')) {
             $form.find('input[type="email"]').val('Thank you!');
             return;
