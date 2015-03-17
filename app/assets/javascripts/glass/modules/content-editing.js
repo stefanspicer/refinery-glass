@@ -346,7 +346,7 @@ var GlassContentEditing = (function ($) {
 
       if (newly_empty) {
         $cur_elem.addClass('empty');
-        this.attachControl('module-switcher');
+        //this.attachControl('module-switcher');
       }
       else if ($cur_elem.hasClass('empty') && $cur_elem.text().trim()) { // Not empty (but has the empty class)
         $cur_elem.removeClass('empty');
