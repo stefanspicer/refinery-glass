@@ -4,14 +4,10 @@
 var GlassContentEditing = (function ($) {
 
   $(document).on('content-ready', function (e, element) {
-    $(element).find('#page-preview').find('a').click(function(e){
+    $(element).find('#page-preview').find('a').unbind('click').click(function(e){
       e.preventDefault();
-      console.log('You tried to click a link on a preview page but are being prevented from visiting it so that you ' +
-        'don\'t accidently travel away from the page you are editing. \nIf you would like to allow links to be clicked just comment out the code in ' +
-        '"refinery-glass" branch, file: "content-editing.js". \nIf you wish for this console log to no longer display' +
-        'comment it out there as well.');
-
     });
+    removeShareThisClasses();
   });
 
   $.fn.extend({
@@ -53,7 +49,7 @@ var GlassContentEditing = (function ($) {
         this.data('glass-control', control);
       }
       return control;
-    },
+    }
   });
 
   // JQuery seems to get in the way here.. need to add event to raw DOM element
@@ -69,6 +65,18 @@ var GlassContentEditing = (function ($) {
         alert("Sorry, you will need a different browser in order to paste content"); // FIXME
       }
     });
+  }
+
+  function removeShareThisClasses(){
+    var buttonClasses = ['addthis_button_facebook', 'addthis_button_twitter', 'addthis_button_google_plusone_share', 'addthis_button_email'];
+    var $element;
+
+    for(var i in buttonClasses){
+      $element = $('#page-preview').find('.'+ buttonClasses[i]);
+      if($element.length > 0){
+        $element.removeClass(buttonClasses[i]);
+      }
+    }
   }
 
   // #############################################################
