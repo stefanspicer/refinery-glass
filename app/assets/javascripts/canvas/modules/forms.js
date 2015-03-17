@@ -180,9 +180,11 @@ var CanvasForms = (function ($) {
           }
 
           if (status !== 'success') {
-            if(xhr.responseJSON.message !== undefined){
-
+            if(xhr.responseJSON && xhr.responseJSON.message !== undefined){
               $(selector).append(['<div id="errorExplanation" class="errorExplanation text-center">',xhr.responseJSON.message,'</div>'].join(''));
+            }
+            else {
+              $(selector).append(['<div id="errorExplanation" class="errorExplanation text-center"><p>Uh oh... This never happened while we were testing! Time to call in a developer to fix this.</p></div>'].join(''));
             }
             return;
           }
