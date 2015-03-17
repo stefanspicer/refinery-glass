@@ -856,6 +856,28 @@ body{
   }
 }
 
+.mini-lesson{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 60px;
+  .portrait{
+    margin-right: 45px;
+    img{
+      max-width: 120px;
+    }
+  }
+  .message{
+    flex: 1;
+    .close{
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 18px;
+    }
+  }
+}
+
 .ui-autocomplete{
   border-radius: 0;
   border: none;
@@ -880,7 +902,6 @@ body{
     color: $grey-3;
   }
 }
-
 
 .sticky-logout{
   position: fixed;
