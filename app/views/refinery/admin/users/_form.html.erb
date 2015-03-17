@@ -45,52 +45,63 @@
 
   <%= yield :before_plugin_access %>
 
-  <div class='form-group plugin_access'>
-    <span class='label_with_help'>
-      <%= f.label :plugin_access, t('.plugin_access'), :class => "title_label" %>
-      <%= link_to "(#{t('.enable_all')})", "", :id => "user_plugins_enable_all" %>
-    </span>
-    <ul id='plugins' class='checkboxes'>
-      <% @available_plugins.each do |plugin| -%>
-        <% if Refinery::Plugins.always_allowed.names.include?(plugin[:name]) or
-              (plugin[:name] == 'refinery_users' && @user.id == current_refinery_user.id) %>
-          <%= hidden_field_tag 'user[plugins][]', plugin[:name],
-                               :id => "plugins_#{plugin[:name]}" %>
-        <% else %>
-          <li>
-            <%= check_box_tag 'user[plugins][]', plugin[:name],
-                              @selected_plugin_names.include?(plugin[:name]),
-                              :id => "plugins_#{plugin[:name]}" %>
-            <%= f.label 'user[plugins][]',
-                        t('title', :scope => "refinery.plugins.#{plugin[:name].downcase}", :default => plugin[:title]),
-                        :class => "stripped",
-                        :for => "plugins_#{plugin[:name]}" %>
-          </li>
-        <% end %>
-      <% end %>
-    </ul>
-  </div>
+  <% if current_refinery_user.has_role?(:superuser) %>
+    <button type="button" class="collapse-toggle collapsed" data-toggle="collapse" data-target="#admin-advanced" aria-expanded="true" aria-controls="demo">
+      Advanced Settings
+    </button>
+  <% end %>
 
-  <% if current_refinery_user.has_role?(:superuser) && Refinery::Authentication.superuser_can_assign_roles %>
-    <div class='form-group role_access'>
+  <div class="well collapse" id="admin-advanced">
+    <%= yield :advanced_settings %>
+
+    <div class='form-group plugin_access'>
       <span class='label_with_help'>
-        <%= f.label :role_access, t('.role_access'), :class => "title_label" %>
+        <%= f.label :plugin_access, t('.plugin_access'), :class => "title_label" %>
+        <%= link_to "(#{t('.enable_all')})", "", :id => "user_plugins_enable_all" %>
       </span>
-      <ul id='roles' class='checkboxes'>
-        <% @available_roles.each do |role|
-          downcased_title = (title = role[:title]).downcase -%>
-          <li>
-            <%= check_box_tag 'user[roles][]', downcased_title, @user.has_role?(title),
-                              :id => "roles_#{downcased_title}" %>
-            <%= f.label 'user[roles][]',
-                        t(downcased_title, :scope => 'refinery.roles', :default => title),
-                        :class => 'stripped',
-                        :for => "roles_#{downcased_title}" %>
-          </li>
+      <ul id='plugins' class='checkboxes'>
+        <% @available_plugins.each do |plugin| -%>
+          <% if Refinery::Plugins.always_allowed.names.include?(plugin[:name]) or
+                (plugin[:name] == 'refinery_users' && @user.id == current_refinery_user.id) %>
+            <%= hidden_field_tag 'user[plugins][]', plugin[:name],
+                                 :id => "plugins_#{plugin[:name]}" %>
+          <% else %>
+            <li>
+              <%= check_box_tag 'user[plugins][]', plugin[:name],
+                                @selected_plugin_names.include?(plugin[:name]),
+                                :id => "plugins_#{plugin[:name]}" %>
+              <%= f.label 'user[plugins][]',
+                          t('title', :scope => "refinery.plugins.#{plugin[:name].downcase}", :default => plugin[:title]),
+                          :class => "stripped",
+                          :for => "plugins_#{plugin[:name]}" %>
+            </li>
+          <% end %>
         <% end %>
       </ul>
     </div>
-  <% end %>
+
+    <% if current_refinery_user.has_role?(:superuser) && Refinery::Authentication.superuser_can_assign_roles %>
+      <div class='form-group role_access'>
+        <span class='label_with_help'>
+          <%= f.label :role_access, t('.role_access'), :class => "title_label" %>
+        </span>
+        <ul id='roles' class='checkboxes'>
+          <% @available_roles.each do |role|
+            downcased_title = (title = role[:title]).downcase -%>
+            <li>
+              <%= check_box_tag 'user[roles][]', downcased_title, @user.has_role?(title),
+                                :id => "roles_#{downcased_title}" %>
+              <%= f.label 'user[roles][]',
+                          t(downcased_title, :scope => 'refinery.roles', :default => title),
+                          :class => 'stripped',
+                          :for => "roles_#{downcased_title}" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+
   <%= render '/refinery/admin/form_actions', :f => f,
              :continue_editing => false,
              :submit_button_text => @submit_button_text ||= 'Send Invitation',
