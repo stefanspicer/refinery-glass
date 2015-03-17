@@ -809,6 +809,10 @@ ul li{
   overflow-y: scroll;
 }
 
+.ellipsis{
+  @include ellipsis(100%);
+}
+
 
 /* -------------------- FORMS -------------------- */
 
