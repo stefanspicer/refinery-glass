@@ -109,9 +109,6 @@
 .gcicon-unlocked:before {
   content: "K";
 }
-.gcicon-down:before {
-  content: "L";
-}
 .gcicon-down-lg:before {
   content: "M";
 }
@@ -225,4 +222,22 @@
 }
 .gcicon-caret-right:before {
   content: ".";
+}
+.gcicon-clock:before {
+  content: "/";
+}
+.gcicon-up:before {
+  content: ":";
+}
+.gcicon-left:before {
+  content: ";";
+}
+.gcicon-right:before {
+  content: "<";
+}
+.gcicon-down:before {
+  content: "L";
+}
+.gcicon-crosshair:before {
+  content: "=";
 }
