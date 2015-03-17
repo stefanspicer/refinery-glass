@@ -129,11 +129,21 @@ var GlassContentEditing = (function ($) {
       }
     };
 
+    this.focus = function() {
+      if (this.option('type') == 'text') {
+        this.ch.elem.focus();
+      }
+      else if (this.option('type') == 'html') {
+        this.ch.editor.focus();
+      }
+    };
+
     this.tabTo = function(next_chunk) {
+      var ch_type = this.option('type');
       this.ch.elem.keydown(function(e) {
-        if (e && e.which == 9) { // TAB key - go to next editable
+        if ((e && e.which == 9) || (ch_type == 'text' && e && e.which == 13)) { // TAB or ENTER key - go to next editable
           e.preventDefault();
-          next_chunk.ch.elem.focus();
+          next_chunk.focus();
           return false;
         }
       });
@@ -167,6 +177,17 @@ var GlassContentEditing = (function ($) {
         $module.element().addClass('selected-module');
         this.removeGlassControl();
       }
+    };
+
+    this.focus = function() {
+      var this_editor = this;
+      $.each(this_editor.modules(), function (i, $module) {
+        if (!$module.element().hasClass('glass-no-edit')) {
+          this_editor.triggerChangeFocus($module.element(), null);
+          $module.focus();
+          return false;
+        }
+      });
     };
 
     this.attachControl = function(key, $module) {
@@ -272,12 +293,12 @@ var GlassContentEditing = (function ($) {
 
     this.parentModule = function($elem) {
       var $parent_module = null;
-      if ($elem.hasClass('glass-control') || $elem.parents('.glass-control').length > 0 || $elem.parents('.glass-edit').length == 0) {
+      if ($elem.hasClass('glass-control') || $elem.parents('.glass-control').length > 0 || $elem.parents('.glass-edit-html').length == 0) {
         // It is within a control section, or is outside of the editor "chunk"
         return null;
       }
 
-      var $parent_elem = $elem.parent().hasClass('glass-edit') ? $elem : $elem.parents('.glass-edit > *');
+      var $parent_elem = $elem.parent().hasClass('glass-edit-html') ? $elem : $elem.parents('.glass-edit-html > *');
 
       if ($parent_elem) {
         $parent_module = $parent_elem.glassHtmlModule(this);
@@ -332,6 +353,10 @@ var GlassContentEditing = (function ($) {
         this.removeGlassControl();
       }
 
+      if (!$cur_elem.attr('contenteditable')) {
+        $cur_elem.attr('contenteditable', true);
+      }
+
       return $module;
     };
 
@@ -383,6 +408,11 @@ var GlassContentEditing = (function ($) {
         range.setStart(this.m.elem[0], 0);
         range.setEnd(this.m.elem[0], 0);
         window.getSelection().addRange(range);
+
+        var elemPos = this.m.elem.offset().top + parseInt(this.m.elem.height() / 2);
+        if (elemPos < $(window).scrollTop() || elemPos > $(window).scrollTop() + $(window).height()) {
+          scrollTo(this.m.elem);
+        }
       }
       //this.m.editor.setCurModule(this);
     };
@@ -553,19 +583,21 @@ var GlassContentEditing = (function ($) {
 
     if (this.element().hasClass('click-pads')) {
       this.element().find('.click-pad').click(function (e) {
-        var before_or_after = 'after';
-        if ($(this).hasClass('top') || $(this).hasClass('left')) {
-          before_or_after = 'before';
-        }
         var $module   = this_control.module();
-        var $new_p    = $module.editor().newModule('glass-module-p', before_or_after, $module);
+        var before = $(this).hasClass('top') || $(this).hasClass('left');
+        var before_or_after = before ? 'before'                 : 'after';
+        var $sibling_elem   = before ? $module.element().prev() : $module.element().next();
+        var $sibling;
 
-        var $elem = $new_p.element();
-        var elemPos = $elem.offset().top + parseInt($elem.height() / 2);
-
-        if (elemPos < $(window).scrollTop() || elemPos > $(window).scrollTop() + $(window).height()) {
-          scrollTo($new_p.element());
+        if ($sibling_elem.length == 0 || $sibling_elem.hasClass('glass-no-edit') || $sibling_elem.hasClass('glass-control')) {
+          $sibling = $module.editor().newModule('glass-module-p', before_or_after, $module);
+          $sibling_elem = $sibling.element();
         }
+        else {
+          $sibling = $module.editor().parentModule($sibling);
+        }
+
+        $sibling.focus();
       });
     }
 

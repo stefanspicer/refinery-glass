@@ -1,19 +1,29 @@
 /* -------------------- EDITOR -------------------- */
 
-[contenteditable=true]:empty:before,
-[contenteditable=true] p.empty:before{
-  content: attr(glass-placeholder);
-  display: block; /* For Firefox */
-  color: $grey-5;
+[contenteditable=true]:empty,
+[contenteditable=true] .empty{
+  &:before{
+    content: attr(glass-placeholder);
+    display: block; /* For Firefox */
+    color: $grey-5;
+    transition: .15s ease-out;
+    cursor: text;
+  }
+  &:focus{
+    &:before{
+      color: $grey-4;
+    }
+  }
 }
 
-[contenteditable=true] p.empty:before{
-  content: 'New Paragraph...';
+[contenteditable=true] p.empty:first-of-type:before{
+  content: 'New paragraph...';
   position: absolute;
 }
 
 [contenteditable=true] p.empty{
-  min-height: 20px;
+  min-height: 18px;
+  z-index: 0;
 }
 
 [contenteditable=true]{
@@ -39,6 +49,7 @@
   .add-module{
     position: absolute;
     left: -50px;
+    margin-top: -2px;
   }
   .new-module{
     display: block;
