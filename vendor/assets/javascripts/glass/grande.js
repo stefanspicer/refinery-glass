@@ -291,7 +291,7 @@
         anchorNode,
         parentParagraph;
 
-    if (event.keyCode === 13) {
+    if (event.keyCode === 13) { // || event.keyCode === 8) { // When first module is an <ol>
       // Enters should replace it's parent <div> with a <p>
       if (sel.anchorNode.nodeName === "DIV") {
         toggleFormatBlock("p");
@@ -376,15 +376,16 @@
 
     unwrap = insertedNode &&
             ["ul", "ol"].indexOf(insertedNode.nodeName.toLocaleLowerCase()) >= 0 &&
-            ["p", "div"].indexOf(insertedNode.parentNode.nodeName.toLocaleLowerCase()) >= 0;
+            ["p", "div"].indexOf(insertedNode.parentNode.nodeName.toLocaleLowerCase()) >= 0 &&
+            !$(insertedNode.parentNode).hasClass('glass-edit')
 
-    //if (unwrap) {
-    //  node = sel.anchorNode;
-    //  parent = insertedNode.parentNode;
-    //  parent.parentNode.insertBefore(insertedNode, parent);
-    //  parent.parentNode.removeChild(parent);
-    //  moveCursorToBeginningOfSelection(sel, node);
-    //}
+    if (unwrap) {
+      node = sel.anchorNode;
+      parent = insertedNode.parentNode;
+      parent.parentNode.insertBefore(insertedNode, parent);
+      parent.parentNode.removeChild(parent);
+      moveCursorToBeginningOfSelection(sel, node);
+    }
   }
 
   function moveCursorToBeginningOfSelection(selection, node) {
