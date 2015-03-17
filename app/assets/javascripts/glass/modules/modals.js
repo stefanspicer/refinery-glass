@@ -85,9 +85,9 @@ var GlassModals = (function ($) {
         var $form = $modal.find('form');
         $form.submit();
 
-        // Listen for 'form-submit-complete' event fired from
+        // Listen for 'form-submit-success' event fired from
         // CanvasForms after success.
-        $form.on('form-submit-complete',function(){
+        $form.on('form-submit-success', function(e, response, statusText, xhr, element) {
           // Remove form (Simple solution atm to remove image)
           successCallback();
           $modal.modal('hide');
