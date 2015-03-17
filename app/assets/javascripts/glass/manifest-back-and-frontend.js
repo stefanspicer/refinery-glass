@@ -12,6 +12,6 @@
 //= require canvas/modules/forms
 //= require canvas/modules/main
 //= require canvas/modules/carousel
-//= require canvas/semantic-ui/popup.min
+//= require canvas/bootstrap/popover
 //= require glass/moment.min
 //= require glass/bootstrap-datetimepicker
