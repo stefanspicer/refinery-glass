@@ -9,8 +9,9 @@ Refinery::Admin::UsersController.class_eval do
   # after_filter  :after_update_methods,   only: :update
 
   def create
-    params[:user][:password] = 'password'
-    params[:user][:password_confirmation] = 'password'
+    time = Time.new
+    params[:user][:password] = "lockedout_#{time.strftime("%Y-%m-%d")}"
+    params[:user][:password_confirmation] = "lockedout_#{time.strftime("%Y-%m-%d")}"
     @user = Refinery::User.new params[:user].except(:roles)
     @selected_plugin_names = params[:user][:plugins] || []
     @selected_role_names = params[:user][:roles] || []
