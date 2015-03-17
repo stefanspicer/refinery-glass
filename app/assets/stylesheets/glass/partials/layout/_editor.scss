@@ -3,10 +3,11 @@
 [contenteditable=true]:empty,
 [contenteditable=true] .empty{
   &:before{
-  content: attr(glass-placeholder);
-  display: block; /* For Firefox */
-  color: $grey-5;
-  transition: .15s ease-out;
+    content: attr(glass-placeholder);
+    display: block; /* For Firefox */
+    color: $grey-5;
+    transition: .15s ease-out;
+    cursor: text;
   }
   &:focus{
     &:before{

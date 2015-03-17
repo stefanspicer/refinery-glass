@@ -408,6 +408,11 @@ var GlassContentEditing = (function ($) {
         range.setStart(this.m.elem[0], 0);
         range.setEnd(this.m.elem[0], 0);
         window.getSelection().addRange(range);
+
+        var elemPos = this.m.elem.offset().top + parseInt(this.m.elem.height() / 2);
+        if (elemPos < $(window).scrollTop() || elemPos > $(window).scrollTop() + $(window).height()) {
+          scrollTo(this.m.elem);
+        }
       }
       //this.m.editor.setCurModule(this);
     };
@@ -578,30 +583,21 @@ var GlassContentEditing = (function ($) {
 
     if (this.element().hasClass('click-pads')) {
       this.element().find('.click-pad').click(function (e) {
-        var before_or_after = '';
         var $module   = this_control.module();
+        var before = $(this).hasClass('top') || $(this).hasClass('left');
+        var before_or_after = before ? 'before'                 : 'after';
+        var $sibling_elem   = before ? $module.element().prev() : $module.element().next();
         var $sibling;
 
-        if ($(this).hasClass('top') || $(this).hasClass('left')) {
-          before_or_after = 'before';
-          $sibling = $module.element().prev();
+        if ($sibling_elem.length == 0 || $sibling_elem.hasClass('glass-no-edit') || $sibling_elem.hasClass('glass-control')) {
+          $sibling = $module.editor().newModule('glass-module-p', before_or_after, $module);
+          $sibling_elem = $sibling.element();
         }
         else {
-          before_or_after = 'after';
-          $sibling = $module.element().next();
+          $sibling = $module.editor().parentModule($sibling);
         }
 
-        if (!$sibling || $sibling.hasClass('glass-no-edit') || $sibling.hasClass('glass-control')) {
-          $sibling = $module.editor().newModule('glass-module-p', before_or_after, $module).element();
-        }
-
-        var elemPos = $sibling.offset().top + parseInt($sibling.height() / 2);
-
-        $module.editor().parentModule($sibling).focus();
-
-        if (elemPos < $(window).scrollTop() || elemPos > $(window).scrollTop() + $(window).height()) {
-          scrollTo($sibling);
-        }
+        $sibling.focus();
       });
     }
 
