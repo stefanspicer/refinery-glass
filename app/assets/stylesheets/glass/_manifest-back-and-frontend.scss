@@ -50,8 +50,8 @@
 @import "glass/partials/components/browser-update";
 
 // BOOTSTRAP: Components w/ JavaScript
-@import "canvas/bootstrap/tooltip";
 @import "canvas/bootstrap/popovers";
+@import "canvas/bootstrap/tooltip";
 @import "canvas/bootstrap/carousel";
 
 // BOOTSTRAP: Utility classes
@@ -59,7 +59,7 @@
 @import "canvas/bootstrap/responsive-utilities";
 
 // SEMANTIC-UI: Components
-@import "canvas/semantic-ui/popup";
+// @import "canvas/semantic-ui/popup";
 @import "canvas/semantic-ui/modal";
 @import "canvas/semantic-ui/sidebar";
 @import "canvas/semantic-ui/dimmer";
