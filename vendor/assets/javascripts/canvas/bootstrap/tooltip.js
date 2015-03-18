@@ -463,15 +463,15 @@
 
   var old = $.fn.tooltip
 
-  $.fn.tooltip             = Plugin
-  $.fn.tooltip.Constructor = Tooltip
+  $.fn.bstooltip             = Plugin
+  $.fn.bstooltip.Constructor = Tooltip
 
 
   // TOOLTIP NO CONFLICT
   // ===================
 
-  $.fn.tooltip.noConflict = function () {
-    $.fn.tooltip = old
+  $.fn.bstooltip.noConflict = function () {
+    $.fn.bstooltip = old
     return this
   }
 
