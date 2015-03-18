@@ -72,11 +72,13 @@ Refinery::Admin::UsersController.class_eval do
         @user = Refinery::User.confirm_by_token(session[:cf])
 
         # clear session variables
-        session[:cf] = nil
-        session[:user_id] = nil
+        session.delete(:cf)
+        session.delete(:user_id)
+        session.delete(:confirmation_token)
 
         sign_out(current_refinery_user)
         sign_in(@user)
+
         return redirect_to refinery.admin_dashboard_path
       else
         update_successful
@@ -92,6 +94,7 @@ Refinery::Admin::UsersController.class_eval do
   end
 
   def update_password
+    cookies[:pass_errors] = nil if cookies[:pass_errors].present?
     render view: 'refinery/admin/users/update_password', layout: 'refinery/layouts/login'
   end
 

@@ -48,6 +48,7 @@ class Refinery::Glass::InvitationsController < ::ApplicationController
           end
         end
       end
-      cookies[:pass_errors] = nil
+      # clear cookie if it was set
+      cookies[:pass_errors] = nil if cookies[:pass_errors].present?
     end
 end
