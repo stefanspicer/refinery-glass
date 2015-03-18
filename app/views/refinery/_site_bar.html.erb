@@ -4,7 +4,7 @@
     <%= yield(:stylesheets) unless local_assigns[:head] || local_assigns[:exclude_css] %>
   <% end -%>
   
-  <nav class="navbar navbar-default navbar-fixed-top" id="site-bar" role="navigation">
+  <nav class="navbar navbar-default navbar-fixed-top <%= @additional_top_nav_classes if @additional_top_nav_classes %>" id="site-bar" role="navigation">
     <div class="container-fluid">
       <div class="site-link pull-left">
         <!-- <%= site_bar_switch_link -%> -->
