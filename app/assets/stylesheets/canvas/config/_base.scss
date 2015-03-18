@@ -289,6 +289,14 @@ p::-moz-selection {
   border: none !important;
 }
 
+.border-radius{
+  border-radius: $radius;
+}
+
+.border-radius-double{
+  border-radius: $radius-double;
+}
+
 
 
 /* -------------------- ELEMENTS -------------------- */
