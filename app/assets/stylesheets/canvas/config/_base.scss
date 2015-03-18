@@ -644,7 +644,7 @@ a.pill{
   border-radius: $radius;
   padding: 30px;
   p{
-    &:last-child{
+    &:last-of-type{
       margin-bottom: 0;
     }
   }
