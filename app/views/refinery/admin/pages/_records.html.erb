@@ -2,7 +2,7 @@
 <% if @pages.any? %>
   <%= render 'sortable_list' %>
 <% else %>
-  <div class="col-sm-12 text-center margin-top">
+  <div class="col-sm-12 text-center margin-top margin-bottom">
     <% unless searching? %>
       <h3 class="text-uppercase">
         <%= t('.no_pages_yet') %>
