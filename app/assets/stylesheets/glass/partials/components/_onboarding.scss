@@ -91,6 +91,16 @@
   hr{
     height: 2px;
   }
+  .lesson-body{
+  	hr{
+    	height: 4px;
+    	width: 150px;
+    	margin: 30px auto 45px;
+  	}
+   	.mini-lesson{
+    	margin-bottom: 30px;
+  	}
+	}
 	.large-label, .lesson h1 {
 		font-size: 32px;
 		color: $grey-6;
