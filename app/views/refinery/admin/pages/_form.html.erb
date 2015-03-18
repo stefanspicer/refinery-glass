@@ -38,10 +38,11 @@
     </div>
 
     <% if Refinery::Pages.use_custom_slugs %>
+      <% parent_slug = @page.parent.present? ? @page.parent.nested_path : '' %>
       <div class="sidebar-section">
         <div class="sidebar-section-heading">
           <div class="url">
-            <span id="domain-name"></span>/<span class="slug glass-edit" data-glass-options='{"form_id": "page_custom_slug", "slugify": "page_title"}'><%= @page.custom_slug %></span>/
+            <span id="domain-name"></span><%= parent_slug %>/<span class="slug glass-edit" data-glass-options='{"form_id": "page_custom_slug", "slugify": "page_title"}'><%= @page.custom_slug %></span>/
           </div>
         </div>
       </div>
