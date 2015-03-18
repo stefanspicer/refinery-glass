@@ -127,10 +127,40 @@ var GlassContentEditing = (function ($) {
       }
     };
 
+    this.element = function() {
+      return this.ch.elem;
+    };
+
+    this.syncContentChanges = function() {
+      var this_chunk = this;
+      var form_id = this_chunk.option('form_id');
+      var slugify = this_chunk.option('slugify');
+
+      if (form_id) {
+        this_chunk.element().keyup(function (e) {
+          $(document).trigger('content-changed/' + form_id, [this_chunk.element()]);
+        });
+        $(document).on('content-changed/' + form_id, function (e, $element) {
+          if ($element != this_chunk.element()) {
+            this_chunk.element().html($element.html());
+          }
+        });
+      }
+
+      if (slugify) {
+        $(document).on('content-changed/' + slugify, function (e, $element) {
+          if ($element != this_chunk.element()) {
+            this_chunk.element().html($element.text().trim().toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'-'));
+          }
+        });
+      }
+    };
+
     this.makeEditable = function() {
       if (this.option('type') == 'text') {
         this.ch.elem.attr('contenteditable', true);
         filterPasteEvents(this.ch.elem[0]);
+        this.syncContentChanges();
       }
       else if (this.option('type') == 'html') {
         this.ch.editor = this.ch.elem.glassHtmlEditor();
@@ -692,7 +722,11 @@ var GlassContentEditing = (function ($) {
       return;
     }
 
-    var $glass_editables = $container.find('.glass-edit');
+    // set #domain-name to the current domain
+    $(element).find('#domain-name').html('http://' + window.location.hostname);
+
+    // if there is a #page-preview somewhere, we'll grab all .glass-edit's (over in the sidebar too)
+    var $glass_editables = $(element).find('.glass-edit');
 
     var $form = null;
     var $prev_chunk = null;
