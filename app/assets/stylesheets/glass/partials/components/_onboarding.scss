@@ -48,14 +48,19 @@
       color: $grey-6;
       box-shadow: none;
       font-weight: 600;
+      .gcicon-check{
+        display: none;
+      }
       &:hover{
         color: $primary-hover;
         .gcicon{
           color: $primary-hover;
         }
-        .gcicon-check{
-          display: inline;
-        }
+      }
+    }
+    &.completed-step.active{
+      .gcicon-check{
+        display: inline;
       }
     }
   }
@@ -91,6 +96,16 @@
   hr{
     height: 2px;
   }
+  .lesson-body{
+  	hr{
+    	height: 4px;
+    	width: 150px;
+    	margin: 30px auto 45px;
+  	}
+   	.mini-lesson{
+    	margin-bottom: 30px;
+  	}
+	}
 	.large-label, .lesson h1 {
 		font-size: 32px;
 		color: $grey-6;
@@ -134,7 +149,7 @@
      line-height: 1.8 !important;
   }
   .onboarding-footer {
-		margin-top: 75px;
+		margin-top: 15px;
 		margin-bottom: 90px;
 		hr{
   		margin-bottom: 60px;
