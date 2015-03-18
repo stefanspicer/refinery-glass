@@ -227,7 +227,7 @@ body{
           outline: none;
         }
         &:empty{
-          width: 15px;
+          /* width: 15px; */
           border-color: $primary-dark;
         }
       }

@@ -33,42 +33,42 @@
 
     <div class="sidebar-section">
       <div class="sidebar-section-heading">
-        <div class="page-title" contenteditable="true">Page title</div>
+        <p class="page-title glass-edit" data-glass-options='{"form_id": "page_title"}' glass-placeholder="Title"><%= @page.title %></p>
       </div>
     </div>
 
     <% if Refinery::Pages.use_custom_slugs %>
       <div class="sidebar-section">
         <div class="sidebar-section-heading">
-          <div class="url">http://stpatsvan.com/<span class="slug" contenteditable="true">page-title</span>/</div>
+          <div class="url">
+            <span id="domain-name"></span>/<span class="slug glass-edit" data-glass-options='{"form_id": "page_custom_slug", "slugify": "page_title"}'><%= @page.custom_slug %></span>/
+          </div>
         </div>
       </div>
-      <div class='hidden FIXME'>
-        <span class='label_with_help'>
-          <%= f.label :custom_slug, t('.custom_slug') %>
-          <%= refinery_help_tag t('.custom_slug_help') %>
-        </span>
-        <%= f.text_field :custom_slug, :class => 'form-control input-lg' %>
-      </div>
+
+      <%= f.hidden_field :custom_slug %>
     <% end %>
 
-    <div class="sidebar-section no-border">
-      <button type="button" class="collapse-toggle collapsed" data-toggle="collapse" data-target="#template-collapse" aria-expanded="true" aria-controls="demo">
-        <div class="sidebar-section-heading">
-          <i class="gcicon gcicon-index"></i> <span class="flex-1">Page Template</span> <i class="gcicon gcicon-down"></i>
-        </div>
-      </button>
-      <div id="template-collapse" class="collapse">
-        <div class="sidebar-section-body">
-          <div class='form-group'>
-            <div class="dropdown-wrapper">
-              <%= f.select :view_template, @valid_view_templates.map { |t| [t.titleize, t] },
-                           template_options(:view_template, @page) %>
+    <% use_view_templates = Refinery::Pages.config.use_view_templates.nil? ? true : Refinery::Pages.config.use_view_templates %>
+    <% if use_view_templates || current_refinery_user.has_role?(:superuser) %>
+      <div class="sidebar-section no-border">
+        <button type="button" class="collapse-toggle collapsed" data-toggle="collapse" data-target="#template-collapse" aria-expanded="true" aria-controls="demo">
+          <div class="sidebar-section-heading">
+            <i class="gcicon gcicon-index"></i> <span class="flex-1">Page Template</span> <i class="gcicon gcicon-down"></i>
+          </div>
+        </button>
+        <div id="template-collapse" class="collapse">
+          <div class="sidebar-section-body">
+            <div class='form-group'>
+              <div class="dropdown-wrapper">
+                <%= f.select :view_template, @valid_view_templates.map { |t| [t.titleize, t] },
+                             template_options(:view_template, @page) %>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    <% end %>
 
     <%= yield :after_main_options %>
 
