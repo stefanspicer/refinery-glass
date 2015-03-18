@@ -48,13 +48,14 @@
       color: $grey-6;
       box-shadow: none;
       font-weight: 600;
+      .gcicon-check{
+        display: inline;
+        color: $grey-4;
+      }
       &:hover{
         color: $primary-hover;
         .gcicon{
           color: $primary-hover;
-        }
-        .gcicon-check{
-          display: inline;
         }
       }
     }
