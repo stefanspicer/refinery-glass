@@ -6,7 +6,7 @@ var Main = (function($){
   });
 
   var getUniqueSelector = function (node) {
-    if (node.length != 1) throw 'Requires one element.';
+    if (node.length !== 1) throw 'Requires one element.';
 
     var path;
     while (node.length) {
@@ -38,6 +38,7 @@ var Main = (function($){
     $(element).find('.btn-anchor').unbind('click').click(function (e) {
       e.preventDefault();
       var $btn = $(this);
+
       // if the btn has the class btn-anchor-outbound its url should be opened in a new window.
       if($btn.hasClass('btn-anchor-outbound')){
         window.open($btn.attr('data-url'));
@@ -45,6 +46,17 @@ var Main = (function($){
         window.location.href = $btn.attr('data-url');
       }
 
+    });
+
+    var $selectInput = $(element).find('.select-anchors');
+
+    $selectInput.change(function(e){
+      e.preventDefault();
+      if($selectInput.hasClass('anchors-outbound')){
+        window.open($selectInput.val());
+      } else {
+        window.location.href = $selectInput.val();
+      }
     });
   }
 
