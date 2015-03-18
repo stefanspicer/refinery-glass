@@ -606,6 +606,20 @@ a.pill{
   }
 }
 
+.tooltip{
+  .tooltip-inner{
+    background: $grey-5;
+    font-family: $primary-font;
+    padding: 10px 15px;
+    font-weight: 600;
+  }
+  &.top{
+    .tooltip-arrow{
+      border-top-color: $grey-5;
+    }
+  }
+}
+
 .message{
   background: $white;
   border-radius: $radius;
