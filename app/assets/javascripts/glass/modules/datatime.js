@@ -4,7 +4,15 @@
 
 var GlassDateTime = (function ($) {
   $(document).on('content-ready', function (e, element) {
-    $('.datetimepicker').datetimepicker();
+    $('.datetimepicker.default').datetimepicker({
+      useCurrent: true,
+      defaultDate: new Date()
+    });
+    $('.datetimepicker.side-by-side').datetimepicker({
+      sideBySide: true,
+      useCurrent: true,
+      defaultDate: new Date()
+    });
   });
 
   return {}
