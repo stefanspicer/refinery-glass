@@ -8,7 +8,7 @@
     <div class="sidebar-section">
       <button type="button" class="collapse-toggle collapsed" data-toggle="collapse" data-target="#status-collapse" aria-expanded="true" aria-controls="demo">
         <div class="sidebar-section-heading">
-          <i class="gcicon gcicon-pencil"></i> <span class="flex-1">Status: <strong>Draft</strong></span><i class="gcicon gcicon-down"></i>
+          <i class="gcicon gcicon-pencil"></i> <span class="flex-1">Status: <strong><%= @page.draft.nil? || @page.draft ? 'Draft' : 'Published' -%></strong></span><i class="gcicon gcicon-down"></i>
         </div>
       </button>
       <div id="status-collapse" class="collapse">
@@ -16,13 +16,13 @@
           <div class="form-group">
             <div class="radio">
               <label>
-                <input type="radio" name="status-published" id="status-published" value="option1" checked>
+                <%= f.radio_button('draft', false) %>
                 Published
               </label>
             </div>
             <div class="radio">
               <label>
-                <input type="radio" name="status-draft" id="status-draft" value="option2">
+                <%= f.radio_button('draft', true) %>
                 Draft
               </label>
             </div>
@@ -38,10 +38,11 @@
     </div>
 
     <% if Refinery::Pages.use_custom_slugs %>
+      <% parent_slug = @page.parent.present? ? @page.parent.nested_path : '' %>
       <div class="sidebar-section">
         <div class="sidebar-section-heading">
           <div class="url">
-            <span id="domain-name"></span>/<span class="slug glass-edit" data-glass-options='{"form_id": "page_custom_slug", "slugify": "page_title"}'><%= @page.custom_slug %></span>/
+            <span id="domain-name"></span><%= parent_slug %>/<span class="slug glass-edit" data-glass-options='{"form_id": "page_custom_slug", "slugify": "page_title"}'><%= @page.custom_slug %></span>/
           </div>
         </div>
       </div>
