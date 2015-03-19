@@ -83,6 +83,7 @@ var GlassModals = (function ($) {
       $saveBtn.unbind().click(function(e){
         e.preventDefault();
         var $form = $modal.find('form');
+        var $rightSidebar = $('#sidebar-right');
         $form.submit();
 
         // Listen for 'form-submit-success' event fired from
@@ -93,7 +94,9 @@ var GlassModals = (function ($) {
           $modal.modal('hide');
           $modalContent.find('#form-wrapper').remove();
           // reopen the right sidebar
-          $('#sidebar-right').sidebar('show');
+          if($rightSidebar.length > 0){
+            $rightSidebar.sidebar('show');
+          }
         });
       });
       $modal.modal('show');
