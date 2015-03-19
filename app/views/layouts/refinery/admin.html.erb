@@ -41,28 +41,26 @@ html
     <%= render partial: '/glass/stylesheets', locals: {admin: true} %>
   </head>
 
-  <body class="<%= yield :body_class %> <%= action_name %> <%= I18n.locale %> <%= 'small-sidebar' if !is_admin_preview_page && !@hide_main_nav %>">
+  <body class="<%= yield :body_class %> <%= action_name %> <%= I18n.locale %> small-sidebar">
     <%#= render '/glass/alerts_status' %>
     <%= render 'refinery/admin/custom_layout' %>
 
-    <% if !defined?(@hide_main_nav) || !@hide_main_nav %> 
-      <section id="sidebar-left" class="ui sidebar left overlay">
-        <div class="sidebar-top-nav">
-          <div class="site-name">
-            <% if content_for?(:custom_sidebar_header_link) %>
-              <%= yield :custom_sidebar_header_link %>
-            <% else %>
-              <i class="gcicon gcicon-glass-canvas hidden"></i> <%= link_to Refinery::Core.site_name, '/' %>
-            <% end %>
-          </div>
+    <section id="sidebar-left" class="ui sidebar left overlay">
+      <div class="sidebar-top-nav">
+        <div class="site-name">
+          <% if content_for?(:custom_sidebar_header_link) %>
+            <%= yield :custom_sidebar_header_link %>
+          <% else %>
+            <i class="gcicon gcicon-glass-canvas hidden"></i> <%= link_to Refinery::Core.site_name, '/' %>
+          <% end %>
         </div>
-        <div id="sidebar-left-inner">
-          <%= render 'refinery/admin/menu' %>
-        </div>
-        <%= link_to (t('.log_out', site_bar_translate_locale_args) + ' <i class="gcicon gcicon-log-out"></i>').html_safe,
-                    refinery.logout_path, :id => 'logout', :class => 'log-out' %>
-      </section>
-    <% end %>
+      </div>
+      <div id="sidebar-left-inner">
+        <%= render 'refinery/admin/menu' %>
+      </div>
+      <%= link_to (t('.log_out', site_bar_translate_locale_args) + ' <i class="gcicon gcicon-log-out"></i>').html_safe,
+                  refinery.logout_path, :id => 'logout', :class => 'log-out' %>
+    </section>
 
     <%= yield :body_top %>
 
@@ -79,18 +77,14 @@ html
     <% end %>
 
     <section id="wrapper" class="pusher">
-      <% if !defined?(@hide_main_nav) || !@hide_main_nav %> 
-        <a href="" class="sidebar-left-opener menu-link menu-link-left"><i class="gcicon gcicon-bars"></i></a>
-        <% if content_for?(:admin_sidebar) %>
-          <a href="" class="sidebar-right-opener menu-link menu-link-right"><i class="gcicon gcicon-publish"></i></a>
-        <% end %>
+      <% if content_for?(:admin_sidebar) %>
+        <a href="" class="sidebar-right-opener menu-link menu-link-right"><i class="gcicon gcicon-publish"></i></a>
       <% end %>
       <% if !current_refinery_user.has_role?(:superuser) %>
         <div id="flash_container" class="container-fluid">
           <div class="row">
             <div class="col-sm-12">
               <%= render '/refinery/no_script' %>
-              <%= render '/refinery/message' %>
             </div>
           </div>
         </div>
