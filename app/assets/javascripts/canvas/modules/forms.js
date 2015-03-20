@@ -193,7 +193,7 @@ var CanvasForms = (function ($) {
           xhr.done(function (data) {
             var replace_selector = $form.data('ajax-replace-selector');
             var $replace_form    = replace_selector ? $(data).find(replace_selector) : $(data).find(selector); // the same form in response, replace it
-            var $page_body       = $(data).find('#body_content');                                              // response is a page, use inner content
+            var $page_body       = $(data).find('#body_content, .glass-edit-html');                            // response is a page, use inner content
             var $error_response  = ($(data).attr('id') == 'errorExplanation') ? $(data) : $(data).find('#errorExplanation');
             var $modal           = $(selector).parents('.modal');
             var $replacement     = null;
@@ -210,7 +210,7 @@ var CanvasForms = (function ($) {
               $replacement = $replace_form;
             }
             else if ($page_body.length > 0) {
-              $replacement = $page_body;
+              $replacement = $page_body.first();
             }
             else if ($error_response.length > 0) {
               var $cur_error = $(selector + ' #errorExplanation');
