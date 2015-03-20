@@ -84,6 +84,59 @@
             }
           }
         }
+        &.no-edit{
+          .actions{
+            display: block;
+            .circle-icon{
+              border-color: $primary-color;
+                &:link{
+              color: $primary-color;
+              }
+              &:hover{
+                color: $white;
+                .gcicon{
+                  color: $white;
+                }
+              }
+              .gcicon{
+                color: $primary-color;
+              }
+            }
+            .add-child{
+              width: auto;
+              font-size: 14px;
+              .circle-icon{
+                width: auto;
+                padding: 0 10px;
+                .gcicon{
+                  font-size: 18px;
+                }
+              }
+            }
+          }
+          &:hover{
+            background: $white;
+            .gcicon{
+              color: $primary-color;
+            }
+            .page-title{
+              color: $grey-6;
+              .label{
+                background: $grey-3;
+                color: $white;
+              }
+            }
+            a.attribute{
+              color: $grey-6;
+              &:hover{
+                text-decoration: underline;
+              }
+            }
+          }
+          .date{
+            display: none;
+          }
+        }
         .child-toggle{
           margin-right: 10px;
           .status-icon{
@@ -196,7 +249,12 @@
         margin-bottom: 0;
         margin-left: 30px;
         .page-row{
-          background: lighten($off-white, 4%);
+          background: $white;
+        }
+        &:last-child{
+          .page-row{
+            margin-bottom: 4px;
+          }
         }
       }
       li .page-row{
