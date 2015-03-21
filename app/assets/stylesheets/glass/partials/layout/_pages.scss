@@ -314,9 +314,44 @@
     margin-bottom: 2px;
     padding: 10px 0;
     box-sizing: border-box;
+    &:before{
+      font-family: "refinery-glass" !important;
+      content: attr(data-icon);
+      font-style: normal !important;
+      font-weight: normal !important;
+      font-variant: normal !important;
+      text-transform: none !important;
+      speak: none;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      position: relative;
+      content: "h";
+      padding-left: 14px;
+      font-size: 18px;
+      top: 2px;
+      color: $grey-6;
+    }
     &:after{
       content: 'Move Here';
-      padding-left: 21px;
+      padding-left: 10px;
+      color: $grey-6;
+      font-size: 18px;
+    }
+  }
+  .reordering{
+    .page-row{
+      cursor: move !important;
+      &:before{
+        content: '';
+        position: absolute;
+        width: 6px;
+        border-left: 2px dotted $grey-2;
+        border-right: 2px dotted $grey-2;
+        height: calc(100% - 10px);
+        margin: 5px 3px;
+        left: 0;
+      }
     }
   }
 }
