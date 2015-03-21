@@ -77,7 +77,6 @@
 
 .ui.modal > .header {
   display: block;
-  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
   background: -webkit-linear-gradient(transparent, rgba(0, 0, 0, 0.05)) #ffffff;
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.05)) #ffffff;
   margin: 0em;
@@ -261,6 +260,12 @@
 }
 .ui.basic.modal > .header {
   color: #ffffff;
+  text-align: center;
+  font-size: 28px;
+}
+.ui.basic.modal .description {
+  text-align: center;
+  font-size: 14px;
 }
 .ui.basic.modal > .close {
   top: 1rem;

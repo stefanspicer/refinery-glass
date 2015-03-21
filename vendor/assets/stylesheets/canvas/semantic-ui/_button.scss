@@ -24,9 +24,8 @@
   vertical-align: baseline;
   background-color: #e0e0e0;
   color: rgba(0, 0, 0, 0.6);
-  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
   margin: 0em 0.25em 0em 0em;
-  padding: 0.78571em 1.5em 0.78571em;
+  padding: 1.5em;
   text-transform: none;
   text-shadow: none;
   font-weight: bold;
@@ -592,7 +591,7 @@
 .ui.buttons .button,
 .ui.buttons .or,
 .ui.button {
-  font-size: 1rem;
+  font-size: 14px;
 }
 .ui.large.buttons .button,
 .ui.large.buttons .or,
@@ -639,7 +638,7 @@
   background: transparent !important;
   background-image: none;
   color: rgba(0, 0, 0, 0.6) !important;
-  font-weight: normal;
+  font-weight: 600;
   border-radius: 0.2857rem;
   text-transform: none;
   text-shadow: none !important;
@@ -1467,8 +1466,9 @@
 .ui.inverted.green.basic.buttons .button:hover,
 .ui.inverted.green.buttons .basic.button:hover,
 .ui.inverted.green.basic.button:hover {
-  box-shadow: 0px 0px 0px 2px #2ecc40 inset !important;
-  color: #2ecc40 !important;
+  background-color: $green !important;
+  box-shadow: 0px 0px 0px 2px $green inset !important;
+  color: $white !important;
 }
 .ui.inverted.green.basic.buttons .active.button,
 .ui.inverted.green.buttons .basic.active.button,
@@ -1919,8 +1919,9 @@
 .ui.inverted.red.basic.buttons .button:hover,
 .ui.inverted.red.buttons .basic.button:hover,
 .ui.inverted.red.basic.button:hover {
-  box-shadow: 0px 0px 0px 2px #ff695e inset !important;
-  color: #ff695e !important;
+  background-color: $red !important;
+  box-shadow: 0px 0px 0px 2px $red inset !important;
+  color: $white !important;
 }
 .ui.inverted.red.basic.buttons .active.button,
 .ui.inverted.red.buttons .basic.active.button,
