@@ -66,20 +66,22 @@
                   :class => "circle-icon",
                   :title => t('new', :scope => 'refinery.admin.pages') %>
       </span>
-      
-      <span class="delete">
-        <%= link_to '<i class="gcicon gcicon-trash bump-up"></i>'.html_safe,
-                  refinery.admin_page_path(page.nested_url),
-                  :class => "cancel confirm-delete circle-icon",
-                  :title => t('delete', :scope => 'refinery.admin.pages'),
-                  :data => {
-                    :confirm => t('message',
-                      :scope => 'refinery.admin.delete',
-                      :title => page_title_with_translations(page)
-                    )
-                  },
-                  :method => :delete if page.deletable? %>
-      </span>
+
+      <% if page.deletable? %>
+        <span class="delete">
+          <%= link_to '<i class="gcicon gcicon-trash bump-up"></i>'.html_safe,
+                    refinery.admin_page_path(page.nested_url),
+                    :class => "cancel confirm-delete circle-icon",
+                    :title => t('delete', :scope => 'refinery.admin.pages'),
+                    :data => {
+                      :confirm => t('message',
+                        :scope => 'refinery.admin.delete',
+                        :title => page_title_with_translations(page)
+                      )
+                    },
+                    :method => :delete %>
+        </span>
+      <% end %>
     </span>
   </div>
     
