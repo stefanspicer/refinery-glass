@@ -1,4 +1,9 @@
-<% editable = !page.skip_to_first_child %>
+<%
+  editable = true
+  if !current_refinery_user.has_role?(:superuser) && page.respond_to?(:editable)
+    editable = page.editable
+  end
+%>
 
 <li id="<%= dom_id(page) -%>" class="page-listing">
   <div class="page-row <%= 'no-edit' unless editable %>" role="tab" id="parent-1">
@@ -53,28 +58,30 @@
       <%= page.created_at.strftime("%b %d, %Y") %>
     </span>
     
-    <span class='actions actions-col-2'>                 
+    <span class='actions actions-col-<%= editable ? 2 : 5 %>'>
       <span class="add-child">
-        <% add_subpage_txt = editable ? '' : 'Add Sub-Page' %>
+        <% add_subpage_txt = editable ? '' : 'Add Page' %>
         <%= link_to "<i class=\"gcicon gcicon-add\"></i> #{add_subpage_txt}".html_safe,
                   refinery.new_admin_page_path(:parent_id => page.id),
                   :class => "circle-icon",
                   :title => t('new', :scope => 'refinery.admin.pages') %>
       </span>
-      
-      <span class="delete">
-        <%= link_to '<i class="gcicon gcicon-trash bump-up"></i>'.html_safe,
-                  refinery.admin_page_path(page.nested_url),
-                  :class => "cancel confirm-delete circle-icon",
-                  :title => t('delete', :scope => 'refinery.admin.pages'),
-                  :data => {
-                    :confirm => t('message',
-                      :scope => 'refinery.admin.delete',
-                      :title => page_title_with_translations(page)
-                    )
-                  },
-                  :method => :delete if page.deletable? %>
-      </span>
+
+      <% if page.deletable? %>
+        <span class="delete">
+          <%= link_to '<i class="gcicon gcicon-trash bump-up"></i>'.html_safe,
+                    refinery.admin_page_path(page.nested_url),
+                    :class => "cancel confirm-delete circle-icon",
+                    :title => t('delete', :scope => 'refinery.admin.pages'),
+                    :data => {
+                      :confirm => t('message',
+                        :scope => 'refinery.admin.delete',
+                        :title => page_title_with_translations(page)
+                      )
+                    },
+                    :method => :delete %>
+        </span>
+      <% end %>
     </span>
   </div>
     
