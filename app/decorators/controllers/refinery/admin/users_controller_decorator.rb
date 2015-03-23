@@ -2,26 +2,30 @@ require "yaml"
 
 Refinery::Admin::UsersController.class_eval do
 
-  before_filter :filter_users,     :only => [:index]
+  before_filter :filter_users,             :only => [:index]
   skip_before_filter :restrict_controller, :only => [:update]
   before_filter :check_user,               :only => [:update]
+  before_filter :set_tmp_password,         :only => [:create]
+  before_filter :set_selections,           :only => [:create]
   # after_filter  :after_create_methods,   only: :create
   # after_filter  :after_update_methods,   only: :update
 
-  def create
+  def set_tmp_password
     time = Time.new
     params[:user][:password] = "lockedout_#{time.strftime("%Y-%m-%d")}"
     params[:user][:password_confirmation] = "lockedout_#{time.strftime("%Y-%m-%d")}"
-    @user = Refinery::User.new params[:user].except(:roles)
+  end
+
+  def set_selections
     @selected_plugin_names = params[:user][:plugins] || []
     @selected_role_names = params[:user][:roles] || []
+  end
 
-    @user[:inviting_user_name] = current_refinery_user.name.split.map(&:capitalize).join(' ') # capitalizes the first letter of each word
-
-    @user[:onboarding_name] = @user.name.split.map(&:capitalize).join(' ')
+  def create
+    @user = Refinery::User.new params[:user].except(:roles)
+    @user.inviting_user = current_refinery_user.username.split.map(&:capitalize).join(' ')
 
     if @user.save
-
       flash.now[:notice] = "Invitation sent to #{@user.email}"
       create_successful
     else
