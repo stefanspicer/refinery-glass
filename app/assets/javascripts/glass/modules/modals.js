@@ -10,12 +10,11 @@ var GlassModals = (function ($) {
    * Sets listeners for the open modal btn.
    * @param $openBtn - DOM Object
    * @param successCallback - Method to call on completion of something (typically a form being submitted)
-   * @param validationMethod - function() - A validation method to call on a form.
    */
-  function setOpenBtnListeners($openBtn, successCallback, validationMethod){
+  function setOpenBtnListeners($openBtn, successCallback){
     $openBtn.unbind('click').click(function(e){
       e.preventDefault();
-      openBtnClickHandler($openBtn, successCallback, validationMethod);
+      openBtnClickHandler($openBtn, successCallback);
     });
   }
 
@@ -24,9 +23,8 @@ var GlassModals = (function ($) {
    *
    * @param $openBtn         <DOM Object> - The button that was clicked
    * @param successCallback  <function>   - A method to call once a form in the modal has been successfully submitted.
-   * @param validationMethod <function>   - A method to call to init js validation on the form.
    */
-  function openBtnClickHandler($openBtn, successCallback, validationMethod){
+  function openBtnClickHandler($openBtn, successCallback){
     // The openBtn must have a data attribute that specifies the
     // selector for the modal that it should trigger: ex: '#create-author-modal'
     var modalSelector = $openBtn.data('modal-selector');
@@ -37,8 +35,18 @@ var GlassModals = (function ($) {
 
     // Check if this modal will be displaying a form.
     //
-    if($modalContent.find('#form-wrapper').length == 0){
-      loadAndDisplayFormModal(url, formSelector, $modalContent, $modal, successCallback, validationMethod);
+    if($modal.hasClass('confirm')){
+      var $confirmButton = $modal.find('.btn-confirm');
+      if($confirmButton.length > 0){
+        $confirmButton.unbind('click').click(function(e){
+          e.preventDefault();
+          successCallback();
+          $modal.modal('hide');
+        });
+      }
+      $modal.modal('show');
+    } else if($modalContent.find('#form-wrapper').length == 0){
+      loadAndDisplayFormModal(url, formSelector, $modalContent, $modal, successCallback);
     } else {
       // If the modal already has a form in it, then just re-show the modal.
       $modal.modal('show');
@@ -55,20 +63,14 @@ var GlassModals = (function ($) {
    * @param $modalContent    <DOM Object> - The content in the main body of the modal
    * @param $modal           <DOM Object> - The modal that will display and contain the form.
    * @param successCallback  <function>   - A method to call upon form successfully being submitted.
-   * @param validationMethod <function>   - (optional) A validation method to call on the form.
-   * @param validationParams <Object>     - (optional) Parameters to pass to the validation method.
    */
-  function loadAndDisplayFormModal(formSourceUrl, formSourceSelector, $modalContent, $modal, successCallback, validationMethod){
+  function loadAndDisplayFormModal(formSourceUrl, formSourceSelector, $modalContent, $modal, successCallback){
     var $saveBtn      = $modal.find('.positive');
 
     $modalContent.load(formSourceUrl + ' ' + formSourceSelector, function(){
       // Remove the default actions from the form.
       $(this).find('.form-actions').remove();
       $(this).find('.deliver').remove();
-
-      if(validationMethod !== undefined){
-        validationMethod();
-      }
 
       // Call initializers for image uploading to work for the form within the
       // modal.
