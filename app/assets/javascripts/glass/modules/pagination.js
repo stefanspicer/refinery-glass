@@ -17,11 +17,9 @@ var GlassPagination = (function ($) {
       });
     }
 
-
     if ($infiniteScrollContainer.length > 0){
       $(document).on('pagination-content-loaded', function(e, element) {
         FETCHING = false;
-        console.log('reset fetching');
       });
 
       $(window).on('scroll', scrollHandler);
@@ -35,11 +33,8 @@ var GlassPagination = (function ($) {
 
     if(moreUrl && ($(window).scrollTop() > ($(document).height() - $(window).height() - pixelOffsetFromBottom))){
       if(!FETCHING){
-        console.log('not fetching');
         FETCHING = true;
         $.getScript(moreUrl);
-      } else {
-        console.log('fetching');
       }
     }
   }
