@@ -10,7 +10,7 @@ var GlassPagination = (function ($) {
     var $infiniteScrollContainer = $('.infinite-scrolling-container');
     var $paginationSpinner = $('.pagination-spinner');
 
-    if($showMoreButton.length > 0){
+    if($showMoreButton.length > 0 && (parseInt($showMoreButton.data('total-pages')) > 1)){
       $showMoreButton.click(function(e){
         e.preventDefault();
         if(!FETCHING){
@@ -24,7 +24,7 @@ var GlassPagination = (function ($) {
 
     {
 
-    if ($infiniteScrollContainer.length > 0)
+    if ($infiniteScrollContainer.length > 0 && (parseInt($infiniteScrollContainer.data('total-pages')) > 1))
       $(window).on('scroll', scrollHandler);
     }
 
