@@ -69,17 +69,13 @@
 
       <% if page.deletable? %>
         <span class="delete">
-          <%= link_to '<i class="gcicon gcicon-trash bump-up"></i>'.html_safe,
-                    refinery.admin_page_path(page.nested_url),
-                    :class => "cancel confirm-delete circle-icon",
-                    :title => t('delete', :scope => 'refinery.admin.pages'),
-                    :data => {
-                      :confirm => t('message',
-                        :scope => 'refinery.admin.delete',
-                        :title => page_title_with_translations(page)
-                      )
-                    },
-                    :method => :delete %>
+          <%= render 'refinery/admin/glass/delete_button',
+                     css_class: 'cancel confirm-delete circle-icon',
+                     delete_url: refinery.admin_page_path(page.nested_url),
+                     after_delete_url: refinery.admin_pages_path,
+                     confirm_text: "Are you sure you want to delete '#{page_title_with_translations(page)}'?",
+                     delete_btn_text: '<i class="gcicon gcicon-trash"></i>'
+          -%>
         </span>
       <% end %>
     </span>
