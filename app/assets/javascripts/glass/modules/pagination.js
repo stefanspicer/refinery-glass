@@ -29,7 +29,7 @@ var GlassPagination = (function ($) {
 
   function scrollHandler(){
     var moreUrl = $('.infinite-scrolling-container').attr('data-url');
-    var pixelOffsetFromBottom = 400;
+    var pixelOffsetFromBottom = 1200;
 
     if(moreUrl && ($(window).scrollTop() > ($(document).height() - $(window).height() - pixelOffsetFromBottom))){
       if(!FETCHING){
