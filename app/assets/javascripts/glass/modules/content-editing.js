@@ -58,7 +58,7 @@ var GlassContentEditing = (function ($) {
       e.preventDefault();
 
       if (e && e.clipboardData && e.clipboardData.getData) {
-        var text = e.clipboardData.getData("text/plain");
+        var text = e.clipboardData.getData("text/plain").replace(/<!--[\s\S]*?-->/gm,"");
         document.execCommand("insertHTML", false, text);
       }
       else {
@@ -299,10 +299,26 @@ var GlassContentEditing = (function ($) {
     };
 
     this.formatHtml = function() {
-      this.h.elem.find('[contenteditable=true]').removeAttr('contenteditable');
+      // Remove all editor control modules
       this.removeGlassControl();
       this.h.elem.find('.glass-control').remove(); // All the delete btns and stuff
-      return this.h.elem.html().trim();
+
+      // Ensure no contenteditable or style overrides get out to front of site
+      this.h.elem.find('[contenteditable=true]').removeAttr('contenteditable');
+      this.h.elem.find().removeAttr('style');
+
+      // Sometimes <br>'s or <div>'s or <span>'s get in somehow.  Remove them cleanly
+      this.h.elem.find('div').not('.glass-no-edit').children().unwrap();
+      this.h.elem.children(':not(p, ul, ol, h1, h2, h3, h4, h5, h6)').each(function () {
+        $('<p></p>').html($(this).html()).insertAfter($(this));
+        $(this).remove();
+      });
+
+      // Sometimes text goes directly in the div.  Wrap it in a <p>. (nodeType 3 is text)
+      this.h.elem.contents().filter(function() { return this.nodeType === 3; }).wrap("<p></p>");
+
+      // Remove whitespace and html comments (should be stripped on paste, here to sanitize)
+      return this.h.elem.html().replace(/<!--[\s\S]*?-->/gm,"").trim();
     };
 
     this.getCurFocusModule = function() {
