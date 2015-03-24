@@ -3,11 +3,25 @@
  */
 var GlassContentEditing = (function ($) {
 
+  var needToConfirm = false;
+
   $(document).on('content-ready', function (e, element) {
-    $(element).find('#page-preview').find('a').unbind('click').click(function(e){
-      e.preventDefault();
-    });
-    removeShareThisClasses();
+    var $pagePreview = $(element).find('#page-preview');
+    if($pagePreview.length > 0){
+      needToConfirm = true;
+
+      window.onbeforeunload = checkAbilityToLeave;
+      console.log(needToConfirm);
+      $pagePreview.find('a').unbind('click').click(function(e){
+        e.preventDefault();
+      });
+
+      $(document).on('allow-page-unload', function(e, params){
+        setNeedToConfirm(false);
+      });
+
+      removeShareThisClasses();
+    }
   });
 
   $.fn.extend({
@@ -51,6 +65,24 @@ var GlassContentEditing = (function ($) {
       return control;
     }
   });
+
+  /**
+   * Returns message to display
+   * @returns {string}
+   */
+  function checkAbilityToLeave(){
+    if (needToConfirm) {
+      return 'Leaving without saving will result in you losing any unsaved changes to this page.';
+    }
+  }
+
+  /**
+   *
+   * @param {boolean} value
+   */
+  function setNeedToConfirm(value){
+    needToConfirm = value;
+  }
 
   // JQuery seems to get in the way here.. need to add event to raw DOM element
   function filterPasteEvents(element) {
