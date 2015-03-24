@@ -14,7 +14,7 @@
 //= require jquery/jquery.jcarousel
 //= require jquery/jquery.browser
 //# require admin
-//= require refinery/core
+//# require refinery/core
 //# require refinery/site_bar
 //= require refinery/admin
 //# require refinery/submenu
