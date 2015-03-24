@@ -70,7 +70,7 @@ html
     <% if content_for?(:admin_sidebar) %>
       <section id="sidebar-right" class="ui sidebar overlay right">
         <div class="sidebar-top-nav">
-           <span>Publish Settings</span> <a href="" class="sidebar-right-opener menu-link menu-link-right"><i class="gcicon gcicon-cancel"></i></a>
+           <span>Publish Settings</span> <button type="button" class="sidebar-right-opener menu-link menu-link-right"><i class="gcicon gcicon-cancel"></i></button>
         </div>
         <div id="sidebar-right-inner">
           <%= yield :admin_sidebar %>
@@ -80,9 +80,9 @@ html
 
     <section id="wrapper" class="pusher">
       <% if !defined?(@hide_main_nav) || !@hide_main_nav %>
-        <a href="" class="sidebar-left-opener menu-link menu-link-left"><i class="gcicon gcicon-bars"></i></a>
+        <button type="button" class="sidebar-left-opener menu-link menu-link-left"><i class="gcicon gcicon-bars"></i></button>
         <% if content_for?(:admin_sidebar) %>
-          <a href="" class="sidebar-right-opener menu-link menu-link-right"><i class="gcicon gcicon-publish"></i></a>
+          <button type="button" class="sidebar-right-opener menu-link menu-link-right"><i class="gcicon gcicon-publish"></i></button>
         <% end %>
       <% end %>
       <% if !current_refinery_user.has_role?(:superuser) %>
