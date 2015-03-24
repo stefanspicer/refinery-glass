@@ -16,3 +16,5 @@
 //= require canvas/bootstrap/popover
 //= require glass/moment.min
 //= require glass/bootstrap-datetimepicker
+//= require glass/modules/modals
+//= require glass/modules/pagination
