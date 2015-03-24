@@ -7,14 +7,13 @@ var GlassImageUploader = (function ($) {
     fileUploaderListener(element);
     uploadImageHandler(element);
     initCropper();
-    imageDeleteListener();
+    imageDeleteListener(element);
   });
 
   function imageListeners(element) {
     // Click listener for upload button
     $(element).find('.image-upload-btn').unbind('click').click(function (e) {
       e.preventDefault();
-      console.log('set');
       $UPLOAD_PREVIEW_CONTAINER  = $(this).parents('.upload-preview-container');
       $UPLOAD_PREVIEW_CONTAINERS = $('.upload-preview-container[data-field-name=' + $UPLOAD_PREVIEW_CONTAINER.attr('data-field-name') +']');
       $CURRENT_IMAGE_CONTAINER   = $('.image-upload-container[data-field-name='   + $UPLOAD_PREVIEW_CONTAINER.attr('data-field-name') +']');
@@ -158,13 +157,13 @@ var GlassImageUploader = (function ($) {
 
   function handleSuccess(response) {
 
-
     if($CURRENT_IMAGE_CONTAINER !== undefined){
       var imageIdField = $CURRENT_IMAGE_CONTAINER.find('.image-id-field');
       if (imageIdField.length > 0) {
         imageIdField.val(response.image_id)
       }
     }
+
     if($UPLOAD_PREVIEW_CONTAINERS !== undefined) {
 
       var newBtnText = 'Replace Image';
@@ -216,7 +215,6 @@ var GlassImageUploader = (function ($) {
 
   function handleImageDelete($btn) {
     handleDeleteSuccess();
-
     //
     // This code below actually deletes the image...   BUT   this introduces a slight permissions problem.  Users can delete other users images
     //
@@ -267,6 +265,6 @@ var GlassImageUploader = (function ($) {
     imageListeners: imageListeners,
     fileUploaderListener: fileUploaderListener,
     uploadImageHandler: uploadImageHandler,
-    openFileInput: openFileInput,
+    openFileInput: openFileInput
   };
 })(jQuery);
