@@ -44,6 +44,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: $grey-6;
+    border-radius: $radius;
     .upload-overlay{
       text-align: center;
       span{
@@ -68,7 +70,6 @@
 	}
   .file-preview{
     display: block !important;
-    background-color: $grey-9;
     position: absolute;
     top: 0;
     left: 0;
@@ -88,8 +89,10 @@
   max-width: 300px;
   .upload-preview-container{
     padding-top: 100%;
-    .file-preview{
+    .upload-preview-inner{
       border-radius: 50%;
+    }
+    .file-preview{
     }
   }
 }

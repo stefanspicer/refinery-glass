@@ -429,6 +429,7 @@ body{
       }
       .upload-preview-container{
         .upload-preview-inner{
+          border-radius: 0;
           .upload-overlay{
             span{
               display: block !important;
