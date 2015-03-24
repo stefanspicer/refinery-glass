@@ -293,12 +293,13 @@ var CanvasForms = (function ($) {
         url: $confirmBtn.attr('data-url'),
         type: 'DELETE',
         success: function(result) {
-          $(document).trigger('allow-page-unload', {
-            src: 'Modal model delete',
-            selector: '.confirm-model-delete'
-          });
+
         }
       }).always(function(){
+        $(document).trigger('allow-page-unload', {
+          src: 'Modal model delete',
+          selector: '.confirm-model-delete'
+        });
         window.location.href = $confirmBtn.attr('data-redirect-url');
       });
     });
