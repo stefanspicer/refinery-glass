@@ -33,7 +33,6 @@
 .upload-preview-container{
   padding-top: 60%;
   margin: 0;
-  background-color: $grey-6;
   .upload-preview-inner{
 		position: absolute;
     top: 0;
@@ -68,6 +67,8 @@
     }
 	}
   .file-preview{
+    display: block !important;
+    background-color: $grey-6;
     position: absolute;
     top: 0;
     left: 0;
@@ -87,9 +88,7 @@
   max-width: 300px;
   .upload-preview-container{
     padding-top: 100%;
-    background: none;
     .file-preview{
-      background: $grey-6;
       border-radius: 50%;
     }
   }
@@ -99,8 +98,9 @@
   display: none;
   text-align:left;
   position: absolute;
-  top: 5px;
+  bottom: 5px;
   left: 5px;
+  padding: 0;
 	.status-text {
 		top: 2px;
 		left: 50%;
