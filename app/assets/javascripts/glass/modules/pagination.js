@@ -22,9 +22,7 @@ var GlassPagination = (function ($) {
       });
     }
 
-    {
-
-    if ($infiniteScrollContainer.length > 0 && (parseInt($infiniteScrollContainer.data('total-pages')) > 1))
+    if ($infiniteScrollContainer.length > 0 && (parseInt($infiniteScrollContainer.data('total-pages')) > 1)){
       $(window).on('scroll', scrollHandler);
     }
 
