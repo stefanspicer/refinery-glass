@@ -86,8 +86,12 @@
   margin: 0 auto;
   max-width: 300px;
   .upload-preview-container{
-    border-radius: 50%;
     padding-top: 100%;
+    background: none;
+    .file-preview{
+      background: $grey-6;
+      border-radius: 50%;
+    }
   }
 }
 
