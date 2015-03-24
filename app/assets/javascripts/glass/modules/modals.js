@@ -66,12 +66,17 @@ var GlassModals = (function ($) {
    */
   function loadAndDisplayFormModal(formSourceUrl, formSourceSelector, $modalContent, $modal, successCallback){
     var $saveBtn      = $modal.find('.positive');
+    var $removeImageBtn = null;
 
     $modalContent.load(formSourceUrl + ' ' + formSourceSelector, function(){
       // Remove the default actions from the form.
       $(this).find('.form-actions').remove();
       $(this).find('.deliver').remove();
+      $removeImageBtn = $(this).find('.image-delete-btn');
 
+      if($removeImageBtn.length > 0){
+        $removeImageBtn.remove();
+      }
       // Call initializers for image uploading to work for the form within the
       // modal.
       GlassImageUploader.imageListeners($(this));
