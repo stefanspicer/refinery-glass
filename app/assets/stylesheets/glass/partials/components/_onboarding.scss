@@ -106,6 +106,19 @@
     	margin-bottom: 30px;
   	}
 	}
+	.onboarding-sm{
+  	font-size: 16px;
+	}
+	.well-sm{
+  	padding: 15px;
+  	margin-bottom: 30px;
+  	p{
+    	font-size: 16px;
+    	&:last-child{
+    	  margin-bottom: 0;
+    	}
+  	}
+	}
 	.large-label, .lesson h1 {
 		font-size: 32px;
 		color: $grey-6;

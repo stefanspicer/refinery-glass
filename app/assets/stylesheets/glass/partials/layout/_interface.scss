@@ -610,6 +610,18 @@ body{
   &-right{
     right: 10px;
   }
+  &-text{
+    width: auto;
+    font-weight: 600;
+    font-size: 18px;
+    color: $white !important;
+    &:hover{
+      color: $primary-fade !important;
+    }
+    .gcicon{
+      margin-right: 5px;
+    }
+  }
   .gcicon{
     color: $white;
     font-size: 24px;

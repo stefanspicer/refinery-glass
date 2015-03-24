@@ -82,7 +82,7 @@ html
       <% if !defined?(@hide_main_nav) || !@hide_main_nav %>
         <button type="button" class="sidebar-left-opener menu-link menu-link-left"><i class="gcicon gcicon-bars"></i></button>
         <% if content_for?(:admin_sidebar) %>
-          <button type="button" class="sidebar-right-opener menu-link menu-link-right"><i class="gcicon gcicon-publish"></i></button>
+          <button type="button" class="sidebar-right-opener menu-link menu-link-right menu-link-text"><i class="gcicon gcicon-publish"></i> Publish Settings</button>
         <% end %>
       <% end %>
       <% if !current_refinery_user.has_role?(:superuser) %>
