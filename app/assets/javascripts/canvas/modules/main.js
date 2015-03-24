@@ -32,8 +32,28 @@ var Main = (function($){
     $(document).trigger('content-ready', element);
     $('.btn-anchor').removeAttr('disabled');
     btnAnchorInitialization(element);
+    initializePreviewButtonListener(element);
   }
 
+  /**
+   * If a preview button is pressed, fire an event to
+   * trigger the allowance of leaving the current page.
+   * @param element - the container element to initialize on.
+   */
+  function initializePreviewButtonListener(element){
+    $(element).find('.preview-button').click(function(){
+      $(document).trigger('allow-page-unload', {
+        src: 'Preview Link/Button',
+        selector:'.preview-button'
+      });
+    });
+  }
+
+  /**
+   * Set items with btn-anchor class so that they behave like
+   * <a> tags.
+   * @param element - the container element to initialize on.
+   */
   function btnAnchorInitialization(element){
     $(element).find('.btn-anchor').unbind('click').click(function (e) {
       e.preventDefault();
