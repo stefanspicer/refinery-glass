@@ -113,9 +113,9 @@
 }
 .progress {
 	width: calc(100% - 10px);
-	padding-left: 1%;
-	padding-right: 1%;
+	padding: 0;
 	z-index: 998;
+	margin-bottom: 0;
 	background-color: rgba(0,0,0,0.4) !important;
 }
 .progress-bar {
