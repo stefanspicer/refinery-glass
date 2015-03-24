@@ -20,6 +20,15 @@ var CanvasForms = (function ($) {
       e.preventDefault();
       openDeleteConfirmModal($(this));
     });
+
+    // Fire an event to allow a user to leave a page if they are on a blocked
+    // page when a submit button is pressed
+    $('button[type=submit]').click(function(e){
+      $(document).trigger('allow-page-unload', {
+        src: 'Submit Button',
+        selector:'button[type=submit]'
+      });
+    });
   });
 
   function initFormSelectsWithin(element) {
@@ -277,13 +286,17 @@ var CanvasForms = (function ($) {
 
   function confirmDeleteListener(){
     $('.confirm-model-delete').unbind('click').click(function(e){
+
       e.preventDefault();
       var $confirmBtn = $(this);
       $.ajax({
         url: $confirmBtn.attr('data-url'),
         type: 'DELETE',
         success: function(result) {
-          // TODO: perhaps do something on success... JK
+          $(document).trigger('allow-page-unload', {
+            src: 'Modal model delete',
+            selector: '.confirm-model-delete'
+          });
         }
       }).always(function(){
         window.location.href = $confirmBtn.attr('data-redirect-url');
