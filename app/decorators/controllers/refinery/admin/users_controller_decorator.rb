@@ -35,13 +35,13 @@ Refinery::Admin::UsersController.class_eval do
 
   def edit
     @submit_button_text = 'Update'
-    puts @user.plugins.inspect
     @selected_plugin_names = find_user.plugins.map(&:name)
     @edit_user = true
   end
 
   def update
-
+    puts "Update called"
+    puts @user.inspect
     unless session[:cf].present?
       # Store what the user selected.
       @selected_role_names = params[:user].delete(:roles) || []
