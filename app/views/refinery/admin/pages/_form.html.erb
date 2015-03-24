@@ -84,8 +84,7 @@
 
     <%= render '/refinery/admin/form_actions', :f => f, :sidebar => true,
                :continue_editing => true,
-               :delete_title => t('delete', :scope => 'refinery.admin.pages'),
-               :delete_confirmation => t('message', :scope => 'refinery.admin.delete', :title => @page.title),
+               :hide_delete => true,
                :before_cancel_button => submit_tag(
                  t('.preview'),
                  :id => 'preview-button',
@@ -95,6 +94,13 @@
                  :tooltip => t('.preview_changes')
                ),
                :cancel_url => refinery.admin_pages_path %>
+
+    <% if @page.id %>
+      <%=
+          ("<button class='btn btn-link-red delete-model'" +
+            "data-url='#{eval("refinery.#{Refinery.route_for_model(f.object.class)}(#{f.object.id})")}' data-redirect-url='#{refinery.admin_pages_path}'" +
+            "data-text='Are you sure you want to delete this page?'><i class='gcicon gcicon-trash'></i> <span>Delete</span></button>").html_safe %>
+    <% end %>
 
     <%= render '/refinery/admin/locale_picker', :current_locale => Globalize.locale %>
 
