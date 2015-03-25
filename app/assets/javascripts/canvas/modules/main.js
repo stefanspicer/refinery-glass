@@ -44,7 +44,8 @@ var Main = (function($){
     $(element).find('.preview-button').click(function(){
       $(document).trigger('allow-page-unload', {
         src: 'Preview Link/Button',
-        selector:'.preview-button'
+        selector:'.preview-button',
+        value: false
       });
     });
   }

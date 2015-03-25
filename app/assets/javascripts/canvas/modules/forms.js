@@ -26,7 +26,8 @@ var CanvasForms = (function ($) {
     $('button[type=submit]').click(function(e){
       $(document).trigger('allow-page-unload', {
         src: 'Submit Button',
-        selector:'button[type=submit]'
+        selector:'button[type=submit]',
+        value: false
       });
     });
   });
@@ -39,7 +40,7 @@ var CanvasForms = (function ($) {
     }
   }
 
-  var count = 0;
+  var COUNT = 0;
 
   // Set custom validation rules and initialize verify.
   function initVerify(){
@@ -125,15 +126,25 @@ var CanvasForms = (function ($) {
       skipHiddenFields : false,
       hideErrorOnChange: true,
       prompt: function(element, text) {
-        $(element).parents('.form-group').find('.tip.text-danger').html(text || '');
+        var $errorMessageDiv = $(element).parents('.form-group').find('.tip.text-danger');
+        var $elementToScrollTo  = $('input.error').first().siblings('.tip');
+        $errorMessageDiv.html(text || '');
+
         // after a short delay, scroll to the input with the error.
-        if (count < 1 && text !== null) {
-          count++;
+        if (COUNT < 1 && text !== null) {
+          COUNT++;
+
+          $(document).trigger('allow-page-unload', {
+            src: 'validation fail',
+            selector: 'button[type=submit]',
+            value: true
+          });
+
           setTimeout(function () {
             $('html, body').animate({
-              scrollTop: $(element).offset().top - 73
+              scrollTop: $elementToScrollTo.offset().top - 73
             }, 500);
-            count = 0;
+            COUNT = 0;
           }, 100);
         }
       }
@@ -298,7 +309,8 @@ var CanvasForms = (function ($) {
       }).always(function(){
         $(document).trigger('allow-page-unload', {
           src: 'Modal model delete',
-          selector: '.confirm-model-delete'
+          selector: '.confirm-model-delete',
+          value: false
         });
         window.location.href = $confirmBtn.attr('data-redirect-url');
       });
