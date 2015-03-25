@@ -3,7 +3,7 @@
     submit_button_text  ||= t('.save')
     submit_button_id    ||= "submit_button"
     submit_button_title ||= nil
-    submit_redirect_url ||= nil
+    submit_redirect_url ||= eval("refinery.#{Refinery.route_for_model(f.object.class, {:plural => true})}")
   end
 
   hide_cancel = from_dialog? unless defined?(hide_cancel).presence
@@ -28,11 +28,11 @@
   unless hide_delete
     delete_button_text  ||= t('.delete')
     delete_title        ||= nil
-    delete_confirmation ||= nil
+    delete_confirmation ||= "Are you sure you want to delete this item?"
     delete_button_id    ||= "delete_button"
     # we have to use eval rather than refinery.send because this url may not exist for HTTP GET
     delete_url          ||= eval("refinery.#{Refinery.route_for_model(f.object.class)}(#{f.object.id})")
-    delete_redirect_url ||= nil
+    delete_redirect_url ||= eval("refinery.#{Refinery.route_for_model(f.object.class, {:plural => true})}")
   end
 -%>
 <% if from_dialog? %>
