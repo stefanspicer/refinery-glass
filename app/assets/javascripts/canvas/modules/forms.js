@@ -179,6 +179,8 @@ var CanvasForms = (function ($) {
         if ($draft_field.length > 0) {
           $draft_field.val($submit_btn.hasClass('mark-as-draft'));
         }
+
+        $form.trigger('form-before-submit');
       });
 
       $form.ajaxForm({
