@@ -135,7 +135,8 @@ var GlassContentEditing = (function ($) {
       if (!this.ch.form_elem) {
         this.ch.form_elem = this.option('form_id') ? $('#' + this.option('form_id')) : null;
       }
-      if (this.ch.form_elem.length < 1) {
+      if (!this.ch.form_elem || this.ch.form_elem.length < 1) {
+        this.ch.form_elem = null;
         console.log("WARNING: editable field couldn't find form element: #" + this.option('form_id'));
         console.log("WARNING: suggestion, you might need to add page parts to config/initializers/refinery/pages.rb");
       }
@@ -796,11 +797,13 @@ var GlassContentEditing = (function ($) {
     });
 
     if ($form) {
-      $form.submit(function (e) {
+      var populate_form_for_submit = function (e) {
         $('.glass-edit').each(function () {
           $(this).glassChunk().setFormValFromHtml();
         });
-      });
+      };
+      $form.on('form-before-submit', populate_form_for_submit);
+      $form.submit(populate_form_for_submit);
     }
   });
 

@@ -1,35 +1,19 @@
 <div class="page-options">
-  <%= form_for [refinery, :admin, @page],
+  <%= form_for [refinery, :admin, @page], :html => {:class => 'ajax-form'},
                :url => (refinery.admin_page_path(@page.nested_url) if @page.persisted?) do |f| %>
 
     <%= render '/refinery/admin/error_messages', :object => @page, :include_object_name => true %>
     <%= render 'customize_form', :f => f -%>
 
+    <% status_draft = @page.id.blank? || @page.draft %>
+
     <div class="sidebar-section">
-      <button type="button" class="collapse-toggle collapsed" data-toggle="collapse" data-target="#status-collapse" aria-expanded="true" aria-controls="demo">
-        <div class="sidebar-section-heading">
-          <i class="gcicon gcicon-pencil"></i> <span class="flex-1">Status: <strong><%= @page.draft.nil? || @page.draft ? 'Draft' : 'Published' -%></strong></span><i class="gcicon gcicon-down"></i>
-        </div>
-      </button>
-      <div id="status-collapse" class="collapse">
-        <div class="sidebar-section-body">
-          <div class="form-group">
-            <div class="radio">
-              <label>
-                <%= f.radio_button('draft', false) %>
-                Published
-              </label>
-            </div>
-            <div class="radio">
-              <label>
-                <%= f.radio_button('draft', true) %>
-                Draft
-              </label>
-            </div>
-          </div>
-        </div>
+      <div class="sidebar-section-heading">
+        <i class="gcicon gcicon-<%= status_draft ? 'pencil' : 'publish' %>"></i> <span class="flex-1">Status: <strong><%= status_draft ? 'Draft' : 'Published' -%></strong></span>
       </div>
     </div>
+
+    <%= f.hidden_field :draft, :class => 'draft-field' %>
 
     <div class="sidebar-section">
       <div class="sidebar-section-heading">
@@ -84,23 +68,19 @@
 
     <%= render '/refinery/admin/form_actions', :f => f, :sidebar => true,
                :continue_editing => true,
-               :hide_delete => true,
-               :before_cancel_button => submit_tag(
-                 t('.preview'),
-                 :id => 'preview-button',
-                 :title => 'Preview page',
-                 :name => nil,
-                 :class => "wymupdate button",
-                 :tooltip => t('.preview_changes')
+               :submit_button_text   => status_draft ? 'Publish' : 'Update',
+               :submit_redirect_url  => refinery.admin_pages_path,
+               :delete_title => t('delete', :scope => 'refinery.admin.pages'),
+               :delete_confirmation => t('message', :scope => 'refinery.admin.delete', :title => @page.title),
+               :delete_redirect_url => refinery.admin_pages_path,
+               :before_delete_button => button_tag("<i class='gcicon gcicon-pencil'></i> <span>#{status_draft ? 'Save as Draft' : 'Unpublish'}</span>".html_safe,
+                 :type => :submit,
+                 :id => 'draft-button',
+                 :class => "btn btn-default btn-lg mark-as-draft",
+                 :'data-redirect-url' => refinery.admin_pages_path,
+                 :name => nil
                ),
                :cancel_url => refinery.admin_pages_path %>
-
-    <% if @page.id %>
-      <%=
-          ("<button class='btn btn-link-red delete-model'" +
-            "data-url='#{eval("refinery.#{Refinery.route_for_model(f.object.class)}(#{f.object.id})")}' data-redirect-url='#{refinery.admin_pages_path}'" +
-            "data-text='Are you sure you want to delete this page?'><i class='gcicon gcicon-trash'></i> <span>Delete</span></button>").html_safe %>
-    <% end %>
 
     <%= render '/refinery/admin/locale_picker', :current_locale => Globalize.locale %>
 
