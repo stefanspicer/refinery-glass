@@ -11,13 +11,14 @@ var GlassContentEditing = (function ($) {
       needToConfirm = true;
 
       window.onbeforeunload = checkAbilityToLeave;
-      console.log(needToConfirm);
+
       $pagePreview.find('a').unbind('click').click(function(e){
         e.preventDefault();
       });
 
       $(document).on('allow-page-unload', function(e, params){
-        setNeedToConfirm(false);
+
+        setNeedToConfirm(params.value);
       });
 
       removeShareThisClasses();
