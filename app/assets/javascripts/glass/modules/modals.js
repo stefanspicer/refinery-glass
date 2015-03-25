@@ -36,14 +36,26 @@ var GlassModals = (function ($) {
     // Check if this modal will be displaying a form.
     //
     if($modal.hasClass('confirm')){
-      var $confirmButton = $modal.find('.btn-confirm');
-      if($confirmButton.length > 0){
-        $confirmButton.unbind('click').click(function(e){
+      var $finalConfirmButton = $modal.find('.btn-confirm');
+      var $previousConfirmButton = $modal.find('.btn-previous-confirm');
+
+      if($previousConfirmButton.length > 0){
+        $modal.modal({closable: false});
+        $previousConfirmButton.unbind('click').click(function(e){
           e.preventDefault();
           successCallback();
+        });
+        $finalConfirmButton.unbind('click').click(function(){
           $modal.modal('hide');
         });
+      } else if($finalConfirmButton.length > 0){
+        $finalConfirmButton.unbind('click').click(function(e){
+          e.preventDefault();
+          successCallback();
+        });
       }
+
+
       $modal.modal('show');
     } else if($modalContent.find('#form-wrapper').length == 0){
       loadAndDisplayFormModal(url, formSelector, $modalContent, $modal, successCallback);
