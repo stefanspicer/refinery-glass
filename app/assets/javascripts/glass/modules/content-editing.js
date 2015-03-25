@@ -644,7 +644,7 @@ var GlassContentEditing = (function ($) {
 
     if (this.element().attr('id') == 'glass-choose-module') {
       $(document).on('image-preview', function (e, params) {
-        console.log('image-preview handled');
+
         var $cur_module = this_control.module();
         if ($cur_module) {
           var $new_module = $cur_module.editor().newModule('glass-module-img', 'after', $cur_module);
