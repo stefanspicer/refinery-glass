@@ -16,7 +16,7 @@ var CanvasForms = (function ($) {
       e.preventDefault();
       openDeleteConfirmModal($(this));
     });
-    $(element).find('.delete-model').unbind('click').click(function(e){
+    $(element).find('.delete-modal').unbind('click').click(function(e){
       e.preventDefault();
       openDeleteConfirmModal($(this));
     });
@@ -177,13 +177,27 @@ var CanvasForms = (function ($) {
       }
       var selector = "#" + $(this).attr('id');
       var $form = $(this);
-      var $submit_btn = $form.find('.btn[type="submit"]');
+      var $submit_btns = $form.find('.btn[type="submit"]');
+      var $submit_btn = $submit_btns.first();
+
+      $submit_btns.each(function () {
+        $(this).data('orig-btn-txt', $(this).html());
+      });
+
+      $submit_btns.click(function (e) {
+        $submit_btn = $(this);
+        var $draft_field = $form.find('.draft-field');
+        if ($draft_field.length > 0) {
+          $draft_field.val($submit_btn.hasClass('mark-as-draft'));
+        }
+
+        $form.trigger('form-before-submit');
+      });
 
       $form.ajaxForm({
         beforeSubmit: function(arr, $form, options){
-          $submit_btn.data('orig-btn-txt', $submit_btn.text());
           $submit_btn.html('<i class="ui active inline inverted xs loader"></i> Sending');
-          $submit_btn.attr('disabled', 'disabled');
+          $submit_btns.attr('disabled', 'disabled');
         },
 
         success: function(e, response, statusText, xhr, element) {
@@ -241,16 +255,21 @@ var CanvasForms = (function ($) {
                 $error_response.insertBefore(selector + ' .form-actions');
               }
               $submit_btn.html($submit_btn.data('orig-btn-txt'));
-              $submit_btn.removeAttr('disabled');
+              $submit_btns.removeAttr('disabled');
             }
             else {
               $replacement = $('<p>Thank you</p>'); // Default response message
             }
 
             if ($replacement && $modal.length === 0) {
-              // inquiries engine puts an h1 in there
-              $replacement.find('h1').remove();
-              replaceContent($(selector), $replacement);
+              var redirect_url = $submit_btn.data('redirect-url');
+              if (redirect_url) {
+                window.location.href = redirect_url;
+              } else {
+                // inquiries engine puts an h1 in there
+                $replacement.find('h1').remove();
+                replaceContent($(selector), $replacement);
+              }
             }
             else if ($modal.length > 0) {
 
@@ -296,8 +315,7 @@ var CanvasForms = (function ($) {
   }
 
   function confirmDeleteListener(){
-    $('.confirm-model-delete').unbind('click').click(function(e){
-
+    $('.confirm-modal-delete').unbind('click').click(function(e){
       e.preventDefault();
       var $confirmBtn = $(this);
       $.ajax({
@@ -423,7 +441,7 @@ var CanvasForms = (function ($) {
             '<div class="ui red basic inverted button">',
               'No',
             '</div>',
-            '<div class="ui green basic inverted button confirm-model-delete" data-url="',
+            '<div class="ui green basic inverted button confirm-modal-delete" data-url="',
         $btn.attr('data-url'),'" data-redirect-url="',$btn.attr('data-redirect-url'),'">',
         'Yes',
         '</div></div></div></div>'].join(""));
