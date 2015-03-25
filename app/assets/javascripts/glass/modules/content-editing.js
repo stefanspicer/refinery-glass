@@ -472,6 +472,7 @@ var GlassContentEditing = (function ($) {
       var $img = this_editor.h.elem.find('.cur-uploading-img');
       if ($img.length > 0) {
         $img.attr('src', img_src);
+
         $img.removeClass('cur-uploading-img');
       }
     });
@@ -641,12 +642,14 @@ var GlassContentEditing = (function ($) {
     });
 
     if (this.element().attr('id') == 'glass-choose-module') {
-      $(document).on('image-preview', function (e, image) {
+      $(document).on('image-preview', function (e, params) {
+        console.log('image-preview handled');
         var $cur_module = this_control.module();
         if ($cur_module) {
           var $new_module = $cur_module.editor().newModule('glass-module-img', 'after', $cur_module);
-          $new_module.element().find('img').attr('src', image);
-          $new_module.element().find('img').addClass('cur-uploading-img');
+          var $image_element = $new_module.element().find('img');
+
+          $image_element.addClass('cur-uploading-img');
           $cur_module.remove();
           var $new_p = $new_module.editor().newModule('glass-module-p', 'after', $new_module);
           // FIXME - this doesn't seem to want to focus()
@@ -680,7 +683,7 @@ var GlassContentEditing = (function ($) {
           $sibling_elem = $sibling.element();
         }
         else {
-          $sibling = $module.editor().parentModule($sibling);
+          $sibling = $module.editor().parentModule($sibling_elem);
         }
 
         $sibling.focus();

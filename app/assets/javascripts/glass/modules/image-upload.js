@@ -72,8 +72,9 @@ var GlassImageUploader = (function ($) {
     });
   }
 
-
   function setPreviewDiv() {
+
+    $(document).trigger('image-preview');
 
     if($UPLOAD_PREVIEW_CONTAINERS !== undefined){
       var $previewDivs = $UPLOAD_PREVIEW_CONTAINERS.find('.file-preview');
@@ -87,7 +88,14 @@ var GlassImageUploader = (function ($) {
     resetProgressBar();
 
     if($UPLOAD_PREVIEW_CONTAINER.length > 0 && $UPLOAD_PREVIEW_CONTAINERS !== undefined){
-      $UPLOAD_PREVIEW_CONTAINERS.find('.progress-box').show();
+
+      var $currentImage = $('img.cur-uploading-img');
+
+      if($currentImage.length > 0){
+        $currentImage.siblings('.progress-box').show();
+      } else {
+        $UPLOAD_PREVIEW_CONTAINER.find('.progress-box').show();
+      }
     }
   }
 
@@ -127,29 +135,25 @@ var GlassImageUploader = (function ($) {
   }
 
   function uploadImageHandler(element) {
-    var imageForm = $(element).find('#image-upload-form');
+    var $imageForm = $(element).find('#image-upload-form');
+
 
     var options = {
-      target: "#output",
-      beforeSubmit: beforeSubmit,
+      beforeSubmit: setPreviewDiv,
       uploadProgress: onProgress,
       success: handleSuccess,
       error: handleError,
       resetForm: true
     };
 
-    imageForm.submit(function (e) {
+    $imageForm.submit(function (e) {
       $(this).ajaxSubmit(options);
-
       return false;
     });
   }
 
-  function beforeSubmit() {
-    setPreviewDiv();
-  }
-
   function handleError(response) {
+    console.warn(response);
     $UPLOAD_PREVIEW_CONTAINERS.find('.progress-box').hide();
 
      CanvasForms.insertErrors($('#image-upload-form'), response.responseJSON.errors, true);
@@ -185,7 +189,7 @@ var GlassImageUploader = (function ($) {
 
       CanvasForms.resetState();
 
-      $UPLOAD_PREVIEW_CONTAINERS.find('.progress-box').fadeOut(1000);
+      $('.progress-box').fadeOut(1000);
 
       afterSuccess(response.url);
     }
@@ -194,7 +198,7 @@ var GlassImageUploader = (function ($) {
   function updateProgressBar(percentComplete) {
     if($UPLOAD_PREVIEW_CONTAINERS !== undefined){
       var statusText = $UPLOAD_PREVIEW_CONTAINERS.find('.status-text');
-      $UPLOAD_PREVIEW_CONTAINERS.find('.progress-bar').width(percentComplete + '%').attr('aria-valuenow', percentComplete);
+      $('.progress-bar').width(percentComplete + '%').attr('aria-valuenow', percentComplete);
       statusText.html(percentComplete + '%');
 
       if (percentComplete > 50) {
