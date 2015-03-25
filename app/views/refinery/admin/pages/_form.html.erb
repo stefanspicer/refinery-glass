@@ -82,13 +82,6 @@
                ),
                :cancel_url => refinery.admin_pages_path %>
 
-    <% if @page.id %>
-      <%=
-          ("<button class='btn btn-link-red delete-model'" +
-            "data-url='#{eval("refinery.#{Refinery.route_for_model(f.object.class)}(#{f.object.id})")}' data-redirect-url='#{refinery.admin_pages_path}'" +
-            "data-text='Are you sure you want to delete this page?'><i class='gcicon gcicon-trash'></i> <span>Delete</span></button>").html_safe %>
-    <% end %>
-
     <%= render '/refinery/admin/locale_picker', :current_locale => Globalize.locale %>
 
     <%= f.hidden_field :title %>
