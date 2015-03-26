@@ -12,10 +12,6 @@ var GlassContentEditing = (function ($) {
 
       window.onbeforeunload = checkAbilityToLeave;
 
-      $pagePreview.find('a').unbind('click').click(function(e){
-        e.preventDefault();
-      });
-
       $(document).on('allow-page-unload', function(e, params){
 
         setNeedToConfirm(params.value);
@@ -73,7 +69,7 @@ var GlassContentEditing = (function ($) {
    */
   function checkAbilityToLeave(){
     if (needToConfirm) {
-      return 'Leaving without saving will result in you losing any unsaved changes to this page.';
+      return 'You are currently editing site content. Any changes you\'ve made will be lost if you leave this page now. Use the "Publish / Save" menu to save first.';
     }
   }
 
