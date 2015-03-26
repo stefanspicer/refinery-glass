@@ -1,0 +1,23 @@
+<p>
+  <%= t('reset_request_received_for', :scope => 'refinery.user_mailer.reset_notification', :username => @user.username) %>
+</p>
+<p>
+  <%= t('visit_this_url', :scope => 'refinery.user_mailer.reset_notification') %>:
+</p>
+<p>
+  <%= @url %>
+</p>
+<p>
+  (<%= t('remain_same_if_no_action', :scope => 'refinery.user_mailer.reset_notification') %>)
+</p>
+
+<% content_for :email_body do %>
+  <h1>A new org (<%= @org.name %>) has been created on Lifecollective.io </h1>
+<% end %>
+
+<% content_for :email_signoff do %>
+  <p>Take care,</p>
+  <p>The <a href="https://lifecollective.io" target="_blank">lifecollective.io</a> team</p>
+<% end %>
+
+<%= render 'refinery/email_template' %>
