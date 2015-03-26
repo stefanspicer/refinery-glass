@@ -11,6 +11,6 @@ class AddConfirmedOn < ActiveRecord::Migration
     rename_column :refinery_users, :confirmed_on, :confirmed_at
     add_column :refinery_users, :confirmation_token
     add_column :refinery_users, :confirmation_sent_at
-    add_column :refinery_users, :unconfirmed_emaild
+    add_column :refinery_users, :unconfirmed_email
   end
 end
