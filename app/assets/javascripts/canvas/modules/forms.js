@@ -127,7 +127,7 @@ var CanvasForms = (function ($) {
       hideErrorOnChange: true,
       prompt: function(element, text) {
         var $errorMessageDiv = $(element).parents('.form-group').find('.tip.text-danger');
-        var $elementToScrollTo  = $('input.error').first().siblings('.tip');
+        var $elementToScrollTo  = $('input.error').first();
         $errorMessageDiv.html(text || '');
 
         // after a short delay, scroll to the input with the error.
@@ -142,7 +142,7 @@ var CanvasForms = (function ($) {
 
           setTimeout(function () {
             $('html, body').animate({
-              scrollTop: $elementToScrollTo.offset().top - 73
+              scrollTop: $errorMessageDiv.offset().top - 73
             }, 500);
             COUNT = 0;
           }, 100);
