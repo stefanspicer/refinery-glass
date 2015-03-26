@@ -4,45 +4,48 @@ require 'yaml'
 class Refinery::Glass::InvitationsController < ::ApplicationController
   layout 'refinery/layouts/login'
 
+
   def accept_invite
-    # try to confirm the user
-    if params.has_key?(:cf) || session[:cf].present?
-      previous_attempt = params.has_key?(:cf) && session[:cf].present?
 
-      session[:cf] = params[:cf]
-      session[:confirmation_token] = Devise.token_generator.digest(self, :confirmation_token, session[:cf])
-
-      if previous_attempt && session[:user_id]
-        @user = Refinery::User.find(session[:user_id])
-        @user.update_attributes(confirmation_token: session[:confirmation_token], confirmed_at: nil)
-        @user.save
-      end
-
-      @user = Refinery::User.confirm_by_token(session[:cf])
-
-      # If this token is no good, redirect to the homepage.
-      unless @user.id
-        return redirect_to '/'
-      end
-
-      unless !@user.present? || @user.errors.present?
-        if signed_in?
-          sign_out(current_refinery_user)
-        end
-
-        unless @user.errors.present?
-          sign_in(@user)
-        end
-
-        session[:user_id] = @user.id
-        if cookies[:pass_errors].present?
-          set_user_errors
-        end
-      end
-      render 'refinery/admin/users/update_password'
-    else
-      redirect_to '/'
+    unless params.has_key?(:cf)
+      return redirect_to '/'
     end
+    # If there is currently a user logged in, sign them out.
+    if current_refinery_user.present?
+      sign_out(current_refinery_user)
+    end
+
+    # Save the confirmation token
+    @cf = params[:cf]
+    digested_cf = Devise.token_generator.digest(self, :confirmation_token, session[:cf])
+    # Try to get the user
+    @user = Refinery::User.where("confirmed_at IS NULL AND confirmation_token = ? AND confirmation_sent_at > ?", digested_cf, 7.days.ago.strftime('%Y-%m-%d %H:%M:%S')).first
+    unless @user.present?
+      return redirect_to '/'
+    end
+
+    render 'refinery/admin/users/confirm_user_form'
+  end
+
+  def update_password_handler
+
+    # Try resetting the password
+    @user.password              = params[:password]
+    @user.password_confirmation = params[:password_confirmation]
+
+    if @user.save
+      #confirm the user.
+
+      # if user is confirmed redirect to /admin
+    end
+    '/update-password/?cf='
+    # find user based on cf (and ensure it is valid) (user unconfirmed, invitation sent within last 7 days - or created_at)
+    #   - error check
+    # user.update_attributes(password, password_confirmation)
+    #   - error check
+    # confirm_by_token
+    # sign_in(user)
+    # redirect_to '/admin'
   end
 
   private
