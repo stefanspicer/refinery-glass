@@ -231,6 +231,7 @@ var CanvasForms = (function ($) {
             var $error_response  = ($(data).attr('id') === 'errorExplanation') ? $(data) : $(data).find('#errorExplanation');
             var $modal           = $(selector).parents('.modal');
             var $replacement     = null;
+            var redirect         = false;
 
             var callback = $form.data('success-callback');
             if (callback) {
@@ -245,6 +246,7 @@ var CanvasForms = (function ($) {
             }
             else if ($page_body.length > 0) {
               $replacement = $page_body.first();
+              redirect = true;
             }
             else if ($error_response.length > 0) {
               var $cur_error = $(selector + ' #errorExplanation');
@@ -259,11 +261,12 @@ var CanvasForms = (function ($) {
             }
             else {
               $replacement = $('<p>Thank you</p>'); // Default response message
+              redirect = true;
             }
 
             if ($replacement && $modal.length === 0) {
               var redirect_url = $submit_btn.data('redirect-url');
-              if (redirect_url) {
+              if (redirect && redirect_url) {
                 window.location.href = redirect_url;
               } else {
                 // inquiries engine puts an h1 in there
