@@ -1,21 +1,12 @@
+<%= render 'refinery/admin/pages/addons/general' %>
 <% content_for :admin_content do %>
 <section class="admin-index container-fluid">
   <div class="row">
     <div class="col-sm-12">
       <h2 class="admin-title">Pages</h2>
-      <div class="row">
-        <div class="col-sm-8 col-sm-offset-2">
-          <div class="mini-lesson">
-            <div class="portrait">
-              <img class="img-circle" src="http://glasscanvas.s3.amazonaws.com/elephant/elephant-portrait.jpg"/>
-            </div>
-            <div class="message message-right">
-              <button class="close hidden"><i class="gcicon gcicon-cancel"></i></button>
-              <p>Your info pages tell your website visitors who you are and what you do, so please don’t forget to add updated content here. Remember, there are two groups of pages: <b>About Us</b> and <b>Get Involved</b>. Under each group, you may add/edit pages.</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <% if content_for?(:top_message) %>
+        <%= yield :top_message %>
+      <% end %>
       <div class="contextual-menu">
         <div class="contextual-options space-between">
           <button id='reorder_action' class="btn btn-link-grey">
