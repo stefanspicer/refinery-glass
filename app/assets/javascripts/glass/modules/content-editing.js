@@ -339,7 +339,7 @@ var GlassContentEditing = (function ($) {
 
       // Sometimes <br>'s or <div>'s or <span>'s get in somehow.  Remove them cleanly
       this.h.elem.find('div').not('.glass-no-edit').children().unwrap();
-      this.h.elem.children(':not(p, ul, ol, h1, h2, h3, h4, h5, h6)').each(function () {
+      this.h.elem.children(':not(p, ul, ol, h1, h2, h3, h4, h5, h6, .glass-no-edit)').each(function () {
         $('<p></p>').html($(this).html()).insertAfter($(this));
         $(this).remove();
       });
