@@ -125,6 +125,7 @@ body{
     overflow-y: auto;
     overflow-x: hidden;
     padding-bottom: 15px;
+    z-index: 1002;
     li{
       margin: 0 0 1px;
       white-space: nowrap;
@@ -218,6 +219,7 @@ body{
     top: 62px;
     overflow-y: scroll;
     overflow-x: hidden;
+    z-index: 1002;
     .page-options{
       padding: 0 0;
       *[contenteditable=true]{
