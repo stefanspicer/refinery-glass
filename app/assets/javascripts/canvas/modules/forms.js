@@ -220,7 +220,10 @@ var CanvasForms = (function ($) {
               $(selector).append(['<div id="errorExplanation" class="errorExplanation text-center">',xhr.responseJSON.message,'</div>'].join(''));
             }
             else {
-              $(selector).append(['<div id="errorExplanation" class="errorExplanation text-center"><p>Uh oh... This never happened while we were testing! Time to call in a developer to fix this.</p></div>'].join(''));
+              $(selector).append(['<div id="errorExplanation" class="errorExplanation text-center">',
+                                 '<p>Uh oh! This never happened while we were testing! ',
+                                 'The developers have been notified an will probably have this fixed in the next 10 seconds. ',
+                                 'Just kidding, it may take until tomorrow morning.  Thank you for your patence.</p></div>'].join(''));
             }
             return;
           }
