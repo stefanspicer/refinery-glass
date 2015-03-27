@@ -2,8 +2,7 @@ Refinery::User.class_eval do
 
   devise :database_authenticatable, :recoverable
 
-  attr_accessor   :inviting_user
-                  # NOT in use (JK) :confirm_path, :confirm_url
+  attr_accessor   :inviting_user, :site_url
 
   acts_as_indexed :fields => [:username, :email]
 

@@ -1,18 +1,33 @@
+<%
+   editable = false
+   if current_refinery_user.has_role?(:superuser) || current_refinery_user.can_edit?(user)
+     editable = true
+   end
+%>
+
 <li class='page-listing' id="<%= dom_id(user) -%>">
   <div class="page-row">
     <i class="gcicon gcicon-file"></i>
-    <a href="<%= current_refinery_user.can_edit?(user) ? refinery.edit_admin_user_path(user) : '#' %>" class="page-title">
+
+    <% link_elem = editable ? 'a' : 'div' %>
+    <<%= link_elem %> <%= "href=#{refinery.edit_admin_user_path(user)}" if editable %> class="page-title">
       <span class='title'>
         <%= user.username %>
-        <% if user.attributes.keys.include?('confirmation_token') &&
-            user.confirmation_token.present? &&
-            !user.confirmed_at.present? %>
+        <% if user.attributes.keys.include?('reset_password_token') &&
+            user.reset_password_token.present? &&
+            !user.confirmed_on.present? %>
           <span class="label">Invitation Sent</span>
         <% end %>
       </span>
-    </a>
+    </<%= link_elem %>>
+
     <span class='actions actions-col-2'>
-      <span class="delete">
+      <span class="edit pull-right">
+        <%= link_to '<i class="gcicon gcicon-edit"></i>'.html_safe, refinery.edit_admin_user_path(user),
+                    :class => "circle-icon",
+                    :title => t('.edit') if current_refinery_user.can_edit?(user) %>
+      </span>
+      <span class="delete pull-right">
         <%= render 'refinery/admin/glass/delete_button',
                    css_class: 'cancel confirm-delete circle-icon',
                    delete_url: refinery.admin_user_path(user),
@@ -20,12 +35,6 @@
                    confirm_text: 'Are you sure you want to delete this User?',
                    delete_btn_text: '<i class="gcicon gcicon-trash"></i>'
         -%>
-      </span>
-
-      <span class="edit">
-        <%= link_to '<i class="gcicon gcicon-edit"></i>'.html_safe, refinery.edit_admin_user_path(user),
-           :class => "circle-icon",
-           :title => t('.edit') if current_refinery_user.can_edit?(user) %>
       </span>
     </span>
   </div>

@@ -26,8 +26,8 @@ Refinery::Admin::UsersController.class_eval do
       flash.now[:notice]  = "Invitation sent to #{@user.email}"
 
       @user.inviting_user = current_refinery_user.username.split.map(&:capitalize).join(' ')
+      @user.site_url = "#{request.protocol}#{request.host_with_port}"
 
-      # Not in use (JK) @user.confirm_path = "#{request.protocol}#{request.host_with_port}#{refinery.glass_accept_invite_path}"
       @user.send_reset_password_instructions
       create_successful
     else
