@@ -1,18 +1,23 @@
+<% username_capitalized = @resource.username.present? ? @resource.username.split.map(&:capitalize).join(' ') : @resource.username -%>
+
 <% unless @resource.confirmed? %>
   <h1>Getting to know you!</h1>
-  <p>
-    We’re so glad you’ve decided to join the movement of Right to Life organizations across Canada!
-    LifeCollective.io is a dynamic tool that will allow us to share content and strategies with each other in order to make a greater and longer lasting impact in our communities.
-  </p>
-  <p>
-    In order to start sharing content among various groups, we need you to create your personal account page (we’ll get to your organization’s account next).
-    This is the account that you will use in order to log in to the Content Management System (CMS).
-  </p>
+
+  <div class="margin-bottom-sm">
+    <p>
+      To get started, we need you to create your personal account page (we’ll get to your organization’s account next). This is the account that you’ll use in order to log in to the Content Management System (CMS).
+    </p>
+    <p>
+      In the future, use your full name '<%= username_capitalized %>' or email address '<%= @resource.email %>' to log in.
+      You have the option of changing your name/email later.
+    </p>
+  </div>
 <% else %>
-  <p>
-    <%= t('pick_new_password_for', :scope => 'refinery.users.reset', :email => @resource.username) %>
-  </p>
-  <% content_for :header, t('pick_new_password_for', :scope => 'refinery.users.reset', :email => @refinery_user.email) %>
+  <div class="margin-bottom-sm">
+    <p>
+      Pick a new password
+    </p>
+  </div>
 <% end %>
 
 <%= form_for resource, :as => resource_name,
@@ -20,7 +25,11 @@
              :html => { :method => :put } do |f| %>
   <%= f.hidden_field :reset_password_token %>
 
-  <%= render '/refinery/admin/error_messages', :object => @refinery_user, :include_object_name => true %>
+  <%= render '/refinery/admin/error_messages', :object => @resource, :include_object_name => true %>
+
+  <div class='form-group'>
+    <%= f.text_field :username, value: username_capitalized,class: 'form-control input-lg', readonly: true %>
+  </div>
 
   <div class='form-group'>
     <%= f.password_field :password, :autocomplete => 'off', :class => 'form-control input-lg',
