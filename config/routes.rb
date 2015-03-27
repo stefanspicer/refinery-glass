@@ -8,9 +8,8 @@ end
 
 Refinery::Core::Engine.routes.prepend do
   #frontend routes
+  
   namespace :glass, :path => '' do
-    get 'accept-invitation', to: 'invitations#accept_invite',     as: 'accept_invite'
-    put 'accept-invitation', to: 'invitations#accept_invitation', as: 'accept_invitation'
   end
 end
 

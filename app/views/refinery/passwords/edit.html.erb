@@ -1,4 +1,16 @@
-<% content_for :header, t('pick_new_password_for', :scope => 'refinery.users.reset', :email => @refinery_user.email) %>
+<% unless resource.confirmed? %>
+  <h1>Getting to know you!</h1>
+  <p>
+    We’re so glad you’ve decided to join the movement of Right to Life organizations across Canada!
+    LifeCollective.io is a dynamic tool that will allow us to share content and strategies with each other in order to make a greater and longer lasting impact in our communities.
+  </p>
+  <p>
+    In order to start sharing content among various groups, we need you to create your personal account page (we’ll get to your organization’s account next).
+    This is the account that you will use in order to log in to the Content Management System (CMS).
+  </p>
+<% else %>
+  <% content_for :header, t('pick_new_password_for', :scope => 'refinery.users.reset', :email => @refinery_user.email) %>
+<% end %>
 
 <%= form_for resource, :as => resource_name,
              :url => refinery.refinery_user_password_path,
@@ -21,7 +33,7 @@
 
   <%= render '/refinery/admin/form_actions', :f => f,
              :continue_editing => false,
-             :submit_button_text => t('reset_password', :scope => 'refinery.users.reset'),
+             :submit_button_text => resource.confirmed? ? t('reset_password', :scope => 'refinery.users.reset') : 'Set Password & Log in',
              :cancel_url => refinery.login_path,
              :cancel_title => nil,
              :hide_delete => true -%>
