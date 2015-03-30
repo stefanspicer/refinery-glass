@@ -163,10 +163,12 @@ var GlassContentEditing = (function ($) {
 
     this.syncContentChanges = function() {
       var this_chunk = this;
-      var form_id = this_chunk.option('form_id');
-      var slugify = this_chunk.option('slugify');
+      var form_id    = this_chunk.option('form_id');
+      var slugify    = this_chunk.option('slugify');
+      var slugify_if = this_chunk.option('slugify_if');
 
       if (form_id) {
+        // Syncronize all elements with this form_id (e.g. title on the page and sidebar)
         this_chunk.element().keyup(function (e) {
           $(document).trigger('content-changed/' + form_id, [this_chunk.element()]);
         });
@@ -178,9 +180,18 @@ var GlassContentEditing = (function ($) {
       }
 
       if (slugify) {
+        var $slugify_if = slugify_if ? $("#" + slugify_if) : null;
+
+        // Update a based on a different field (slugify that other field)
         $(document).on('content-changed/' + slugify, function (e, $element) {
-          if ($element != this_chunk.element()) {
+          if ($slugify_if.length > 0 && $slugify_if.is(':checked') && $element != this_chunk.element()) {
             this_chunk.element().html($element.text().trim().toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'-'));
+          }
+
+          if ($slugify_if.length > 0) {
+            this_chunk.element().keyup(function (e) {
+              $slugify_if.prop("checked", false);
+            });
           }
         });
       }
