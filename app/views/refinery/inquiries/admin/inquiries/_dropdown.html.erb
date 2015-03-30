@@ -14,16 +14,56 @@
                   { :role =>"menuitem" } %>
     </li>
     <li role="presentation">
-      <%= link_to '<i class="gcicon gcicon-edit"></i> '.html_safe + ' Who to notify',
-                  refinery.edit_inquiries_admin_setting_path(:inquiry_notification_recipients),
-                  { :class => 'open-semantic-modal-form', :role =>"menuitem" }
-      %>
+      <a href="<%= refinery.edit_inquiries_admin_setting_path(:inquiry_notification_recipients) %>" class="open-modal" role="menuitem" data-modal-selector="#notification-modal">
+        <i class="gcicon gcicon-edit"></i> Who to notify
+      </a>
     </li>
     <li role="presentation">
-      <%= link_to '<i class="gcicon gcicon-edit"></i> '.html_safe + ' Response email',
-                  refinery.edit_inquiries_admin_setting_path(:inquiry_confirmation_body),
-                  { :class => 'open-semantic-modal-form', :role =>"menuitem"}
-      %>
+      <a href="<%= refinery.edit_inquiries_admin_setting_path(:inquiry_confirmation_body) %>" class="open-modal" role="menuitem" data-modal-selector="#response-email-modal">
+        <i class="gcicon gcicon-edit"></i> Response email
+      </a>
     </li>
   </ul>
+</div>
+
+<div id="notification-modal" class="ui basic modal">
+  <i class="close icon"></i>
+  <div class="header">
+    Who should be notified?
+  </div>
+  <div class="content">
+    <div class="description">
+    </div>
+  </div>
+  <div class="actions">
+    <div class="two fluid ui inverted buttons">
+      <div class="ui red basic inverted button">
+        Cancel
+      </div>
+      <div class="ui green basic inverted button positive">
+        Submit
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="response-email-modal" class="ui basic modal">
+  <i class="close icon"></i>
+  <div class="header">
+    Response Email
+  </div>
+  <div class="content">
+    <div class="description">
+    </div>
+  </div>
+  <div class="actions">
+    <div class="two fluid ui inverted buttons">
+      <div class="ui red basic inverted button">
+        Cancel
+      </div>
+      <div class="ui green basic inverted button positive">
+        Submit
+      </div>
+    </div>
+  </div>
 </div>

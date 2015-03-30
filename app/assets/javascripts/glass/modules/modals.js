@@ -6,6 +6,13 @@
  */
 var GlassModals = (function ($) {
 
+  $(document).on('content-ready', function (e, element) {
+    $(element).find('.open-modal').click(function (e) {
+      e.preventDefault();
+      openBtnClickHandler($(this), undefined);
+    });
+  });
+
   /**
    * Sets listeners for the open modal btn.
    * @param $openBtn - DOM Object
@@ -29,9 +36,10 @@ var GlassModals = (function ($) {
     // selector for the modal that it should trigger: ex: '#create-author-modal'
     var modalSelector = $openBtn.data('modal-selector');
     var $modal        = $(modalSelector);
-    var $modalContent = $(modalSelector + ' .description');
-    var url           = $openBtn.attr('data-url');
-    var formSelector  = $openBtn.attr('data-form-selector') || '';
+
+    var $modalContent = $modal.find('.description');
+    var url           = $openBtn.attr('href') !== undefined ? $openBtn.attr('href') : $openBtn.attr('data-url');
+    var formSelector  = $openBtn.attr('data-form-selector') || ' form';
 
     // Check if this modal will be displaying a form.
     //
@@ -43,7 +51,9 @@ var GlassModals = (function ($) {
         $modal.modal({closable: false});
         $previousConfirmButton.unbind('click').click(function(e){
           e.preventDefault();
-          successCallback();
+          if(successCallback !== undefined){
+            successCallback();
+          }
         });
         $finalConfirmButton.unbind('click').click(function(){
           $modal.modal('hide');
@@ -51,13 +61,19 @@ var GlassModals = (function ($) {
       } else if($finalConfirmButton.length > 0){
         $finalConfirmButton.unbind('click').click(function(e){
           e.preventDefault();
-          successCallback();
+          if(successCallback !== undefined){
+            successCallback();
+          }
         });
       }
 
-
       $modal.modal('show');
-    } else if($modalContent.find('#form-wrapper').length == 0){
+    } else if($modalContent.find('#form-wrapper').length === 0){
+      if(url === undefined){
+        console.warn('URL undefined for form');
+        return 1;
+      }
+
       loadAndDisplayFormModal(url, formSelector, $modalContent, $modal, successCallback);
     } else {
       // If the modal already has a form in it, then just re-show the modal.
@@ -79,8 +95,9 @@ var GlassModals = (function ($) {
   function loadAndDisplayFormModal(formSourceUrl, formSourceSelector, $modalContent, $modal, successCallback){
     var $saveBtn      = $modal.find('.positive');
     var $removeImageBtn = null;
+    formSourceUrl = formSourceSelector === '' || formSourceSelector === undefined ? formSourceUrl : formSourceUrl+formSourceSelector;
 
-    $modalContent.load(formSourceUrl + ' ' + formSourceSelector, function(){
+    $modalContent.load(formSourceUrl, function(){
       // Remove the default actions from the form.
       $(this).find('.form-actions').remove();
       $(this).find('.deliver').remove();
@@ -109,7 +126,9 @@ var GlassModals = (function ($) {
         // CanvasForms after success.
         $form.on('form-submit-success', function(e, response, statusText, xhr, element) {
           // Remove form (Simple solution atm to remove image)
-          successCallback();
+          if(successCallback !== undefined){
+            successCallback();
+          }
           $modal.modal('hide');
           $modalContent.find('#form-wrapper').remove();
           // reopen the right sidebar
