@@ -6,6 +6,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require canvas/jquery.stellar
+//= require canvas/modules/parallax
 //= require canvas/jquery.form.min
 //= require canvas/bootstrap-sprockets
 //= require canvas/form-validation
