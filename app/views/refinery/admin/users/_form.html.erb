@@ -46,13 +46,7 @@
 
   <%= yield :before_plugin_access %>
 
-  <% if current_refinery_user.has_role?(:superuser) %>
-    <button type="button" class="collapse-toggle collapsed" data-toggle="collapse" data-target="#admin-advanced" aria-expanded="true" aria-controls="demo">
-      Advanced Settings
-    </button>
-  <% end %>
-
-  <div class="well collapse" id="admin-advanced">
+  <div class="well collapse in" id="admin-advanced">
     <%= yield :advanced_settings %>
 
     <div class='form-group plugin_access'>
@@ -60,7 +54,7 @@
         <%= f.label :plugin_access, t('.plugin_access'), :class => "title_label" %>
         <%= link_to "(#{t('.enable_all')})", "", :id => "user_plugins_enable_all" %>
       </span>
-      <ul id='plugins' class='checkboxes'>
+      <ul id='plugins' class='list-unstyled checkboxes'>
         <% @available_plugins.each do |plugin| -%>
           <% if Refinery::Plugins.always_allowed.names.include?(plugin[:name]) or
                 (plugin[:name] == 'refinery_users' && @user.id == current_refinery_user.id) %>
@@ -117,7 +111,7 @@
   <script>
     $(document).ready(function() {
       $('#user_plugins_enable_all').click(function(e, a) {
-        $('div.plugin_access ul#plugins li input:checkbox').attr('checked', true);
+        $('div.plugin_access ul#plugins li input:checkbox').prop('checked', true);
         e.preventDefault();
       });
     });
