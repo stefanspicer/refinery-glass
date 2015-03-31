@@ -4,8 +4,6 @@ Refinery::User.class_eval do
 
   attr_accessor   :inviting_user, :site_url
 
-  acts_as_indexed :fields => [:username, :email]
-
 	def name
 		self.username
   end
