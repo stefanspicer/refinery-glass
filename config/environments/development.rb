@@ -13,6 +13,23 @@ Sitebase215::Application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
+  # Configuration options for mailer to work with devise and password recovery as well as invitable users.
+
+  # config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
+  # config.action_mailer.raise_delivery_errors = true
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = {
+  #   address:              'smtp.mandrillapp.com',
+  #   port:                 587,
+  #   #domain:               'domain',
+  #   user_name:            'user_name',
+  #   password:             'password',
+  #   #authentication:       'plain',
+  #   #enable_starttls_auto: true,
+  #   #openssl_verify_mode:  'none'
+  # }
+
   # Don't care if the mailer can't send
   if config.respond_to?(:action_mailer)
     config.action_mailer.raise_delivery_errors = false

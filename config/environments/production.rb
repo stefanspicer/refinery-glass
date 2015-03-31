@@ -49,6 +49,24 @@ Sitebase215::Application.configure do
   config.assets.precompile += %w( site.js                         refinery-glass.js      kitchen-sink.js  )
   config.assets.precompile += %w( site.css                        refinery-glass.css )
 
+
+  # Configuration options for mailer to work with devise and password recovery as well as invitable users.
+
+  # config.action_mailer.default_url_options = { :host => 'sitename.com', :protocol => 'https' }
+
+  # config.action_mailer.raise_delivery_errors = true
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = {
+  #   address:              'smtp.mandrillapp.com',
+  #   port:                 587,
+  #   #domain:               'domain',
+  #   user_name:            'user_name',
+  #   password:             'password',
+  #   #authentication:       'plain',
+  #   #enable_starttls_auto: true,
+  #   #openssl_verify_mode:  'none'
+  # }
+
   # Disable delivery errors, bad email addresses will be ignored
   if config.respond_to?(:action_mailer)
     # config.action_mailer.raise_delivery_errors = false
@@ -67,4 +85,10 @@ Sitebase215::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
+
+  # Add slack middleware (optional)
+  config.middleware.use ExceptionNotification::Rack,
+                        :slack => {
+                          :webhook_url => "https://hooks.slack.com/services/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",
+                        }
 end

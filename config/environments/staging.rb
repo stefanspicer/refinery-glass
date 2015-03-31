@@ -49,6 +49,23 @@ Sitebase215::Application.configure do
   config.assets.precompile += %w( site.js                         refinery-glass.js      kitchen-sink.js  )
   config.assets.precompile += %w( site.css                        refinery-glass.css )
 
+  # Configuration options for mailer to work with devise and password recovery as well as invitable users.
+
+  # config.action_mailer.default_url_options = { :host => 'sitename.com', :protocol => 'https' }
+
+  # config.action_mailer.raise_delivery_errors = true
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = {
+  #   address:              'smtp.mandrillapp.com',
+  #   port:                 587,
+  #   #domain:               'domain',
+  #   user_name:            'user_name',
+  #   password:             'password',
+  #   #authentication:       'plain',
+  #   #enable_starttls_auto: true,
+  #   #openssl_verify_mode:  'none'
+  # }
+
   # Disable delivery errors, bad email addresses will be ignored
   if config.respond_to?(:action_mailer)
     # config.action_mailer.raise_delivery_errors = false
