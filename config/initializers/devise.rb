@@ -4,16 +4,18 @@ Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
-  config.secret_key = 'dd201392b8c27199f719c768a36930a9296b9b8a4b1c306594d75e04260c159bf56490d8fc911f9f718f778dba0e448071829575615f763b342e5cd133c81bbb'
+
+  # CHANGE THIS KEY FOR EACH NEW APP
+  config.secret_key = '026f37c7fb078443d4183e284fc1e40bb05cb95eee51c03b638736630234f72bb26cb28bd6cff8fd6bde0b3010291df8f7f2df6c76cf6ba8372d73b6fb324779'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'do-not-reply@LifeCollective.io'
+  config.mailer_sender = '"CHANGE ME" <do-not-reply@CHANGE-ME.com>'
 
   # Configure the class responsible to send e-mails.
-  # config.mailer = 'Devise::Mailer'
+  config.mailer = 'Devise::GlassMailer'
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
@@ -126,7 +128,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :rememberable
   # The time the user will be remembered without asking for credentials again.
-  # config.remember_for = 2.weeks
+  config.remember_for = 1.month
 
   # If true, extends the user's remember period when remembered via cookie.
   # config.extend_remember_period = false
@@ -253,4 +255,5 @@ Devise.setup do |config|
   # When using omniauth, Devise cannot automatically set Omniauth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
+
 end
