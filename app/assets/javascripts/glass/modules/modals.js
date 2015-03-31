@@ -7,7 +7,7 @@
 var GlassModals = (function ($) {
 
   $(document).on('content-ready', function (e, element) {
-    $(element).find('.open-modal').click(function (e) {
+    $(element).find('.open-modal').unbind('click').click(function (e) {
       e.preventDefault();
       openBtnClickHandler($(this), undefined);
     });
