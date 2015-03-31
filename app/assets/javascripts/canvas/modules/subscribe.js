@@ -1,4 +1,4 @@
-var Subscribe = (function($){
+var CanvasSubscribe = (function($){
   $(document).on('content-ready', function (e, element) {
   		
   	var $form = $('#subscribe-form');

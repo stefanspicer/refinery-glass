@@ -1,4 +1,4 @@
-var menus = (function($){
+var CanvasParallax = (function($){
   $(document).on('content-ready', function (e, element) {
 		
 		$.stellar({
