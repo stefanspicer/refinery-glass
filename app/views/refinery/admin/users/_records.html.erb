@@ -1,7 +1,9 @@
 <%= render 'refinery/admin/search_header', :url => refinery.admin_users_path %>
-<div class='pagination_container'>
+<div id="users-index" class="infinite-scrolling-container" data-url="<%= refinery.admin_users_path(:page => @users.next_page) %>" data-total-pages="<%= @users.total_pages %>">
   <% if @users.any? %>
-    <%= render 'users' %>
+    <ul id='users' class='list-unstyled'>
+      <%= render 'users' %>
+    </ul>
   <% else %>
     <p>
       <% unless searching? %>
@@ -13,4 +15,13 @@
       <% end %>
     </p>
   <% end %>
+</div>
+<div class="row pagination-spinner" style="display:none;">
+  <div class="col-sm-12">
+    <div class="load-more">
+      <div class="ui active inverted dimmer">
+        <div class="ui large loader"></div>
+      </div>
+    </div>
+  </div>
 </div>

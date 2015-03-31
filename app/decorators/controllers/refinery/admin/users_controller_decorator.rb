@@ -103,11 +103,15 @@ protected
     end
 
     users = users.where("username LIKE '%#{params[:search]}%'") if params[:search].present?
-    @users = users.paginate(:page => params[:page], :per_page => 15)
+    @users = users.paginate(:page => params[:page], :per_page => 20)
   end
 
   # override the default index action
   def index
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def update_failed
