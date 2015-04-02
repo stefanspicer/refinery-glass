@@ -1,0 +1,59 @@
+<%= form_for @setting, :url => refinery.inquiries_admin_setting_path(@setting) do |f| %>
+
+  <p>
+    <%= t('.explanation') %>
+  </p>
+  <p>
+    <%= t('.below_edit_email_sent') %>
+  </p>
+  <table id='inquiry'>
+    <tr>
+      <td>
+        <label class='stripped'><%= t('.to') %></label>
+      </td>
+      <td>
+        <%= t('.the_customer_making_inquiry') %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class='stripped'><%= t('.from') %></label>
+      </td>
+      <td>
+        <%= "#{Refinery::Core.site_name} &lt;no-reply@#{request.domain}&gt;".html_safe %>
+      </td>
+    </tr>
+    <% Refinery::I18n.frontend_locales.each do |locale| %>
+      <tr>
+        <td>
+          <label class='stripped'><%= t('.subject') %> (<%= locale.to_s %>)</label>
+        </td>
+        <td>
+          <%= text_field_tag "subject[][#{locale.to_s}]", Refinery::Inquiries::Setting.confirmation_subject(locale),
+                             :class => 'widest' %>
+        </td>
+      </tr>
+      <tr>
+        <td valign='top'>
+          <%= f.label :value, t('.message'),
+                      :class => 'stripped' %> (<%= locale.to_s %>)
+        </td>
+        <td>
+          <%= text_area_tag "message[][#{locale.to_s}]", Refinery::Inquiries::Setting.confirmation_message(locale), # required, we can't use :value
+                          :rows => "5",
+                          :class => 'widest' %>
+          <br/>
+          <em><%= t('.note') %></em>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+
+  <%= render :partial => "/refinery/admin/form_actions",
+             :locals => {
+               :f => f,
+               :continue_editing => false,
+               :cancel_url => refinery.inquiries_admin_inquiries_path,
+               :hide_delete => true
+             } %>
+<% end %>
