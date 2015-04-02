@@ -78,12 +78,15 @@ var CanvasForms = (function ($) {
         var fieldName = $(r.field).data('val-field');
         var message;
         var inputValue = r.val();
+        var fieldNamePrefix = $(r.field).data('val-prefix');
+        var messagePrefix = fieldNamePrefix === undefined ? 'The ' : fieldNamePrefix + ' ';
+
         if((inputValue.trim() === '') || (inputValue === undefined) || (inputValue === null))
         {
           if (fieldName !== undefined){
-            message = 'The ' + fieldName + ' is required';
+            message = messagePrefix + fieldName + ' is required';
           } else {
-            message = ($label.length > 0) ? 'The ' + $label.text() + ' is required' : 'This field is required';
+            message = ($label.length > 0) ? messagePrefix + $label.text() + ' is required' : 'This field is required';
           }
           return message;
         }
