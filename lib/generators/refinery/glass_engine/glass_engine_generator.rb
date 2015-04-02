@@ -27,6 +27,26 @@ module Refinery
       options[:live_editor]
     end
 
+    class_option :include_form,
+                 :desc => 'Include a form for end users to submit on the frontend of the site',
+                 :type => :boolean,
+                 :default => false,
+                 :required => false
+
+    def include_form?
+      options[:include_form]
+    end
+
+    class_option :include_moderation,
+                 :desc => 'Include a process for approving and rejecting form submissions',
+                 :type => :boolean,
+                 :default => false,
+                 :required => false
+
+    def include_moderation?
+      options[:include_moderation]
+    end
+
     def generate
       default_generate!
     end
