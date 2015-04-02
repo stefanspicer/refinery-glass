@@ -147,6 +147,14 @@ button{
   display: block;
 }
 
+.inner-wrapper{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
 .card-index{
   display: flex;
   margin-left: -15px;
@@ -156,6 +164,24 @@ button{
     flex: 1 1 300px;
     margin: 0 15px 30px;
     max-width: calc(50% - 15px);
+    .card-top{
+      padding-top: 60%;
+      .inner-wrapper{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        .feature-icon{
+          font-size: 120px;
+        }
+      }
+      &.inverted{
+        color: $white;
+      }
+    }
+    .card-content{
+      padding: 30px;
+    }
   }
 }
 
@@ -741,9 +767,9 @@ h1{
 }
 
 h1 hr{
-	width: 200px;
-	border: 2px solid $grey-5;
-	margin: 10px auto 60px;
+	width: 160px;
+	color: $grey-3;
+	margin: 30px auto 30px;
 }
 
 h2 hr, h3 hr, h4 hr, h5 hr, h6 hr{
