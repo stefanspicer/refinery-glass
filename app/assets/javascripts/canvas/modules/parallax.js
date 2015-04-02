@@ -9,7 +9,7 @@ var CanvasParallax = (function($){
       parallaxBackgrounds: false,
       parallaxElements: true,
       hideDistantElements: false,
-      verticalOffset: 120
+      verticalOffset: 0
 		});
 		
   }); 
