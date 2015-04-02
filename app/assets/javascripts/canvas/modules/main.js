@@ -60,7 +60,6 @@ var Main = (function($){
 
   // Return API for other modules
   return {
-    getUniqueSelector: getUniqueSelector,
     contentReady: contentReady
   };
 })(jQuery);
