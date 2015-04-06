@@ -160,12 +160,17 @@ button{
   margin-left: -15px;
   margin-right: -15px;
   flex-wrap: wrap;
+  justify-content: center;
   .card{
     flex: 1 1 300px;
     margin: 0 15px 30px;
-    max-width: calc(50% - 15px);
+    @media (min-width: 768px) {
+      max-width: calc(50% - 15px);
+    }
     .card-top{
       padding-top: 60%;
+      display: block;
+      color: $grey-6;
       .inner-wrapper{
         display: flex;
         align-items: center;
@@ -179,8 +184,22 @@ button{
         color: $white;
       }
     }
+    a.card-top{
+      .inner-wrapper{
+        opacity: 1;
+        transition: .2s ease-out;
+      }
+      &:hover{
+        .inner-wrapper{
+          opacity: .8;
+        }
+      }
+    }
     .card-content{
       padding: 30px;
+    }
+    &.no-bg{
+      padding: 0 15px 30px;
     }
   }
 }
@@ -955,7 +974,7 @@ form{
   }
   textarea{
 		resize: none;
-		min-height: 137px;
+		height: 137px;
 	}
   &.checkbox-group{
     input, label{
