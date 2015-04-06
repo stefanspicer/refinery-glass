@@ -20,3 +20,4 @@
 //= require glass/bootstrap-datetimepicker
 //= require glass/modules/modals
 //= require glass/modules/pagination
+//= require glass/modules/datetime
