@@ -67,9 +67,9 @@ module Refinery
 
     def reject_file_with_extra_checks?(file)
       return true if (skip_frontend? && (file.to_s.include?('app') && file.to_s.scan(/admin|models|mailers/).empty?)) 
-      return true if (!include_form? && (file.to_s.scan(
-          Regexp.new "/views\/refinery\/#{namespace}\/admin\/#{plural_name}\/show\|views\/refinery\/#{namespace}\/#{plural_name}\/new|mailer|models\/.*\/setting"
-        ).present?))
+      return true if (!include_form? && (
+        file.to_s.scan(/views\/refinery\/namespace\/admin\/plural_name\/show|views\/refinery\/namespace\/plural_name\/new|mailer|models\/refinery\/namespace\/setting/)
+      .present?))
       return reject_file_without_extra_checks?(file)
     end
     alias_method_chain :reject_file?, :extra_checks
