@@ -44,7 +44,7 @@ module Refinery
             logger.warn "Please add an 'email' field to <%= class_name %> if you wish to send confirmation emails when forms are submitted."
           end
 
-          redirect_to refinery.thank_you_<%= namespacing.underscore %>_<%= plural_name %>_path
+          redirect_to Refinery::Page.where(:identifier => "<%= [(namespacing.underscore if namespacing.underscore != plural_name), plural_name, 'thank-you'].compact.join('-') %>").first().nested_path
         else
           render :action => 'new'
         end
