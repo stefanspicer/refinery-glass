@@ -23,6 +23,20 @@ en:
             view_live_html: View this <%= singular_name.titleize.downcase %> live <br/><em>(opens in a new window)</em>
             edit: Edit this <%= singular_name.titleize.downcase %>
             delete: Remove this <%= singular_name.titleize.downcase %> forever
+          show:
+            details: Details
+            age: Age
+            actions: Actions
+            back_to_all_<%= plural_name %>: Back to all <%= plural_name.humanize.downcase %>
+            spam: Spam
+            spam_yes: 'yes'
+            <%= singular_name %>: <%= class_name.underscore.titleize %>
+            to: To
+            from: From
+            click_to_email: Click to email this address
+            phone: Phone
+            date: Date
+            message: Message
       <%= plural_name %>:
         show:
           other: Other <%= singular_name.titleize.pluralize %>

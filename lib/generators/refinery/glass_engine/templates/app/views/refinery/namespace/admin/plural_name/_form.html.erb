@@ -62,16 +62,30 @@ ENDHTML
                    :field => :<%= "#{attribute.name}_id".gsub("_id_id", "_id") %>,
                    :resource => @<%= singular_name %>.<%= attribute.name.gsub("_id", "") %> -%>
       </div>
+<% elsif attribute.type.to_s == 'time' -%>
+    <div class='form-group'>
+      <%%= f.label :<%= attribute.name %> %>
+      <%%= f.text_field :<%= attribute.name %>, :class => 'form-control datetimepicker time-only', :value => @<%= singular_name %>.<%= attribute.name %>.present? ? @<%= singular_name %>.<%= attribute.name %>.strftime('%I:%M %p') : nil %>
+    </div>
+<% elsif attribute.type.to_s == 'date' -%>
+    <div class='form-group'>
+      <%%= f.label :<%= attribute.name %> %>
+      <%%= f.text_field :<%= attribute.name %>, :class => 'form-control datetimepicker date-only', :value => @<%= singular_name %>.<%= attribute.name %>.present? ? @<%= singular_name %>.<%= attribute.name %>.strftime('%m/%d/%Y') : nil %>
+    </div>
+<% elsif attribute.type.to_s == 'datetime' -%>
+    <div class='form-group'>
+      <%%= f.label :<%= attribute.name %> %>
+      <%%= f.text_field :<%= attribute.name %>, :class => 'form-control datetimepicker default', :value => @<%= singular_name %>.<%= attribute.name %>.present? ? @<%= singular_name %>.<%= attribute.name %>.strftime('%m/%d/%Y %I:%M %p') : nil %>
+    </div>
 <% else -%>
-<% if include_live_editor? -%>
-      <%%= f.hidden_field :<%= attribute.name %> -%>
-<% else -%>
-      <div class='form-group'>
-        <%%= f.label :<%= attribute.name %> -%>
-        <%%= f.<%= attribute.field_type -%> :<%= attribute.name -%>, :class => 'form-control'<%= ", :checked => @#{singular_name}[:#{attribute.name}]" if attribute.field_type == :check_box %> -%>
-      </div>
-<% end -%>
-
+  <% if include_live_editor? -%>
+        <%%= f.hidden_field :<%= attribute.name %> -%>
+  <% else -%>
+        <div class='form-group'>
+          <%%= f.label :<%= attribute.name %> -%>
+          <%%= f.<%= attribute.field_type -%> :<%= attribute.name -%>, :class => 'form-control'<%= ", :checked => @#{singular_name}[:#{attribute.name}]" if attribute.field_type == :check_box %> -%>
+        </div>
+  <% end -%>
 <% end # switch attribute type -%>
 <% end # attributes.each -%>
 <% if !include_live_editor? -%>

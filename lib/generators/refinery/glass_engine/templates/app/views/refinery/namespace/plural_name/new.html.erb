@@ -33,13 +33,13 @@
                         :include_blank => true, :class => 'form-control' %>
 <% when :datetime -%>
           <%%= f.label :<%= attribute.name %> %>
-          <%%= f.text_field :<%= attribute.name %>, :class => 'form-control datetimepicker default', :value => @<%= singular_name %>.<%= attribute.name %>.present? ? "#{@<%= singular_name %>.<%= attribute.name %>}.strftime('%m/%d/%Y %I:%M %p')" : nil %>
+          <%%= f.text_field :<%= attribute.name %>, :class => 'form-control datetimepicker default', :value => @<%= singular_name %>.<%= attribute.name %>.present? ? @<%= singular_name %>.<%= attribute.name %>.strftime('%m/%d/%Y %I:%M %p') : nil %>
 <% when :date -%>
           <%%= f.label :<%= attribute.name %> %>
-          <%%= f.text_field :<%= attribute.name %>, :class => 'form-control datetimepicker date-only', :value => @<%= singular_name %>.<%= attribute.name %>.present? ? "#{@<%= singular_name %>.<%= attribute.name %>}.strftime('%m/%d/%Y')" : nil %>
+          <%%= f.text_field :<%= attribute.name %>, :class => 'form-control datetimepicker date-only', :value => @<%= singular_name %>.<%= attribute.name %>.present? ? @<%= singular_name %>.<%= attribute.name %>.strftime('%m/%d/%Y') : nil %>
 <% when :time -%>
           <%%= f.label :<%= attribute.name %> %>
-          <%%= f.text_field :<%= attribute.name %>, :class => 'form-control datetimepicker time-only', :value => @<%= singular_name %>.<%= attribute.name %>.present? ? "#{@<%= singular_name %>.<%= attribute.name %>}.strftime('%I:%M %p')" : nil %>
+          <%%= f.text_field :<%= attribute.name %>, :class => 'form-control datetimepicker time-only', :value => @<%= singular_name %>.<%= attribute.name %>.present? ? @<%= singular_name %>.<%= attribute.name %>.strftime('%I:%M %p') : nil %>
 <% end -%>
         </div>
 <% end %>
