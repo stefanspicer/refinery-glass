@@ -20,9 +20,7 @@ var GlassSearch = (function ($){
       $search_form.ajaxForm({
         complete: function(xhr, status) {
           var btnContainer = $('#refinery-search-btn');
-          btnContainer.find('.loader').addClass('hidden').fadeOut(100, function(){
-            btnContainer.find('.gcicon-search').fadeIn(100);
-          });
+
           watcher.resume();
 
           var $previousError = $('#errorExplanation');
@@ -44,7 +42,9 @@ var GlassSearch = (function ($){
           }
           xhr.done(function(data) {
             var $content = $(data).find('.sortable_list');
-
+            btnContainer.find('.loader').addClass('hidden').fadeOut(100, function(){
+              btnContainer.find('.gcicon-search').fadeIn(100);
+            });
             if ($content.length > 0) {
               $('#errorExplanation').remove();
 
