@@ -42,6 +42,20 @@
             </button>
           <%% end %>
 
+          <% if include_moderation? %>
+              <li>
+                <%%= link_to t('.new'), refinery.<%= namespacing.underscore %>_admin_<%= plural_name %>_path,
+                            :class => 'items_new_icon' %>
+              </li>
+              <li>
+                <%%= link_to t('.approved'), refinery.approved_<%= namespacing.underscore %>_admin_<%= plural_name %>_path,
+                            :class => 'items_approved_icon' %>
+              </li>
+              <li>
+                <%%= link_to t('.rejected'), refinery.rejected_<%= namespacing.underscore %>_admin_<%= plural_name %>_path,
+                            :class => 'items_rejected_icon' %>
+              </li>
+          <% end %>
           <a href="<%%= refinery.new_<%= namespacing.underscore %>_admin_<%= singular_name %>_path %>" class="btn btn-link-grey">
             <i class="gcicon gcicon-add"></i> <strong><%%= t('.new') %></strong>
           </a>

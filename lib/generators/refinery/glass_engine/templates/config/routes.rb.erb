@@ -10,11 +10,36 @@ Refinery::Core::Engine.routes.draw do
   namespace :<%= namespacing.underscore %>, :path => '' do
     namespace :admin, :path => <%= backend_route %> do
       resources :<%= plural_name %><%= ', :except => :show' if !include_form? %> do
+        <% if @includes_spam %> 
+          collection do
+            post :update_positions
+            get :spam
+          end
+          member do
+            get :toggle_spam
+          end
+        <% elsif include_moderation? %>
+          collection do
+            post :update_positions
+            get :approved
+            get :rejected
+          end
+
+          member do
+            get :approved
+            get :rejected
+          end
+        <% end %>
+      end
+
+      resources :settings, :only => [:edit, :update] do
+      <% if include_moderation? %> 
         collection do
-          post :update_positions
+          get :moderation
         end
+      <% end %>
       end
     end
   end
-
 end
+

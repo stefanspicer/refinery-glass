@@ -13,17 +13,14 @@ class Create<%= namespacing %><%= class_name.pluralize %> < ActiveRecord::Migrat
       t.<%= attribute.type %> :<%= attribute.name %>
 <% end -%>
       t.integer :position
-
+      <%= 't.string :state' if include_moderation? %>
       t.timestamps
     end
-    
+
     add_index ::Refinery::<%= namespacing %>::<%= class_name %>.table_name, :id
 <% if localized? %>
     Refinery::<%= namespacing %>::<%= class_name %>.create_translation_table! <%= attributes_for_translation_table %>
 <% end %>
-<% if include_moderation? -%>
-      t.string :state
-<% end -%>
 
   end
 

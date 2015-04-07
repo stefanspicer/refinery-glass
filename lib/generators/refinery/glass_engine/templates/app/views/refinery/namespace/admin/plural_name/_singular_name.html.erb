@@ -5,7 +5,7 @@
     <a class="page-title" href="<%%= refinery.<%= 'edit_' if !include_form? %><%= namespacing.underscore %>_admin_<%= singular_name %>_path(<%= singular_name %>) %>">
       <%%= <%= singular_name %>.<%= title_attribute %> %>
     </a>
-    <span class='actions actions-col-2'>
+    <span class='actions <%= include_moderation? || @includes_spam ? 'actions-col-4' : 'actions-col-2' %>'>
       <% if localized? %>
           <%% if Refinery::I18n.frontend_locales.many? %>
             <span class='preview'>
@@ -30,22 +30,39 @@
         -%>
       </span>
 
-<% if include_form? -%>
+    <% if include_form? -%>
       <span class="edit">
         <%%= link_to '<i class="gcicon gcicon-edit"></i>'.html_safe, refinery.edit_<%= namespacing.underscore %>_admin_<%= singular_name %>_path(<%= singular_name %>),
             :title => t('.edit'),
             :class => "circle-icon" %>
       </span>
-<% else %>
-<%   if !skip_frontend? -%>
+
+      <% if include_moderation? %>
+      <%%= link_to refinery_icon_tag("cross.png"),
+        refinery.rejected_<%= namespacing.underscore %>_admin_<%= singular_name %>_path(<%= singular_name %>, :return_to => request.path.split('/').last.gsub(/^<%= plural_name %>$/, 'index')),
+        :title => t('.reject') unless <%= singular_name %>.rejected? %>
+      <%%= link_to refinery_icon_tag("tick.png"),
+        refinery.approved_<%= namespacing.underscore %>_admin_<%= singular_name %>_path(<%= singular_name %>, :return_to => request.path.split('/').last.gsub(/^<%= plural_name %>$/, 'index')), :title => t('.approve') unless <%= singular_name %>.approved? %>
+      <% end -%>
+
+      <% if @includes_spam %>
+      <%% if <%= singular_name %>.spam? %>
+      <%%= link_to refinery_icon_tag('email.png'), refinery.toggle_spam_<%= namespacing.underscore %>_admin_<%= singular_name %>_path(<%= singular_name %>),
+                  :title => t('.mark_as_ham') -%>
+      <%% else %>
+      <%%= link_to refinery_icon_tag('bin_closed.png'), refinery.toggle_spam_<%= namespacing.underscore %>_admin_<%= singular_name %>_path(<%= singular_name %>), :title => t('.mark_as_spam') -%>
+      <%% end %>
+      <% end -%>
+    <% else %>
+      <% if !skip_frontend? -%>
       <span class="preview">
         <%%= link_to '<i class="gcicon gcicon-screen"></i>'.html_safe, refinery.<%= namespacing.underscore %>_<%= singular_name %>_path(<%= singular_name %>),
             :title => t('.view_live_html'),
             :class => "circle-icon",
             :target => "_blank" %>
       </span>
-<%   end -%>
-<% end -%>
+      <% end -%>
+    <% end -%>
     </span>
   </div>
 </li>
