@@ -132,7 +132,7 @@ var CanvasForms = (function ($) {
         var $errorInputs = $(submitEvent.target).find('.form-control.error');
 
         if($errorInputs.length > 0){
-          console.log('longer than 0');
+
           var $firstError = $errorInputs.first();
 
           // after a short delay, scroll to the input with the error.
@@ -152,7 +152,9 @@ var CanvasForms = (function ($) {
               COUNT = 0;
             }, 100);
           }
+          return false;
         }
+        return true;
       },
       hideErrorOnChange: true,
       prompt: function(element, text, opts) {
