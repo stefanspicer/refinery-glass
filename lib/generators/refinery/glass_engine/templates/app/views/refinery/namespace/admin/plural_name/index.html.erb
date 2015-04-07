@@ -132,25 +132,6 @@
             <%%= render '/refinery/admin/search', :url => refinery.<%= namespacing.underscore %>_admin_<%= plural_name %><%= "_index" if plural_name == singular_name%>_path %>
           <%% end %>
 
-          <% if include_form? -%>
-          <div class="dropdown">
-            <button class="btn btn-link-grey icon-left" type="button" id="dropdown-sort">
-              <i class="icon icon-file"></i> Settings <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-              <li role="presentation">
-                <a href="<%%= refinery.edit_<%= namespacing.underscore %>_admin_setting_path(:<%= singular_name %>_notification_recipients) %>" class="open-modal" role="menuitem" data-modal-selector="#notification-modal">
-                  <i class="gcicon gcicon-edit"></i> Who to notify
-                </a>
-              </li>
-              <li role="presentation">
-                <a href="<%%= refinery.edit_<%= namespacing.underscore %>_admin_setting_path(:<%= singular_name %>_confirmation_body) %>" class="open-modal" role="menuitem" data-modal-selector="#response-email-modal">
-                  <i class="gcicon gcicon-edit"></i> Response email
-                </a>
-              </li>
-            </ul>
-          </div>
-          <% end -%>
         </div>
       </div>
       <div class="col-sm-12 index-listing">
