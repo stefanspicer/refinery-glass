@@ -42,20 +42,89 @@
             </button>
           <%% end %>
 
-          <% if include_moderation? %>
-              <li>
-                <%%= link_to t('.new'), refinery.<%= namespacing.underscore %>_admin_<%= plural_name %>_path,
-                            :class => 'items_new_icon' %>
-              </li>
-              <li>
-                <%%= link_to t('.approved'), refinery.approved_<%= namespacing.underscore %>_admin_<%= plural_name %>_path,
-                            :class => 'items_approved_icon' %>
-              </li>
-              <li>
-                <%%= link_to t('.rejected'), refinery.rejected_<%= namespacing.underscore %>_admin_<%= plural_name %>_path,
-                            :class => 'items_rejected_icon' %>
-              </li>
+          <% if include_form? %>
+            <div class="dropdown">
+              <button class="btn btn-link-grey icon-left" type="button" id="dropdown-sort">
+                <i class="icon icon-file"></i> Options <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <% if include_moderation? %>    
+                <li role="presentation">
+                  <%%= link_to '<i class="gcicon gcicon-index"></i> '.html_safe + "Inbox",
+                              refinery.<%= namespacing.underscore %>_admin_<%= plural_name %>_path,
+                              { :role =>"menuitem" } %>
+                </li>
+                <li role="presentation">
+                  <%%= link_to '<i class="gcicon gcicon-check"></i>'.html_safe + " Approved (#{@approved_count})", refinery.approved_<%= namespacing.underscore %>_admin_<%= plural_name %>_path,
+                          :class => 'items_approved_icon' %>
+                </li>
+                <li role="presentation">
+                  <%%= link_to '<i class="gcicon gcicon-trash"></i>'.html_safe + " Rejected (#{@rejected_count})", refinery.rejected_<%= namespacing.underscore %>_admin_<%= plural_name %>_path, { :role =>"menuitem" } %>
+                </li>
+                
+                <li role="presentation">
+                  <%%= link_to t('.toggle_moderation'),
+                              refinery.moderation_<%= namespacing.underscore %>_admin_settings_path,
+                              :class => "#{::Refinery::<%= namespacing %>::<%= class_name %>::Moderation.enabled? ? 'success' : 'failure'}_icon" %>
+                </li>
+                <% end %>
+                <li role="presentation">
+                  <a href="<%%= refinery.edit_<%= namespacing.underscore %>_admin_setting_path(:<%= singular_name %>_notification_recipients) %>" class="open-modal" role="menuitem" data-modal-selector="#notification-modal">
+                    <i class="gcicon gcicon-edit"></i> Who to notify
+                  </a>
+                </li>
+                <li role="presentation">
+                  <a href="<%%= refinery.edit_<%= namespacing.underscore %>_admin_setting_path(:<%= singular_name %>_confirmation_body) %>" class="open-modal" role="menuitem" data-modal-selector="#response-email-modal">
+                    <i class="gcicon gcicon-edit"></i> Response email
+                  </a>
+                </li>
+
+              </ul>
+            </div>
+
+            <div id="notification-modal" class="ui basic modal">
+              <i class="close icon"></i>
+              <div class="header">
+                Who should be notified?
+              </div>
+              <div class="content">
+                <div class="description">
+                </div>
+              </div>
+              <div class="actions">
+                <div class="two fluid ui inverted buttons">
+                  <div class="ui red basic inverted button">
+                    Cancel
+                  </div>
+                  <div class="ui green basic inverted button positive">
+                    Submit
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="response-email-modal" class="ui basic modal">
+              <i class="close icon"></i>
+              <div class="header">
+                Response Email
+              </div>
+              <div class="content">
+                <div class="description">
+                </div>
+              </div>
+              <div class="actions">
+                <div class="two fluid ui inverted buttons">
+                  <div class="ui red basic inverted button">
+                    Cancel
+                  </div>
+                  <div class="ui green basic inverted button positive">
+                    Submit
+                  </div>
+                </div>
+              </div>
+            </div>
           <% end %>
+          
           <a href="<%%= refinery.new_<%= namespacing.underscore %>_admin_<%= singular_name %>_path %>" class="btn btn-link-grey">
             <i class="gcicon gcicon-add"></i> <strong><%%= t('.new') %></strong>
           </a>
