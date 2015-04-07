@@ -3,7 +3,11 @@
     submit_button_text  ||= t('.save')
     submit_button_id    ||= "submit_button"
     submit_button_title ||= nil
+    begin
     submit_redirect_url ||= eval("refinery.#{Refinery.route_for_model(f.object.class, {:plural => true})}")
+    rescue Exception => e
+      logger.warn e
+    end
   end
 
   hide_cancel = from_dialog? unless defined?(hide_cancel).presence
@@ -68,7 +72,7 @@
                    :id => submit_button_id,
                    :name => nil,
                    :class => "btn btn-primary btn-lg",
-                   :'data-redirect-url' => submit_redirect_url,
+                   :'data-redirect-url' => defined? submit_redirect_url ? submit_redirect_url : nil,
                    :tooltip => submit_button_title unless hide_submit %>
 
     <%= hidden_field_tag :continue_editing, false if continue_editing %>
