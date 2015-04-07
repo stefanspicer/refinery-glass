@@ -127,29 +127,47 @@ var CanvasForms = (function ($) {
     $.verify({
       autoInit: false,
       skipHiddenFields : false,
-      hideErrorOnChange: true,
-      prompt: function(element, text) {
-        var $errorMessageDiv = $(element).parents('.form-group').find('.tip.text-danger');
-        var $elementToScrollTo  = $('input.error').first();
-        $errorMessageDiv.html(text || '');
+      beforeSubmit: function(submitEvent, result) { 
 
-        // after a short delay, scroll to the input with the error.
-        if (COUNT < 1 && text !== null) {
-          COUNT++;
+        var $errorInputs = $(submitEvent.target).find('.form-control.error');
 
-          $(document).trigger('allow-page-unload', {
-            src: 'validation fail',
-            selector: 'button[type=submit]',
-            value: true
-          });
+        if($errorInputs.length > 0){
+          console.log('longer than 0');
+          var $firstError = $errorInputs.first();
 
-          setTimeout(function () {
-            $('html, body').animate({
-              scrollTop: $errorMessageDiv.offset().top - 73
-            }, 500);
-            COUNT = 0;
-          }, 100);
+          // after a short delay, scroll to the input with the error.
+          if (COUNT < 1) {
+            COUNT++;
+
+            $(document).trigger('allow-page-unload', {
+              src: 'validation fail',
+              selector: 'button[type=submit]',
+              value: true
+            });
+
+            setTimeout(function () {
+              $('html, body').animate({
+                scrollTop: $firstError.offset().top - 73
+              }, 500);
+              COUNT = 0;
+            }, 100);
+          }
         }
+      },
+      hideErrorOnChange: true,
+      prompt: function(element, text, opts) {
+
+        var position = $('body').width() > 978 ? 'right' : 'bottom-center';
+        var $element = $(element);
+        if($element.data('error-position') !== undefined){
+          position = $element.data('error-position');
+        }
+
+        $(element).notify(text, { 
+          position: position,
+          showAnimation: 'fadeIn',
+          hideAnimation: 'fadeOut'
+        }); // explicit call to $.notify here
       }
     });
   }
