@@ -1,3 +1,5 @@
+require 'will_paginate/array'
+
 module Refinery
   module <%= namespacing %>
     module Admin
@@ -46,7 +48,7 @@ module Refinery
         def index
           unless searching?
           <% if include_moderation? -%>
-            @<%= plural_name %> = <%= class_name %>.unmoderated.page(params[:page])
+            @<%= plural_name %> = <%= class_name %>.unmoderated
           <% else %>
             find_all_<%= plural_name %>
           <% end -%>
@@ -55,6 +57,8 @@ module Refinery
           end
 
           @grouped_<%= plural_name %> = group_by_date(@<%= plural_name %>)
+
+          @join_reqs = @join_reqs.paginate(page: params[:page])
 
           respond_to do |format|
             format.html

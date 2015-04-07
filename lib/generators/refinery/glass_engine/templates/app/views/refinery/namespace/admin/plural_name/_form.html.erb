@@ -46,7 +46,7 @@
 <% has_image_attribute = true -%>
 <% elsif attribute.type.to_s == 'resource' -%>
       <div class='form-group'>
-        <%%= f.label :<%= attribute.name %> -%>
+        <%%= f.label :<%= attribute.name %>, class: 'control-label' -%>
         <%%= render '/refinery/admin/resource_picker',
                    :f => f,
                    :field => :<%= "#{attribute.name}_id".gsub("_id_id", "_id") %>,
@@ -54,17 +54,17 @@
       </div>
 <% elsif attribute.type.to_s == 'time' -%>
     <div class='form-group'>
-      <%%= f.label :<%= attribute.name %> %>
+      <%%= f.label :<%= attribute.name %>, class: 'control-label' %>
       <%%= f.text_field :<%= attribute.name %>, :class => 'form-control datetimepicker time-only', :value => @<%= singular_name %>.<%= attribute.name %>.present? ? @<%= singular_name %>.<%= attribute.name %>.strftime('%I:%M %p') : nil %>
     </div>
 <% elsif attribute.type.to_s == 'date' -%>
     <div class='form-group'>
-      <%%= f.label :<%= attribute.name %> %>
+      <%%= f.label :<%= attribute.name %>, class: 'control-label' %>
       <%%= f.text_field :<%= attribute.name %>, :class => 'form-control datetimepicker date-only', :value => @<%= singular_name %>.<%= attribute.name %>.present? ? @<%= singular_name %>.<%= attribute.name %>.strftime('%m/%d/%Y') : nil %>
     </div>
 <% elsif attribute.type.to_s == 'datetime' -%>
     <div class='form-group'>
-      <%%= f.label :<%= attribute.name %> %>
+      <%%= f.label :<%= attribute.name %>, class: 'control-label' %>
       <%%= f.text_field :<%= attribute.name %>, :class => 'form-control datetimepicker default', :value => @<%= singular_name %>.<%= attribute.name %>.present? ? @<%= singular_name %>.<%= attribute.name %>.strftime('%m/%d/%Y %I:%M %p') : nil %>
     </div>
 <% else -%>
@@ -72,7 +72,7 @@
         <%%= f.hidden_field :<%= attribute.name %> -%>
   <% else -%>
         <div class='form-group'>
-          <%%= f.label :<%= attribute.name %> -%>
+          <%%= f.label :<%= attribute.name %>, class: 'control-label' -%>
           <%%= f.<%= attribute.field_type -%> :<%= attribute.name -%>, :class => 'form-control'<%= ", :checked => @#{singular_name}[:#{attribute.name}]" if attribute.field_type == :check_box %> -%>
         </div>
   <% end -%>
