@@ -1213,16 +1213,18 @@ input:focus, .form-control:focus, input[type="submit"]:focus, .btn:focus, input[
 .validation{
   background: $red;
   color: $white;
-  padding-bottom: 15px;
+  padding-bottom: 0px;
   padding-left: 15px;
   font-size: 12px;
-  bottom: -15px;
-  margin-top: -15px;
+  bottom: -5px;
+  margin-top: -5px;
   border-top-left-radius: $radius;
   border-top-right-radius: $radius;
   display: block;
-  height: 40px;
+  height: 25px;
+  z-index: 5;
   transition: .2s ease-out;
+  white-space: nowrap;
   &:empty{
     height: 0px;
   }
