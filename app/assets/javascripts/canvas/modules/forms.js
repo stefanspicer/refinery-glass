@@ -162,7 +162,7 @@ var CanvasForms = (function ($) {
       },
       hideErrorOnChange: true,
       prompt: function(element, text, opts) {
-        console.log('fired');
+
         var position = $('body').width() > 978 ? 'right' : 'bottom-center';
         var $element = $(element);
         if($element.data('error-position') !== undefined){
