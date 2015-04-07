@@ -14,13 +14,16 @@ module Refinery
 
     <% if @includes_spam -%>
 
-        
-
         def index
           @<%= plural_name %> = find_all_<%= plural_name %>.ham
           @<%= plural_name %> = @<%= plural_name %>.with_query(params[:search]) if searching?
 
           @grouped_<%= plural_name %> = group_by_date(@<%= plural_name %>)
+          
+          respond_to do |format|
+            format.html
+            format.js
+          end
         end
 
         def spam
@@ -52,6 +55,11 @@ module Refinery
           end
 
           @grouped_<%= plural_name %> = group_by_date(@<%= plural_name %>)
+
+          respond_to do |format|
+            format.html
+            format.js
+          end
         end
       <% if include_moderation? -%>
         def approved
