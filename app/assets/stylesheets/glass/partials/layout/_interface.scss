@@ -705,6 +705,10 @@ body{
         }
       }
     }
+    &:last-child{
+      left: auto;
+      right: 0; 
+    }
     .gcicon{
       color: $grey-3;
     }

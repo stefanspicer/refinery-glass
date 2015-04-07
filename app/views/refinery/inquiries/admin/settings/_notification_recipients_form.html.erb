@@ -1,11 +1,13 @@
 <%= form_for @setting, :url => refinery.inquiries_admin_setting_path(@setting) do |f| %>
-
+<div class="form-horizontal">
   <div class='field'>
-    <span class='label_with_help'>
-      <%= f.label :value, t('.inquiry_settings_value_name') %>
-    </span>
+    <div class="form-group">
+    <%= f.label :value, t('.inquiry_settings_value_name'), :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
     <%= f.text_field :value, :value => f.object.value, # required, we can't use :value
-                     :class => "larger widest" %>
+                     :class => "form-control" %>
+    </div>
+    </div>
   </div>
 
   <p>
@@ -22,4 +24,6 @@
                :cancel_url => refinery.inquiries_admin_inquiries_path,
                :hide_delete => true
              } %>
+             
+</div>
 <% end %>
