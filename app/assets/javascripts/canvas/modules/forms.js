@@ -127,9 +127,13 @@ var CanvasForms = (function ($) {
     $.verify({
       autoInit: false,
       skipHiddenFields : false,
+      errorContainer: function(input) {
+        return $(input).parents('.form-group');
+      },
+      errorClass: 'has-error',
       beforeSubmit: function(submitEvent, result) { 
 
-        var $errorInputs = $(submitEvent.target).find('.form-control.error');
+        var $errorInputs = $(submitEvent.target).find('.has-error');
 
         if($errorInputs.length > 0){
 
@@ -158,7 +162,7 @@ var CanvasForms = (function ($) {
       },
       hideErrorOnChange: true,
       prompt: function(element, text, opts) {
-
+        console.log('fired');
         var position = $('body').width() > 978 ? 'right' : 'bottom-center';
         var $element = $(element);
         if($element.data('error-position') !== undefined){
