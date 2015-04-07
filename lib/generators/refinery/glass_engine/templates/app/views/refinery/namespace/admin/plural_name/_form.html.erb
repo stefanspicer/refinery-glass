@@ -4,13 +4,6 @@
   delete_title = (title = attributes.detect { |a| a.type.to_s == "string" }).present? ? ", :title => @#{singular_name}.#{title.name}" : ''
   has_image_attribute = false
 -%>
-<% form_actions = <<-ENDHTML
-<%= render '/refinery/admin/form_actions', :f => f, #{':sidebar => true,' if include_live_editor? }
-                 :continue_editing => false,
-                 :delete_title => t('delete', :scope => 'refinery.#{namespacing.underscore}.admin.#{plural_name}.#{singular_name}'),
-                 :delete_confirmation => t('message', :scope => 'refinery.admin.delete'#{delete_title}) -%%>
-ENDHTML
--%>
 <% if include_live_editor? -%>
 <%% content_for :admin_page_preview do %>
   <%%= render template: 'refinery/<%= namespacing.underscore %>/<%= plural_name %>/show' %>
@@ -27,14 +20,11 @@ ENDHTML
 <div class="row">
   <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
 <% end -%>
-    <%%= form_for [refinery, :<%= namespacing.underscore %>_admin, @<%= singular_name %>] do |f| -%>
+    <%%= form_for [refinery, :<%= namespacing.underscore %>_admin, @<%= singular_name %>], :html => {:class => "ajax-form"} do |f| -%>
       <%%= render '/refinery/admin/error_messages',
                   :object => @<%= singular_name %>,
                   :include_object_name => true %>
 
-<% if include_live_editor? -%>
-      <%= form_actions %>
-<% end -%>
 <% if localized? -%>
         <%%= render '/refinery/admin/locale_picker',
                     :current_locale => Globalize.locale %>
@@ -88,9 +78,10 @@ ENDHTML
   <% end -%>
 <% end # switch attribute type -%>
 <% end # attributes.each -%>
-<% if !include_live_editor? -%>
-      <%= form_actions %>
-<% end -%>
+      <%%= render '/refinery/admin/form_actions', :f => f, <%= ':sidebar => true,' if include_live_editor? %>
+                 :continue_editing => false,
+                 :delete_title => t('delete', :scope => 'refinery.<%= namespacing.underscore %>.admin.<%= plural_name %>.<%= singular_name %>'),
+                 :delete_confirmation => t('message', :scope => 'refinery.admin.delete'<%= delete_title %>) -%>
     <%% end # form_for -%>
 
   </div>
