@@ -11,17 +11,37 @@ Refinery::I18n.frontend_locales.each do |lang|
   end
 
 <% unless skip_frontend? -%>
-  uid = "<%= [(namespacing.underscore if namespacing.underscore != plural_name), plural_name, 'thank-you'].compact.join('-') %>"
-  if defined?(Refinery::Page) && Refinery::Page.where(:identifier => uid).empty?
-    page = Refinery::Page.create(
+  parent_uid = "<%= [(namespacing.underscore if namespacing.underscore != plural_name), plural_name].compact.join('-') %>"
+
+
+  if defined?(Refinery::Page) && Refinery::Page.where(:identifier => parent_uid).empty?
+    parent_page = Refinery::Page.create(
       :title => '<%= class_name.pluralize.underscore.titleize %>',
       :deletable => false
     )
-    page.identifier = uid
-    page.save
+    parent_page.identifier = parent_uid
+    parent_page.save
     Refinery::Pages.default_parts.each_with_index do |default_page_part, index|
-      page.parts.create(:title => default_page_part, :body => nil, :position => index)
+      parent_page.parts.create(:title => default_page_part, :body => nil, :position => index)
     end
+
+    <% if include_form? %>
+      thankyou_uid = "<%= [(namespacing.underscore if namespacing.underscore != plural_name), plural_name, 'thank-you'].compact.join('-') %>"
+
+      if defined?(Refinery::Page) && Refinery::Page.where(:identifier => thankyou_uid).empty?
+        page = Refinery::Page.create(
+          :title => 'Thank You',
+          :deletable => false
+        )
+        page.identifier = thankyou_uid
+        page.parent = parent_page unless parent_page.nil?
+        page.save
+        Refinery::Pages.default_parts.each_with_index do |default_page_part, index|
+          page.parts.create(:title => default_page_part, :body => nil)
+        end
+      end
+    <% end %>
   end
+
 <% end -%>
 end
