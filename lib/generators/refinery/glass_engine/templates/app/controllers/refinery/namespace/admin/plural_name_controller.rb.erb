@@ -58,7 +58,7 @@ module Refinery
 
           @grouped_<%= plural_name %> = group_by_date(@<%= plural_name %>)
 
-          @join_reqs = @join_reqs.paginate(page: params[:page])
+          @<%= plural_name %> = @<%= plural_name %>.paginate(page: params[:page])
 
           respond_to do |format|
             format.html
