@@ -43,7 +43,7 @@ module Refinery
         end
 
     <% else %>
-        before_filter :get_approved_and_rejected_counts
+        <%= before_filter :get_approved_and_rejected_counts if include_moderation? %>
 
         def index
           unless searching?

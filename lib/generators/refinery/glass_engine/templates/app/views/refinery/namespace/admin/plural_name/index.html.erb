@@ -48,7 +48,7 @@
                 <i class="icon icon-file"></i> Options <span class="caret"></span>
               </button>
               <ul class="dropdown-menu" role="menu">
-                <% if include_moderation? %>    
+              <% if include_moderation? %>
                 <li role="presentation">
                   <%%= link_to '<i class="gcicon gcicon-index"></i> '.html_safe + "Inbox",
                               refinery.<%= namespacing.underscore %>_admin_<%= plural_name %>_path,
@@ -67,7 +67,7 @@
                               refinery.moderation_<%= namespacing.underscore %>_admin_settings_path,
                               :class => "#{::Refinery::<%= namespacing %>::<%= class_name %>::Moderation.enabled? ? 'success' : 'failure'}_icon" %>
                 </li>
-                <% end %>
+              <% end %>
                 <li role="presentation">
                   <a href="<%%= refinery.edit_<%= namespacing.underscore %>_admin_setting_path(:<%= singular_name %>_notification_recipients) %>" class="open-modal" role="menuitem" data-modal-selector="#notification-modal">
                     <i class="gcicon gcicon-edit"></i> Who to notify
