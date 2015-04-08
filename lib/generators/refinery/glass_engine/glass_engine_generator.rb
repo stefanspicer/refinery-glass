@@ -66,10 +66,17 @@ module Refinery
     end
 
     def reject_file_with_extra_checks?(file)
-      return true if (skip_frontend? && (file.to_s.include?('app') && file.to_s.scan(/admin|models|mailers/).empty?)) 
-      return true if (!include_form? && (
-        file.to_s.scan(/views\/refinery\/namespace\/admin\/plural_name\/show|views\/refinery\/namespace\/plural_name\/new|mailer|models\/refinery\/namespace\/setting|controllers\/refinery\/namespace\/admin\/settings_controller|views\/refinery\/namespace\/admin\/settings/)
+      puts file.to_s
+
+      if (skip_frontend? && (file.to_s.include?('app') && file.to_s.scan(/admin|models|mailers/).empty?))
+        return true
+      end
+
+      if (!include_form? && (
+        file.to_s.scan(/views\/refinery\/namespace\/admin\/plural_name\/show|views\/refinery\/namespace\/plural_name\/new|mailer|models\/refinery\/namespace\/setting|controllers\/refinery\/namespace\/admin\/settings_controller|views\/refinery\/namespace\/admin\/settings/).present?
         ))
+        return true
+      end
       if include_form?
         if file.to_s.scan(/views\/refinery\/namespace\/plural_name\/show|views\/refinery\/namespace\/plural_name\/index/).present?
           return true
