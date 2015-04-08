@@ -73,7 +73,7 @@ module Refinery
       end
 
       if (!include_form? && (
-        file.to_s.scan(/views\/refinery\/namespace\/admin\/plural_name\/show|views\/refinery\/namespace\/plural_name\/new|mailer|models\/refinery\/namespace\/setting|controllers\/refinery\/namespace\/admin\/settings_controller|views\/refinery\/namespace\/admin\/settings/).present?
+        file.to_s.scan(/views\/refinery\/namespace\/admin\/plural_name\/show|views\/refinery\/namespace\/plural_name\/new|mailer|models\/refinery\/namespace\/setting|controllers\/refinery\/namespace\/admin\/settings_controller|views\/refinery\/namespace\/admin\/settings|views\/refinery\/namespace\/mailer/).present?
         ))
         return true
       end
