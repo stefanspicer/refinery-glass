@@ -258,40 +258,50 @@ var CanvasForms = (function ($) {
             var replace_selector = $form.data('ajax-replace-selector');
             var $replace_form    = replace_selector ? $(data).find(replace_selector) : $(data).find(selector); // the same form in response, replace it
             var $page_body       = $(data).find('#body_content, .glass-edit-html');                            // response is a page, use inner content
-            var $error_response  = ($(data).attr('id') === 'errorExplanation') ? $(data) : $(data).find('#errorExplanation');
+            // var $error_response  = ($(data).attr('id') === 'errorExplanation') ? $(data) : $(data).find('#errorExplanation');
             var $modal           = $(selector).parents('.modal');
             var $replacement     = null;
             var redirect         = false;
 
+            var $thankYouPageContent = $(data).find('.glass-edit');
+            var isThankyouPage = ($thankYouPageContent.length > 0 && $thankYouPageContent.html().indexOf('Thank You') !== -1) || $form.hasClass('ajax-thank-you');
             var callback = $form.data('success-callback');
-            if (callback) {
+
+            if (callback !== undefined) {
               var result = callback($replace_form);
               if (result === false) {
                 return;
               }
             }
 
+            //if ($error_response.length > 0) {
+            //  var $cur_error = $(selector + ' #errorExplanation');
+            //  if ($cur_error.length > 0) {
+            //    replaceContent($cur_error, $error_response);
+            //  }
+            //  else {
+            //    $error_response.insertBefore(selector + ' .form-actions');
+            //  }
+            //  $submit_btn.html($submit_btn.data('orig-btn-txt'));
+            //  $submit_btns.removeAttr('disabled');
+            //}
             if ($replace_form.length > 0) {
               $replacement = $replace_form;
             }
             else if ($page_body.length > 0) {
-              $replacement = $page_body.first();
-              redirect = true;
-            }
-            else if ($error_response.length > 0) {
-              var $cur_error = $(selector + ' #errorExplanation');
-              if ($cur_error.length > 0) {
-                replaceContent($cur_error, $error_response);
+              if(isThankyouPage){
+                $replacement = $thankYouPageContent;
+              } else {
+                $replacement = $page_body.first();
+                redirect = true;
               }
-              else {
-                $error_response.insertBefore(selector + ' .form-actions');
+            } else {
+              if(isThankyouPage){
+                $replacement = $thankYouPageContent;
+              } else {
+                $replacement = $('<p>Thank you</p>'); // Default response message
+                redirect = true;
               }
-              $submit_btn.html($submit_btn.data('orig-btn-txt'));
-              $submit_btns.removeAttr('disabled');
-            }
-            else {
-              $replacement = $('<p>Thank you</p>'); // Default response message
-              redirect = true;
             }
 
             if ($replacement && $modal.length === 0) {
