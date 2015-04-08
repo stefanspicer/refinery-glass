@@ -141,48 +141,5 @@
 	</section>
   <%%= render '/refinery/admin/make_sortable', :tree => false if !searching? and ::Refinery::<%= namespacing %>::Admin::<%= class_name.pluralize %>Controller.sortable? and ::Refinery::<%= namespacing %>::<%= class_name %>.many? %>
 
-<% if include_form? -%>
-  <div id="notification-modal" class="ui basic modal">
-    <i class="close icon"></i>
-    <div class="header">
-      Who should be notified?
-    </div>
-    <div class="content">
-      <div class="description">
-      </div>
-    </div>
-    <div class="actions">
-      <div class="two fluid ui inverted buttons">
-        <div class="ui red basic inverted button">
-          Cancel
-        </div>
-        <div class="ui green basic inverted button positive">
-          Submit
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="response-email-modal" class="ui basic modal">
-    <i class="close icon"></i>
-    <div class="header">
-      Response Email
-    </div>
-    <div class="content">
-      <div class="description">
-      </div>
-    </div>
-    <div class="actions">
-      <div class="two fluid ui inverted buttons">
-        <div class="ui red basic inverted button">
-          Cancel
-        </div>
-        <div class="ui green basic inverted button positive">
-          Submit
-        </div>
-      </div>
-    </div>
-  </div>
-<% end -%>
 <%% end %>
 <%%= render 'refinery/<%= namespacing.underscore %>/admin/submenu' %>
