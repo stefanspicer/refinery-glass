@@ -31,29 +31,27 @@ Refinery::Core::Engine.routes.draw do
           end
         <% end %>
       end
-
+<% if include_form? %>
       resources :settings, :only => [:edit, :update] do
         collection do
           post :update_positions
-<% if include_moderation? -%> 
+  <% if include_moderation? -%>
           get :moderation
           get :approved
           get :rejected
-<% end -%>
+  <% end -%>
         end
-<% if include_moderation? -%>
+  <% if include_moderation? -%>
         member do
           get :approved
           get :rejected
         end
-<% end -%>
-      end
-
-      resources :settings, :only => [:edit, :update]<% if include_moderation? %> do
         collection do
           get :moderation
         end
-      end<% end %>
+  <% end -%>
+      end
+<% end %>
     end
   end
 end
