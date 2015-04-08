@@ -258,7 +258,7 @@ var CanvasForms = (function ($) {
             var replace_selector = $form.data('ajax-replace-selector');
             var $replace_form    = replace_selector ? $(data).find(replace_selector) : $(data).find(selector); // the same form in response, replace it
             var $page_body       = $(data).find('#body_content, .glass-edit-html');                            // response is a page, use inner content
-            // var $error_response  = ($(data).attr('id') === 'errorExplanation') ? $(data) : $(data).find('#errorExplanation');
+            var $error_response  = ($(data).attr('id') === 'errorExplanation') ? $(data) : $(data).find('#errorExplanation');
             var $modal           = $(selector).parents('.modal');
             var $replacement     = null;
             var redirect         = false;
@@ -274,17 +274,21 @@ var CanvasForms = (function ($) {
               }
             }
 
-            //if ($error_response.length > 0) {
-            //  var $cur_error = $(selector + ' #errorExplanation');
-            //  if ($cur_error.length > 0) {
-            //    replaceContent($cur_error, $error_response);
-            //  }
-            //  else {
-            //    $error_response.insertBefore(selector + ' .form-actions');
-            //  }
-            //  $submit_btn.html($submit_btn.data('orig-btn-txt'));
-            //  $submit_btns.removeAttr('disabled');
-            //}
+            if ($error_response.length > 0) {
+              var $cur_error = $(selector + ' #errorExplanation');
+              var $formActions = $(selector + ' .form-actions').length > 0 ? $(selector + ' .form-actions') : $(selector + ' .actions');
+
+              if ($cur_error.length > 0) {
+                replaceContent($cur_error, $error_response);
+              }
+              else {
+                $error_response.insertBefore($formActions);
+              }
+              $submit_btn.html($submit_btn.data('orig-btn-txt'));
+              $submit_btns.removeAttr('disabled');
+              return; // if there was an error return early so that page doesn't get redirected.
+            }
+
             if ($replace_form.length > 0) {
               $replacement = $replace_form;
             }
@@ -348,9 +352,9 @@ var CanvasForms = (function ($) {
                 ajaxUpdateContent(updateArea);
                 // Clear input values from the form (except for hidden values)
                 $resetForm.trigger("reset");
-                return;
               }
             }
+            return;
           });
         }
       });
