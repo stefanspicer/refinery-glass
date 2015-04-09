@@ -72,7 +72,7 @@
                    :id => submit_button_id,
                    :name => nil,
                    :class => "btn btn-primary btn-lg",
-                   :'data-redirect-url' => defined? submit_redirect_url ? submit_redirect_url : nil,
+                   :'data-redirect-url' => defined?(submit_redirect_url) ? "#{submit_redirect_url}" : nil,
                    :tooltip => submit_button_title unless hide_submit %>
 
     <%= hidden_field_tag :continue_editing, false if continue_editing %>
