@@ -8,7 +8,6 @@
 //# require jquery
 //# require jquery_ujs
 //= require jquery-ui
-//= require modernizr-min
 //= require jquery/jquery.html5-placeholder-shim
 //= require jquery/jquery.timers
 //= require jquery/jquery.jcarousel
