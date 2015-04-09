@@ -1,60 +1,61 @@
 <%= form_for @setting, :url => refinery.inquiries_admin_setting_path(@setting) do |f| %>
 
   <div class="text-left">
-  <p>
-    <%= t('.explanation') %>
-  </p>
-  <p>
-    <%= t('.below_edit_email_sent') %>
-  </p>
+    <p>
+      <%= t('.explanation') %>
+    </p>
+
+    <p>
+      <%= t('.below_edit_email_sent') %>
+    </p>
   </div>
   <div class="row margin-top-sm" id='inquiry'>
     <div class="col-lg-8 col-lg-offset-2">
       <div class="row">
-    <div class="col-sm-3 text-right text-right">
-        <label class='stripped'><%= t('.to') %>:</label>
-    </div>
-    <div class="col-sm-9 text-left">
-        <%= t('.the_customer_making_inquiry') %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-3 text-right">
-        <label class='stripped'><%= t('.from') %>:</label>
-    </div>
-    <div class="col-sm-9 text-left">
-        <%= "#{Refinery::Core.site_name} &lt;no-reply@#{request.domain}&gt;".html_safe %>
-      </div>
-    </div>
-  <div class="row">
-    <% Refinery::I18n.frontend_locales.each do |locale| %>
-      <div class="col-sm-3 text-right">
-          <label class='stripped'><%= t('.subject') %> (<%= locale.to_s %>):</label>
-      </div>
-      <div class="col-sm-9 text-left">
-          <div class="form-group">
-          <%= text_field_tag "subject[][#{locale.to_s}]", Refinery::Inquiries::Setting.confirmation_subject(locale),
-                             :class => 'widest form-control' %>
-          </div>                 
+        <div class="col-sm-3 text-right text-right">
+          <label class='stripped'><%= t('.to') %>:</label>
+        </div>
+        <div class="col-sm-9 text-left">
+          <%= t('.the_customer_making_inquiry') %>
         </div>
       </div>
-  <div class="row">
-      <div class="col-sm-3 text-right">
+      <div class="row">
+        <div class="col-sm-3 text-right">
+          <label class='stripped'><%= t('.from') %>:</label>
+        </div>
+        <div class="col-sm-9 text-left">
+          <%= "#{Refinery::Core.site_name} &lt;no-reply@#{request.domain}&gt;".html_safe %>
+        </div>
+      </div>
+      <div class="row">
+      <% Refinery::I18n.frontend_locales.each do |locale| %>
+        <div class="col-sm-3 text-right">
+          <label class='stripped'><%= t('.subject') %> (<%= locale.to_s %>):</label>
+        </div>
+        <div class="col-sm-9 text-left">
+          <div class="form-group">
+            <%= text_field_tag "subject[][#{locale.to_s}]", Refinery::Inquiries::Setting.confirmation_subject(locale),
+                               :class => 'widest form-control' %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3 text-right">
           <%= f.label :value, t('.message'),
                       :class => 'stripped' %> (<%= locale.to_s %>):
-      </div>
-      <div class="col-sm-9 text-left">
+        </div>
+        <div class="col-sm-9 text-left">
           <div class="form-group">
-          <%= text_area_tag "message[][#{locale.to_s}]", Refinery::Inquiries::Setting.confirmation_message(locale), # required, we can't use :value
-                          :rows => "5",
-                          :class => 'widest form-control' %>
-          <br/>
-          <em><%= t('.note') %></em>
+            <%= text_area_tag "message[][#{locale.to_s}]", Refinery::Inquiries::Setting.confirmation_message(locale), # required, we can't use :value
+                              :rows => "5",
+                              :class => 'widest form-control' %>
+            <br/>
+            <em><%= t('.note') %></em>
           </div>
-       </div>
-    <% end %>
-  </div>
-  </div>
+        </div>
+      <% end %>
+      </div>
+    </div>
   </div>
 
   <%= render :partial => "/refinery/admin/form_actions",
