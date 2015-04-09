@@ -131,7 +131,7 @@ var CanvasForms = (function ($) {
         return $(input).parents('.form-group');
       },
       errorClass: 'has-error',
-      beforeSubmit: function(submitEvent, result) { 
+      beforeSubmit: function(submitEvent, result) {
 
         var $errorInputs = $(submitEvent.target).find('.has-error');
 
@@ -162,18 +162,16 @@ var CanvasForms = (function ($) {
       },
       hideErrorOnChange: true,
       prompt: function(element, text, opts) {
+        var $errorContainer, $validationContainer = $(element).parents('.form-group').find('.validation');
 
-        var position = $('body').width() > 978 ? 'right' : 'bottom-center';
-        var $element = $(element);
-        if($element.data('error-position') !== undefined){
-          position = $element.data('error-position');
+        if($validationContainer.length > 0 && ($errorContainer = $validationContainer.find('span')).length > 0){
+          if(text){
+            $validationContainer.addClass('active');
+          } else {
+            $validationContainer.removeClass('active');
+          }
+          $errorContainer.html(text || '');
         }
-
-        $(element).notify(text, { 
-          position: position,
-          showAnimation: 'fadeIn',
-          hideAnimation: 'fadeOut'
-        }); // explicit call to $.notify here
       }
     });
   }
@@ -502,21 +500,21 @@ var CanvasForms = (function ($) {
       // Add a semantic modal to the body of the page.
       $('body').append([
         '<div id="delete-confirm-modal" class="ui basic modal">',
-          '<i class="close icon"></i>',
-          '<div class="header">',
-            'Confirm Deletion',
-          '</div>',
-          '<div class="content">',
-            '<div class="description">',
-              '<p></p>',
-            '</div>',
-          '</div>',
-          '<div class="actions">',
-            '<div class="two fluid ui inverted buttons">',
-            '<div class="ui red basic inverted button">',
-              'Cancel',
-            '</div>',
-            '<div class="ui green basic inverted button confirm-modal-delete" data-url="',
+        '<i class="close icon"></i>',
+        '<div class="header">',
+        'Confirm Deletion',
+        '</div>',
+        '<div class="content">',
+        '<div class="description">',
+        '<p></p>',
+        '</div>',
+        '</div>',
+        '<div class="actions">',
+        '<div class="two fluid ui inverted buttons">',
+        '<div class="ui red basic inverted button">',
+        'Cancel',
+        '</div>',
+        '<div class="ui green basic inverted button confirm-modal-delete" data-url="',
         $btn.attr('data-url'),'" data-redirect-url="',$btn.attr('data-redirect-url'),'">',
         'Delete',
         '</div></div></div></div>'].join(""));
