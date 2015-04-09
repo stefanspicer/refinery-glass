@@ -170,6 +170,9 @@ var CanvasForms = (function ($) {
           } else {
             $validationContainer.removeClass('active');
           }
+          if($errorContainer.length > 1){
+            $errorContainer = $(element).siblings('.validation');
+          }
           $errorContainer.html(text || '');
         }
       }
@@ -193,9 +196,9 @@ var CanvasForms = (function ($) {
 
   function initFormSubmitWithin(element) {
     $(element).find('form').each(function () {
-      // if ($(this).hasClass('no-ajax') || !$(this).attr('id')) {
-      //   return;
-      // }
+      if ($(this).hasClass('no-ajax')) {
+         return;
+      }
 
       if (!($(this).hasClass('ajax-form') || $(this).parents('.modal').length > 0)) {
         return;
@@ -287,7 +290,6 @@ var CanvasForms = (function ($) {
     var $error_response  = ($(data).attr('id') === 'errorExplanation') ? $(data) : $(data).find('#errorExplanation');
     var $modal           = $(selector).parents('.modal');
     var $replacement     = null;
-    var redirect         = false;
     var $thankYouPageContent = $(data).find('.glass-edit');
     var isThankyouPage = ($thankYouPageContent.length > 0 && $thankYouPageContent.html().indexOf('Thank You') !== -1) || $form.hasClass('ajax-thank-you');
     var callback = $form.data('success-callback');
@@ -323,20 +325,21 @@ var CanvasForms = (function ($) {
         $replacement = $thankYouPageContent;
       } else {
         $replacement = $page_body.first();
-        redirect = true;
       }
     } else {
       if(isThankyouPage){
         $replacement = $thankYouPageContent;
       } else {
         $replacement = $('<p>Thank you</p>'); // Default response message
-        redirect = true;
       }
     }
 
+
     if ($modal.length === 0) {
       var redirect_url = $submit_btn.data('redirect-url');
-      if (redirect && redirect_url) {
+      console.log("Redirect url?");
+      console.log(redirect_url);
+      if (redirect_url !== undefined) {
         window.location.href = redirect_url;
       } else if($replacement !== null) {
         // inquiries engine puts an h1 in there
