@@ -243,122 +243,150 @@ var CanvasForms = (function ($) {
           }
 
           if (status !== 'success') {
-            if(xhr.responseJSON && xhr.responseJSON.message !== undefined){
-              $(selector).append(['<div id="errorExplanation" class="errorExplanation text-center">',xhr.responseJSON.message,'</div>'].join(''));
-            }
-            else {
-              $(selector).append(['<div id="errorExplanation" class="errorExplanation text-center">',
-                                 '<p>Uh oh! This never happened while we were testing! ',
-                                 'The developers have been notified an will probably have this fixed in the next 10 seconds. ',
-                                 'Just kidding, it may take until tomorrow morning.  Thank you for your patence.</p></div>'].join(''));
-            }
+            handleUnexpectedError(xhr, selector);
             return;
           }
           xhr.done(function (data) {
-            var replace_selector = $form.data('ajax-replace-selector');
-            var $replace_form    = replace_selector ? $(data).find(replace_selector) : $(data).find(selector); // the same form in response, replace it
-            var $page_body       = $(data).find('#body_content, .glass-edit-html');                            // response is a page, use inner content
-            var $error_response  = ($(data).attr('id') === 'errorExplanation') ? $(data) : $(data).find('#errorExplanation');
-            var $modal           = $(selector).parents('.modal');
-            var $replacement     = null;
-            var redirect         = false;
-
-            var $thankYouPageContent = $(data).find('.glass-edit');
-            var isThankyouPage = ($thankYouPageContent.length > 0 && $thankYouPageContent.html().indexOf('Thank You') !== -1) || $form.hasClass('ajax-thank-you');
-            var callback = $form.data('success-callback');
-
-            if (callback !== undefined) {
-              var result = callback($replace_form);
-              if (result === false) {
-                return;
-              }
-            }
-
-            if ($error_response.length > 0) {
-              var $cur_error = $(selector + ' #errorExplanation');
-              var $formActions = $(selector + ' .form-actions').length > 0 ? $(selector + ' .form-actions') : $(selector + ' .actions');
-
-              if ($cur_error.length > 0) {
-                replaceContent($cur_error, $error_response);
-              }
-              else {
-                $error_response.insertBefore($formActions);
-              }
-              $submit_btn.html($submit_btn.data('orig-btn-txt'));
-              $submit_btns.removeAttr('disabled');
-              return; // if there was an error return early so that page doesn't get redirected.
-            }
-
-            if ($replace_form.length > 0) {
-              $replacement = $replace_form;
-            }
-            else if ($page_body.length > 0) {
-              if(isThankyouPage){
-                $replacement = $thankYouPageContent;
-              } else {
-                $replacement = $page_body.first();
-                redirect = true;
-              }
-            } else {
-              if(isThankyouPage){
-                $replacement = $thankYouPageContent;
-              } else {
-                $replacement = $('<p>Thank you</p>'); // Default response message
-                redirect = true;
-              }
-            }
-
-            if ($replacement && $modal.length === 0) {
-              var redirect_url = $submit_btn.data('redirect-url');
-              if (redirect && redirect_url) {
-                window.location.href = redirect_url;
-              } else {
-                // inquiries engine puts an h1 in there
-                $replacement.find('h1').remove();
-                replaceContent($(selector), $replacement);
-              }
-            }
-            else if ($modal.length > 0) {
-
-              var $update_selector = $modal.find('.update-on-close');
-
-              if ($update_selector.length > 0) {
-                ajaxUpdateContent($update_selector);
-
-                // The button that on click, will trigger the modal that was displayed
-                // before the current modal was displayed.
-                var callback_modal_btn = $('#callback-modal');
-
-                // If there is another modal to display after this one's form has
-                // been submitted, then don't hide the modal, but rather, trigger
-                // the previous modal to be displayed.
-                if (callback_modal_btn.length > 0) {
-                  $(callback_modal_btn.data('selector')).click();
-                } else {
-                  $modal.modal('hide');
-                }
-                return;
-              }
-            }
-
-            // A reset form is a form that doesn't have to be rendered again,
-            // because it already exists on a page and wasn't pulled in using 'load'.
-            // It simply needs its input values wiped.
-            var $resetForm = $('.ajax-reset-form');
-
-            if ($resetForm.length > 0) {
-              var updateArea = $resetForm.find('.update-on-close');
-              if (updateArea.length > 0) {
-                ajaxUpdateContent(updateArea);
-                // Clear input values from the form (except for hidden values)
-                $resetForm.trigger("reset");
-              }
-            }
+            handleXHRDone($form, data, selector, $submit_btn, $submit_btns);
             return;
           });
         }
       });
     });
+  }
+
+  /**
+   *
+   * @param xhr
+   * @param selector
+   */
+  function handleUnexpectedError(xhr, selector){
+    if(xhr.responseJSON && xhr.responseJSON.message !== undefined){
+      $(selector).append(['<div id="errorExplanation" class="errorExplanation text-center">',xhr.responseJSON.message,'</div>'].join(''));
+    }
+    else {
+      $(selector).append(['<div id="errorExplanation" class="errorExplanation text-center">',
+        '<p>Uh oh! This never happened while we were testing! ',
+        'The developers have been notified and will probably have this fixed in the next 10 seconds. ',
+        'Just kidding, it may take until tomorrow morning. Thank you for your patience.</p></div>'].join(''));
+    }
+  }
+
+  /**
+   * Handles behavior of a page with a form on it after that form has been submitted via ajax.
+   * @param $form {object} - The form that was submitted.
+   * @param data           - The data that the server responded with
+   * @param selector       - The unique selector for the form.
+   * @param $submit_btn    - The submit button for the form
+   * @param $submit_btns   - Other submit buttons for the page.
+   */
+  function handleXHRDone($form, data, selector, $submit_btn, $submit_btns){
+    var replace_selector = $form.data('ajax-replace-selector');
+    // if the same form that was submitted is in response, replace it
+    var $replace_form    = replace_selector ? $(data).find(replace_selector) : $(data).find(selector);
+    // if response is a page, use inner content
+    var $page_body       = $(data).find('#body_content, .glass-edit-html');
+    var $error_response  = ($(data).attr('id') === 'errorExplanation') ? $(data) : $(data).find('#errorExplanation');
+    var $modal           = $(selector).parents('.modal');
+    var $replacement     = null;
+    var redirect         = false;
+    var $thankYouPageContent = $(data).find('.glass-edit');
+    var isThankyouPage = ($thankYouPageContent.length > 0 && $thankYouPageContent.html().indexOf('Thank You') !== -1) || $form.hasClass('ajax-thank-you');
+    var callback = $form.data('success-callback');
+
+    // If there is a callback call it.
+    if (callback !== undefined) {
+      var result = callback($replace_form);
+      if (result === false) {
+        return;
+      }
+    }
+
+    if ($error_response.length > 0) {
+      var $cur_error = $(selector + ' #errorExplanation');
+      var $formActions = $(selector + ' .form-actions').length > 0 ? $(selector + ' .form-actions') : $(selector + ' .actions');
+
+      if ($cur_error.length > 0) {
+        replaceContent($cur_error, $error_response);
+      }
+      else {
+        $error_response.insertBefore($formActions);
+      }
+      $submit_btn.html($submit_btn.data('orig-btn-txt'));
+      $submit_btns.removeAttr('disabled');
+      return; // if there was an error return early so that page doesn't get redirected.
+    }
+
+    if ($replace_form.length > 0) {
+      $replacement = $replace_form;
+    }
+    else if ($page_body.length > 0) {
+      if(isThankyouPage){
+        $replacement = $thankYouPageContent;
+      } else {
+        $replacement = $page_body.first();
+        redirect = true;
+      }
+    } else {
+      if(isThankyouPage){
+        $replacement = $thankYouPageContent;
+      } else {
+        $replacement = $('<p>Thank you</p>'); // Default response message
+        redirect = true;
+      }
+    }
+
+    if ($modal.length === 0) {
+      var redirect_url = $submit_btn.data('redirect-url');
+      if (redirect && redirect_url) {
+        window.location.href = redirect_url;
+      } else if($replacement !== null) {
+        // inquiries engine puts an h1 in there
+        $replacement.find('h1').remove();
+        replaceContent($(selector), $replacement);
+      }
+    } else {
+
+      var $update_selector = $modal.find('.update-on-close');
+
+      if ($update_selector.length > 0) {
+        ajaxUpdateContent($update_selector);
+
+        // The button that on click, will trigger the modal that was displayed
+        // before the current modal was displayed.
+        var callback_modal_btn = $('#callback-modal');
+
+        // If there is another modal to display after this one's form has
+        // been submitted, then don't hide the modal, but rather, trigger
+        // the previous modal to be displayed.
+        if (callback_modal_btn.length > 0) {
+          $(callback_modal_btn.data('selector')).click();
+        } else {
+          $modal.modal('hide');
+        }
+        return;
+      }
+    }
+
+    resetForm(); // resets the content of a form if necessary.
+
+    return;
+  }
+
+  // A reset form is a form that doesn't have to be rendered again,
+  // because it already exists on a page and wasn't pulled in using 'load'.
+  // It simply needs its input values wiped.
+  function resetForm(){
+    var $resetForm = $('.ajax-reset-form');
+
+    if ($resetForm.length > 0) {
+      var updateArea = $resetForm.find('.update-on-close');
+      if (updateArea.length > 0) {
+        ajaxUpdateContent(updateArea);
+        // Clear input values from the form (except for hidden values)
+        $resetForm.trigger("reset");
+      }
+    }
   }
 
   function confirmDeleteListener(){
