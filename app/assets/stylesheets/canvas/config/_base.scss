@@ -1221,49 +1221,18 @@ input:focus, .form-control:focus, input[type="submit"]:focus, .btn:focus, input[
   border-top-left-radius: $radius;
   border-top-right-radius: $radius;
   display: block;
-  height: 25px;
+  height: 0;
   z-index: 5;
   transition: .2s ease-out;
   white-space: nowrap;
-  &:empty{
-    height: 0px;
+  &.active{
+    height: 25px;
   }
 }
 
-
-/* -------------------- FORM VALIDATION -------------------- */
-
-#error_explanation h2 {
-  display: none;
-}
-
-#error_explanation:before {
-  content: "There were problems with the following fields:";
-}
-
-#error_explanation,
-.errorExplanation,
-.fieldWithErrors {
-  color: $red;
-}
-
-.fieldWithErrors {
-  input, textarea, select{
-    border-color: $red;
-  }
-}
-
-#error_explanation,
-.errorExplanation{
-  background-color: $red-bg;
-}
-
-#error_explanation,
-.errorExplanation{
-  border: none;
-  border-radius: 4px;
-  margin-bottom: 20px;
-  padding: 8px 35px 8px 14px;
+.has-error .form-control:focus {
+  border-color: $red;
+  box-shadow: none;
 }
 
 
