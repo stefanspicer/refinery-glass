@@ -5,11 +5,38 @@
 var GlassMenus = (function ($) {
   $(document).on('content-ready', function (e, element) {
 
-    var leftSidebar = $('#sidebar-left').first();
-    var rightSidebar = $('#sidebar-right').first();
+    var $cmsLeftSidebar = $('#sidebar-left').first();
+    var $cmsRightSidebar = $('#sidebar-right').first();
+
+    var leftSidebars = $('.ui.sidebar.left');
+    var rightSidebars = $('.ui.sidebar.right');
+
+    // Hide and show sidebars based on swipe gestures
+    if(leftSidebars.length > 0){
+      Hammer(leftSidebars[0]).on('swiperight', function(e) {
+        console.log('fired');
+        $(leftSidebars[0]).sidebar('show');
+      });
+
+
+      Hammer(leftSidebars[0]).on('swipeleft', function (e) {
+        console.log('fired');
+        $(leftSidebars[0]).sidebar('hide');
+      });
+    }
+
+    if(rightSidebars.length > 0){
+      Hammer(rightSidebars[0]).on('swiperight', function(e) {
+        $(rightSidebars[0]).sidebar('hide');
+      });
+
+      Hammer(rightSidebars[0]).on('swipeleft', function(e) {
+        $(rightSidebars[0]).sidebar('show');
+      });
+    }
 
     // set callback listeners for semantic-ui sidebars that cause the no-scroll class to be toggled.
-    leftSidebar.sidebar('attach events', '.sidebar-left-opener', 'overlay', 'show')
+    $cmsLeftSidebar.sidebar('attach events', '.sidebar-left-opener', 'overlay', 'show')
       .sidebar('setting', {
         onShow : function(){
           showSidebar();
@@ -19,7 +46,7 @@ var GlassMenus = (function ($) {
         }
       });
 
-    rightSidebar.sidebar('attach events', '.sidebar-right-opener', 'overlay', 'show')
+    $cmsRightSidebar.sidebar('attach events', '.sidebar-right-opener', 'overlay', 'show')
       .sidebar('setting', {
         onShow : function(){
           showSidebar();

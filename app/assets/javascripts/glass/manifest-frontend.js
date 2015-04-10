@@ -4,4 +4,5 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 
+//= require canvas/gestures/hammer.min
 //= require canvas/modules/navigation

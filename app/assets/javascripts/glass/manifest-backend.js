@@ -36,6 +36,7 @@
 //= require canvas/modules/scroll
 //= require glass/modules/ajax-reloads
 //= require glass/modules/file-upload
+//= require canvas/gestures/hammer.min
 //= require glass/modules/menus
 //= require glass/modules/refinery-flash
 //= require glass/modules/semantic-ui-initializers
