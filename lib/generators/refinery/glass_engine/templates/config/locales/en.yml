@@ -29,6 +29,30 @@ en:
             view_live_html: View this <%= singular_name.titleize.downcase %> live <br/><em>(opens in a new window)</em>
             edit: Edit this <%= singular_name.titleize.downcase %>
             delete: Remove this <%= singular_name.titleize.downcase %> forever
+          delete: Remove this <%= singular_name.humanize.downcase %> forever
+          approved: The item has been approved.
+          rejected: The item has been rejected.
+          <%= singular_name %>:
+            read: Read the <%= singular_name.humanize.downcase %>
+            approve: Approve
+            reject: Reject
+            delete: Delete
+            said: said
+            mark_as_spam: Mark as spam
+            mark_as_ham: Move to inbox
+          submenu:
+            inbox: Inbox
+            new: New
+            approved: Approved
+            rejected: Rejected
+            spam: Spam
+            update_notified: Update who gets notified
+            edit_confirmation_email: Edit confirmation email
+            toggle_moderation: Moderation
+          index:
+            no_<%= plural_name %>: You have not received any <%= plural_name.humanize.downcase %> yet.
+          spam:
+            no_spam: Hooray! You don't have any spam.
           show:
             details: Details
             age: Age
