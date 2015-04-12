@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/joekrump/refinerycms.git
-  revision: fc54a0d26063deef7a281118273a8f83ea0c5f84
+  revision: 22bb289cde1a4225aaa6cce3419a21329ad99204
   branch: 2-1-stable
   specs:
     refinerycms (2.1.5)
@@ -93,7 +93,7 @@ GEM
     awesome_nested_set (2.1.6)
       activerecord (>= 3.0.0)
     babosa (1.0.2)
-    bcrypt (3.1.9)
+    bcrypt (3.1.10)
     builder (3.0.4)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -214,7 +214,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.25.1)
     mini_portile (0.6.2)
-    multi_json (1.10.1)
+    multi_json (1.11.0)
     mysql2 (0.3.17)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -261,7 +261,7 @@ GEM
       refinerycms-core (~> 2.1.1)
     routing-filter (0.3.1)
       actionpack
-    sass (3.4.9)
+    sass (3.4.13)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -278,7 +278,7 @@ GEM
       libv8 (~> 3.16.14.0)
       ref
     thor (0.19.1)
-    thread_safe (0.3.4)
+    thread_safe (0.3.5)
     tilt (1.4.1)
     treetop (1.4.15)
       polyglot
@@ -287,7 +287,7 @@ GEM
     turbo-sprockets-rails3 (0.3.14)
       railties (> 3.2.8, < 4.0.0)
       sprockets (>= 2.2.0)
-    tzinfo (0.3.42)
+    tzinfo (0.3.43)
     uglifier (2.7.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
