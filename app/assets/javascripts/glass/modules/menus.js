@@ -22,26 +22,26 @@ var GlassMenus = (function ($) {
     });
 
     // Hide and show sidebars based on swipe gestures
-    if(leftSidebars.length > 0){
-      Hammer(leftSidebars[0]).on('panright', function(e) {
-        $(leftSidebars[0]).sidebar('show');
-      });
-
-
-      Hammer(leftSidebars[0]).on('panleft', function (e) {
-        $(leftSidebars[0]).sidebar('hide');
-      });
-    }
-
-    if(rightSidebars.length > 0){
-      Hammer(rightSidebars[0]).on('panright', function(e) {
-        $(rightSidebars[0]).sidebar('hide');
-      });
-
-      Hammer(rightSidebars[0]).on('panleft', function(e) {
-        $(rightSidebars[0]).sidebar('show');
-      });
-    }
+    //if(leftSidebars.length > 0){
+    //  Hammer(leftSidebars[0]).on('panright', function(e) {
+    //    $(leftSidebars[0]).sidebar('show');
+    //  });
+    //
+    //
+    //  Hammer(leftSidebars[0]).on('panleft', function (e) {
+    //    $(leftSidebars[0]).sidebar('hide');
+    //  });
+    //}
+    //
+    //if(rightSidebars.length > 0){
+    //  Hammer(rightSidebars[0]).on('panright', function(e) {
+    //    $(rightSidebars[0]).sidebar('hide');
+    //  });
+    //
+    //  Hammer(rightSidebars[0]).on('panleft', function(e) {
+    //    $(rightSidebars[0]).sidebar('show');
+    //  });
+    //}
 
     // set callback listeners for semantic-ui sidebars that cause the no-scroll class to be toggled.
     $cmsLeftSidebar.sidebar('attach events', '.sidebar-left-opener', 'overlay', 'show')
