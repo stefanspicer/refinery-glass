@@ -7,30 +7,33 @@ var GlassMenus = (function ($) {
 
     var $cmsLeftSidebar = $('#sidebar-left').first();
     var $cmsRightSidebar = $('#sidebar-right').first();
-
+    var $cmsLeftLogo = $cmsLeftSidebar.find('.site-name .gcicon');
     var leftSidebars = $('.ui.sidebar.left');
     var rightSidebars = $('.ui.sidebar.right');
 
+    $cmsLeftLogo.unbind('click').click(function(e){
+      e.preventDefault();
+      $(leftSidebars[0]).sidebar('show');
+    });
+
     // Hide and show sidebars based on swipe gestures
     if(leftSidebars.length > 0){
-      Hammer(leftSidebars[0]).on('swiperight', function(e) {
-        console.log('fired');
+      Hammer(leftSidebars[0]).on('panright', function(e) {
         $(leftSidebars[0]).sidebar('show');
       });
 
 
-      Hammer(leftSidebars[0]).on('swipeleft', function (e) {
-        console.log('fired');
+      Hammer(leftSidebars[0]).on('panleft', function (e) {
         $(leftSidebars[0]).sidebar('hide');
       });
     }
 
     if(rightSidebars.length > 0){
-      Hammer(rightSidebars[0]).on('swiperight', function(e) {
+      Hammer(rightSidebars[0]).on('panright', function(e) {
         $(rightSidebars[0]).sidebar('hide');
       });
 
-      Hammer(rightSidebars[0]).on('swipeleft', function(e) {
+      Hammer(rightSidebars[0]).on('panleft', function(e) {
         $(rightSidebars[0]).sidebar('show');
       });
     }
