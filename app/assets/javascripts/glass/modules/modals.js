@@ -36,10 +36,9 @@ var GlassModals = (function ($) {
     // selector for the modal that it should trigger: ex: '#create-author-modal'
     var modalSelector = $openBtn.data('modal-selector');
     var $modal        = $(modalSelector);
-
     var $modalContent = $modal.find('.description');
     var url           = $openBtn.attr('href') !== undefined ? $openBtn.attr('href') : $openBtn.attr('data-url');
-    var formSelector  = $openBtn.attr('data-form-selector') || ' form';
+    var formSelector  = ' ' + ($openBtn.attr('data-form-selector') || 'form');
 
     // Check if this modal will be displaying a form.
     //
@@ -95,7 +94,7 @@ var GlassModals = (function ($) {
   function loadAndDisplayFormModal(formSourceUrl, formSourceSelector, $modalContent, $modal, successCallback){
     var $saveBtn      = $modal.find('.positive');
     var $removeImageBtn = null;
-    formSourceUrl = formSourceSelector === '' || formSourceSelector === undefined ? formSourceUrl : formSourceUrl+formSourceSelector;
+    formSourceUrl = (formSourceSelector === '') || (formSourceSelector === undefined) ? formSourceUrl : formSourceUrl+formSourceSelector;
 
     $modalContent.load(formSourceUrl, function(){
       // Remove the default actions from the form.
