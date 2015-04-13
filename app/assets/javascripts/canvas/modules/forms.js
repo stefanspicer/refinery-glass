@@ -295,7 +295,7 @@ var CanvasForms = (function ($) {
     var callback = $form.data('success-callback');
 
     // If there is a callback call it.
-    if (callback !== undefined) {
+    if (callback !== undefined && callback !== null) {
       var result = callback($replace_form);
       if (result === false) {
         return;
@@ -339,7 +339,7 @@ var CanvasForms = (function ($) {
       var redirect_url = $submit_btn.data('redirect-url');
       console.log("Redirect url?");
       console.log(redirect_url);
-      if (redirect_url !== undefined) {
+      if (redirect_url !== undefined && redirect_url !== null) {
         window.location.href = redirect_url;
       } else if($replacement !== null) {
         // inquiries engine puts an h1 in there
