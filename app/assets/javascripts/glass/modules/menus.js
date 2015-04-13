@@ -13,7 +13,12 @@ var GlassMenus = (function ($) {
 
     $cmsLeftLogo.unbind('click').click(function(e){
       e.preventDefault();
-      $(leftSidebars[0]).sidebar('show');
+      if($cmsLeftSidebar.hasClass('visible')){
+        $(leftSidebars[0]).sidebar('hide');
+      } else {
+        $(leftSidebars[0]).sidebar('show');
+      }
+
     });
 
     // Hide and show sidebars based on swipe gestures
