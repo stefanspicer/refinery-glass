@@ -11,8 +11,6 @@
   <%= raw %(<link rel="canonical" href="#{@canonical}" />) if @canonical.present? -%>
   <%= csrf_meta_tags if Refinery::Core.authenticity_token_on_frontend -%>
   <%= render '/refinery/google_analytics' %>
-
-  <%= javascript_include_tag 'modernizr-min' %>
 <% end %>
 
 <meta charset='<%= Rails.application.config.encoding %>' />
