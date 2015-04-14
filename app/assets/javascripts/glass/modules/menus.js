@@ -11,14 +11,25 @@ var GlassMenus = (function ($) {
     var leftSidebars = $('.ui.sidebar.left');
     var rightSidebars = $('.ui.sidebar.right');
 
-    $cmsLeftLogo.unbind('click').click(function(e){
-      e.preventDefault();
-      if($cmsLeftSidebar.hasClass('visible')){
-        $(leftSidebars[0]).sidebar('hide');
-      } else {
-        $(leftSidebars[0]).sidebar('show');
+    $cmsLeftSidebar.mouseover(function(){
+      if(!$(this).hasClass('visible')){
+        $cmsLeftSidebar.sidebar('show');
       }
 
+      $('.pusher').unbind('mouseover').mouseover(function(){
+        if($cmsLeftSidebar.hasClass('visible')){
+          $cmsLeftSidebar.sidebar('hide');
+        }
+      });
+    });
+
+    $cmsLeftLogo.unbind('click').click(function(e){
+      e.preventDefault();
+      if($cmsLeftSidebar.sidebar('is visible')){
+        $cmsLeftSidebar.sidebar('hide');
+      } else {
+        $cmsLeftSidebar.sidebar('show');
+      }
     });
 
     // Hide and show sidebars based on swipe gestures
@@ -86,10 +97,12 @@ var GlassMenus = (function ($) {
 
   function showSidebar(){
     var wrapperDiv = $('#wrapper');
+    var topAmt = '-' + $('body').scrollTop() + 'px';
     if(wrapperDiv.length == 0){
       wrapperDiv = $('.pusher').first();
     }
-    wrapperDiv.css({top : '-'+$('body').scrollTop()+'px'}).addClass('no-scroll');
+
+    wrapperDiv.css({top : topAmt}).addClass('no-scroll');
   }
 
   // Return API for other modules
