@@ -1,12 +1,12 @@
 @media (max-width: 767px) {
 
 	.carousel {
-		.carousel-inner {
-			&.caption-below {
+		&.caption-below {
+			.carousel-inner {
 				overflow: visible;
-				background: none;
 			}
-
+		}
+		.carousel-inner {
 			.item {
 				opacity: 0;
 				top: 0;
