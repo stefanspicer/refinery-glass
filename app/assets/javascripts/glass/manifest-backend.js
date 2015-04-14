@@ -29,6 +29,7 @@
 //= require canvas/semantic-ui/transition
 //= require canvas/semantic-ui/sidebar
 //= require canvas/semantic-ui/modal.min
+//= require canvas/semantic-ui/dimmer
 //= require glass/cropper
 //= require glass/grande
 // # require glass/react/reactize.min
@@ -41,8 +42,8 @@
 //= require glass/modules/refinery-flash
 //= require glass/modules/semantic-ui-initializers
 //= require glass/modules/content-editing
-//= require glass/modules/dimmer
 //= require glass/modules/image-upload
 //= require glass/modules/modal-create
+
 //= require glass/modules/search
 //  # The rest should be in glass/manifest-back-and-frontend.js

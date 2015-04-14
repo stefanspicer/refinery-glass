@@ -57,7 +57,7 @@ var GlassMenus = (function ($) {
     // set callback listeners for semantic-ui sidebars that cause the no-scroll class to be toggled.
     $cmsLeftSidebar.sidebar('attach events', '.sidebar-left-opener', 'overlay', 'show')
       .sidebar('setting', {
-        onShow : function(){
+        onVisible : function(){
           showSidebar();
         },
         onHide : function(){
@@ -67,7 +67,7 @@ var GlassMenus = (function ($) {
 
     $cmsRightSidebar.sidebar('attach events', '.sidebar-right-opener', 'overlay', 'show')
       .sidebar('setting', {
-        onShow : function(){
+        onVisible : function(){
           showSidebar();
         },
         onHide : function(){
@@ -97,7 +97,9 @@ var GlassMenus = (function ($) {
 
   function showSidebar(){
     var wrapperDiv = $('#wrapper');
-    var topAmt = '-' + $('body').scrollTop() + 'px';
+    var $body = $('body');
+    var topAmt = '-' + $body.scrollTop() + 'px';
+
     if(wrapperDiv.length == 0){
       wrapperDiv = $('.pusher').first();
     }
