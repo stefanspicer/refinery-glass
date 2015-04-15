@@ -291,7 +291,7 @@ var CanvasForms = (function ($) {
     var $replacement     = null;
     var $thankYouPageContent = $(data).find('.glass-edit');
     var isThankyouPage = ($thankYouPageContent.length > 0 && $thankYouPageContent.html().indexOf('Thank You') !== -1) || $form.hasClass('ajax-thank-you');
-    var callback = $form.data('success-callback');
+    var callback = $form.data('on-complete-callback');
 
     // If there is a callback call it.
     if (callback !== undefined && callback !== null) {
