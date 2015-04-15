@@ -16,7 +16,19 @@
 <meta charset='<%= Rails.application.config.encoding %>' />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
 
+
 <%= yield :meta %>
+
+<% if defined?(@og) && @og.present? %>
+  <% @og.each_key do |property| %>
+    <% unless @og[property].blank? %>
+      <meta property="og:<%= property %>" content="<%= @og[property] %>" />
+    <% end %>
+  <% end %>
+<% end %>
+
+<meta property='og:url' content="<%= @canonical.present? ? @canonical : request.original_url %>" />
+<meta property="og:site_name" content="<%= Refinery::Core.site_name %>" />
 
 <%= render partial: '/refinery/head', locals: {admin: admin} %>
 
