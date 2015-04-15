@@ -219,6 +219,14 @@ p::-moz-selection {
 	color: $white;
 }
 
+.margin-bottom-none{
+  margin-bottom: 0;
+}
+
+.margin-bottom-xxs{
+  margin-bottom: 10px !important;
+}
+
 .margin-bottom-xs{
   margin-bottom: $margin-half;
 }
@@ -237,6 +245,10 @@ p::-moz-selection {
 
 .margin-bottom-lg{
   margin-bottom: $margin * 3;
+}
+
+.margin-top-none{
+  margin-top: 0;
 }
 
 .margin-top-xxs{
@@ -263,6 +275,10 @@ p::-moz-selection {
   margin-top: $margin * 3;
 }
 
+.margin-right-none{
+  margin-right: 0;
+}
+
 .margin-right-xxs{
   margin-right: 10px !important;
 }
@@ -285,6 +301,10 @@ p::-moz-selection {
 
 .margin-right-lg{
   margin-right: $margin * 3;
+}
+
+.margin-left-none{
+  margin-left: 0;
 }
 
 .margin-left-xxs{
