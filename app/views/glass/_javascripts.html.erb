@@ -7,7 +7,7 @@
     refinery.current_admin_locale = '<%= current_admin_locale %>';
   </script>
 
-  <%= javascript_include_tag 'refinery-glass', :async => true -%>
+  <%= javascript_include_tag 'refinery-glass' -%>
 
   <!-- TODO: these are needed to make WYMEDITOR to work.  But cause dup js (jquery) so break other JS.  Just remove them for good soon -->
   <%#= javascript_include_tag 'admin' -%>
@@ -29,9 +29,9 @@
   <!-- WAS views/refinery/admin/_javascripts -->
 
 <% elsif current_refinery_user.present? %>
-  <%= javascript_include_tag 'kitchen-sink', :async => true %>
+  <%= javascript_include_tag 'kitchen-sink' %>
 <% else %>
-  <%= javascript_include_tag 'site', :async => true %>
+  <%= javascript_include_tag 'site' %>
 <% end %>
 
 <!-- WAS entire views/refinery/_javascripts -->
