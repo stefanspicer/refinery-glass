@@ -25,7 +25,7 @@
       <span class="spam-filter">
         <% if inquiry.spam? %>
           <%= link_to 'Ham', refinery.toggle_spam_inquiries_admin_inquiry_path(inquiry),
-                      :title => t('.mark_as_ham') -%>
+                      :title => t('hello?') -%>
         <% else %>
           <%= link_to 'Spam', refinery.toggle_spam_inquiries_admin_inquiry_path(inquiry),
                       :title => t('.mark_as_spam') -%>
