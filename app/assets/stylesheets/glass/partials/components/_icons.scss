@@ -37,9 +37,6 @@
 .gcicon-check:before {
   content: "o";
 }
-.gcicon-cancel:before {
-  content: "p";
-}
 .gcicon-log-out:before {
   content: "r";
 }
@@ -240,4 +237,7 @@
 }
 .gcicon-crosshair:before {
   content: "=";
+}
+.gcicon-cancel:before {
+  content: ">";
 }
