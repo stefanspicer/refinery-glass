@@ -130,10 +130,9 @@ var CanvasForms = (function ($) {
       errorContainer: function(input) {
         return $(input).parents('.form-group');
       },
-      errorClass: 'has-error',
       beforeSubmit: function(submitEvent, result) {
 
-        var $errorInputs = $(submitEvent.target).find('.has-error');
+        var $errorInputs = $(submitEvent.target).find('.validation.active');
 
         if($errorInputs.length > 0){
 
@@ -148,10 +147,10 @@ var CanvasForms = (function ($) {
               selector: 'button[type=submit]',
               value: true
             });
-
+            console.log($firstError.offset().top);
             setTimeout(function () {
               $('html, body').animate({
-                scrollTop: $firstError.offset().top - 73
+                scrollTop: parseInt($firstError.offset().top) - 73
               }, 500);
               COUNT = 0;
             }, 100);
@@ -304,6 +303,7 @@ var CanvasForms = (function ($) {
 
     if ($error_response.length > 0) {
       var $cur_error = $(selector + ' #errorExplanation');
+
       var $formActions = $(selector + ' .form-actions').length > 0 ? $(selector + ' .form-actions') : $(selector + ' .actions');
 
       if ($cur_error.length > 0) {
@@ -337,8 +337,7 @@ var CanvasForms = (function ($) {
 
     if ($modal.length === 0) {
       var redirect_url = $submit_btn.data('redirect-url');
-      console.log("Redirect url?");
-      console.log(redirect_url);
+
       if (redirect_url !== undefined && redirect_url !== null) {
         window.location.href = redirect_url;
       } else if($replacement !== null) {
