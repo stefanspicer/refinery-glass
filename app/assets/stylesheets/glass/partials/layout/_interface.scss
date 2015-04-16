@@ -530,7 +530,7 @@ body{
     color: $grey-6;
     padding: 10px;
     flex: 1;
-    &:hover, &:focus{
+    &:hover, &:focus, &:active{
       color: $primary-hover;
     }
     .gcicon{
@@ -906,14 +906,22 @@ body{
 }
 
 .mini-lesson{
-  display: flex;
-  align-items: center;
-  justify-content: center;
   margin-bottom: 60px;
+  @media (min-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .portrait{
-    margin-right: 45px;
+    @media (min-width: 768px) {
+      margin-right: 45px;
+    }
     img{
       max-width: 120px;
+      @media (max-width: 767px) {
+        margin: 0 auto 30px; 
+        display: block;
+      }
     }
   }
   .message{

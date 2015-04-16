@@ -6,7 +6,12 @@
     padding-top: 45px;  
   }
   .container{
-    padding-top: 90px;
+    @media (min-width: 768px) {
+      padding-top: 90px;
+      form{
+        margin-bottom: 60px;
+      }
+    }
   }
   .elephant-cms-logo{
     max-width: 150px;
@@ -37,11 +42,17 @@
 
 .admin-index{
   padding-top: 60px;
-  .index-listing > ul{
-    overflow: hidden;
-    border-radius: $radius;
-    li:last-child{
-      margin-bottom: -2px;
+  .index-listing{ 
+    margin-bottom: 90px;
+    @media (min-width: 768px) {
+      margin-bottom: 60px;
+    }
+      &> ul{
+      overflow: hidden;
+      border-radius: $radius;
+      li:last-child{
+        margin-bottom: -2px;
+      }
     }
   }
   ul{
@@ -184,14 +195,20 @@
         }
         .date{
           font-size: 14px;
-          display: block;
           width: 100px;
           text-align: right;
           color: $grey-5;
+          display: block;
+          @media (max-width: 767px) {
+            display: none;
+          }
         }
         .actions{
           text-align: right;
           display: none;
+          @media (max-width: 767px) {
+            display: block; 
+          }
           &-visible{
             display: block;
           }
