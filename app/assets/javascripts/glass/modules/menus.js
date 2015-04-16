@@ -7,72 +7,24 @@ var GlassMenus = (function ($) {
 
     var $cmsLeftSidebar = $('#sidebar-left').first();
     var $cmsRightSidebar = $('#sidebar-right').first();
-    var $cmsLeftLogo = $cmsLeftSidebar.find('.site-name .gcicon');
     var leftSidebars = $('.ui.sidebar.left');
     var rightSidebars = $('.ui.sidebar.right');
     var $toggleCMSMenuButton = $('#toggle-cms-menu');
     var mobileMenuShowing = $('#mobile-menu').css('display') != 'none';
 
-    if(!mobileMenuShowing){
-      $cmsLeftSidebar.mouseover(function(){
-        if(!$(this).hasClass('visible')){
-          $cmsLeftSidebar.sidebar('show');
-        }
-
-        $('.pusher').unbind('mouseover').mouseover(function(){
-          if($cmsLeftSidebar.hasClass('visible')){
-            $cmsLeftSidebar.sidebar('hide');
-          }
-        });
-      });
-    } else {
+    if(mobileMenuShowing){
       var $closeBtn = $('.close-cms-menu');
       $closeBtn.removeClass('hidden');
       $closeBtn.click(function(e){
         e.preventDefault();
-        $cmsLeftSidebar.sidebar('hide');
+        $cmsLeftSidebar.removeClass('sidebar-open');
       });
     }
 
-    $cmsLeftLogo.unbind('click').click(function(e){
-      e.preventDefault();
-      if($cmsLeftSidebar.sidebar('is visible')){
-        $cmsLeftSidebar.sidebar('hide');
-      } else {
-        $cmsLeftSidebar.sidebar('show');
-      }
-    });
-
     $toggleCMSMenuButton.unbind('click').click(function(e){
       e.preventDefault();
-      if($cmsLeftSidebar.sidebar('is visible')){
-        $cmsLeftSidebar.sidebar('hide');
-      } else {
-        $cmsLeftSidebar.sidebar('show');
-      }
+      $cmsLeftSidebar.toggleClass('sidebar-open');
     });
-
-    // Hide and show sidebars based on swipe gestures
-    //if(leftSidebars.length > 0){
-    //  Hammer(leftSidebars[0]).on('panright', function(e) {
-    //    $(leftSidebars[0]).sidebar('show');
-    //  });
-    //
-    //
-    //  Hammer(leftSidebars[0]).on('panleft', function (e) {
-    //    $(leftSidebars[0]).sidebar('hide');
-    //  });
-    //}
-    //
-    //if(rightSidebars.length > 0){
-    //  Hammer(rightSidebars[0]).on('panright', function(e) {
-    //    $(rightSidebars[0]).sidebar('hide');
-    //  });
-    //
-    //  Hammer(rightSidebars[0]).on('panleft', function(e) {
-    //    $(rightSidebars[0]).sidebar('show');
-    //  });
-    //}
 
     // set callback listeners for semantic-ui sidebars that cause the no-scroll class to be toggled.
     $cmsLeftSidebar.sidebar('attach events', '.sidebar-left-opener', 'overlay', 'show')
