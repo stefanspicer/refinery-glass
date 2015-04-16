@@ -44,6 +44,7 @@ body{
     transition: 0.2s 0.3s ease-out;
     &:hover{
       transition: 0.2s ease-out;
+      transform: translate3d(0%, 0%, 0);
     }
     &.visible{
       width: 260px;
