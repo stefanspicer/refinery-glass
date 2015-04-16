@@ -70,7 +70,9 @@
         font-size: 18px;
         letter-spacing: 1px;
         color: $grey-6;
-        background: $off-white-2;
+        &:hover{
+          background: darken($off-white, 2%);
+        }
         @media (min-width: 768px) {
           &:hover{
             background: $primary-hover;
