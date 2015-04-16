@@ -10,20 +10,33 @@ var GlassMenus = (function ($) {
     var $cmsLeftLogo = $cmsLeftSidebar.find('.site-name .gcicon');
     var leftSidebars = $('.ui.sidebar.left');
     var rightSidebars = $('.ui.sidebar.right');
+    var $toggleCMSMenuButton = $('#toggle-cms-menu');
+    var mobileMenuShowing = $('#mobile-menu').css('display') != 'none';
 
-    $cmsLeftSidebar.mouseover(function(){
-      if(!$(this).hasClass('visible')){
-        $cmsLeftSidebar.sidebar('show');
-      }
-
-      $('.pusher').unbind('mouseover').mouseover(function(){
-        if($cmsLeftSidebar.hasClass('visible')){
-          $cmsLeftSidebar.sidebar('hide');
+    if(!mobileMenuShowing){
+      $cmsLeftSidebar.mouseover(function(){
+        if(!$(this).hasClass('visible')){
+          $cmsLeftSidebar.sidebar('show');
         }
+
+        $('.pusher').unbind('mouseover').mouseover(function(){
+          if($cmsLeftSidebar.hasClass('visible')){
+            $cmsLeftSidebar.sidebar('hide');
+          }
+        });
       });
-    });
+    }
 
     $cmsLeftLogo.unbind('click').click(function(e){
+      e.preventDefault();
+      if($cmsLeftSidebar.sidebar('is visible')){
+        $cmsLeftSidebar.sidebar('hide');
+      } else {
+        $cmsLeftSidebar.sidebar('show');
+      }
+    });
+
+    $toggleCMSMenuButton.unbind('click').click(function(e){
       e.preventDefault();
       if($cmsLeftSidebar.sidebar('is visible')){
         $cmsLeftSidebar.sidebar('hide');
