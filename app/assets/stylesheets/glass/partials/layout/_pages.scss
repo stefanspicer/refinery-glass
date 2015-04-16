@@ -70,28 +70,31 @@
         font-size: 18px;
         letter-spacing: 1px;
         color: $grey-6;
-        &:hover{
-          background: $primary-hover;
-          .gcicon{
-            color: $white;
-          }
-          .actions{
-            display: block;
-          }
-          .page-title{
-            color: $white;
-            .label{
-              background: $white;
-              color: $primary-hover;
+        background: $off-white-2;
+        @media (min-width: 768px) {
+          &:hover{
+            background: $primary-hover;
+            .gcicon{
+              color: $white;
             }
-          }
-          .date{
-            display: none;
-          }
-          a.attribute{
-            color: $white;
-            &:hover{
-              text-decoration: underline;
+            .actions{
+              display: block;
+            }
+            .page-title{
+              color: $white;
+              .label{
+                background: $white;
+                color: $primary-hover;
+              }
+            }
+            .date{
+              display: none;
+            }
+            a.attribute{
+              color: $white;
+              &:hover{
+                text-decoration: underline;
+              }
             }
           }
         }
@@ -205,6 +208,7 @@
         }
         .actions{
           text-align: right;
+          display: none;
           @media (max-width: 767px) {
             display: block; 
           }
@@ -232,17 +236,19 @@
           &-col-5{
             width: 200px;
           }
-          .circle-icon{
-            color: $white;
-            border-color: $white;
-            &:link, &:visited {
+          @media (min-width: 768px) {
+            .circle-icon{
               color: $white;
-            }
-            &:hover, &:focus{
-              color: $white;
-              border-color: $primary-dark;
-              background: $primary-dark;
-            }
+              border-color: $white;
+              &:link, &:visited {
+                color: $white;
+              }
+              &:hover, &:focus{
+                color: $white;
+                border-color: $primary-dark;
+                background: $primary-dark;
+              }
+            } 
           }
           span{
             width: 30px;

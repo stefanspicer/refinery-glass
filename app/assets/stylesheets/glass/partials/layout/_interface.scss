@@ -38,13 +38,14 @@ body{
 .small-sidebar{
   #sidebar-left{
     width: 45px;
+    transition: 0.2s ease-out;
     @media (min-width: 768px) {
       transform: translate3d(0%, 0%, 0);
-    }
-    transition: 0.2s 0.3s ease-out;
-    &:hover{
-      transition: 0.2s ease-out;
-      transform: translate3d(0%, 0%, 0);
+      transition: 0.2s 0.3s ease-out;
+      &:hover{
+        transition: 0.2s ease-out;
+        width: 260px;
+      }
     }
     &.visible{
       width: 260px;
