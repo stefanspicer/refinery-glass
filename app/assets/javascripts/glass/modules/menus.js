@@ -14,7 +14,6 @@ var GlassMenus = (function ($) {
 
     if(mobileMenuShowing){
       var $closeBtn = $('.close-cms-menu');
-      $closeBtn.removeClass('hidden');
       $closeBtn.click(function(e){
         e.preventDefault();
         $cmsLeftSidebar.removeClass('sidebar-open');
