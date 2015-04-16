@@ -20,9 +20,12 @@ body{
   max-width: 1200px;
 }
 
+
 .small-sidebar{
-  .container-fluid{
-    padding-left: 60px;
+  @media (min-width: 768px) {
+    .container-fluid{
+      padding-left: 60px;
+    }
   }
   .menu-link-left{
     display: none;
@@ -35,7 +38,9 @@ body{
 .small-sidebar{
   #sidebar-left{
     width: 45px;
-    transform: translate3d(0%, 0%, 0);
+    @media (min-width: 768px) {
+      transform: translate3d(0%, 0%, 0);
+    }
     transition: 0.2s 0.3s ease-out;
     &:hover{
       transition: 0.2s ease-out;
@@ -897,4 +902,15 @@ body{
   top: 15px;
   right: 15px;
   z-index: 5;
+}
+
+.circle-icon-inline{
+  height: 25px !important;
+  width: 25px !important;
+  top: 5px;
+  margin: 0 5px;
+  .gcicon-plus{
+    top: -8px;
+    font-size: 16px;
+  }
 }
