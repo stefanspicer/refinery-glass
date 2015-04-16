@@ -1,9 +1,43 @@
 Refinery::Admin::PagesController.class_eval do
   # before_filter :check_permission, :except => ['index', 'new']
 
+  before_filter :check_valid_template, :only => [:create, :update]
+
   protected
     def render_partial_response?
       false
+    end
+
+    def check_valid_template
+      unless current_refinery_user.super_user?
+        valid_view_templates = Refinery::Pages.basic_user_view_template_whitelist
+        # Unless this is a new page or a page without a view template, proceed as normal.
+        unless @page.present? && @page.view_template.present?
+          if valid_view_templates.length == 1
+            params[:page][:view_template] = valid_view_templates[0]
+            return
+          end
+
+          if params[:page].present? && params[:page][:view_template].present?
+            if valid_view_templates.include?(params[:page][:view_template])
+              logger.warn("Tried to set a page to a template #{params[:page][:view_template]} that is not allowed for this user: #{current_refinery_user.username}")
+              params[:page][:view_template] = valid_view_templates[0]
+            end
+          end
+        end
+      end
+    end
+
+    def load_valid_templates
+      if !current_refinery_user.super_user?
+        @valid_view_templates = Refinery::Pages.basic_user_view_template_whitelist
+      else
+        @valid_view_templates = Refinery::Pages.valid_templates('app', 'views', '{pages,refinery/pages}', '*html*')
+      end
+
+      @valid_layout_templates = Refinery::Pages.layout_template_whitelist &
+        Refinery::Pages.valid_templates('app', 'views', '{layouts,refinery/layouts}', '*html*')
+
     end
 
     # Used to check page permission for basic users.
