@@ -2,6 +2,10 @@
 	<%#= render '/refinery/admin/search', :url => refinery.admin_users_path %>
 	<section id='admin-page-content' class='admin-index container-fluid'>
     <div class="row">
+      <pre>
+        <%= current_refinery_user.super_user? %>
+      </pre>
+
       <div class="col-sm-12">
         <h2 class="admin-title">Users</h2>
         <div class="contextual-menu">

@@ -12,4 +12,7 @@ Refinery::User.class_eval do
     self.confirmed_on.present?
   end
 
+  def super_user?
+    has_role?(:superuser)
+  end
 end
