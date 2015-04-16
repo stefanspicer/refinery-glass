@@ -455,7 +455,7 @@
 
     //document.execCommand("createLink", false, url);
     //document.execCommand('insertHTML', false, '<a href="' + url + '" target="_blank">' + document.getSelection() + '</a>');
-    $('a[href="/temporary"]').attr('href', url).attr('target', '_blank');
+    $('a[href$="temporary"]').attr('href', url).attr('target', '_blank');
 
     urlInput.value = "";
   }
@@ -479,20 +479,20 @@
   }
 
   function toggleUrlInput() {
+    parentAnchor = getParentWithTag(getFocusNode(), 'a');
+    //var url = getParentHref(getFocusNode());
+
+    if (parentAnchor && parentAnchor.href !== "undefined") {
+      urlInput.value = parentAnchor.href;
+      parentAnchor.href = "/temporary";
+    }
+    else {
+      document.execCommand("createLink", false, "/temporary");
+    }
+
+    //previouslySelectedText = window.getSelection().getRangeAt(0);
+
     setTimeout(function() {
-      parentAnchor = getParentWithTag(getFocusNode(), 'a');
-      //var url = getParentHref(getFocusNode());
-
-      if (parentAnchor && parentAnchor.href !== "undefined") {
-        urlInput.value = parentAnchor.href;
-        parentAnchor.href = "/temporary";
-      }
-      else {
-        document.execCommand("createLink", false, "/temporary");
-      }
-
-      //previouslySelectedText = window.getSelection().getRangeAt(0);
-
       urlInput.focus();
     }, 150);
   }
