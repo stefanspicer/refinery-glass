@@ -62,6 +62,10 @@ html
         <%= link_to (t('.log_out', site_bar_translate_locale_args) + ' <i class="gcicon gcicon-log-out"></i>').html_safe,
                     refinery.logout_path, :id => 'logout', :class => 'log-out' %>
       </section>
+
+      <section id="mobile-menu" class="mobile-menu">
+        <%= render 'refinery/admin/mobile_menu' %>
+      </section>
     <% end %>
 
     <%= yield :body_top %>
