@@ -509,6 +509,61 @@ body{
 
 
 
+/* -------------------- MOBILE -------------------- */
+.mobile-menu{
+  background: $off-white;
+  border-top: 1px solid $grey-2;
+  height: 55px;
+  position: fixed;
+  padding: 0 10px;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  z-index: 100;
+  @media (min-width: 768px) {
+    display: none; 
+  }
+  a, button{
+    text-align: center;
+    font-size: 14px;
+    color: $grey-6;
+    padding: 10px;
+    flex: 1;
+    &:hover, &:focus{
+      color: $primary-hover;
+    }
+    .gcicon{
+      display: block;
+      margin: 0 auto;
+      font-size: 18px;
+    }
+  }
+}
+
+@media (max-width: 767px) {  
+  .small-sidebar{
+    #sidebar-left{
+      width: 100%;
+      .sidebar-top-nav{ 
+        .site-name{
+           width: 100%;
+        }
+      }
+      .log-out{
+        width: 100%;
+      }
+    }
+  }
+  
+  .uv-bottom-right{
+    bottom: 55px !important;
+    right: 0px;
+    transform: scale(0.7);
+  }
+}
+
+
 /* -------------------- COMPONENTS -------------------- */
 
 .input-lg::-webkit-input-placeholder {
@@ -621,6 +676,8 @@ body{
   .contextual-options{
     display: flex;
     align-items: center;
+    width: 100%;
+    margin-bottom: 0;
   }
   .relative-nav-item{
     min-width: 80px;
@@ -802,9 +859,7 @@ body{
   .contextual-menu {
     flex-wrap: wrap;
     .contextual-options{
-      width: 100%;
       order: 1;
-      margin-bottom: 15px;
     }
     .search {
       width: 100%;
