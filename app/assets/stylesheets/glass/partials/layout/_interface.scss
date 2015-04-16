@@ -72,6 +72,9 @@ body{
   background: $off-white;
   border-right: 1px solid $grey-2;
   padding: 0;
+  &.sidebar-open{
+    transform: translate3d(0%, 0%, 0);
+  }
   .sidebar-top-nav{
     position: fixed;
     z-index: 10000;
