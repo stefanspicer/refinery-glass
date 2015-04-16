@@ -45,9 +45,10 @@
 
   // Adjust close link position
   .close {
-    position: relative;
-    top: -2px;
-    right: -21px;
+    position: absolute;
+    top: 50%;
+    margin-top: -8px;
+    right: 15px;
     color: inherit;
   }
 }
