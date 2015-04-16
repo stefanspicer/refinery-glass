@@ -25,6 +25,13 @@ var GlassMenus = (function ($) {
           }
         });
       });
+    } else {
+      var $closeBtn = $('.close-cms-menu');
+      $closeBtn.removeClass('hidden');
+      $closeBtn.click(function(e){
+        e.preventDefault();
+        $cmsLeftSidebar.sidebar('hide');
+      });
     }
 
     $cmsLeftLogo.unbind('click').click(function(e){
