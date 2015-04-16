@@ -745,6 +745,13 @@ a.pill{
       border-style: solid;
       border-width: 10px 10px 10px 0;
       border-color: transparent $white transparent transparent;
+      @media (max-width: 767px) {
+        top: 0;
+        left: 50%;
+        margin-left: -10px; 
+        border-width: 0 10px 10px 10px;
+        border-color: transparent transparent $white transparent;
+      }
     }
   }
 }
