@@ -27,6 +27,8 @@ Refinery::Image.class_eval do
         geometry = '400x600#'
       when 'v_lg'
         geometry = '800x1200#'
+      when 'square'
+        geometry = '600x600#'
       else
         geometry = aspect == :landscape ? 'x700' : '1000X'
     end
