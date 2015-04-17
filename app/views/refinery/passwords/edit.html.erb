@@ -1,11 +1,9 @@
 <% username_capitalized = @resource.username.present? ? @resource.username.split.map(&:capitalize).join(' ') : @resource.username -%>
 
 <% unless @resource.confirmed? %>
-  <h1>Getting to know you</h1>
-
   <div class="margin-bottom-sm">
     <p>
-      Let’s start with the basics. Please tell us your name and your super secret password.
+      Please create a super secret password below.
     </p>
     <p>
       In the future, use your full name '<%= username_capitalized %>' or email address '<%= @resource.email %>' to log in.

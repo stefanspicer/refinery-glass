@@ -4,6 +4,8 @@ class Devise::GlassMailer < Devise::Mailer
     # an invitation email.
     unless record.confirmed?
       opts[:subject] = "Welcome to #{Refinery::Core.site_name}"
+      @admin_url = refinery.admin_root_url
+      @site_url  = refinery.root_url
     end
 
     super

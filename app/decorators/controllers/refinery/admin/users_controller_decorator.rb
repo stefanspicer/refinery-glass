@@ -24,10 +24,7 @@ Refinery::Admin::UsersController.class_eval do
 
     if @user.save
       flash.now[:notice]  = "Invitation sent to #{@user.email}"
-
       @user.inviting_user = current_refinery_user.username.split.map(&:capitalize).join(' ')
-      @user.site_url = "#{request.protocol}#{request.host_with_port}"
-
       @user.send_reset_password_instructions
       create_successful
     else

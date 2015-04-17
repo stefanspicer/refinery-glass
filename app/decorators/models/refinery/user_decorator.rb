@@ -2,7 +2,7 @@ Refinery::User.class_eval do
 
   devise :database_authenticatable, :recoverable
 
-  attr_accessor   :inviting_user, :site_url
+  attr_accessor   :inviting_user
 
 	def name
 		self.username
