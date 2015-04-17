@@ -71,7 +71,7 @@
         letter-spacing: 1px;
         color: $grey-6;
         &:hover{
-          background: darken($off-white, 2%);
+          background: darken($off-white, 1%);
         }
         @media (min-width: 768px) {
           &:hover{
@@ -184,6 +184,7 @@
           padding: 10px 0;
           transition: 0;
           color: $grey-6;
+          @include ellipsis(100%);
           .title{
             flex: 1;
           }
@@ -238,17 +239,24 @@
           &-col-5{
             width: 200px;
           }
+          .circle-icon{
+            color: $primary-color;
+            border-color: $primary-color;
+            &:link, &:visited {
+              color: $primary-color;
+            }
+            &:hover, &:focus{
+              color: $white;
+              border-color: $primary-dark;
+              background: $primary-dark;
+            }
+          } 
           @media (min-width: 768px) {
             .circle-icon{
               color: $white;
               border-color: $white;
               &:link, &:visited {
                 color: $white;
-              }
-              &:hover, &:focus{
-                color: $white;
-                border-color: $primary-dark;
-                background: $primary-dark;
               }
             } 
           }

@@ -53,6 +53,18 @@ body{
     .menu-link{
       display: none;
     }
+    .close-cms-nav{
+      width: 35px;
+      height: 35px;
+      background: #43B1D1;
+      margin: -5px;
+      line-height: 1.2em;
+      position: relative ;
+      top: 0;
+      padding: 0;
+      color: $white;
+      z-index: 1050;
+    }
     .sidebar-top-nav{
       .site-name{
         display: flex;
