@@ -7,18 +7,13 @@ var GlassMenus = (function ($) {
 
     var $cmsLeftSidebar = $('#sidebar-left').first();
     var $cmsRightSidebar = $('#sidebar-right').first();
-    var leftSidebars = $('.ui.sidebar.left');
-    var rightSidebars = $('.ui.sidebar.right');
     var $toggleCMSMenuButton = $('#toggle-cms-menu');
-    var mobileMenuShowing = $('#mobile-menu').css('display') != 'none';
 
-    if(mobileMenuShowing){
-      var $closeBtn = $('.close-cms-menu');
-      $closeBtn.click(function(e){
-        e.preventDefault();
-        $cmsLeftSidebar.removeClass('sidebar-open');
-      });
-    }
+    var $closeBtn = $('.close-cms-menu');
+    $closeBtn.click(function(e){
+      e.preventDefault();
+      $cmsLeftSidebar.removeClass('sidebar-open');
+    });
 
     $toggleCMSMenuButton.unbind('click').click(function(e){
       e.preventDefault();
