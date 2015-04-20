@@ -164,13 +164,16 @@ var CanvasForms = (function ($) {
         var $errorContainer, $validationContainer = $(element).parents('.form-group').find('.validation');
 
         if($validationContainer.length > 0 && ($errorContainer = $validationContainer.find('span')).length > 0){
+          
+          if($errorContainer.length > 1){
+            $validationContainer = $errorContainer = $(element).parent().find('.validation').first();
+            $errorContainer = $validationContainer.find('span');
+          }
+
           if(text){
             $validationContainer.addClass('active');
           } else {
             $validationContainer.removeClass('active');
-          }
-          if($errorContainer.length > 1){
-            $errorContainer = $(element).siblings('.validation');
           }
           $errorContainer.html(text || '');
         }
