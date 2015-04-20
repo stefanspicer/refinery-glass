@@ -802,7 +802,11 @@ body{
   .btn{
     margin: 0 7px;
   }
-  
+  &>.btn-primary{
+    &:last-child{
+      margin-left: auto;
+    }
+  }
   .dropdown{
     margin: 0 15x;
     &:hover, &:focus{
@@ -938,13 +942,6 @@ body{
 @media (max-width: 767px) {
   .contextual-menu {
     flex-wrap: wrap;
-    .contextual-options{
-      order: 1;
-    }
-    .search {
-      width: 100%;
-      order: 2;
-    }
   }
 }
 
