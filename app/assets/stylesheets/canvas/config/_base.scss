@@ -1120,7 +1120,7 @@ input:focus, .form-control:focus, input[type="submit"]:focus, .btn:focus, input[
     width: 100%;
     padding: 5px 10px !important;
     line-height: 1.2;
-    z-index: 10;
+    z-index: 20;
     border-color: $grey-3;
     
   }
@@ -1140,7 +1140,7 @@ input:focus, .form-control:focus, input[type="submit"]:focus, .btn:focus, input[
   right: 10px;
   position: absolute;
   margin-top: -2px;
-  z-index: 100;
+  z-index: 10;
 }
 
 .moz-appearance .dropdown-wrapper{
