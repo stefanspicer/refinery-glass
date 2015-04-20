@@ -131,11 +131,11 @@ var CanvasForms = (function ($) {
         return $(input).parents('.form-group');
       },
       beforeSubmit: function(submitEvent, result) {
-
-        var $errorInputs = $(submitEvent.target).find('.validation.active');
+        var $form = $(submitEvent.target);
+        var $errorInputs = $form.find('.validation.active');
 
         if($errorInputs.length > 0){
-
+          console.log('error inputs!');
           var $firstError = $errorInputs.first();
 
           // after a short delay, scroll to the input with the error.
@@ -157,6 +157,7 @@ var CanvasForms = (function ($) {
           }
           return false;
         }
+        $form.trigger('validation-success');
         return true;
       },
       hideErrorOnChange: true,
