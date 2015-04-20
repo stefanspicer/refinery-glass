@@ -51,6 +51,14 @@ en:
             toggle_moderation: Moderation
           index:
             no_<%= plural_name %>: You have not received any <%= plural_name.humanize.downcase %> yet.
+            inbox: Inbox
+            new: New
+            approved: Approved
+            rejected: Rejected
+            spam: Spam
+            update_notified: Update who gets notified
+            edit_confirmation_email: Edit confirmation email
+            toggle_moderation: Moderation
           spam:
             no_spam: Hooray! You don't have any spam.
           show:

@@ -38,11 +38,11 @@
       </span>
 
       <% if include_moderation? %>
-      <%%= link_to refinery_icon_tag("cross.png"),
-        refinery.rejected_<%= namespacing.underscore %>_admin_<%= singular_name %>_path(<%= singular_name %>, :return_to => request.path.split('/').last.gsub(/^<%= plural_name %>$/, 'index')),
+      <%%= link_to '<i class="gcicon gcicon-cancel"></i>'.html_safe,
+        refinery.rejected_<%= namespacing.underscore %>_admin_<%= singular_name %>_path(<%= singular_name %>, :return_to => request.path.split('/').last.gsub(/^<%= plural_name %>$/, 'index')), class: 'circle-icon',
         :title => t('.reject') unless <%= singular_name %>.rejected? %>
-      <%%= link_to refinery_icon_tag("tick.png"),
-        refinery.approved_<%= namespacing.underscore %>_admin_<%= singular_name %>_path(<%= singular_name %>, :return_to => request.path.split('/').last.gsub(/^<%= plural_name %>$/, 'index')), :title => t('.approve') unless <%= singular_name %>.approved? %>
+      <%%= link_to '<i class="gcicon gcicon-check"></i>'.html_safe,
+        refinery.approved_<%= namespacing.underscore %>_admin_<%= singular_name %>_path(<%= singular_name %>, :return_to => request.path.split('/').last.gsub(/^<%= plural_name %>$/, 'index')), class: 'circle-icon', :title => t('.approve') unless <%= singular_name %>.approved? %>
       <% end -%>
 
       <% if @includes_spam %>
