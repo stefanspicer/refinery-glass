@@ -16,16 +16,20 @@
   <%= render 'customize_form', :f => f %>
 
   <div class='form-group'>
+    <div class="validation">
+      <span></span>
+    </div>
     <%= f.label :username, "Username for login" %>
     <%= f.text_field :username, :placeholder => 'Username', :class => 'form-control input-lg','data-validate'=>'unique_value,required_w_name', 'data-val-field' => 'username', 'data-unique-collection-url' => "#{refinery.admin_usernames_path @user.username}"  %>
-    <div class="tip text-danger"></div>
   </div>
 
   <%= yield :after_username %>
 
   <div class='form-group'>
+    <div class="validation">
+      <span></span>
+    </div>
     <%= f.text_field :email, :class => 'form-control input-lg', :placeholder => 'Email','data-validate'=>'unique_value,email,required_w_name', 'data-val-field' => 'email', 'data-unique-collection-url' => "#{refinery.admin_emails_path(@user.id)}"  %>
-    <div class="tip text-danger"></div>
   </div>
   <% if @edit_user.present? %>
     <% if @user.persisted? %>
