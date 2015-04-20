@@ -6,7 +6,7 @@ var GlassSearch = (function ($){
   var watcher;
 
   $(document).on('content-ready', function (e, element) {
-    var $search_form = $(element).find('form.search_form');
+    var $search_form = $(element).find('.search-form').parent();
     if ($search_form.length > 0) {
       // Create a watcher (watch for onchange & onkeypress events)
       watcher = new WatchForChanges.Watcher({
@@ -19,7 +19,7 @@ var GlassSearch = (function ($){
 
       $search_form.ajaxForm({
         complete: function(xhr, status) {
-          var btnContainer = $('#refinery-search-btn');
+          var $btnContainer = $('#refinery-search-btn');
 
           watcher.resume();
 
@@ -42,8 +42,8 @@ var GlassSearch = (function ($){
           }
           xhr.done(function(data) {
             var $content = $(data).find('.sortable_list');
-            btnContainer.find('.loader').addClass('hidden').fadeOut(100, function(){
-              btnContainer.find('.gcicon-search').fadeIn(100);
+            $btnContainer.find('.loader').addClass('hidden').fadeOut(100, function(){
+              $btnContainer.find('.gcicon-search').fadeIn(100);
             });
             if ($content.length > 0) {
               $('#errorExplanation').remove();
@@ -67,10 +67,10 @@ var GlassSearch = (function ($){
   });
 
   function do_search($elem) {
-    var btnContainer = $('#refinery-search-btn');
+    var $btnContainer = $('#refinery-search-btn');
 
-    btnContainer.find('.gcicon-search').fadeOut(100, function(){
-      btnContainer.find('.loader.hidden').removeClass('hidden').fadeIn(100);
+    $btnContainer.find('.gcicon-search').fadeOut(100, function(){
+      $btnContainer.find('.loader.hidden').removeClass('hidden').fadeIn(100);
     });
 
     $elem.parents('form').submit();
