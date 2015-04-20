@@ -1,6 +1,6 @@
 <div class="search">
-  <form method='GET' action='<%= url %>' class='search_form'>
-    <div class="input-group">
+  <form method='GET' action='<%= url %>'>
+    <div class="search-form">
       <%= text_field :search, nil, :id => 'search', :type => 'search', :name => 'search', :value => params[:search],
                      :class => 'form-control',
                      :placeholder => t('search_input_notice', :scope => 'refinery.admin.search')
@@ -8,8 +8,8 @@
       <%= hidden_field :wymeditor, nil, :name => 'wymeditor', :id => nil, :value => true  if params[:wymeditor].presence %>
       <%= hidden_field :dialog, nil, :name => 'dialog', :id => nil, :value => true if from_dialog? %>
       <%= hidden_field :callback, nil, :name => 'callback', :id => nil, :value => @callback if @callback.presence %>
-      <span id="refinery-search-btn" class="input-group-btn">
-        <button class="btn btn-default" type="submit"><i class="gcicon gcicon-search"></i>
+      <span id="refinery-search-btn" class="search-btn">
+        <button type="submit"><i class="gcicon gcicon-search"></i>
           <div class="ui active inline loader xs hidden"></div>
         </button>
       </span>
