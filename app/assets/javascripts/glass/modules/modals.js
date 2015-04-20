@@ -2,11 +2,16 @@
  * Methods involving Semantic-UI modals
  * @author Jkrump
  * @created 12-06-2014
- * @updated 03-06-2015
+ * @updated 04-20-2015
  */
 var GlassModals = (function ($) {
 
   $(document).on('content-ready', function (e, element) {
+    $(element).find('.btn-modal-cancel').unbind('click').click(function(e){
+      e.preventDefault();
+      var $modal = $(this).closest('.modal');
+      $modal.modal('hide');
+    });
     $(element).find('.open-modal').unbind('click').click(function (e) {
       e.preventDefault();
       openBtnClickHandler($(this), undefined);
@@ -92,8 +97,9 @@ var GlassModals = (function ($) {
    * @param successCallback  <function>   - A method to call upon form successfully being submitted.
    */
   function loadAndDisplayFormModal(formSourceUrl, formSourceSelector, $modalContent, $modal, successCallback){
-    var $saveBtn      = $modal.find('.positive');
+    var $saveBtn        = $modal.find('.btn-submit-modal');
     var $removeImageBtn = null;
+
     formSourceUrl = (formSourceSelector === '') || (formSourceSelector === undefined) ? formSourceUrl : formSourceUrl+formSourceSelector;
 
     $modalContent.load(formSourceUrl, function(){
@@ -128,7 +134,10 @@ var GlassModals = (function ($) {
           if(successCallback !== undefined){
             successCallback();
           }
-          $modal.modal('hide');
+          if(! $saveBtn.hasClass('positive')){
+            $modal.modal('hide');
+          }
+
           $modalContent.find('#form-wrapper').remove();
           // reopen the right sidebar
           if($rightSidebar.length > 0){
