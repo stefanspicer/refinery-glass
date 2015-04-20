@@ -6,45 +6,80 @@ var GlassPagination = (function ($) {
   var FETCHING = false;
 
   $(document).on('content-ready', function (e, element) {
-    var $showMoreButton = $('.btn-paginate-show-more');
-    var $infiniteScrollContainer = $('.infinite-scrolling-container');
-    var $paginationSpinner = $('.pagination-spinner');
+    var $paginationSpinnner = null;
 
-    if($showMoreButton.length > 0 && (parseInt($showMoreButton.data('total-pages')) > 1)){
-      $showMoreButton.click(function(e){
-        e.preventDefault();
-        if(!FETCHING){
-          var moreUrl = $(this).attr('data-url');
-          displaySpinner($paginationSpinner);
-          FETCHING = true;
-          $.getScript(moreUrl);
-        }
-      });
+    if(!FETCHING){
+      $paginationSpinner = setListeners();
     }
 
-    if ($infiniteScrollContainer.length > 0 && (parseInt($infiniteScrollContainer.data('total-pages')) > 1)){
-      $(window).on('scroll', scrollHandler);
-    }
-
-    $(document).on('pagination-content-loaded', function(e, element) {
+    $(document).unbind('pagination-content-loaded').on('pagination-content-loaded', function(e, element) {
       FETCHING = false;
+      $paginationSpinnner = setListeners();
       $paginationSpinner.fadeOut(200);
     });
 
   });
 
+  function setListeners(){
+    var $showMoreButton = $('.btn-paginate-show-more');
+    var $infiniteScrollContainer = $('.infinite-scrolling-container');
+    var $paginationSpinner = $('.pagination-spinner');
+
+    if($showMoreButton.length > 0 && (parseInt($showMoreButton.data('total-pages')) > 1)){
+      $showMoreButton.attr('data-total-pages', 1);
+
+      $showMoreButton.unbind('click').click(function(e){
+        e.preventDefault();
+        if(!FETCHING){
+          FETCHING = true;
+          $(window).unbind('scroll');
+
+          var moreUrl = $(this).attr('data-url');
+          if(moreUrl){
+            getMoreContent(moreUrl, $paginationSpinner);
+          } else {
+            console.warn('No URL specified');
+          }
+        }
+      });
+    }
+
+    if ($infiniteScrollContainer.length > 0 && (parseInt($infiniteScrollContainer.data('total-pages')) > 1)){
+      $infiniteScrollContainer.attr('data-total-pages', 1);
+
+      $(window).unbind('scroll').on('scroll', scrollHandler);
+    } else {
+      $(window).unbind('scroll');
+    }
+    return $paginationSpinner;
+  }
+
   function scrollHandler(){
+    
     var moreUrl = $('.infinite-scrolling-container').attr('data-url');
     var pixelOffsetFromBottom = 1200;
     var $paginationSpinner = $('.pagination-spinner');
 
     if(moreUrl && ($(window).scrollTop() > ($(document).height() - $(window).height() - pixelOffsetFromBottom))){
       if(!FETCHING){
-        FETCHING = true;
-        displaySpinner($paginationSpinner);
-        $.getScript(moreUrl);
+        getMoreContent(moreUrl, $paginationSpinner);
       }
     }
+  }
+
+  function getMoreContent(moreUrl, $paginationSpinner){
+    var $adminSearchInput = $('#search');
+
+    FETCHING = true;
+    $(window).unbind('scroll');
+
+    // Append search param if there was one.
+    if($adminSearchInput.length === 1){
+      var paramName = moreUrl.indexOf('?') !== -1 ? '&search=' : '?search='
+      moreUrl += (paramName + $adminSearchInput.val());
+    }
+    displaySpinner($paginationSpinner);
+    $.getScript(moreUrl);
   }
 
   /**
