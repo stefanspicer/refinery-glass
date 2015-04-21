@@ -122,6 +122,10 @@ var GlassModals = (function ($) {
       $(document).trigger('content-ready', $modalContent);
 
       $saveBtn.unbind().click(function(e){
+        var saveBtnHtml = $saveBtn.html();
+        $saveBtn.html('<i class="ui active inline inverted xs loader"></i> Sending');
+        $saveBtn.attr('disabled', 'disabled');
+
         e.preventDefault();
         var $form = $modal.find('form');
         var $rightSidebar = $('#sidebar-right');
@@ -131,6 +135,8 @@ var GlassModals = (function ($) {
         // CanvasForms after success.
         $form.on('form-submit-success', function(e, response, statusText, xhr, element) {
           // Remove form (Simple solution atm to remove image)
+          $saveBtn.html(saveBtnHtml);
+          $saveBtn.removeAttr('disabled');
           if(successCallback !== undefined){
             successCallback();
           }
