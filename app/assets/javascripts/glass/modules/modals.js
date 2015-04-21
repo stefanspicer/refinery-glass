@@ -48,6 +48,7 @@ var GlassModals = (function ($) {
     // Check if this modal will be displaying a form.
     //
     if($modal.hasClass('confirm')){
+      // Modal has a form and it is a two step submission process.
       var $finalConfirmButton = $modal.find('.btn-confirm');
       var $previousConfirmButton = $modal.find('.btn-previous-confirm');
 
