@@ -140,15 +140,12 @@ var GlassImageUploader = (function ($) {
         beforeSubmit: setPreviewDiv,
         success: handleSuccess,
         error: handleError,
+        uploadProgress: onProgress,
         forceSync: true,
         resetForm: true
       };
 
     $imageForm.submit(function (e) {
-      if($UPLOAD_PREVIEW_CONTAINERS !== undefined){
-
-        $.extend(defaultOptions, {uploadProgress: onProgress})
-      }
       $(this).ajaxSubmit(defaultOptions);
       return false;
     });
@@ -206,14 +203,22 @@ var GlassImageUploader = (function ($) {
   }
 
   function updateProgressBar(percentComplete) {
-    var statusText = $UPLOAD_PREVIEW_CONTAINERS.find('.status-text');
-    statusText.html(percentComplete + '%');
+    var $statusText;
     var $progressBar = $('.progress-bar');
+
+    if($UPLOAD_PREVIEW_CONTAINERS === undefined){
+      $statusText = $('.glass-control').find('.status-text');
+    } else {
+      $statusText = $UPLOAD_PREVIEW_CONTAINERS.find('.status-text');
+    }
+
+    $statusText.html(percentComplete + '%');
+    
     $progressBar.width(percentComplete + '%').attr('aria-valuenow', percentComplete);  
     if(percentComplete === 100){
       setTimeout(function(){
         $progressBar.replaceWith(processingProgressBar());
-        statusText.css('margin-left', '-30px').html('Processing...');
+        $statusText.css('margin-left', '-30px').html('Processing...');
       }, 500);
     }
   }
