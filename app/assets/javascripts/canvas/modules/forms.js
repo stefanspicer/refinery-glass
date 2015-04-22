@@ -135,7 +135,6 @@ var CanvasForms = (function ($) {
         var $errorInputs = $form.find('.validation.active');
 
         if($errorInputs.length > 0){
-          console.log('error inputs!');
           var $firstError = $errorInputs.first();
 
           // after a short delay, scroll to the input with the error.
@@ -147,7 +146,6 @@ var CanvasForms = (function ($) {
               selector: 'button[type=submit]',
               value: true
             });
-            console.log($firstError.offset().top);
             setTimeout(function () {
               $('html, body').animate({
                 scrollTop: parseInt($firstError.offset().top) - 73

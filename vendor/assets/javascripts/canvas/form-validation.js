@@ -2,4 +2,2030 @@
  * https://github.com/jpillora/verify
  * Copyright (c) 2013 Jaime Pillora - MIT
  */
-(function(e,t,i){function n(e,t){function n(){f("ajax error"),t.callback("There has been an error")}function r(){c.prompt(l,!1);for(var e=s.loading[p];e.length;)e.pop().success.apply(t,arguments);s.loaded[p]=arguments}var o={method:"GET",timeout:15e3},u=t._exec,l="GroupRuleExecution"===u.type?u.element.domElem:t.field,h=e.success,d=e.error,c=u.element.options,p=JSON?JSON.stringify(e):a(),m={success:h,error:d||n};if(s.loaded[p]){var g=s.loaded[p],v=m.success;return v.apply(t,g),i}if(s.loading[p]||(s.loading[p]=[]),s.loading[p].push(m),1===s.loading[p].length){c.prompt(l,"Checking...","load");var y={success:r,error:r};u.ajax=$.ajax($.extend(o,e,y))}}function r(e){$.extend(!0,this,e)}(function(t){function n(){this.suppressLog||a("log",this,arguments)}function r(){a("warn",this,arguments)}function s(){a("info",this,arguments)}function a(n,r,s){if(e.console!==i&&e.console.isFake!==!0){var a=t.map(s,h);a[0]=[r.prefix,a[0],r.postfix].join("");var o="boolean"===t.type(a[a.length-1])?a.pop():null;o===!0&&e.console.group(a[0]),a[0]&&null===o&&(e.navigator.userAgent.indexOf("MSIE")>=0?e.console.log(a.join(",")):e.console[n].apply(e.console,a)),o===!1&&e.console.groupEnd()}}function o(e){return{log:function(){n.apply(e,arguments)},warn:function(){r.apply(e,arguments)},info:function(){s.apply(e,arguments)}}}e.console===i&&(e.console={isFake:!0});for(var u=["log","warn","info","group","groupCollapsed","groupEnd"],l=u.length-1;l>=0;l--)e.console[u[l]]===i&&(e.console[u[l]]=t.noop);if(t){var h=function(e){return e},d=function(e){return e=t.extend({},d.defaults,e),o(e)};d.defaults={suppressLog:!1,prefix:"",postfix:""},t.extend(d,o(d.defaults)),t.console===i&&(t.console=d),t.consoleNoConflict=d}})(jQuery);var s={loading:{},loaded:{}},a=function(){return a.curr++};a.curr=1,$.fn.verifyScrollView=function(e){var t=$(this).first();return 1!==t.length?$(this):$(this).verifyScrollTo(t,e)},$.fn.verifyScrollTo=function(e,t,i){"function"==typeof t&&2==arguments.length&&(i=t,t=e);var n=$.extend({scrollTarget:e,offsetTop:50,duration:500,easing:"swing"},t);return this.each(function(){var e=$(this),t="number"==typeof n.scrollTarget?n.scrollTarget:$(n.scrollTarget),r="number"==typeof t?t:t.offset().top+e.scrollTop()-parseInt(n.offsetTop,10);e.animate({scrollTop:r},parseInt(n.duration,10),n.easing,function(){"function"==typeof i&&i.call(this)})})},$.fn.equals=function(e){if($(this).length!==e.length)return!1;for(var t=0,i=$(this).length;i>t;++t)if($(this)[t]!==e[t])return!1;return!0};var o=null;(function(){var e=!1,t=/xyz/.test(function(){})?/\b_super\b/:/.*/;o=function(){},o.extend=function(i){function n(){!e&&this.init&&this.init.apply(this,arguments)}var r=this.prototype;e=!0;var s=new this;e=!1;for(var a in i)s[a]="function"==typeof i[a]&&"function"==typeof r[a]&&t.test(i[a])?function(e,t){return function(){var i=this._super;this._super=r[e];var n=t.apply(this,arguments);return this._super=i,n}}(a,i[a]):i[a];return n.prototype=s,n.prototype.constructor=n,n.extend=arguments.callee,n}})();var u=o.extend({init:function(e,t){this.name=t?t:"Set_"+a(),this.array=[],this.addAll(e)},indexOf:function(e){for(var t=0,i=this.array.length;i>t;++t)if($.isFunction(e)?e(this.get(t)):this.equals(this.get(t),e))return t;return-1},find:function(e){return this.get(this.indexOf(e))||null},get:function(e){return this.array[e]},has:function(e){return!!this.find(e)},add:function(e){return this.has(e)?!1:(this.array.push(e),!0)},addAll:function(e){if(!e)return 0;$.isArray(e)||(e=[e]);for(var t=0,i=0,n=e.length;n>i;++i)this.add(e[i])&&t++;return t},remove:function(e){for(var t=[],i=0,n=this.array.length;n>i;++i)this.equals(this.get(i),e)||t.push(this.get(i));return this.array=t,e},removeAll:function(){this.array=[]},equals:function(e,t){return e&&t&&e.equals!==i&&t.equals!==i?e.equals(t):e===t},each:function(e){for(var t=0,i=this.array.length;i>t;++t)if(e(this.get(t))===!1)return},map:function(e){return $.map(this.array,e)},filter:function(e){return $.grep(this.array,e)},size:function(){return this.array.length},getArray:function(){return this.array}}),l=u.extend({init:function(e,t,i){this.type=e,this._super(t,i)},add:function(e){e instanceof this.type?this._super(e):this.log("add failed - invalid type")}}),h={create:function(e){function t(){}return t.prototype=e,new t},bind:$.proxy,checkOptions:function(e){if(e)for(var t in e)g[t]===i&&p("Invalid option: '"+t+"'")},appendArg:function(e,t,i){i||(i=0);var n=[].slice.call(e,i);return n[i]=t+n[i],n},memoize:function(e){return function(){for(var t=Array.prototype.slice.call(arguments),i="",n=t.length,r=null;n--;)r=t[n],i+=r===Object(r)?JSON.stringify(r):r,e.memoize||(e.memoize={});return i in e.memoize?e.memoize[i]:e.memoize[i]=e.apply(this,t)}},dateToString:function(e){return e.getFullYear()+"-"+(e.getMonth()+1)+"-"+e.getDate()},parseDate:function(e){var t=e.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);if(!t)return null;var n;if($.datepicker!==i)try{var r=$.datepicker.parseDate("dd/mm/yy",e);n=new Date(r)}catch(s){return null}else n=new Date(parseInt(t[3],10),parseInt(t[2],10)-1,parseInt(t[1],10));return n},isRTL:function(e){var i=$(t),n=$("body"),r=e&&e.hasClass("rtl")||e&&"rtl"===(e.attr("dir")||"").toLowerCase()||i.hasClass("rtl")||"rtl"===(i.attr("dir")||"").toLowerCase()||n.hasClass("rtl")||"rtl"===(n.attr("dir")||"").toLowerCase();return Boolean(r)}},d="0.0.1",c=$.consoleNoConflict({prefix:"verify.js: "}),f=c.log,p=c.warn,m=c.info,g={debug:!1,autoInit:!0,validateAttribute:"data-validate",validationEventTrigger:"blur",scroll:!0,focusFirstField:!0,hideErrorOnChange:!1,skipHiddenFields:!0,skipDisabledFields:!0,errorClass:"error",errorContainer:function(e){return e},reskinContainer:function(e){return e},beforeSubmit:function(e,t){return t},track:$.noop,showPrompt:!0,prompt:function(e,t,i){"function"===$.type($.notify)&&(i||(i={color:"red"}),$.notify(e,t,i))}};r.prototype=g;var v=o.extend({name:"Class",toString:function(){return(this.type?this.type+": ":"")+(this.name?this.name+": ":"")},log:function(){g.debug&&f.apply(this,h.appendArg(arguments,""+this))},warn:function(){p.apply(this,h.appendArg(arguments,""+this))},info:function(){m.apply(this,h.appendArg(arguments,""+this))},bind:function(e){var t=this[e];t&&$.isFunction(t)&&(this[e]=h.bind(t,this))},bindAll:function(){for(var e in this)this.bind(e)},nextTick:function(t,i,n){var r=this;return e.setTimeout(function(){t.apply(r,i)},n||0)}}),y=v.extend({init:function(e,t){return this.name=e,$.isPlainObject(t)?(this.type=t.__ruleType,this.extendInterface(t.extend),this.userObj||(this.userObj={}),$.extend(this.userObj,t),this.buildFn(),this.ready=this.fn!==i,i):this.warn("rule definition must be a function or an object")},extendInterface:function(e){if(e&&"string"==typeof e){for(var t,i=e;i;){if(i===this.name)return this.error("Rule already extends '%s'",i);t=b.getRawRule(i),i=t?t.extend:null}var n=b.getRule(e);if(!n)return this.warn("Rule missing '%s'",i);if(this.parent=n,!(n instanceof y))return this.error("Cannot extend: '"+otherName+"' invalid type");this.userObj=h.create(n.userObj),this.userObj.parent=n.userObj}},buildFn:function(){if($.isFunction(this.userObj.fn))this.fn=this.userObj.fn;else{if("regexp"!==$.type(this.userObj.regex))return this.error("Rule has no function");this.fn=function(e){return function(t){var i=RegExp(e);return t.val().match(i)?!0:t.message||"Invalid Format"}}(this.userObj.regex)}},defaultInterface:{log:f,warn:p,ajax:function(e){n(e,this)}},defaultFieldInterface:{val:function(){return this.field.val.apply(this.field,arguments)}},defaultGroupInterface:{val:function(e,t){var n=this.field(e);return n?t===i?n.val():n.val(t):i},field:function(e){var t=$.grep(this._exec.members,function(t){return t.id===e}),i=t.length?t[0].element.domElem:null;return i||this.warn("Cannot find group element with id: '"+e+"'"),i},fields:function(){return $().add($.map(this._exec.members,function(e){return e.element.domElem}))}},buildInterface:function(e){var t=[];return t.push({}),t.push(this.userObj),t.push(this.defaultInterface),"field"===this.type&&(t.push(this.defaultFieldInterface),t.push({field:e.element.domElem})),"group"===this.type&&t.push(this.defaultGroupInterface),t.push({prompt:e.element.options.prompt,form:e.element.form.domElem,callback:e.callback,args:e.args,_exec:e}),$.extend.apply(this,t)}}),b=null;(function(){var e=function(e){for(var t,n,r=e.split(""),s=[],a=0,o=0,u=r.length;u>o;++o){if(t=r[o],"("===t&&a++,")"===t&&a--,a>1)return null;","===t&&1===a&&(r[o]=";")}return 0!==a?null:($.each(r.join("").split(","),function(t,r){return(n=r.match(/^(\w+)(\.(\w+))?(\#(\w+))?(\(([^;\)]+(\;[^;\)]+)*)\))?$/))?(r={},r.name=n[1],n[3]&&(r.scope=n[3]),n[5]&&(r.id=n[5]),r.args=n[7]?n[7].split(";"):[],s.push(r),i):p("Invalid validate attribute: "+e)}),s)},t=h.memoize(e),n={},r={},s=function(e,t){for(var i in t)n[i]&&p("validator '%s' already exists",i),$.isFunction(t[i])&&(t[i]={fn:t[i]}),t[i].__ruleType=e;$.extend(!0,n,t)},a=function(e){s("field",e)},o=function(e){s("group",e)},u=function(e){return n[e]},l=function(e){var t=r[e],i=n[e];return i?t||(t=r[e]=new y(e,i)):p("Missing rule: "+e),t},d=function(e){var i=e.form.options.validateAttribute,n=e.domElem.attr(i);return n?t(n):null},c=function(e){var t=!1,i=null,n=[];return"ValidationField"!==e.type?p("Cannot get rules from invalid type"):e.domElem?(i=this.parseAttribute(e),i&&i.length?($.each(i,function(e,i){/required/.test(i.name)&&(t=!0),i.rule=l(i.name),i.rule&&n.push(i)}),n.required=t,n):n):n};b={addFieldRules:a,addGroupRules:o,getRule:l,getRawRule:u,parseString:e,parseAttribute:d,parseElement:c}})();var x=null;(function(){var e=v.extend({type:"ValidationElement",init:function(e){if(!e||!e.length)throw"Missing Element";return this.domElem=e,this.bindAll(),this.name=this.domElem.attr("name")||this.domElem.attr("id")||a(),this.execution=null,e.data("verify")?!1:(e.data("verify",this),!0)},equals:function(t){var i,n;return this.domElem?(i=this.domElem,t.jquery?n=t:t instanceof e&&t.domElem&&(n=t.domElem),i&&n?i.equals(n):!1):!1}}),n=e.extend({type:"ValidationField",init:function(e,t){this._super(e),this.form=t,this.options=t.options,this.groups=t.groups,this.ruleNames=null,this.touched=!1},validate:function(e){e||(e=$.noop);var t=new w(this);t.execute().done(function(){e(!0)}).fail(function(){e(!1)})},update:function(){this.rules=b.parseElement(this);for(var e=0;this.rules.length>e;++e){var t=this.rules[e];if(t.rule&&"group"===t.rule.type){this.groups[t.name]||(this.groups[t.name]={});var i=t.scope||"default";this.groups[t.name][i]||(this.groups[t.name][i]=new l(n)),this.groups[t.name][i].add(this)}}},handleResult:function(e){var t=this.options,i=t.reskinContainer(this.domElem);if(!i||!i.length)return this.warn("No reskin element found. Check 'reskinContainer' option.");t.showPrompt&&t.prompt(i,e.response);var n=t.errorContainer(i);n&&n.length&&n.toggleClass(t.errorClass,!e.success),this.options.track("Validate",[this.form.name,this.name].join(" "),e.success?"Valid":e.response?'"'+e.response+'"':"Silent Fail")},scrollFocus:function(e){var t=$.noop;this.options.focusFirstField&&(t=function(){e.focus()}),this.options.scroll?e.verifyScrollView(t):this.options.focusFirstField&&field.focus()}});x=e.extend({type:"ValidationForm",init:function(e,s){if(this._super(e),!e.is("form"))throw"Must be a form";this.options=new r(s),this.fields=new l(n),this.groups={},this.fieldByName={},this.invalidFields={},this.fieldHistory={},this.submitResult=i,this.submitPending=!1,this.cache={ruleNames:{},ajax:{loading:{},loaded:{}}},$(t).ready(this.domReady)},extendOptions:function(e){$.extend(!0,this.options,e)},domReady:function(){this.bindEvents(),this.updateFields(),this.log("bound to "+this.fields.size()+" elems")},bindEvents:function(){this.domElem.on("keyup.jqv","input",this.onKeyup).on("blur.jqv","input[type=text]:not(.hasDatepicker),input:not([type].hasDatepicker)",this.onValidate).on("change.jqv","input[type=text].hasDatepicker,select,[type=checkbox],[type=radio]",this.onValidate).on("submit.jqv",this.onSubmit).trigger("initialised.jqv")},unbindEvents:function(){this.domElem.off(".jqv")},updateFields:function(){var e="["+this.options.validateAttribute+"]";this.domElem.find(e).each(this.updateField)},updateField:function(e,t){e.jquery!==i&&(t=e),t.jquery===i&&(t=$(t));var r,s,a="input:not([type=hidden]),select,textarea";return t.is(a)?(s=t,r=this.fields.find(s),r||(r=new n(s,this),this.fields.add(r)),r.update(),r):this.warn("Validators will not work on container elements ("+t.prop("tagName")+"). Please use INPUT, SELECT or TEXTAREA.")},onSubmit:function(e){var t=!1;return this.submitPending&&this.warn("pending..."),this.submitPending||this.submitResult!==i?this.submitResult!==i&&(t=this.options.beforeSubmit.call(this.domElem,e,this.submitResult)):(this.submitPending=!0,this.validate(this.doSubmit)),t||e.preventDefault(),t},doSubmit:function(e){this.log("doSubmit",e),this.submitPending=!1,this.submitResult=e,this.domElem.submit(),this.submitResult=i},onKeyup:function(e){this.options.hideErrorOnChange&&this.options.prompt($(e.currentTarget),null)},onValidate:function(e){var t=$(e.currentTarget),i=t.data("verify")||this.updateField(t);i.log("validate"),i.validate($.noop)},validate:function(e){e||(e=$.noop),this.updateFields();var t=new E(this);t.execute().done(function(){e(!0)}).fail(function(){e(!1)})}})})();var E=null,w=null;(function(){var e={NOT_STARTED:0,RUNNING:1,COMPLETE:2},t=v.extend({type:"Execution",init:function(t,i){this.element=t,t&&(this.prevExec=t.execution,t.execution=this,this.options=this.element.options,this.domElem=t.domElem),this.parent=i,this.name="#"+a(),this.status=e.NOT_STARTED,this.bindAll(),this.d=this.restrictDeferred(),this.d.done(this.executePassed),this.d.fail(this.executeFailed)},isPending:function(){return this.prevExec&&this.prevExec.status!==e.COMPLETE},toString:function(){return this._super()+"["+this.element.name+(this.rule?":"+this.rule.name:"")+"] "},serialize:function(e){var t=this.mapExecutables(e);if(!$.isArray(t)||0===t.length)return this.resolve();var i=t[0](),n=1,r=t.length;if(this.log("SERIALIZE",r),!i||!i.pipe)throw"Invalid Deferred Object";for(;r>n;n++)i=i.pipe(t[n]);return i.done(this.resolve).fail(this.reject),this.d.promise()},parallelize:function(e){function t(e){s++,s===o&&r.resolve(e)}function i(e){u||(u=!0,r.reject(e))}var n=this.mapExecutables(e),r=this,s=0,a=0,o=n.length,u=!1;if(this.log("PARALLELIZE",o),!$.isArray(n)||0===o)return this.resolve();for(;o>a;++a){var l=n[a]();if(!l||!l.done||!l.fail)throw"Invalid Deferred Object";l.done(t).fail(i)}return this.d.promise()},mapExecutables:function(e){return $.map(e,function(e){if($.isFunction(e))return e;if($.isFunction(e.execute))return e.execute;throw"Invalid executable"})},linkPass:function(e){e.d.done(this.resolve)},linkFail:function(e){e.d.fail(this.reject)},link:function(e){this.linkPass(e),this.linkFail(e)},execute:function(){for(var t=this.parent,i=[];t;)i.unshift(t.name),t=t.parent;var n="("+i.join(" < ")+")";return this.log(this.parent?n:"","executing..."),this.status=e.RUNNING,this.domElem&&this.domElem.triggerHandler("validating"),!0},executePassed:function(e){this.success=!0,this.response=this.filterResponse(e),this.executed()},executeFailed:function(e){this.success=!1,this.response=this.filterResponse(e),this.executed()},executed:function(){this.status=e.COMPLETE,this.log((this.success?"Passed":"Failed")+": "+this.response),this.domElem&&this.domElem.triggerHandler("validated",this.success)},resolve:function(e){return this.resolveOrReject(!0,e)},reject:function(e){return this.resolveOrReject(!1,e)},resolveOrReject:function(e,t){var i=e?"__resolve":"__reject";if(!this.d||!this.d[i])throw"Invalid Deferred Object";return this.nextTick(this.d[i],[t],0),this.d.promise()},filterResponse:function(e){return"string"==typeof e?e:null},restrictDeferred:function(e){return e||(e=$.Deferred()),e.__reject=e.reject,e.__resolve=e.resolve,e.reject=e.resolve=function(){console.error("Use execution.resolve|reject()")},e}});E=t.extend({type:"FormExecution",init:function(e){this._super(e),this.ajaxs=[],this.children=this.element.fields.map($.proxy(function(e){return new w(e,this)},this))},execute:function(){return this._super(),this.isPending()?(this.warn("pending... (waiting for %s)",this.prevExec.name),this.reject()):(this.log("exec fields #"+this.children.length),this.parallelize(this.children))}}),w=t.extend({type:"FieldExecution",init:function(e,t){this._super(e,t),t instanceof E&&(this.formExecution=t),e.touched=!0,this.children=[]},execute:function(){if(this._super(),this.isPending())return this.warn("pending... (waiting for %s)",this.prevExec.name),this.reject();var e=b.parseElement(this.element);return this.skip=this.skipValidations(e),this.skip?this.resolve():(this.children=$.map(e,$.proxy(function(e){return"group"===e.rule.type?new r(e,this):new n(e,this)},this)),this.serialize(this.children))},skipValidations:function(e){return 0===e.length?(this.log("skip (no validators)"),!0):e.required||$.trim(this.domElem.val())?this.options.skipHiddenFields&&this.options.reskinContainer(this.domElem).is(":hidden")?(this.log("skip (hidden)"),!0):this.options.skipDisabledFields&&this.domElem.is("[disabled]")?(this.log("skip (disabled)"),!0):!1:(this.warn("skip (not required)"),!0)},executed:function(){this._super();var e,t=this,i=this.children;for(e=0;i.length>e;++e)if(i[e].success===!1){t=i[e];break}this.element.handleResult(t)}});var n=t.extend({type:"RuleExecution",init:function(e,t){this._super(null,t),this.rule=e.rule,this.args=e.args,this.element=this.parent.element,this.options=this.element.options,this.rObj={}},callback:function(e){clearTimeout(this.t),this.callbackCount++,this.log(this.rule.name+" (cb:"+this.callbackCount+"): "+e),this.callbackCount>1||(e===i&&this.warn("Undefined result"),e===!0?this.resolve(e):this.reject(e))},timeout:function(){this.warn("timeout!"),this.callback("Timeout")},execute:function(){if(this._super(),this.callbackCount=0,!this.element||!this.rule.ready)return this.warn(this.element?"not  ready.":"invalid parent."),this.resolve();this.t=setTimeout(this.timeout,1e4),this.r=this.rule.buildInterface(this);var e;try{e=this.rule.fn(this.r)}catch(t){e=!0,console.error("Error caught in validation rule: '"+this.rule.name+"', skipping.\nERROR: "+(""+t)+"\nSTACK:"+t.stack)}return e!==i&&this.nextTick(this.callback,[e]),this.d.promise()}}),r=n.extend({type:"GroupRuleExecution",init:function(e,t){if(this._super(e,t),this.groupName=e.name,this.id=e.id,this.scope=e.scope||"default",this.group=this.element.groups[this.groupName][this.scope],!this.group)throw"Missing Group Set";1===this.group.size()&&this.warn("Group only has 1 field. Consider a field rule.")},execute:function(){var t,n,r,s=this.group.exec,a=this.parent,o=a&&a.parent,u=!o,l=o instanceof E,h=!1;if(s&&s.status!==e.COMPLETE){for(this.members=s.members,t=0;this.members.length>t;++t)this.element===this.members[t].element&&(h=!0);if(h)return this.log("ALREADY A MEMBER OF %s",s.name),this.reject(),i;this.log("SLAVE TO %s",s.name),this.members.push(this),this.link(s),this.parent&&s.linkFail(this.parent)}else this.log("MASTER"),this.members=[this],this.executeGroup=this._super,s=this.group.exec=this,l&&s.linkFail(o);if(u)for(t=0;this.group.size()>t;++t)if(n=this.group.get(t),this.element!==n){if(this.log("CHECK:",n.name),!n.touched)return this.log("FIELD NOT READY: ",n.name),this.reject();r=n.execution,r&&r.status!==e.COMPLETE&&r.reject(),this.log("STARTING ",n.name),r=new w(n,this),r.execute()}var d=this.group.size(),c=s.members.length;return d===c&&s.status===e.NOT_STARTED?(s.log("RUN"),s.executeGroup()):this.log("WAIT ("+c+"/"+d+")"),this.d.promise()},filterResponse:function(e){if(!e||!this.members.length)return this._super(e);var t=$.isPlainObject(e),i="string"==typeof e;return i&&this===this.group.exec?e:t&&e[this.id]?e[this.id]:null}})})(),$.fn.validate=function(e){var t=$(this).data("verify");t?t.validate(e):p("element does not have verifyjs attached")},$.fn.validate.version=d,$.fn.verify=function(e){return this.each(function(){var t=$.verify.forms.find($(this));return e===!1||"destroy"===e?(t&&(t.unbindEvents(),$.verify.forms.remove(t)),i):(h.checkOptions(e),t?(t.extendOptions(e),t.updateFields()):(t=new x($(this),e),$.verify.forms.add(t)),i)})},$.verify=function(e){h.checkOptions(e),$.extend(g,e)},$.extend($.verify,{version:d,updateRules:b.updateRules,addRules:b.addFieldRules,addFieldRules:b.addFieldRules,addGroupRules:b.addGroupRules,log:m,warn:p,defaults:g,globals:g,utils:h,forms:new l(x,[],"FormSet"),_hidden:{ruleManager:b}}),$(function(){g.autoInit&&$("form").filter(function(){return $(this).find("["+g.validateAttribute+"]").length>0}).verify()}),f("plugin added."),function(t){return t.verify===i?(e.alert("Please include verify.js before each rule file"),i):(t.verify.addFieldRules({currency:{regex:/^\-?\$?\d{1,2}(,?\d{3})*(\.\d+)?$/,message:"Invalid monetary value"},email:{regex:/^(([^<>()\[\]\\.,;:\s@\"]+(\.[^<>()\[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,message:"Invalid email address"},url:{regex:/^https?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|!:,.;]*[\-A-Za-z0-9+&@#\/%=~_|]/,message:"Invalid URL"},alphanumeric:{regex:/^[0-9A-Za-z]+$/,message:"Use digits and letters only"},street_number:{regex:/^\d+[A-Za-z]?(-\d+)?[A-Za-z]?$/,message:"Street Number only"},number:{regex:/^\d+$/,message:"Use digits only"},numberSpace:{regex:/^[\d\ ]+$/,message:"Use digits and spaces only"},postcode:{regex:/^\d{4}$/,message:"Invalid postcode"},date:{fn:function(e){return t.verify.utils.parseDate(e.val())?!0:e.message},message:"Invalid date"},required:{fn:function(e){return e.requiredField(e,e.field)},requiredField:function(e,i){var n=i.val();switch(i.prop("type")){case"radio":case"checkbox":var r=i.attr("name"),s=i.data("fieldGroup");if(s||(s=e.form.find("input[name='"+r+"']"),i.data("fieldGroup",s)),s.is(":checked"))break;return 1===s.size()?e.messages.single:e.messages.multiple;default:if(!t.trim(n))return e.messages.all}return!0},messages:{all:"This field is required",multiple:"Please select an option",single:"This checkbox is required"}},regex:{fn:function(e){var t;try{var i=e.args[0];t=RegExp(i)}catch(n){return e.warn("Invalid regex: "+i),!0}return e.val().match(t)?!0:e.args[1]||e.message},message:"Invalid format"},pattern:{extend:"regex"},asyncTest:function(e){e.prompt(e.field,"Please wait..."),setTimeout(function(){e.callback()},2e3)},phone:function(e){e.val(e.val().replace(/\D/g,""));var t=e.val();return t.match(/^\+?[\d\s]+$/)?t.match(/^\+/)?!0:t.match(/^0/)?10!==t.replace(/\s/g,"").length?"Must be 10 digits long":!0:"Number must start with 0":"Use digits and spaces only"},size:function(e){var t=e.val(),n=e.args[0],r=e.args[1];if(n!==i&&r===i){var s=parseInt(n,10);if(e.val().length!==s)return"Must be "+s+" characters"}else if(n!==i&&r!==i){var a=parseInt(n,10);if(r=parseInt(r,10),a>t.length||t.length>r)return"Must be between "+a+" and "+r+" characters"}else e.warn("size validator parameter error on field: "+e.field.attr("name"));return!0},min:function(e){var t=e.val(),i=parseInt(e.args[0],10);return i>t.length?"Must be at least "+i+" characters":!0},max:function(e){var t=e.val(),i=parseInt(e.args[0],10);return t.length>i?"Must be at most "+i+" characters":!0},decimal:function(e){var t=e.val(),i=e.args[0]?parseInt(e.args[0],10):2;if(!t.match(/^\d+(,\d{3})*(\.\d+)?$/))return"Invalid decimal value";var n=parseFloat(t.replace(/[^\d\.]/g,"")),r=Math.pow(10,i);return n=Math.round(n*r)/r,e.field.val(n),!0},minVal:function(e){var t=parseFloat(e.val().replace(/[^\d\.]/g,"")),i=e.args[1]||"",n=parseFloat(e.args[0]);return n>t?"Must be greater than "+n+i:!0},maxVal:function(e){var t=parseFloat(e.val().replace(/[^\d\.]/g,"")),i=e.args[1]||"",n=parseFloat(e.args[0]);return t>n?"Must be less than "+n+i:!0},rangeVal:function(e){var t=parseFloat(e.val().replace(/[^\d\.]/g,"")),i=e.args[2]||"",n=e.args[3]||"",r=parseFloat(e.args[0]),s=parseFloat(e.args[1]);return t>s||r>t?"Must be between "+i+r+n+"\nand "+i+s+n:!0},agreement:function(e){return e.field.is(":checked")?!0:"You must agree to continue"},minAge:function(e){var i=parseInt(e.args[0],10);if(!i||isNaN(i))return console.log("WARNING: Invalid Age Param: "+i),!0;new Date;var n=new Date;n.setFullYear(n.getFullYear()-i);var r=t.verify.utils.parseDate(e.val());return"Invalid Date"===r?"Invalid Date":r>n?"You must be at least "+i:!0}}),t.verify.addGroupRules({dateRange:function(e){var i=e.field("start"),n=e.field("end");if(0===i.length||0===n.length)return e.warn("Missing dateRange fields, skipping..."),!0;var r=t.verify.utils.parseDate(i.val());if(!r)return"Invalid Start Date";var s=t.verify.utils.parseDate(n.val());return s?r>=s?"Start Date must come before End Date":!0:"Invalid End Date"},requiredAll:{extend:"required",fn:function(e){var i,n=(e.fields().length,[]),r=[];return e.fields().each(function(t,s){i=e.requiredField(e,s),i===!0?n.push(s):r.push({field:s,message:i})}),n.length>0&&r.length>0?(t.each(r,function(t,i){e.prompt(i.field,i.message)}),!1):!0}}}),i)}(jQuery)})(window,document);
+
+(function(window,document,undefined) {
+(function($) {
+
+  if(window.console === undefined)
+    window.console = { isFake: true };
+
+  var fns = ["log","warn","info","group","groupCollapsed","groupEnd"];
+  for (var i = fns.length - 1; i >= 0; i--)
+    if(window.console[fns[i]] === undefined)
+      window.console[fns[i]] = $.noop;
+
+  if(!$) return;
+  
+  var I = function(i){ return i; };
+
+  function log() {
+    if(this.suppressLog)
+      return;
+    cons('log', this, arguments);
+  }
+
+  function warn() {
+    cons('warn', this, arguments);
+  }
+
+  function info() {
+    cons('info', this, arguments);
+  }
+
+  function cons(type, opts, args) {
+    if(window.console === undefined ||
+       window.console.isFake === true)
+      return;
+
+    var a = $.map(args,I);
+    a[0] = [opts.prefix, a[0], opts.postfix].join('');
+    var grp = $.type(a[a.length-1]) === 'boolean' ? a.pop() : null;
+
+    //if(a[0]) a[0] = getName(this) + a[0];
+    if(grp === true) window.console.group(a[0]);
+    if(a[0] && grp === null)
+      if(window.navigator.userAgent.indexOf("MSIE") >= 0)
+        window.console.log(a.join(','));
+      else
+        window.console[type].apply(window.console, a);
+    if(grp === false) window.console.groupEnd();
+  }
+
+  function withOptions(opts) {
+    return {
+      log:  function() { log.apply(opts, arguments); },
+      warn: function() { warn.apply(opts, arguments); },
+      info: function() { info.apply(opts, arguments); }
+    };
+  }
+
+  var console = function(opts) {
+    opts = $.extend({}, console.defaults, opts);
+    return withOptions(opts);
+  };
+
+  console.defaults = {
+    suppressLog: false,
+    prefix: '',
+    postfix: ''
+  };
+
+  $.extend(console, withOptions(console.defaults));
+
+  if($.console === undefined)
+    $.console = console;
+  
+  $.consoleNoConflict = console;
+
+}(jQuery));
+
+//plugin wide ajax cache
+var ajaxCache = { loading: {}, loaded: {} } ;
+
+//callable from user defined rules. alias: r.ajax
+function ajaxHelper(userOpts, r) {
+
+  var defaults = {
+        method: "GET",
+        timeout: 15 * 1000
+      },
+      exec = r._exec,
+      promptContainer = exec.type === "GroupRuleExecution" ?
+          exec.element.domElem :
+          r.field,
+      userSuccess = userOpts.success,
+      userError   = userOpts.error,
+      options = exec.element.options,
+      serialised = JSON ? JSON.stringify(userOpts) : guid();
+
+  function onErrorDefault(e) {
+    log("ajax error");
+    r.callback("There has been an error");
+  }
+
+  var userCallbacks = {
+    success: userSuccess,
+    error: userError || onErrorDefault
+  };
+
+  //already completed
+  if(ajaxCache.loaded[serialised]) {
+
+    var args = ajaxCache.loaded[serialised],
+        success = userCallbacks.success;
+
+    success.apply(r, args);
+    return;
+  }
+
+  //this request is in progress,
+  //store callbacks for when first request completes
+  if(!ajaxCache.loading[serialised])
+    ajaxCache.loading[serialised] = [];
+  ajaxCache.loading[serialised].push(userCallbacks);
+
+  if(ajaxCache.loading[serialised].length !== 1) return;
+
+  options.prompt(promptContainer, "Checking...", "load");
+
+  function intercept() {
+    options.prompt(promptContainer, false);
+
+    var reqs = ajaxCache.loading[serialised];
+    while(reqs.length)
+      reqs.pop().success.apply(r,arguments);
+
+    ajaxCache.loaded[serialised] = arguments;
+  }
+
+  var realCallbacks = {
+    success: intercept,
+    error: intercept
+  };
+
+  exec.ajax = $.ajax($.extend(defaults, userOpts, realCallbacks));
+}
+
+
+
+// var guid = function() {
+//   return (((1 + Math.random()) * 65536) | 0).toString(16).substring(1);
+// };
+
+var guid = function() {
+  return guid.curr++;
+};
+guid.curr = 1;
+
+$.fn.verifyScrollView = function(onComplete) {
+  var field = $(this).first();
+  if(field.length !== 1) return $(this);
+  return $(this).verifyScrollTo(field, onComplete);
+};
+
+$.fn.verifyScrollTo = function( target, options, callback ){
+  if(typeof options == 'function' && arguments.length == 2){ callback = options; options = target; }
+  var settings = $.extend({
+    scrollTarget  : target,
+    offsetTop     : 50,
+    duration      : 500,
+    easing        : 'swing'
+  }, options);
+  return this.each(function(){
+    var scrollPane = $(this);
+    var scrollTarget = (typeof settings.scrollTarget == "number") ? settings.scrollTarget : $(settings.scrollTarget);
+    var scrollY = (typeof scrollTarget == "number") ? scrollTarget : scrollTarget.offset().top + scrollPane.scrollTop() - parseInt(settings.offsetTop, 10);
+    scrollPane.animate({scrollTop : scrollY }, parseInt(settings.duration, 10), settings.easing, function(){
+      if (typeof callback == 'function') { callback.call(this); }
+    });
+  });
+};
+
+$.fn.equals = function(that) {
+  if($(this).length !== that.length)
+    return false;
+  for(var i=0,l=$(this).length;i<l;++i)
+    if($(this)[i] !== that[i])
+      return false;
+  return true;
+};
+
+
+// Inspired by base2 and Prototype
+
+var Class = null;
+
+(function(){
+  var initializing = false, fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
+  // The base Class implementation (does nothing)
+  Class = function(){};
+  
+  // Create a new Class that inherits from this class
+  Class.extend = function(prop) {
+    var _super = this.prototype;
+    
+    // Instantiate a base class (but only create the instance,
+    // don't run the init constructor)
+    initializing = true;
+    var prototype = new this();
+    initializing = false;
+    
+    // Copy the properties over onto the new prototype
+    for (var name in prop) {
+      // Check if we're overwriting an existing function
+      prototype[name] = typeof prop[name] == "function" && 
+        typeof _super[name] == "function" && fnTest.test(prop[name]) ?
+        (function(name, fn){
+          return function() {
+            var tmp = this._super;
+            
+            // Add a new ._super() method that is the same method
+            // but on the super-class
+            this._super = _super[name];
+            
+            // The method only need to be bound temporarily, so we
+            // remove it when we're done executing
+            var ret = fn.apply(this, arguments);        
+            this._super = tmp;
+            
+            return ret;
+          };
+        })(name, prop[name]) :
+        prop[name];
+    }
+    
+    // The dummy class constructor
+    function Class() {
+      // All construction is actually done in the init method
+      if ( !initializing && this.init )
+        this.init.apply(this, arguments);
+    }
+    
+    // Populate our constructed prototype object
+    Class.prototype = prototype;
+    
+    // Enforce the constructor to be what we expect
+    Class.prototype.constructor = Class;
+
+    // And make this class extendable
+    Class.extend = arguments.callee;
+    
+    return Class;
+  };
+})();
+var Set = Class.extend({
+  //class variables
+  init: function(items, name) {
+    //instance variables
+    if(name)
+      this.name = name;
+    else
+      this.name = "Set_"+guid();
+    this.array = [];
+    this.addAll(items);
+  },
+
+  indexOf: function(obj) {
+    for(var i = 0, l = this.array.length;i<l; ++i)
+      if($.isFunction(obj) ?
+          obj(this.get(i)) :
+          this.equals(this.get(i),obj))
+        return i;
+    return -1;
+  },
+
+  //obj can be a filter function or an object to 'equals' against
+  find: function(obj) {
+    return this.get(this.indexOf(obj)) || null;
+  },
+
+  get: function(i) {
+    return this.array[i];
+  },
+  //truthy find
+  has: function(item) {
+    return !!this.find(item);
+  },
+  add: function(item) {
+    if(!this.has(item)) {
+      this.array.push(item);
+      return true;
+    }
+    return false;
+  },
+  addAll: function(items) {
+    if(!items) return 0;
+    if(!$.isArray(items)) items = [items];
+    var count = 0;
+    for(var i = 0, l = items.length; i<l; ++i)
+      if(this.add(items[i]))
+        count++;
+    return count;
+  },
+  remove: function(item) {
+    var newSet = [];
+    for(var i = 0, l = this.array.length; i<l; ++i)
+      if(!this.equals(this.get(i),item))
+        newSet.push(this.get(i));
+
+    this.array = newSet;
+    return item;
+  },
+  removeAll: function() {
+    this.array = [];
+  },
+  equals: function(i1, i2) {
+    if(i1 && i2 && i1.equals !== undefined && i2.equals !== undefined)
+      return i1.equals(i2);
+    else
+      return i1 === i2;
+  },
+  each: function(fn) {
+    for(var i = 0, l = this.array.length; i<l; ++i)
+      if( fn(this.get(i)) === false)
+        return;
+  },
+  map: function(fn) {
+    return $.map(this.array,fn);
+  },
+  filter: function(fn) {
+    return $.grep(this.array, fn);
+  },
+  size: function() {
+    return this.array.length;
+  },
+  getArray: function() {
+    return this.array;
+  }
+});
+var TypedSet = Set.extend({
+  init: function(type, items, name) {
+    this.type = type;
+    this._super(items, name);
+  },
+  add: function(item) {
+    if(item instanceof this.type)
+      this._super(item);
+    else
+      this.log("add failed - invalid type")
+  }
+});
+var Utils = {
+
+  //object create implementation
+  create: function (o) {
+    function F() {}
+    F.prototype = o;
+    return new F();
+  },
+
+  //bind method
+  bind: $.proxy,
+
+  //check options - throws a warning if the option doesn't exist
+  checkOptions: function(opts) {
+    if(!opts) return;
+    for(var key in opts)
+      if(globalOptions[key] === undefined)
+        warn("Invalid option: '" + key + "'");
+  },
+
+  //append to arguments[i]
+  appendArg: function(args, expr, i) {
+      if(!i) i = 0;
+      var a = [].slice.call(args, i);
+      a[i] = expr + a[i];
+      return a;
+  },
+
+  //memoize.js - by @addyosmani, @philogb, @mathias
+  // with a few useful tweaks from @DmitryBaranovsk
+  memoize: function( fn ) {
+    return function () {
+      var args = Array.prototype.slice.call(arguments),
+      hash = "",
+      i  = args.length,
+      currentArg = null;
+      while(i--){
+        currentArg = args[i];
+        hash += (currentArg === Object(currentArg)) ?
+              JSON.stringify(currentArg) : currentArg;
+        fn.memoize || (fn.memoize = {});
+      }
+      return (hash in fn.memoize) ? fn.memoize[hash] :
+      fn.memoize[hash] = fn.apply( this , args );
+    };
+  },
+
+  dateToString: function(date) {
+    return date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+  },
+
+  parseDate: function(dateStr) {
+    //format check
+    var m = dateStr.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    if(!m) return null;
+
+    var date;
+    //parse with jquery ui's date picker
+    if($.datepicker !== undefined) {
+      try {
+        var epoch = $.datepicker.parseDate("dd/mm/yy", dateStr);
+        date = new Date(epoch);
+      } catch(e) { return null; }
+    //simple regex parse
+    } else {
+      date = new Date(parseInt(m[3], 10),parseInt(m[2], 10)-1,parseInt(m[1], 10));
+    }
+
+    return date;
+  },
+
+  /**
+   * returns true if we are in a RTLed document
+   * @param {jqObject} field
+   */
+  isRTL: function(field) {
+    var $document = $(document);
+    var $body = $('body');
+    var rtl =
+      (field && field.hasClass('rtl')) ||
+      (field && (field.attr('dir') || '').toLowerCase()==='rtl') ||
+      $document.hasClass('rtl') ||
+      ($document.attr('dir') || '').toLowerCase()==='rtl' ||
+      $body.hasClass('rtl') ||
+      ($body.attr('dir') || '').toLowerCase()==='rtl';
+    return Boolean(rtl);
+  }
+};
+
+
+var VERSION = "0.0.1",
+    cons = $.consoleNoConflict({ prefix: 'verify.js: ' }),
+    log  = cons.log,
+    warn = cons.warn,
+    info = cons.info;
+
+
+
+/* ===================================== *
+ * Plugin Settings/Variables
+ * ===================================== */
+
+var globalOptions = {
+  // Display log messages flag
+  debug: false,
+  // Auto initialise forms (on DOM ready)
+  autoInit: true,
+  // Attribute used to find validators
+  validateAttribute: "data-validate",
+  // Name of the event triggering field validation
+  validationEventTrigger: "blur",
+  // Automatically scroll viewport to the first error
+  scroll: true,
+  // Focus on the first input
+  focusFirstField: true,
+  // Hide error while the user is changing
+  hideErrorOnChange: false,
+  // Whether to skip the hidden fields
+  skipHiddenFields: true,
+  // Whether to skip the hidden fields
+  skipDisabledFields: true,
+  // What class name to apply to the 'errorContainer'
+  errorClass: "error",
+  // Filter method to find element to apply error class
+  errorContainer: function (e) {
+    return e;
+  },
+  // Filter method to find element which reskins the current element
+  reskinContainer: function (e) {
+    return e;
+  },
+  //Before form-submit hook
+  beforeSubmit: function(e, result) {
+    return result;
+  },
+  //tracking method
+  track: $.noop,
+  //whether to show prompts
+  showPrompt: true,
+  //prompt method,
+  prompt: function(element, text, opts) {
+    if($.type($.notify) === 'function') {
+      if(!opts) opts = {color: 'red'};
+      $.notify(element, text, opts);
+    }
+  }
+};
+
+//option object creator inheriting from globals
+function CustomOptions(opts) {
+  $.extend(true, this, opts);
+
+
+
+}
+CustomOptions.prototype = globalOptions;
+
+/* ===================================== *
+ * Base Class
+ * ===================================== */
+
+var BaseClass = Class.extend({
+  name: "Class",
+  toString: function() {
+    return (this.type ? this.type + ": ":'') +
+           (this.name ? this.name + ": ":'');
+  },
+  log: function() {
+    if(!globalOptions.debug) return;
+    log.apply(this, Utils.appendArg(arguments, this.toString()));
+  },
+  warn: function() {
+    warn.apply(this, Utils.appendArg(arguments, this.toString()));
+  },
+  info: function() {
+    info.apply(this, Utils.appendArg(arguments, this.toString()));
+  },
+  bind: function(name) {
+    var prop = this[name];
+    if(prop && $.isFunction(prop))
+        this[name] = Utils.bind(prop,this);
+  },
+  bindAll: function() {
+    for(var propName in this)
+      this.bind(propName);
+  },
+  //enforce asynchronicity
+  nextTick: function(fn, args, ms) {
+    var _this = this;
+    return window.setTimeout(function() {
+      fn.apply(_this, args);
+    }, ms || 0);
+  }
+});
+// the Rule class will store all state relating to
+// the user definition, all rule state from the DOM
+// will be passes into the function inside an
+// instance of a RuleExecution
+
+var Rule = BaseClass.extend({
+
+  init: function(name, userObj){
+    this.name = name;
+
+    if(!$.isPlainObject(userObj))
+      return this.warn("rule definition must be a function or an object");
+
+    this.type = userObj.__ruleType;
+
+    //construct user obj inheriting parent
+    this.extendInterface(userObj.extend);
+    //does not inherit
+    if(!this.userObj) this.userObj = {};
+    //clone object to keep a canonical version intact
+    $.extend(this.userObj, userObj);
+    //infer 'fn' property
+    this.buildFn();
+    //rule is ready to be used
+    this.ready = this.fn !== undefined;
+  },
+
+  extendInterface: function(parentName) {
+
+    if(!parentName || typeof parentName !== 'string')
+      return;
+
+    //circular dependancy check - not extending itself or any of it's parents
+    var p, name = parentName, names = [];
+    while(name) {
+      if(name === this.name)
+        return this.error("Rule already extends '%s'", name);
+      p = ruleManager.getRawRule(name);
+      name = p ? p.extend : null;
+    }
+    //extend using another validator -> validator name
+    var parentRule = ruleManager.getRule(parentName);
+    if(!parentRule)
+      return this.warn("Rule missing '%s'", name);
+
+    this.parent = parentRule;
+
+    //type check
+    if(!(parentRule instanceof Rule))
+      return this.error("Cannot extend: '"+otherName+"' invalid type");
+
+    this.userObj = Utils.create(parentRule.userObj);
+    this.userObj.parent = parentRule.userObj;
+  },
+
+  buildFn: function() {
+    //handle object.fn
+    if($.isFunction(this.userObj.fn)) {
+
+      //createe ref on the rule
+      this.fn = this.userObj.fn;
+
+    //handle object.regexp
+    } else if($.type(this.userObj.regex) === "regexp") {
+
+      //build regex function
+      this.fn = (function(regex) {
+        return function(r) {
+          var re = new RegExp(regex);
+          if(!r.val().match(re))
+            return r.message || "Invalid Format";
+          return true;
+        };
+
+      })(this.userObj.regex);
+
+    } else {
+      return this.error("Rule has no function");
+    }
+  },
+
+  //the 'this's in these interface mixins
+  //refer to the rule 'r' object
+  defaultInterface: {
+    log: log,
+    warn: warn,
+    ajax: function(userOpts) {
+      ajaxHelper(userOpts, this);
+    }
+  },
+
+  defaultFieldInterface: {
+    val: function() {
+      return this.field.val.apply(this.field,arguments);
+    }
+  },
+
+  defaultGroupInterface: {
+    val: function(id, newVal) {
+      var field = this.field(id);
+      if(field) return newVal === undefined ? field.val() : field.val(newVal);
+    },
+    field: function(id) {
+      var elems = $.grep(this._exec.members, function(exec) {
+        return exec.id === id;
+      });
+
+      var elem = elems.length ? elems[0].element.domElem : null;
+
+      if(!elem)
+        this.warn("Cannot find group element with id: '" + id + "'");
+      return elem;
+    },
+    fields: function() {
+      return $().add($.map(this._exec.members, function(exec) {
+        return exec.element.domElem;
+      }));
+    }
+  },
+
+  //build public ruleInterface the 'r' rule object
+  buildInterface: function(exec) {
+    var objs = [];
+
+    objs.push({});
+    //user object has lowest precedence!
+    objs.push(this.userObj);
+    objs.push(this.defaultInterface);
+    if(this.type === 'field') {
+      objs.push(this.defaultFieldInterface);
+      objs.push({ field: exec.element.domElem });
+    }
+    if(this.type === 'group')
+      objs.push(this.defaultGroupInterface);
+
+    objs.push({
+      prompt: exec.element.options.prompt,
+      form:  exec.element.form.domElem,
+      callback: exec.callback,
+      args: exec.args,
+      _exec: exec
+    });
+
+    return $.extend.apply(this,objs);
+  }
+});
+
+/* ===================================== *
+ * Rules Manager (Plugin Wide)
+ * ===================================== */
+
+var ruleManager = null;
+(function() {
+
+  //regex parser - with pre 'one(1,2),three.scope(6,7),five)'
+  var parseString = function(str) {
+
+    var chars = str.split(""),
+        rule, rules = [],
+        c, m, depth = 0;
+
+    //replace argument commas with semi-colons
+    // TODO allow escaping of '(' ')' ','
+    for(var i = 0, l = chars.length; i<l; ++i) {
+      c = chars[i];
+      if(c === '(') depth++;
+      if(c === ')') depth--;
+      if(depth > 1) return null;
+      if(c === ',' && depth === 1) chars[i] = ";";
+    }
+
+    //bracket check
+    if(depth !== 0) return null;
+
+    //convert string in format: "name.scope#id(args...)" to object
+    $.each(chars.join('').split(','), function(i, rule) {
+      //regex doc:      NAME  . SCOPE   # ID      ( PARAM;PARAM* )
+      m = rule.match(/^(\w+)(\.(\w+))?(\#(\w+))?(\(([^;\)]+(\;[^;\)]+)*)\))?$/);
+      if(!m) return warn("Invalid validate attribute: " + str);
+      rule = {};
+      rule.name = m[1];
+      if(m[3]) rule.scope = m[3];
+      if(m[5]) rule.id = m[5];
+      rule.args = m[7] ? m[7].split(';') : [];
+      rules.push(rule);
+    });
+    return rules;
+  };
+
+  var parseStringMemo = Utils.memoize(parseString);
+
+  //privates
+  var rawRules = {},
+      builtRules = {};
+
+  var addRules = function(type,obj) {
+    //check format, insert type
+    for(var name in obj){
+      if(rawRules[name])
+        warn("validator '%s' already exists", name);
+
+      //functions get auto-objectified
+      if($.isFunction(obj[name]))
+        obj[name] = { fn: obj[name] };
+      //
+      obj[name].__ruleType = type;
+    }
+
+    //deep extend rules by obj
+    $.extend(true, rawRules, obj);
+  };
+
+  //public
+  var addFieldRules = function(obj) {
+    addRules('field', obj);
+  };
+
+  var addGroupRules = function(obj) {
+    addRules('group', obj);
+  };
+
+  var updateRules = function(obj) {
+
+    var data = {};
+    //check format, insert type
+    for(var name in obj) {
+
+      if(rawRules[name])
+        data[name] = obj[name];
+      else
+        warn("cannot update validator '%s' doesn't exist yet", name);
+
+      //rebuild
+      if(builtRules[name])
+        delete builtRules[name];
+    }
+
+    $.extend(true, rawRules, data);
+  };
+
+  var getRawRule = function(name) {
+    return rawRules[name];
+  };
+
+  var getRule = function(name) {
+    var r = builtRules[name],
+        obj = rawRules[name];
+
+    if(!obj)
+      warn("Missing rule: " + name);
+    else if(!r)
+      r = builtRules[name] = new Rule(name, obj);
+
+    return r;
+  };
+
+  //extract an objectified version of the "data-validate" attribute
+  var parseAttribute = function(element) {
+    var attrName = element.form.options.validateAttribute,
+        attr = element.domElem.attr(attrName);
+    if(!attr) return null;
+    return parseStringMemo(attr);
+  };
+
+  //add a rule property to the above object
+  var parseElement = function(element) {
+
+    var required = false,
+        type = null,
+        attrResults = null,
+        results = [];
+
+    if(element.type !== 'ValidationField')
+      return warn("Cannot get rules from invalid type");
+
+    if(!element.domElem)
+      return results;
+
+    attrResults = this.parseAttribute(element);
+
+    if(!attrResults || !attrResults.length)
+      return results;
+
+    //add rule instances
+    $.each(attrResults, function(i, result) {
+      //special required case
+      if(/required/.test(result.name))
+        required = true;
+
+      result.rule = getRule(result.name);
+
+      if(result.rule)
+        results.push(result);
+    });
+
+    results.required = required;
+    return results;
+  };
+
+  //public interface
+  ruleManager = {
+    addFieldRules: addFieldRules,
+    addGroupRules: addGroupRules,
+    getRule: getRule,
+    getRawRule: getRawRule,
+    parseString: parseString,
+    parseAttribute: parseAttribute,
+    parseElement: parseElement
+  };
+
+}());
+
+
+var ValidationForm = null;
+(function() {
+
+  /* ===================================== *
+   * Element Super Class
+   * ===================================== */
+
+  var ValidationElement = BaseClass.extend({
+
+    type: "ValidationElement",
+    init: function(domElem) {
+
+      if(!domElem || !domElem.length)
+        throw "Missing Element";
+
+      this.domElem = domElem;
+      this.bindAll();
+      this.name = this.domElem.attr('name') ||
+                  this.domElem.attr('id') ||
+                  guid();
+      this.execution = null;
+
+      if(domElem.data('verify'))
+        return false;
+
+      domElem.data('verify',this);
+      return true;
+    },
+
+    equals: function(that) {
+      var e1, e2;
+
+      if( this.domElem )
+        e1 = this.domElem;
+      else
+        return false;
+
+      if( that.jquery )
+        e2 = that;
+      else if( that instanceof ValidationElement && that.domElem )
+        e2 = that.domElem;
+
+      if(e1 && e2)
+        return e1.equals(e2);
+
+      return false;
+    }
+
+  });
+
+  /* ===================================== *
+   * Field Wrapper
+   * ===================================== */
+
+  var ValidationField = ValidationElement.extend({
+
+    //class variables
+    type: "ValidationField",
+    init: function(domElem, form) {
+
+      this._super(domElem);
+
+      //instance variables
+      this.form = form;
+      this.options = form.options;
+      this.groups = form.groups;
+      this.ruleNames = null;
+      this.touched = false;
+    },
+
+    //for use with $(field).validate(callback);
+    validate: function(callback) {
+      if(!callback) callback = $.noop;
+
+      var exec = new FieldExecution(this);
+
+      exec.execute().done(function() {
+        callback(true);
+      }).fail(function() {
+        callback(false);
+      });
+      return;
+    },
+
+    update: function() {
+      this.rules = ruleManager.parseElement(this);
+
+      //manage this field within shared groups
+      for(var i = 0; i < this.rules.length; ++i) {
+        var r = this.rules[i];
+        //skip uninitialised and field rules
+        if(!r.rule) continue;
+        if(r.rule.type !== 'group') continue;
+        //shared groups map
+        if(!this.groups[r.name])
+          this.groups[r.name] = {};
+        //calculate scope
+        var scope = r.scope || 'default';
+        if(!this.groups[r.name][scope])
+          this.groups[r.name][scope] = new TypedSet(ValidationField);
+        //add self to group
+        this.groups[r.name][scope].add(this);
+      }
+
+    },
+
+    handleResult: function(exec) {
+
+      var opts = this.options,
+          reskinElem = opts.reskinContainer(this.domElem);
+
+      if(!reskinElem || !reskinElem.length)
+        return this.warn("No reskin element found. Check 'reskinContainer' option.");
+
+      //handle first error
+      // if(!exec.success &&
+      //    exec.parent.type === 'FormExecution' &&
+      //    !exec.parent.handledError) {
+      //   exec.parent.handledError = true;
+      //   this.scrollFocus(reskinElem);
+      // }
+
+      //show prompt
+      if(opts.showPrompt)
+        opts.prompt(reskinElem, exec.response);
+
+      //toggle error classes
+      var container = opts.errorContainer(reskinElem);
+      if(container && container.length)
+        container.toggleClass(opts.errorClass, !exec.success);
+
+      //track event
+      this.options.track(
+        'Validate',
+        [this.form.name,this.name].join(' '),
+        exec.success ? 'Valid' : exec.response ? '"'+exec.response+'"' : 'Silent Fail'
+      );
+    },
+
+    //listening for 'validate' event
+    scrollFocus: function(reskinElem) {
+
+      var callback = $.noop;
+      if(this.options.focusFirstField)
+        callback = function() {
+          reskinElem.focus();
+        };
+
+      if (this.options.scroll)
+        reskinElem.verifyScrollView(callback);
+      else if(this.options.focusFirstField)
+        field.focus();
+    }
+
+  });
+
+  /* ===================================== *
+   * Form Wrapper
+   * ===================================== */
+
+  ValidationForm = ValidationElement.extend({
+
+    /* ===================================== *
+     * Instance variables
+     * ===================================== */
+    type: "ValidationForm",
+
+    init: function(domElem, options) {
+      //sanity checks
+      this._super(domElem);
+
+      if(!domElem.is("form"))
+        throw "Must be a form";
+
+      this.options = new CustomOptions(options);
+
+      this.fields = new TypedSet(ValidationField);
+      this.groups = {};
+      this.fieldByName = {};
+      this.invalidFields = {};
+      this.fieldHistory = {};
+      this.submitResult = undefined;
+      this.submitPending = false;
+      this.cache = {
+        ruleNames: {},
+        ajax: { loading: {}, loaded: {} }
+      };
+
+      $(document).ready(this.domReady);
+    },
+
+    extendOptions: function(opts) {
+      $.extend(true, this.options, opts);
+    },
+
+    domReady: function() {
+      this.bindEvents();
+      this.updateFields();
+      this.log("bound to " + this.fields.size() + " elems");
+    },
+
+    bindEvents: function() {
+      this.domElem
+        .on("keyup.jqv", "input", this.onKeyup)
+        .on("blur.jqv", "input[type=text]:not(.hasDatepicker),input:not([type].hasDatepicker),textarea", this.onValidate)
+        .on("change.jqv", "input[type=text].hasDatepicker,select,[type=checkbox],[type=radio]", this.onValidate)
+        .on("submit.jqv", this.onSubmit)
+        .trigger("initialised.jqv");
+    },
+
+    unbindEvents: function() {
+      this.domElem.off(".jqv");
+    },
+
+    updateFields: function() {
+      var sel = "["+this.options.validateAttribute+"]";
+      this.domElem.find(sel).each(this.updateField);
+    },
+
+    //creates new validation elements
+    //adds them to the form
+    updateField: function(i, domElem) {
+      if(i.jquery !== undefined) domElem = i;
+      if(domElem.jquery === undefined)
+        domElem = $(domElem);
+
+      var fieldSelector = "input:not([type=hidden]),select,textarea",
+          field, fieldElem;
+
+      if(!domElem.is(fieldSelector))
+        return this.warn("Validators will not work on container elements ("+domElem.prop('tagName')+"). Please use INPUT, SELECT or TEXTAREA.");
+
+      fieldElem = domElem;
+
+      field = this.fields.find(fieldElem);
+
+      if(!field) {
+        field = new ValidationField(fieldElem, this);
+        this.fields.add(field);
+      }
+
+      field.update();
+
+      return field;
+    },
+
+    /* ===================================== *
+     * Event Handlers
+     * ===================================== */
+
+    onSubmit: function(event) {
+
+      var submitForm = false;
+
+      if(this.submitPending)
+        this.warn("pending...");
+
+      //no result -> begin
+      if(!this.submitPending &&
+          this.submitResult === undefined) {
+
+        this.submitPending = true;
+        this.validate(this.doSubmit);
+
+      //have result
+      } else if (this.submitResult !== undefined) {
+        submitForm = this.options.beforeSubmit.call(this.domElem, event, this.submitResult);
+      }
+
+      if(!submitForm) event.preventDefault();
+      return submitForm;
+    },
+
+    doSubmit: function(success) {
+      this.log('doSubmit', success);
+      this.submitPending = false;
+      this.submitResult = success;
+      this.domElem.submit(); //trigger onSubmit, though with a result
+      this.submitResult = undefined;
+    },
+
+    onKeyup: function(event) {
+      if(this.options.hideErrorOnChange)
+        this.options.prompt($(event.currentTarget), null);
+    },
+
+    //user triggered validate field event
+    onValidate: function(event) {
+      var domElem = $(event.currentTarget);
+      var field = domElem.data('verify') || this.updateField(domElem);
+      field.log("validate");
+      field.validate($.noop);
+    },
+
+    /* ===================================== *
+     * Validate Form
+     * ===================================== */
+
+    validate: function(callback) {
+      if(!callback) callback = $.noop;
+
+      this.updateFields();
+
+      var exec = new FormExecution(this);
+
+      exec.execute().done(function() {
+        callback(true);
+      }).fail(function() {
+        callback(false);
+      });
+      return;
+    }
+  });
+
+})();
+// only exposing two classes
+var FormExecution = null,
+    FieldExecution = null;
+
+//instantiated inside private scope
+(function() {
+
+  var STATUS = {
+    NOT_STARTED: 0,
+    RUNNING: 1,
+    COMPLETE: 2
+  };
+
+  //super class
+  //set in private scope
+  var Execution = BaseClass.extend({
+
+    type: "Execution",
+
+    init: function(element, parent) {
+      //corresponding <Form|Field>Element class
+
+      this.element = element;
+      if(element) {
+        this.prevExec = element.execution;
+        element.execution = this;
+        this.options = this.element.options;
+        this.domElem = element.domElem;
+      }
+      //parent Execution class
+      this.parent = parent;
+      this.name = '#'+guid();
+      this.status = STATUS.NOT_STARTED;
+      this.bindAll();
+
+      //deferred object
+      this.d = this.restrictDeferred();
+      this.d.done(this.executePassed);
+      this.d.fail(this.executeFailed);
+
+    },
+
+    isPending: function() {
+      return this.prevExec && this.prevExec.status !== STATUS.COMPLETE;
+    },
+
+    toString: function() {
+      return this._super() + "[" + this.element.name + (!this.rule ? "" : ":" + this.rule.name) + "] ";
+    },
+
+    //execute in sequence, stop on fail
+    serialize: function(objs) {
+
+      var fns = this.mapExecutables(objs);
+
+      if(!$.isArray(fns) || fns.length === 0)
+        return this.resolve();
+
+      var pipeline = fns[0](),
+          i = 1, l = fns.length;
+
+      this.log("SERIALIZE", l);
+
+      if(!pipeline || !pipeline.pipe)
+        throw "Invalid Deferred Object";
+
+      for(;i < l;i++)
+        pipeline = pipeline.pipe(fns[i]);
+
+      //link pipeline
+      pipeline.done(this.resolve).fail(this.reject);
+
+      return this.d.promise();
+    },
+
+    //execute all at once,
+    parallelize: function(objs) {
+
+      var fns = this.mapExecutables(objs);
+
+      var _this = this,
+          n = 0, i = 0, l = fns.length,
+          rejected = false;
+
+      this.log("PARALLELIZE", l);
+
+      if(!$.isArray(fns) || l === 0)
+        return this.resolve();
+
+      function pass(response) {
+        n++;
+        if(n === l) _this.resolve(response);
+      }
+
+      function fail(response) {
+        if(rejected) return;
+        rejected = true;
+        _this.reject(response);
+      }
+
+      //execute all at once
+      for(; i<l; ++i ) {
+        var dd = fns[i]();
+        if(!dd || !dd.done || !dd.fail)
+          throw "Invalid Deferred Object";
+        dd.done(pass).fail(fail);
+      }
+
+      return this.d.promise();
+    },
+
+    mapExecutables: function(objs) {
+      return $.map(objs, function(o) {
+        if($.isFunction(o)) return o;
+        if($.isFunction(o.execute)) return o.execute;
+        throw "Invalid executable";
+      });
+    },
+
+    linkPass: function(that) {
+      that.d.done(this.resolve);
+    },
+    linkFail: function(that) {
+      that.d.fail(this.reject);
+    },
+    link: function(that) {
+      this.linkPass(that);
+      this.linkFail(that);
+    },
+
+    execute: function() {
+
+      var p = this.parent,
+          ps = [];
+      while(p) {
+        ps.unshift(p.name);
+        p = p.parent;
+      }
+      var gap = "(" + ps.join(' < ') + ")";
+
+      this.log(this.parent ? gap : '', 'executing...');
+      this.status = STATUS.RUNNING;
+      if(this.domElem)
+        this.domElem.triggerHandler("validating");
+
+      return true;
+    },
+
+    executePassed: function(response) {
+      this.success = true;
+      this.response = this.filterResponse(response);
+      this.executed();
+    },
+    executeFailed: function(response) {
+      this.success = false;
+      this.response = this.filterResponse(response);
+      this.executed();
+    },
+
+    executed: function() {
+      this.status = STATUS.COMPLETE;
+
+      this.log((this.success ? 'Passed' : 'Failed') + ": " + this.response);
+
+      if(this.domElem)
+        this.domElem.triggerHandler("validated", this.success);
+    },
+
+    //resolves or rejects the execution's deferred object 'd'
+    resolve: function(response) {
+      return this.resolveOrReject(true, response);
+    },
+    reject: function(response) {
+      return this.resolveOrReject(false, response);
+    },
+    resolveOrReject: function(success, response) {
+      var fn = success ? '__resolve' : '__reject';
+      if(!this.d || !this.d[fn]) throw "Invalid Deferred Object";
+      this.nextTick(this.d[fn], [response], 0);
+      return this.d.promise();
+    },
+    filterResponse: function(response) {
+      if(typeof response === 'string')
+        return response;
+      return null;
+    },
+    restrictDeferred: function(d) {
+      if(!d) d = $.Deferred();
+      d.__reject = d.reject;
+      d.__resolve = d.resolve;
+      d.reject = d.resolve = function() {
+        console.error("Use execution.resolve|reject()");
+      };
+      return d;
+    }
+
+  });
+
+  //set in plugin scope
+  FormExecution = Execution.extend({
+    type: "FormExecution",
+
+    init: function(form) {
+      this._super(form);
+      this.ajaxs = [];
+
+      //prepare child executables
+      this.children = this.element.fields.map($.proxy(function(f) {
+        return new FieldExecution(f, this);
+      }, this));
+    },
+
+    execute: function() {
+      this._super();
+
+      if(this.isPending()) {
+        this.warn("pending... (waiting for %s)", this.prevExec.name);
+        return this.reject();
+      }
+
+      this.log("exec fields #" + this.children.length);
+      return this.parallelize(this.children);
+    }
+
+  });
+
+  //set in plugin scope
+  FieldExecution = Execution.extend({
+    type: "FieldExecution",
+
+    init: function(field, parent) {
+      this._super(field, parent);
+      if(parent instanceof FormExecution)
+        this.formExecution = parent;
+      field.touched = true;
+      this.children = [];
+    },
+
+    execute: function() {
+      this._super();
+
+      if(this.isPending()) {
+        this.warn("pending... (waiting for %s)", this.prevExec.name);
+        return this.reject();
+      }
+
+      //execute rules
+      var ruleParams = ruleManager.parseElement(this.element);
+
+      //skip check
+      this.skip = this.skipValidations(ruleParams);
+      if(this.skip)
+        return this.resolve();
+
+      //ready
+      this.children = $.map(ruleParams, $.proxy(function(r) {
+        if(r.rule.type === 'group')
+          return new GroupRuleExecution(r, this);
+        else
+          return new RuleExecution(r, this);
+      }, this));
+
+      // this.log("exec rules #%s", this.children.length);
+      return this.serialize(this.children);
+    },
+
+    skipValidations: function(ruleParams) {
+
+      //no rules
+      if(ruleParams.length === 0) {
+        this.log("skip (no validators)");
+        return true;
+      }
+
+      //not required
+      if(!ruleParams.required && !$.trim(this.domElem.val())) {
+        this.warn("skip (not required)");
+        return true;
+      }
+
+      //custom-form-elements.js hidden fields
+      if(this.options.skipHiddenFields &&
+         this.options.reskinContainer(this.domElem).is(':hidden')) {
+        this.log("skip (hidden)");
+        return true;
+      }
+
+      //skip disabled
+      if(this.options.skipDisabledFields &&
+         this.domElem.is('[disabled]')) {
+        this.log("skip (disabled)");
+        return true;
+      }
+
+      return false;
+    },
+
+    executed: function() {
+      this._super();
+
+      //pass error to element
+      var i, exec = this,
+          children = this.children;
+      for(i = 0; i < children.length; ++i)
+        if(children[i].success === false) {
+          exec = children[i];
+          break;
+        }
+      this.element.handleResult(exec);
+    }
+
+  });
+
+  //set in private scope
+  var RuleExecution = Execution.extend({
+    type: "RuleExecution",
+
+    init: function(ruleParamObj, parent) {
+      this._super(null, parent);
+
+      this.rule = ruleParamObj.rule;
+      this.args = ruleParamObj.args;
+      this.element = this.parent.element;
+      this.options = this.element.options;
+      this.rObj = {};
+    },
+
+    //the function that gets called when
+    //rules return or callback
+    callback: function(response) {
+      clearTimeout(this.t);
+      this.callbackCount++;
+      this.log(this.rule.name + " (cb:" + this.callbackCount + "): " + response);
+
+      if(this.callbackCount > 1)
+        return;
+
+      if(response === undefined)
+        this.warn("Undefined result");
+
+      //success
+      if(response === true)
+        this.resolve(response);
+      else
+        this.reject(response);
+
+    },
+
+    timeout: function() {
+      this.warn("timeout!");
+      this.callback("Timeout");
+    },
+
+    execute: function() {
+      this._super();
+      this.callbackCount = 0;
+
+      //sanity checks
+      if(!this.element || !this.rule.ready) {
+        this.warn(this.element ? 'not  ready.' : 'invalid parent.');
+        return this.resolve();
+      }
+
+      this.t = setTimeout(this.timeout, 10000);
+      this.r = this.rule.buildInterface(this);
+      //finally execute validator
+
+      var response;
+      try {
+        response = this.rule.fn(this.r);
+      } catch(e) {
+        response = true;
+        console.error("Error caught in validation rule: '" + this.rule.name +
+                      "', skipping.\nERROR: " + e.toString() + "\nSTACK:" + e.stack);
+      }
+
+      //used return statement
+      if(response !== undefined)
+        this.nextTick(this.callback, [response]);
+
+      return this.d.promise();
+    }
+
+  });
+
+  var GroupRuleExecution = RuleExecution.extend({
+
+    type: "GroupRuleExecution",
+
+    init: function(ruleParamObj, parent) {
+      this._super(ruleParamObj, parent);
+      this.groupName = ruleParamObj.name;
+      this.id = ruleParamObj.id;
+      this.scope = ruleParamObj.scope || 'default';
+      this.group = this.element.groups[this.groupName][this.scope];
+      if(!this.group)
+        throw "Missing Group Set";
+      if(this.group.size() === 1)
+        this.warn("Group only has 1 field. Consider a field rule.");
+    },
+
+    execute: function() {
+
+      var sharedExec = this.group.exec,
+          parentExec = this.parent,
+          originExec = parentExec && parentExec.parent,
+          groupOrigin = originExec instanceof GroupRuleExecution,
+          fieldOrigin = !originExec,
+          formOrigin = originExec instanceof FormExecution,
+          _this = this, i, j, field, exec, child,
+          isMember = false;
+
+      if(!sharedExec || sharedExec.status === STATUS.COMPLETE) {
+        this.log("MASTER");
+        this.members = [this];
+        this.executeGroup = this._super;
+        sharedExec = this.group.exec = this;
+
+        if(formOrigin)
+          sharedExec.linkFail(originExec);
+
+      } else {
+
+        this.members = sharedExec.members;
+        for(i = 0; i < this.members.length; ++i)
+          if(this.element === this.members[i].element)
+            isMember = true;
+
+        if(isMember) {
+          //start a new execution - reject old
+          this.log("ALREADY A MEMBER OF %s", sharedExec.name);
+          this.reject();
+          return;
+
+        } else {
+          this.log("SLAVE TO %s", sharedExec.name);
+          this.members.push(this);
+          this.link(sharedExec);
+          if(this.parent) sharedExec.linkFail(this.parent);
+        }
+      }
+
+      if(fieldOrigin)
+      for(i = 0; i < this.group.size(); ++i) {
+        field = this.group.get(i);
+
+        if(this.element === field)
+          continue;
+
+        this.log("CHECK:", field.name);
+        //let the user make their way onto
+        // the field first - silent fail!
+        if(!field.touched) {
+          this.log("FIELD NOT READY: ", field.name);
+          return this.reject();
+        }
+
+        exec = field.execution;
+        //silent fail unfinished
+        if(exec && exec.status !== STATUS.COMPLETE)
+          exec.reject();
+
+        this.log("STARTING ", field.name);
+        exec = new FieldExecution(field, this);
+        exec.execute();
+      }
+
+      var groupSize = this.group.size(),
+          execSize = sharedExec.members.length;
+
+      if(groupSize === execSize&&
+         sharedExec.status === STATUS.NOT_STARTED) {
+        sharedExec.log("RUN");
+        sharedExec.executeGroup();
+      } else {
+        this.log("WAIT (" + execSize + "/" + groupSize + ")");
+      }
+
+      return this.d.promise();
+    },
+
+    filterResponse: function(response) {
+      if(!response || !this.members.length)
+        return this._super(response);
+
+      var isObj = $.isPlainObject(response),
+          isStr = (typeof response === 'string');
+
+      if(isStr && this === this.group.exec) return response;
+      if(isObj && response[this.id]) return response[this.id];
+
+      return null;
+    }
+
+  });
+
+})();
+$.fn.validate = function(callback) {
+  var validator = $(this).data('verify');
+  if(validator)
+    validator.validate(callback);
+  else
+    warn("element does not have verifyjs attached");
+};
+
+$.fn.validate.version = VERSION;
+
+$.fn.verify = function(userOptions) {
+  return this.each(function() {
+
+    //get existing form class this element
+    var form = $.verify.forms.find($(this));
+
+    //unbind and destroy form
+    if(userOptions === false || userOptions === "destroy") {
+      if(form) {
+        form.unbindEvents();
+        $.verify.forms.remove(form);
+      }
+      return;
+    }
+
+    Utils.checkOptions(userOptions);
+    if(form) {
+      form.extendOptions(userOptions);
+      form.updateFields();
+    } else {
+      form = new ValidationForm($(this), userOptions);
+      $.verify.forms.add(form);
+    }
+
+  });
+};
+
+$.verify = function(options) {
+  Utils.checkOptions(options);
+  $.extend(globalOptions, options);
+};
+
+$.extend($.verify, {
+  version: VERSION,
+  updateRules: ruleManager.updateRules,
+  addRules: ruleManager.addFieldRules,
+  addFieldRules: ruleManager.addFieldRules,
+  addGroupRules: ruleManager.addGroupRules,
+  log: info,
+  warn: warn,
+  defaults: globalOptions,
+  globals: globalOptions,
+  utils: Utils,
+  forms: new TypedSet(ValidationForm, [], "FormSet"),
+  _hidden: {
+    ruleManager: ruleManager
+  }
+});
+
+/* ===================================== *
+ * Auto attach on DOM ready
+ * ===================================== */
+
+$(function() {
+  if(globalOptions.autoInit)
+  $("form").filter(function() {
+    return $(this).find("[" + globalOptions.validateAttribute + "]").length > 0;
+  }).verify();
+});
+
+// log("plugin added.");
+
+
+(function($) {
+
+  if($.verify === undefined) {
+    window.alert("Please include verify.js before each rule file");
+    return;
+  }
+
+  $.verify.addFieldRules({
+    /* Regex validators
+     * - at plugin load, 'regex' will be transformed into validator function 'fn' which uses 'message'
+     */
+    currency: {
+      regex: /^\-?\$?\d{1,2}(,?\d{3})*(\.\d+)?$/,
+      message: "Invalid monetary value"
+    },
+    email: {
+      regex: /^(([^<>()\[\]\\.,;:\s@\"]+(\.[^<>()\[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+      message: "Invalid email address"
+    },
+    url: {
+      regex: /^https?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|!:,.;]*[\-A-Za-z0-9+&@#\/%=~_|]/,
+      message: "Invalid URL"
+    },
+    alphanumeric: {
+      regex: /^[0-9A-Za-z]+$/,
+      message: "Use digits and letters only"
+    },
+    street_number: {
+      regex: /^\d+[A-Za-z]?(-\d+)?[A-Za-z]?$/,
+      message: "Street Number only"
+    },
+    number: {
+      regex: /^\d+$/,
+      message: "Use digits only"
+    },
+    numberSpace: {
+      regex: /^[\d\ ]+$/,
+      message: "Use digits and spaces only"
+    },
+    postcode: {
+      regex: /^\d{4}$/,
+      message: "Invalid postcode"
+    },
+    date: {
+      fn: function(r) {
+        if($.verify.utils.parseDate(r.val()))
+          return true;
+        return r.message;
+      },
+      message: "Invalid date"
+    },
+    required: {
+
+      fn: function(r) {
+        return r.requiredField(r, r.field);
+      },
+
+      requiredField: function(r, field) {
+        var v = field.val();
+
+        switch (field.prop("type")) {
+          case "radio":
+          case "checkbox":
+            var name = field.attr("name");
+            var group = field.data('fieldGroup');
+
+            if(!group) {
+              group = r.form.find("input[name='" + name + "']");
+              field.data('fieldGroup', group);
+            }
+
+            if (group.is(":checked"))
+              break;
+
+            if (group.size() === 1)
+              return r.messages.single;
+
+            return r.messages.multiple;
+
+          default:
+            if (! $.trim(v))
+              return r.messages.all;
+            break;
+        }
+        return true;
+      },
+      messages: {
+        "all": "This field is required",
+        "multiple": "Please select an option",
+        "single": "This checkbox is required"
+      }
+    },
+    regex: {
+      fn: function(r) {
+        var re;
+        try {
+          var str = r.args[0];
+          re = new RegExp(str);
+        } catch(error) {
+          r.warn("Invalid regex: " + str);
+          return true;
+        }
+
+        if(!r.val().match(re))
+          return r.args[1] || r.message;
+        return true;
+      },
+      message: "Invalid format"
+    },
+    //an alias
+    pattern: {
+      extend: 'regex'
+    },
+    asyncTest: function(r) {
+
+      r.prompt(r.field, "Please wait...");
+      setTimeout(function() {
+        r.callback();
+      },2000);
+
+    },
+    phone: function(r) {
+      r.val(r.val().replace(/\D/g,''));
+      var v = r.val();
+      if(!v.match(/^\+?[\d\s]+$/))
+        return "Use digits and spaces only";
+      if(v.match(/^\+/))
+        return true; //allow all international
+      if(!v.match(/^0/))
+        return "Number must start with 0";
+      if(v.replace(/\s/g,"").length !== 10)
+        return "Must be 10 digits long";
+      return true;
+    },
+    size: function(r){
+      var v = r.val(), exactOrLower = r.args[0], upper = r.args[1];
+      if(exactOrLower !== undefined && upper === undefined) {
+        var exact = parseInt(exactOrLower, 10);
+        if(r.val().length !== exact)
+          return  "Must be "+exact+" characters";
+      } else if(exactOrLower !== undefined && upper !== undefined) {
+        var lower = parseInt(exactOrLower, 10);
+        upper = parseInt(upper, 10);
+        if(v.length < lower || upper < v.length)
+          return "Must be between "+lower+" and "+upper+" characters";
+      } else {
+        r.warn("size validator parameter error on field: " + r.field.attr('name'));
+      }
+
+      return true;
+    },
+    min: function(r) {
+      var v = r.val(), min = parseInt(r.args[0], 10);
+      if(v.length < min)
+        return "Must be at least " + min + " characters";
+      return true;
+    },
+    max: function(r) {
+      var v = r.val(), max = parseInt(r.args[0], 10);
+      if(v.length > max)
+        return "Must be at most " + max + " characters";
+      return true;
+    },
+
+    decimal: function(r) {
+      var vStr = r.val(),
+          places = r.args[0] ? parseInt(r.args[0], 10) : 2;
+
+      if(!vStr.match(/^\d+(,\d{3})*(\.\d+)?$/))
+        return "Invalid decimal value";
+
+      var v = parseFloat(vStr.replace(/[^\d\.]/g,'')),
+          factor = Math.pow(10,places);
+
+      v = (Math.round(v*factor)/factor);
+      r.field.val(v);
+
+      return true;
+    },
+    minVal: function(r) {
+      var v = parseFloat(r.val().replace(/[^\d\.]/g,'')),
+          suffix = r.args[1] || '',
+          min = parseFloat(r.args[0]);
+      if(v < min)
+        return "Must be greater than " + min + suffix;
+      return true;
+    },
+    maxVal: function(r) {
+      var v = parseFloat(r.val().replace(/[^\d\.]/g,'')),
+          suffix = r.args[1] || '',
+          max = parseFloat(r.args[0]);
+      if(v > max)
+        return "Must be less than " + max + suffix;
+      return true;
+    },
+    rangeVal: function(r) {
+      var v = parseFloat(r.val().replace(/[^\d\.]/g,'')),
+          prefix = r.args[2] || '',
+          suffix = r.args[3] || '',
+          min = parseFloat(r.args[0]),
+          max = parseFloat(r.args[1]);
+      if(v > max || v < min)
+        return "Must be between " + prefix + min + suffix + "\nand " + prefix + max + suffix;
+      return true;
+    },
+
+    agreement: function(r){
+      if(!r.field.is(":checked"))
+        return "You must agree to continue";
+      return true;
+    },
+    minAge: function(r){
+      var age = parseInt(r.args[0],10);
+      if(!age || isNaN(age)) {
+        console.log("WARNING: Invalid Age Param: " + age);
+        return true;
+      }
+      var currDate = new Date();
+      var minDate = new Date();
+      minDate.setFullYear(minDate.getFullYear() - age);
+      var fieldDate = $.verify.utils.parseDate(r.val());
+
+      if(fieldDate === "Invalid Date")
+        return "Invalid Date";
+      if(fieldDate > minDate)
+        return "You must be at least " + age;
+      return true;
+    }
+  });
+
+  // Group validation rules
+  $.verify.addGroupRules({
+
+    dateRange: function(r) {
+      var start = r.field("start"),
+          end = r.field("end");
+
+      if(start.length === 0 || end.length === 0) {
+        r.warn("Missing dateRange fields, skipping...");
+        return true;
+      }
+
+      var startDate = $.verify.utils.parseDate(start.val());
+      if(!startDate)
+        return "Invalid Start Date";
+
+      var endDate = $.verify.utils.parseDate(end.val());
+      if(!endDate)
+        return "Invalid End Date";
+
+      if(startDate >= endDate)
+        return "Start Date must come before End Date";
+
+      return true;
+    },
+
+    requiredAll: {
+      extend: 'required',
+      fn: function(r) {
+
+        var size = r.fields().length,
+            message,
+            passes = [], fails = [];
+
+        r.fields().each(function(i, field) {
+          message = r.requiredField(r, field);
+          if(message === true)
+            passes.push(field);
+          else
+            fails.push({ field: field, message:message });
+        });
+
+        if(passes.length > 0 && fails.length > 0) {
+          $.each(fails, function(i, f) {
+            r.prompt(f.field, f.message);
+          });
+          return false;
+        }
+
+        return true;
+      }
+    }
+
+  });
+
+})(jQuery);
+}(window,document));
