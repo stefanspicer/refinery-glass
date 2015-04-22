@@ -1346,7 +1346,7 @@ button{
 
 .btn-primary{
 	background: $primary-color;
-	border: 0;
+	border: 1px solid $primary-color;
 	font-weight: 600;
 	color: $white;
 	&:link, &:visited{
