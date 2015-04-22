@@ -683,6 +683,10 @@ body{
     color: $white;
     font-size: 24px;
   }
+  .gcicon-cancel{
+    font-size: 16px;
+    top: -3px;
+  }
 }
 
 .admin-title{
@@ -837,7 +841,7 @@ body{
     margin-right: 7px;
     margin-left: 7px;
   }
-  &>.btn-primary{
+  &> .btn{
     &:last-child{
       margin-left: auto;
       margin-right: 0;
