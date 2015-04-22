@@ -127,6 +127,9 @@
   display: block;
   width: 1%;
 }
+.progress-bar-striped {
+  background-repeat-x: initial;
+}
 .image-upload-container {
 	height: 0px;
 }

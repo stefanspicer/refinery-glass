@@ -136,18 +136,20 @@ var GlassImageUploader = (function ($) {
 
   function uploadImageHandler(element) {
     var $imageForm = $(element).find('#image-upload-form');
-
-
-    var options = {
-      beforeSubmit: setPreviewDiv,
-      uploadProgress: onProgress,
-      success: handleSuccess,
-      error: handleError,
-      resetForm: true
-    };
+    var defaultOptions = {
+        beforeSubmit: setPreviewDiv,
+        success: handleSuccess,
+        error: handleError,
+        forceSync: true,
+        resetForm: true
+      };
 
     $imageForm.submit(function (e) {
-      $(this).ajaxSubmit(options);
+      if($UPLOAD_PREVIEW_CONTAINERS !== undefined){
+
+        $.extend(defaultOptions, {uploadProgress: onProgress})
+      }
+      $(this).ajaxSubmit(defaultOptions);
       return false;
     });
   }
@@ -163,6 +165,7 @@ var GlassImageUploader = (function ($) {
 
     if($CURRENT_IMAGE_CONTAINER !== undefined){
       var imageIdField = $CURRENT_IMAGE_CONTAINER.find('.image-id-field');
+
       if (imageIdField.length > 0) {
         imageIdField.val(response.image_id)
       }
@@ -185,26 +188,39 @@ var GlassImageUploader = (function ($) {
       if($uploadBtns.length > 0){
         $uploadBtns.text(newBtnText);
       }
-      $previewDiv.css('background-image', 'url(' + response.url + ')');
 
-      CanvasForms.resetState();
-
-      $('.progress-box').fadeOut(1000);
-
-      afterSuccess(response.url);
+      // Preload image
+      $('<img/>').attr('src', response.url).load(function() {
+        $(this).remove(); // prevent memory leaks as @benweet suggested
+        $previewDiv.css('background-image', 'url(' + response.url + ')');
+        $('.progress-box').fadeOut(1000);
+        CanvasForms.resetState();
+        afterSuccess(response.url);
+      });
     }
   }
 
-  function updateProgressBar(percentComplete) {
-    if($UPLOAD_PREVIEW_CONTAINERS !== undefined){
-      var statusText = $UPLOAD_PREVIEW_CONTAINERS.find('.status-text');
-      $('.progress-bar').width(percentComplete + '%').attr('aria-valuenow', percentComplete);
-      statusText.html(percentComplete + '%');
+  function onProgress(eventFired, position, total, percentComplete) {
+    updateProgressBar(percentComplete);
+  }
 
-      if (percentComplete > 50) {
-        statusText.css('color', '#fff'); // change status text to white after 50%
-      }
+  function updateProgressBar(percentComplete) {
+    var statusText = $UPLOAD_PREVIEW_CONTAINERS.find('.status-text');
+    statusText.html(percentComplete + '%');
+    var $progressBar = $('.progress-bar');
+    $progressBar.width(percentComplete + '%').attr('aria-valuenow', percentComplete);  
+    if(percentComplete === 100){
+      setTimeout(function(){
+        $progressBar.replaceWith(processingProgressBar());
+        statusText.css('margin-left', '-30px').html('Processing...');
+      }, 500);
     }
+  }
+
+  function processingProgressBar(){
+    return [
+      '<div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">',
+      '</div>'].join('');
   }
 
   function imageDeleteListener(element) {
@@ -250,14 +266,14 @@ var GlassImageUploader = (function ($) {
   }
 
   function resetProgressBar() {
-    updateProgressBar(1);
-    if($UPLOAD_PREVIEW_CONTAINERS !== undefined){
-      $UPLOAD_PREVIEW_CONTAINERS.find('.status-text').css('color', '#000000');
-    }
-  }
+    var statusText   = $UPLOAD_PREVIEW_CONTAINERS.find('.status-text');
 
-  function onProgress(event, position, total, percentComplete) {
-    updateProgressBar(percentComplete);
+    if($UPLOAD_PREVIEW_CONTAINERS !== undefined){
+      $('.progress-bar').removeClass('progress-bar-striped active');
+      statusText.css('margin-left', '-15px');
+
+      updateProgressBar(1);
+    }
   }
 
   function openCropModal() {
