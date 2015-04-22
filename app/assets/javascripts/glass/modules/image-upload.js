@@ -180,19 +180,20 @@ var GlassImageUploader = (function ($) {
 
       $(document).trigger('image-uploaded', response.url);
 
-      if ($deleteBtns.length > 0){
-        $deleteBtns.attr('data-path', '/admin/images/' + response.image_id);
-        $deleteBtns.fadeIn(500);
-      }
-
-      if($uploadBtns.length > 0){
-        $uploadBtns.text(newBtnText);
-      }
-
       // Preload image
       $('<img/>').attr('src', response.url).load(function() {
         $(this).remove(); // prevent memory leaks as @benweet suggested
         $previewDiv.css('background-image', 'url(' + response.url + ')');
+        
+        if ($deleteBtns.length > 0){
+          $deleteBtns.attr('data-path', '/admin/images/' + response.image_id);
+          $deleteBtns.fadeIn(500);
+        }
+
+        if($uploadBtns.length > 0){
+          $uploadBtns.text(newBtnText);
+        }
+
         $('.progress-box').fadeOut(1000);
         CanvasForms.resetState();
         afterSuccess(response.url);
@@ -252,9 +253,9 @@ var GlassImageUploader = (function ($) {
   function resetImageUpload() {
     var addBtnText = 'Upload an Image';
     $CURRENT_IMAGE_CONTAINER.find('.image-id-field').val(null);
-    $UPLOAD_PREVIEW_CONTAINERS.find('.file-preview').fadeOut(500);
+    $UPLOAD_PREVIEW_CONTAINERS.find('.file-preview').fadeOut(500).removeAttr('style');
     $UPLOAD_PREVIEW_CONTAINERS.find('.image-upload-btn').text(addBtnText);
-    $UPLOAD_PREVIEW_CONTAINERS.find('.image-delete-btn').fadeOut(500);
+    $UPLOAD_PREVIEW_CONTAINERS.find('.image-delete-btn').fadeOut(500)
   }
 
   function handleDeleteSuccess(response) {
