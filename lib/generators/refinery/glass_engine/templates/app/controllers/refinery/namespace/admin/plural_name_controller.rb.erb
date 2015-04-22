@@ -18,7 +18,7 @@ module Refinery
 
         def index
           @<%= plural_name %> = find_all_<%= plural_name %>.ham
-          @<%= plural_name %> = @<%= plural_name %>.with_query(params[:search]) if searching?
+          @<%= plural_name %> = @<%= plural_name %>.find_with_index(params[:search]) if searching?
 
           @grouped_<%= plural_name %> = group_by_date(@<%= plural_name %>)
           
