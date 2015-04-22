@@ -112,7 +112,7 @@ module Refinery
           find_all_<%= plural_name %>('')
 
           # Now get weighted results by running the query against the results already found.
-          @<%= plural_name %> = @<%= plural_name %>.with_query('^' + params[:search].split.join(' ^'))
+          @<%= plural_name %> = @<%= plural_name %>.find_with_index(params[:search])
         end
       end
     end
