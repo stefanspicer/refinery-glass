@@ -18,7 +18,7 @@ module Refinery
 
         def index
           @<%= plural_name %> = find_all_<%= plural_name %>.ham
-          @<%= plural_name %> = @<%= plural_name %>.find_with_index(params[:search]) if searching?
+          @<%= plural_name %> = @<%= plural_name %>.find_with_index('^' + params[:search].split.join(' ^')) if searching?
 
           @grouped_<%= plural_name %> = group_by_date(@<%= plural_name %>)
           
@@ -112,7 +112,7 @@ module Refinery
           find_all_<%= plural_name %>('')
 
           # Now get weighted results by running the query against the results already found.
-          @<%= plural_name %> = @<%= plural_name %>.find_with_index(params[:search])
+          @<%= plural_name %> = @<%= plural_name %>.find_with_index('^' + params[:search].split.join(' ^'))
         end
       end
     end
