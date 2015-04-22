@@ -92,11 +92,11 @@
                 </div>
               </div>
               <div class="actions">
-                <div class="two fluid ui inverted buttons">
-                  <div class="ui red basic inverted button">
+                <div class="">
+                  <div class="btn btn-default">
                     Cancel
                   </div>
-                  <div class="ui green basic inverted button positive">
+                  <div class="btn btn-primary">
                     Submit
                   </div>
                 </div>
@@ -113,11 +113,11 @@
                 </div>
               </div>
               <div class="actions">
-                <div class="two fluid ui inverted buttons">
-                  <div class="ui red basic inverted button">
+                <div class="">
+                  <div class="btn btn-default">
                     Cancel
                   </div>
-                  <div class="ui green basic inverted button positive">
+                  <div class="btn-primary">
                     Submit
                   </div>
                 </div>
@@ -125,9 +125,7 @@
             </div>
           <% end %>
           
-          <a href="<%%= refinery.new_<%= namespacing.underscore %>_admin_<%= singular_name %>_path %>" class="btn btn-link-grey">
-            <i class="gcicon gcicon-add"></i> <strong><%%= t('.new') %></strong>
-          </a>
+
           <%% if ::Refinery::<%= namespacing %>::Admin::<%= class_name.pluralize %>Controller.searchable? %>
             <%%= render '/refinery/admin/search', :url => refinery.<%= namespacing.underscore %>_admin_<%= plural_name %><%= "_index" if plural_name == singular_name%>_path %>
           <%% end %>

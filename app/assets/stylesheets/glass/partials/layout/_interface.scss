@@ -841,7 +841,7 @@ body{
     margin-right: 7px;
     margin-left: 7px;
   }
-  &> .btn{
+  &> .btn, &> .dropdown{
     &:last-child{
       margin-left: auto;
       margin-right: 0;
