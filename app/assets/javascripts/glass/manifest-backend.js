@@ -10,11 +10,11 @@
 //= require jquery-ui
 //= require jquery/jquery.timers
 //= require jquery/jquery.browser
-//# require admin
-//# require refinery/core
-//# require refinery/site_bar
+//= require admin
+//= require refinery/core
+//= require refinery/site_bar
 //= require refinery/admin
-//# require refinery/submenu
+//= require refinery/submenu
 //= require refinery/interface
 //= require refinery/sortable_menu
 //= require refinery/submit_continue
