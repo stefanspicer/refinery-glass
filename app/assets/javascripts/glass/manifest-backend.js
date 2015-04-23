@@ -8,9 +8,7 @@
 //# require jquery
 //# require jquery_ujs
 //= require jquery-ui
-//= require jquery/jquery.html5-placeholder-shim
 //= require jquery/jquery.timers
-//= require jquery/jquery.jcarousel
 //= require jquery/jquery.browser
 //# require admin
 //# require refinery/core
@@ -37,7 +35,6 @@
 //= require canvas/modules/scroll
 //= require glass/modules/ajax-reloads
 //= require glass/modules/file-upload
-//= require canvas/gestures/hammer.min
 //= require glass/modules/menus
 //= require glass/modules/refinery-flash
 //= require glass/modules/semantic-ui-initializers

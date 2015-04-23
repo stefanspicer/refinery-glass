@@ -5,12 +5,13 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require canvas/jquery.stellar
-//= require canvas/modules/parallax
 //= require canvas/jquery.form.min
 //= require canvas/bootstrap-sprockets
+//= require canvas/gestures/hammer.min
 //= require canvas/form-validation
+//= require canvas/jquery.stellar
 //= require canvas/waypoints
+//= require canvas/modules/parallax
 //= require canvas/modules/forms
 //= require canvas/modules/main
 //= require canvas/modules/carousel
@@ -21,3 +22,4 @@
 //= require glass/modules/modals
 //= require glass/modules/pagination
 //= require glass/modules/datetime
+
