@@ -1,6 +1,5 @@
 var CanvasParallax = (function($){
   $(document).on('content-ready', function (e, element) {
-		
 		$.stellar({
 			horizontalScrolling: false,
       verticalScrolling: true,
