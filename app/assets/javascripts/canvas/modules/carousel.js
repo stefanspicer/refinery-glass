@@ -3,18 +3,18 @@ var CanvasCarousel = (function($){
     
     var $carousel = $('.carousel');
     var $item = $('.carousel-inner');
-    $item.addClass('initiated');
+    
 
-    // Carousel pause
     $carousel.waypoint(function() {
       $carousel.carousel('cycle');
-      
+      $item.addClass('initiated');
     }, {
       offset: 'bottom-in-view'
     });
 
     // Carousel in view
     $carousel.waypoint(function(direction) {
+
       if (direction === 'down') {
         $item.addClass('caption-init');
       }
@@ -22,10 +22,7 @@ var CanvasCarousel = (function($){
       offset: 'bottom-in-view'
     });
 
-    // Hide and show sidebars based on swipe gestures
-
-    
-
+    // Allow carousel navigation using swipe gestures.
     if($carousel.length > 0){
       
       $carousel.each(function(index, element){

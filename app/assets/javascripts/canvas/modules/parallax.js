@@ -1,5 +1,6 @@
 var CanvasParallax = (function($){
   $(document).on('content-ready', function (e, element) {
+		
 		$.stellar({
 			horizontalScrolling: false,
       verticalScrolling: true,
@@ -10,7 +11,6 @@ var CanvasParallax = (function($){
       hideDistantElements: false,
       verticalOffset: 120
 		});
-		
   }); 
 
   //Return API for other modules
