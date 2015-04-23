@@ -32,7 +32,7 @@ var GlassPagination = (function ($) {
         e.preventDefault();
         if(!FETCHING){
           FETCHING = true;
-          $(window).unbind('scroll');
+          $(window).unbind('scroll', scrollHandler);
 
           var moreUrl = $(this).attr('data-url');
           if(moreUrl){
@@ -47,9 +47,9 @@ var GlassPagination = (function ($) {
     if ($infiniteScrollContainer.length > 0 && (parseInt($infiniteScrollContainer.data('total-pages')) > 1)){
       $infiniteScrollContainer.attr('data-total-pages', 1);
 
-      $(window).unbind('scroll').on('scroll', scrollHandler);
+      $(window).unbind('scroll', scrollHandler).on('scroll', scrollHandler);
     } else {
-      $(window).unbind('scroll');
+      $(window).unbind('scroll', scrollHandler);
     }
     return $paginationSpinner;
   }
@@ -71,7 +71,7 @@ var GlassPagination = (function ($) {
     var $adminSearchInput = $('#search');
 
     FETCHING = true;
-    $(window).unbind('scroll');
+    $(window).unbind('scroll', scrollHandler);
 
     // Append search param if there was one.
     if($adminSearchInput.length === 1){
