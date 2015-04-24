@@ -14,7 +14,7 @@ Refinery::Image.class_eval do
       when 'cover'
         geometry = '1400x700#'
       when 'slideshow'
-        geometry = '1500x500#ne'
+        geometry = '1500x500#'
       when 'h_sm'
         geometry = '300x200#'
       when 'h_md'
