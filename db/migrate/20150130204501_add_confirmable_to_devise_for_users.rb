@@ -1,5 +1,6 @@
+# This migration comes from refinery_glass (originally 20150130204501)
 class AddConfirmableToDeviseForUsers < ActiveRecord::Migration
-  def change
+  def up
     change_table(:refinery_users) do |t|
       t.string   :confirmation_token
       t.datetime :confirmed_at
@@ -7,5 +8,13 @@ class AddConfirmableToDeviseForUsers < ActiveRecord::Migration
       t.string   :unconfirmed_email
     end
     add_index  :refinery_users, :confirmation_token, :unique => true
+  end
+
+  def down
+    #remove_index(:refinery_users, column: :confirmation_token)
+    remove_column :refinery_users, :confirmation_token
+    remove_column :refinery_users, :confirmed_at
+    remove_column :refinery_users, :confirmation_sent_at
+    remove_column :refinery_users, :unconfirmed_email
   end
 end
