@@ -349,10 +349,10 @@ var CanvasForms = (function ($) {
       }
     } else {
 
-      var $update_selector = $modal.find('.update-on-close');
+      var $elem = $modal.find('.update-on-close');
 
-      if ($update_selector.length > 0) {
-        ajaxUpdateContent($update_selector);
+      if ($elem.length > 0) {
+        ajaxUpdateContent($elem.data('selector'));
 
         // The button that on click, will trigger the modal that was displayed
         // before the current modal was displayed.
@@ -382,9 +382,9 @@ var CanvasForms = (function ($) {
     var $resetForm = $('.ajax-reset-form');
 
     if ($resetForm.length > 0) {
-      var updateArea = $resetForm.find('.update-on-close');
-      if (updateArea.length > 0) {
-        ajaxUpdateContent(updateArea);
+      var $elem = $resetForm.find('.update-on-close');
+      if ($elem.length > 0) {
+        ajaxUpdateContent($elem.data('selector'));
         // Clear input values from the form (except for hidden values)
         $resetForm.trigger("reset");
       }
@@ -413,11 +413,13 @@ var CanvasForms = (function ($) {
   }
 
   function ajaxUpdateContent(update_selector) {
-    var $tmp = $("<div></div>");
-    var $to_update = $(update_selector.data('selector'));
-    $tmp.insertAfter($to_update).append($to_update);
-    $tmp.load(document.URL + ' ' + update_selector.data('selector'));
-    $(document).trigger('content-ready', $(update_selector.data('selector')));
+    if (update_selector) {
+      $.get(document.URL, function(data) {
+        var $replacement = $(data).find(update_selector)
+        $(update_selector).replaceWith($replacement);
+        $(document).trigger('content-ready', $(update_selector));
+      });
+    }
   }
 
   function replaceContent($orig, $replacement) {
@@ -544,7 +546,8 @@ var CanvasForms = (function ($) {
 
   // Return API for other modules
   return {
-    'replaceContent': replaceContent,
+    replaceContent: replaceContent,
+    ajaxUpdateContent: ajaxUpdateContent,
     insertStripeErrors: insertStripeErrors,
     insertErrors: insertErrors,
     resetState: resetState,
