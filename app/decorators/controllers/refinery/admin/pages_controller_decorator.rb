@@ -10,16 +10,22 @@ Refinery::Admin::PagesController.class_eval do
 
     def check_valid_template
       unless current_refinery_user.super_user?
-        valid_view_templates = Refinery::Pages.basic_user_view_template_whitelist
+
+        begin
+          valid_view_templates = Refinery::Pages.basic_user_view_template_whitelist
+        rescue Exception => e
+          logger.warn e
+        end
+        
         # Unless this is a new page or a page without a view template, proceed as normal.
         unless @page.present? && @page.view_template.present?
-          if valid_view_templates.length == 1
+          if defined?(valid_view_templates) && valid_view_templates.length == 1
             params[:page][:view_template] = valid_view_templates[0]
             return
           end
 
           if params[:page].present? && params[:page][:view_template].present?
-            if valid_view_templates.include?(params[:page][:view_template])
+            if defined?(valid_view_templates) && valid_view_templates.include?(params[:page][:view_template])
               logger.warn("Tried to set a page to a template #{params[:page][:view_template]} that is not allowed for this user: #{current_refinery_user.username}")
               params[:page][:view_template] = valid_view_templates[0]
             end
@@ -30,7 +36,12 @@ Refinery::Admin::PagesController.class_eval do
 
     def load_valid_templates
       if !current_refinery_user.super_user?
-        @valid_view_templates = Refinery::Pages.basic_user_view_template_whitelist
+        begin
+          @valid_view_templates = Refinery::Pages.basic_user_view_template_whitelist
+        rescue Exception => e
+          logger.warn e
+          @valid_view_templates = Refinery::Pages.valid_templates('app', 'views', '{pages,refinery/pages}', '*html*')
+        end
       else
         @valid_view_templates = Refinery::Pages.valid_templates('app', 'views', '{pages,refinery/pages}', '*html*')
       end
