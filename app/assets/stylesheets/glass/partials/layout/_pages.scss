@@ -387,3 +387,9 @@
     }
   }
 }
+.modal {
+  .form-actions, .deliver, .image-delete-btn {
+    /* Actions are handled by modal buttons.. remove the default ones */
+    display: none;
+  }
+}
