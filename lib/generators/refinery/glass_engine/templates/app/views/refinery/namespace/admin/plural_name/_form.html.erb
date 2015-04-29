@@ -38,11 +38,11 @@
           :image => @<%= singular_name %>.<%= attribute.name %>
         -%>
         <%%= render '/refinery/admin/images/image_preview',
-          :f => f,
           :field_name => :<%= attribute.name %>,
           :image => @<%= singular_name %>.<%= attribute.name %>
         -%>
       </div>
+ 
 <% has_image_attribute = true -%>
 <% elsif attribute.type.to_s == 'resource' -%>
       <div class='form-group'>

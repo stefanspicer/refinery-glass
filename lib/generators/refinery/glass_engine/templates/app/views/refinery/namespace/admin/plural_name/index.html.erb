@@ -2,7 +2,8 @@
 	<section id='admin-page-content' class='admin-index container-fluid'>
     <div class="row">
       <div class="col-sm-12">
-        <h2 class="admin-title"><%%= t('.title') %></h2>
+        <h2 class="admin-title"><%%= t('refinery
+plugins.<%= plural_name %>.title') %></h2>
         <div class="contextual-menu">
           <!-- FILTERING -->
           <!--
@@ -130,6 +131,9 @@
             <%%= render '/refinery/admin/search', :url => refinery.<%= namespacing.underscore %>_admin_<%= plural_name %><%= "_index" if plural_name == singular_name%>_path %>
           <%% end %>
 
+          <a href="<%%= refinery.new_<%= namespacing.underscore %>_admin_<%= singular_name %>_path %>" class="btn btn-primary">
+            <i class="gcicon gcicon-add"></i> <span class="hidden-xs"><strong>New <%= singular_name %></strong></span>
+          </a>
         </div>
       </div>
       <div class="col-sm-12 index-listing">
