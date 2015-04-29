@@ -3,14 +3,15 @@ var CanvasParallax = (function($){
 		
 		$.stellar({
 			horizontalScrolling: false,
-      verticalScrolling: true,
-      scrollProperty: 'scroll',
-      positionProperty: 'transform',
+      verticalScrolling:   true,
+      scrollProperty:      'scroll',
+      positionProperty:    'transform',
       parallaxBackgrounds: false,
-      parallaxElements: true,
+      parallaxElements:    true,
       hideDistantElements: false,
-      verticalOffset: 120
+      verticalOffset:      120
 		});
+    
   }); 
 
   //Return API for other modules
