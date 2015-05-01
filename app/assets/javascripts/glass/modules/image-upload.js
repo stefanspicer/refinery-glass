@@ -6,7 +6,6 @@ var GlassImageUploader = (function ($) {
     imageListeners(element);
     fileUploaderListener(element);
     uploadImageHandler(element);
-    initCropper();
     imageDeleteListener(element);
   });
 
@@ -100,38 +99,7 @@ var GlassImageUploader = (function ($) {
   }
 
   function afterSuccess(imageUrl){
-    var editModal = $('#modal-edit-image');
-    // if there is an edit modal, change the image that is being
-    // displayed in it.
-    if (editModal.length > 0) {
-      var editableImage = editModal.find('.cropper-container > img');
-      if (editableImage.length > 0) {
-        editableImage.cropper("destroy");
-        editableImage.attr("src", imageUrl);
-      } else {
-        editModal.find('.cropper-container').append('<img src="' + imageUrl + '">');
-      }
-      initCropper();
-    }
-  }
 
-  function initCropper() {
-    var $image = $(".cropper-container > img"),
-      options = {
-        modal: false,
-        data: {width: 640, height: 360},
-        preview: '.cropper-preview',
-        done: function (data) {}
-      };
-
-    $image.cropper(options);
-
-    $('.btn-primary[data-method="rotate"]').unbind('click').click(function (e) {
-      $image.cropper('rotate', $(this).attr('data-option'));
-    });
-    $('.btn-primary[data-method="zoom"]').unbind('click').click(function (e) {
-      $image.cropper('zoom', $(this).attr('data-option'));
-    });
   }
 
   function uploadImageHandler(element) {
