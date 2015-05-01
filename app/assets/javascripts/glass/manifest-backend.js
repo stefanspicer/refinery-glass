@@ -28,7 +28,7 @@
 //= require canvas/semantic-ui/sidebar
 //= require canvas/semantic-ui/modal.min
 //= require canvas/semantic-ui/dimmer
-//= require glass/cropper
+//= # require glass/cropper
 //= require glass/grande
 // # require glass/react/reactize.min
 //= require canvas/modules/watchforchanges
