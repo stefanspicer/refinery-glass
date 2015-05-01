@@ -1036,8 +1036,19 @@ form{
 }
 
 .submit, .btn{
-	.icon{
-		margin-left: 10px;
+  .icon{
+    &:first-child{
+  		margin-left: 0;
+  		margin-right: 10px;
+  	}
+	  &:last-child{
+  		margin-right: 0;
+  		margin-left: 10px;
+  	}
+  	&:only-child{
+    	margin-left: 0;
+    	margin-right: 0;
+  	}
 	}
 }
 
@@ -1552,6 +1563,29 @@ button{
 	background: white;
 	cursor: inherit;
 	display: block;
+}
+
+.btn-toggle-icons{
+  .icon{
+    &:first-child{
+      display: inline;
+
+    }
+    &:last-child{
+      display: none;
+    }
+  }
+  &.toggled{
+    .icon{
+      &:first-child{
+        display: none;
+  
+      }
+      &:last-child{
+        display: inline;
+      }
+    }
+  }
 }
 
 .ui.modal > .content {

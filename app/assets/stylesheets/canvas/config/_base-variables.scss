@@ -28,6 +28,7 @@ $red-fade: #bf4d4b;
 $red-bg: #ffdfcf;
 $green: #5bc890;
 $mint: #5bc9a9;
+$salmon: #FC9797;
 $yellow: #fec641;
 $yellow-fade: #EEE28D;
 $orange: #e99c00;
@@ -153,6 +154,10 @@ $icon-li-width: (30em / 14) !default;
   color: $mint;
 }
 
+.salmon{
+  color: $salmon;
+}
+
 
 
 /* -------------------- BG COLORS -------------------- */
@@ -247,4 +252,8 @@ $icon-li-width: (30em / 14) !default;
 
 .mint-bg{
   background-color: $mint !important;
+}
+
+.salmon-bg{
+  background-color: $salmon !important;
 }
