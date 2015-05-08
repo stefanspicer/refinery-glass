@@ -756,6 +756,37 @@ a.pill{
   }
 }
 
+.datepicker-wrapper{
+  position: absolute;
+  width: 230px;
+  padding: 15px;
+  background: $white;
+  @include box-shadow($shadow);
+  z-index: 150;
+  border-radius: $radius;
+  margin-top: 5px;
+  .datepicker-fields{
+    display: flex;
+    flex-wrap: nowrap;
+    margin-left: -5px;
+    margin-right: -5px;
+    .form-group{
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+  }
+  .close{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  &.left{
+    left: 0;
+  }
+  &.right{
+    right: 0;
+  }
+}
 
 /* -------------------- BROWSER UPDATE -------------------- */
 
@@ -1036,25 +1067,28 @@ form{
 }
 
 .submit, .btn{
-  .icon{
-    &:first-child{
-  		margin-left: 0;
-  		margin-right: 10px;
-  	}
-	  &:last-child{
+  .icon, .gcicon{
+    &:last-child{
   		margin-right: 0;
   		margin-left: 10px;
   	}
-  	&:only-child{
-    	margin-left: 0;
-    	margin-right: 0;
+    &:first-child{
+  		margin-left: 0;
+  		margin-right: 10px;
   	}
 	}
 }
 
 .icon-only, .icon-left{
   .icon, .gcicon{
-    margin-left: 0;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+.icon-last{
+  .icon, .gcicon{
+    margin-left: 10px !important;
   }
 }
 
@@ -1567,6 +1601,7 @@ button{
 
 .btn-toggle-icons{
   .icon{
+    margin: 0 !important;
     &:first-child{
       display: inline;
 
@@ -1579,8 +1614,7 @@ button{
     .icon{
       &:first-child{
         display: none;
-  
-      }
+        }
       &:last-child{
         display: inline;
       }
