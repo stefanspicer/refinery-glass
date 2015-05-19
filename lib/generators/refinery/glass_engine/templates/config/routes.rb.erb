@@ -1,4 +1,4 @@
-<% frontend_actions = include_form? ? ':new, :create' : ':index, :show' %>
+<% frontend_actions = include_form? ? ':new, :create' : ':index, :show' -%>
 Refinery::Core::Engine.routes.draw do
 <% unless skip_frontend? %>
   # Frontend routes
@@ -10,7 +10,7 @@ Refinery::Core::Engine.routes.draw do
   namespace :<%= namespacing.underscore %>, :path => '' do
     namespace :admin, :path => <%= backend_route %> do
       resources :<%= plural_name %><%= ', :except => :show' if !include_form? %> do
-        <% if @includes_spam %> 
+<% if @includes_spam -%>
           collection do
             post :update_positions
             get :spam
@@ -18,7 +18,7 @@ Refinery::Core::Engine.routes.draw do
           member do
             get :toggle_spam
           end
-        <% elsif include_moderation? %>
+<% elsif include_moderation? -%>
           collection do
             post :update_positions
             get :approved
@@ -29,19 +29,19 @@ Refinery::Core::Engine.routes.draw do
             get :approved
             get :rejected
           end
-        <% end %>
+<% end -%>
       end
 <% if include_form? %>
       resources :settings, :only => [:edit, :update] do
         collection do
           post :update_positions
-  <% if include_moderation? -%>
+<% if include_moderation? -%>
           get :moderation
           get :approved
           get :rejected
-  <% end -%>
+<% end -%>
         end
-  <% if include_moderation? -%>
+<% if include_moderation? -%>
         member do
           get :approved
           get :rejected
@@ -49,7 +49,7 @@ Refinery::Core::Engine.routes.draw do
         collection do
           get :moderation
         end
-  <% end -%>
+<% end -%>
       end
 <% end %>
     end
