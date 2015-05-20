@@ -46,7 +46,7 @@ var GlassModals = (function ($) {
     var formSelector  = ' ' + ($openBtn.attr('data-form-selector') || 'form');
     var updateOnClose = $openBtn.data('update-on-close');
     var modalTitle    = $openBtn.data('modal-title')      ? $openBtn.data('modal-title')      : $openBtn.text();
-    var submitBtnTxt  = $openBtn.data('modal-submit-btn') ? $openBtn.data('modal-submit-btn') : $openBtn.text();
+    var submitBtnTxt  = $openBtn.data('modal-submit-btn') ? $openBtn.data('modal-submit-btn') : 'Submit';
 
     // Check if this modal will be displaying a form.
     //
