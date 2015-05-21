@@ -239,7 +239,7 @@ var CanvasForms = (function ($) {
             return;
           }
 
-          var $previousError = $('#errorExplanation');
+          var $previousError = $form.find('#errorExplanation');
           if($previousError.length > 0){
             $previousError.remove();
           }
@@ -294,12 +294,16 @@ var CanvasForms = (function ($) {
     var $thankYouPageContent = $(data).find('.glass-edit');
     var isThankyouPage = ($thankYouPageContent.length > 0 && $thankYouPageContent.html().indexOf('Thank You') !== -1) || $form.hasClass('ajax-thank-you');
     var callback = $form.data('on-complete-callback');
+    var redirect_on_success = true;
 
     // If there is a callback call it.
     if (callback !== undefined && callback !== null) {
       var result = callback($replace_form);
       if (result === false) {
         return;
+      }
+      if (result === 'no-redirect') {
+        redirect_on_success = false;
       }
     }
 
@@ -336,8 +340,7 @@ var CanvasForms = (function ($) {
       }
     }
 
-
-    if ($modal.length === 0) {
+    if ($modal.length === 0 && redirect_on_success) {
       var redirect_url = $submit_btn.data('redirect-url');
 
       if (redirect_url !== undefined && redirect_url !== null) {
@@ -347,8 +350,7 @@ var CanvasForms = (function ($) {
         $replacement.find('h1').remove();
         replaceContent($(selector), $replacement);
       }
-    } else {
-
+    } else if ($modal.length > 0) {
       var $elem = $modal.find('.update-on-close');
 
       if ($elem.length > 0) {
