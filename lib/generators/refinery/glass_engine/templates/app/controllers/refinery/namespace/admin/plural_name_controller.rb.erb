@@ -11,11 +11,8 @@ module Refinery
                 :searchable => true,
                 :sortable => false
 
-
         # NOTE: making searchable: remember to add to your model `acts_as_indexed :fields => [:title, :body]`
-
-    <% if @includes_spam -%>
-
+<% if @includes_spam -%>
         def index
           @<%= plural_name %> = find_all_<%= plural_name %>.ham
           @<%= plural_name %> = @<%= plural_name %>.find_with_index('^' + params[:search].split.join(' ^')) if searching?
@@ -42,17 +39,18 @@ module Refinery
           redirect_to :back
         end
 
-    <% else %>
-        <% if include_moderation? -%>
-          before_filter :get_approved_and_rejected_counts
-        <% end %>
+<% else -%>
+<%   if include_moderation? -%>
+        before_filter :get_approved_and_rejected_counts
+
+<%   end -%>
         def index
           unless searching?
-          <% if include_moderation? -%>
+<%   if include_moderation? -%>
             @<%= plural_name %> = <%= class_name %>.unmoderated
-          <% else %>
+<%   else -%>
             find_all_<%= plural_name %>
-          <% end -%>
+<%   end -%>
           else
             search_all_<%= plural_name %>
           end
@@ -66,7 +64,8 @@ module Refinery
             format.js
           end
         end
-      <% if include_moderation? -%>
+
+<%   if include_moderation? -%>
         def approved
           unless params[:id].present?
             @<%= plural_name %> = <%= class_name %>.approved.page(params[:page])
@@ -101,9 +100,9 @@ module Refinery
             @approved_count = <%= class_name %>.count(:conditions => {:state => 'approved'})
             @rejected_count = <%= class_name %>.count(:conditions => {:state => 'rejected'})
           end
-      <% end %>
+<%    end %>
 
-    <% end %>
+<%  end %>
 
         # NOTE: This can be moved back into crudify (that's where it came from)
         # Returns a weighted set of results based on the query specified by the user.
