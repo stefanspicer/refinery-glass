@@ -85,8 +85,9 @@
     <%% end # form_for -%>
 
   </div>
+<% if !include_live_editor? -%>
 </div>
-
+<% end -%>
 <% if has_image_attribute %>
   <%%= render 'refinery/admin/images/form' -%>
 <% end %>
