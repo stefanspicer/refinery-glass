@@ -117,6 +117,16 @@ protected
     render :edit
   end
 
+  def update_successful
+
+    if params[:user][:password]
+      sign_in @user, :bypass => true
+    end
+
+    redirect_to redirect_url,
+      :notice => t('updated', :what => @user.username, :scope => 'refinery.crudify')
+  end
+
   private
     def check_user
       unless current_refinery_user.plugins.map(&:name).include?('refinery_users') ||
