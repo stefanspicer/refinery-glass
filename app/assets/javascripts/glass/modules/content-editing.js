@@ -356,7 +356,7 @@ var GlassContentEditing = (function ($) {
       });
 
       // Sometimes text goes directly in the div.  Wrap it in a <p>. (nodeType 3 is text)
-      this.h.elem.contents().filter(function() { return this.nodeType === 3; }).wrap("<p></p>");
+      this.h.elem.contents().filter(function() { return (this.nodeType === 3 && /\S/.test(this.textContent)); }).wrap("<p></p>");
 
       // Remove whitespace and html comments (should be stripped on paste, here to sanitize)
       return this.h.elem.html().replace(/<!--[\s\S]*?-->/gm,"").trim();
