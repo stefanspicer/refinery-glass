@@ -21,6 +21,9 @@
     height: 30px;
     box-shadow: none;
     padding: 0;
+    .icon, .gcicon{
+      margin: 0;
+    }
     &:hover{
       color: $white;
       background: $red;

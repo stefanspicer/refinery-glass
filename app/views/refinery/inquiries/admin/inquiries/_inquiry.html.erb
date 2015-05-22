@@ -24,10 +24,10 @@
 
       <span class="spam-filter">
         <% if inquiry.spam? %>
-          <%= link_to '<i class="gcicon gcicon-cancel"></i>'.html_safe, refinery.toggle_spam_inquiries_admin_inquiry_path(inquiry),
+          <%= link_to '<i class="gcicon gcicon-check"></i>'.html_safe, refinery.toggle_spam_inquiries_admin_inquiry_path(inquiry),
                       :title => t('hello?'), :class => 'circle-icon' -%>
         <% else %>
-          <%= link_to '<i class="gcicon gcicon-check"></i>'.html_safe, refinery.toggle_spam_inquiries_admin_inquiry_path(inquiry),
+          <%= link_to '<i class="gcicon gcicon-cancel"></i>'.html_safe, refinery.toggle_spam_inquiries_admin_inquiry_path(inquiry),
                       :title => t('.mark_as_spam'), :class => 'circle-icon' -%>
         <% end %>
       </span>
