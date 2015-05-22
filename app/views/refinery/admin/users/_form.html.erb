@@ -16,10 +16,10 @@
   <%= render 'customize_form', :f => f %>
 
   <div class='form-group'>
+    <%= f.label :username, "Username for login" %>
     <div class="validation">
       <span></span>
     </div>
-    <%= f.label :username, "Username for login" %>
     <%= f.text_field :username, :placeholder => 'Username', :class => 'form-control input-lg','data-validate'=>'unique_value,required_w_name', 'data-val-field' => 'username', 'data-unique-collection-url' => "#{refinery.admin_usernames_path @user.username}"  %>
   </div>
 
