@@ -11,7 +11,13 @@ var Main = (function($){
     $('.btn-anchor').removeAttr('disabled');
     btnAnchorInitialization(element);
     initializePreviewButtonListener(element);
+    // Check for desktop firefox
     var isFirefox = typeof InstallTrigger !== 'undefined';
+    // check for mobile firefox.
+    if(!isFirefox){
+      isFirefox = navigator.platform.toLowerCase().indexOf("firefox") > -1;
+    }
+
     if(isFirefox){
       $('body').addClass('mozilla');
     }
