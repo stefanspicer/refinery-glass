@@ -11,6 +11,10 @@ var Main = (function($){
     $('.btn-anchor').removeAttr('disabled');
     btnAnchorInitialization(element);
     initializePreviewButtonListener(element);
+    var isFirefox = typeof InstallTrigger !== 'undefined';
+    if(isFirefox){
+      $('body').addClass('mozilla');
+    }
   }
 
   /**
