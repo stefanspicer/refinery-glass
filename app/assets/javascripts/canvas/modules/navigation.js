@@ -53,7 +53,7 @@ var CanvasMenus = (function($){
   function initSubNavWithin(element) {
     var $subnav = $(element).find('#about-nav');
     var btn = 'button';
-    if ($subnav.length > 0) {
+    if ($subnav.length > 0 && $subnav.parents('#page-preview').length == 0) {
       $subnav.find(btn).click(function(e) {
         e.preventDefault();
         $(this).parent().find(btn).removeClass('active');
