@@ -76,9 +76,6 @@
 .gcicon-paragraph:before {
   content: "A";
 }
-.gcicon-link:before {
-  content: "B";
-}
 .gcicon-gear:before {
   content: "C";
 }
@@ -240,4 +237,10 @@
 }
 .gcicon-cancel:before {
   content: ">";
+}
+.gcicon-link:before {
+  content: "p";
+}
+.gcicon-unlink:before {
+  content: "?";
 }

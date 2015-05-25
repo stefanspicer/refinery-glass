@@ -10,7 +10,7 @@
   background: $white;
   border: 1px solid $grey-2;
   border-radius: $radius;
-  padding: 5px 10px;
+  padding: 0;
   box-shadow: $shadow;
   &:after{
     content: "";
@@ -84,9 +84,18 @@
   display: flex;
   justify-content: space-around;
   button{
+    padding: 5px;
+    height: 40px;
+    white-space: nowrap;
     color: $grey-6;
     &:hover{
       color: $primary-dark;
+    }
+    &:first-child{
+      padding-left: 12px;
+    }
+    &:last-child{
+      padding-right: 12px;
     }
   }
   .header1, .header2{
