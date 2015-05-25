@@ -6,20 +6,20 @@
       <%%= <%= singular_name %>.<%= title_attribute %> %>
     </a>
     <span class='actions <%= include_moderation? || @includes_spam ? 'actions-col-4' : 'actions-col-2' %>'>
-      <% if localized? %>
-          <%% if Refinery::I18n.frontend_locales.many? %>
-            <span class='preview'>
-              <%% <%= singular_name %>.translations.each do |translation| %>
-                <%% if translation.<%= title_attribute %>.present? %>
-                  <%%= link_to refinery_icon_tag("flags/#{translation.locale}.png", :size => '16x11'),
-                               refinery.edit_<%= namespacing.underscore %>_admin_<%= singular_name %>_path(<%= singular_name %>, :switch_locale => translation.locale),
-                               :class => 'locale' %>
-                <%% end %>
-              <%% end %>
-            </span>
+<% if localized? -%>
+      <%% if Refinery::I18n.frontend_locales.many? %>
+        <span class='preview'>
+          <%% <%= singular_name %>.translations.each do |translation| %>
+            <%% if translation.<%= title_attribute %>.present? %>
+              <%%= link_to refinery_icon_tag("flags/#{translation.locale}.png", :size => '16x11'),
+                           refinery.edit_<%= namespacing.underscore %>_admin_<%= singular_name %>_path(<%= singular_name %>, :switch_locale => translation.locale),
+                           :class => 'locale' %>
+            <%% end %>
           <%% end %>
-      <% end %>
+        </span>
+      <%% end %>
 
+<% end -%>
       <span class="delete">
         <%%= render 'refinery/admin/glass/delete_button',
                    css_class: 'cancel confirm-delete circle-icon',
@@ -30,7 +30,7 @@
         -%>
       </span>
 
-    <% if include_form? -%>
+<% if include_form? -%>
       <span class="edit">
         <%%= link_to '<i class="gcicon gcicon-edit"></i>'.html_safe, refinery.edit_<%= namespacing.underscore %>_admin_<%= singular_name %>_path(<%= singular_name %>),
             :title => t('.edit'),
@@ -53,16 +53,14 @@
       <%%= link_to refinery_icon_tag('bin_closed.png'), refinery.toggle_spam_<%= namespacing.underscore %>_admin_<%= singular_name %>_path(<%= singular_name %>), :title => t('.mark_as_spam') -%>
       <%% end %>
       <% end -%>
-    <% else %>
-      <% if !skip_frontend? -%>
+<% elsif !skip_frontend? -%>
       <span class="preview">
         <%%= link_to '<i class="gcicon gcicon-screen"></i>'.html_safe, refinery.<%= namespacing.underscore %>_<%= singular_name %>_path(<%= singular_name %>),
             :title => t('.view_live_html'),
             :class => "circle-icon",
             :target => "_blank" %>
       </span>
-      <% end -%>
-    <% end -%>
+<% end -%>
     </span>
   </div>
 </li>
