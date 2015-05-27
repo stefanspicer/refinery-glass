@@ -181,6 +181,7 @@ var CanvasForms = (function ($) {
   }
 
   function initFormOptionalFieldsWithin(element) {
+    // TODO: make this generic so any form can use it
     $(element).find("#registration_situation").change(function () {
       $("#registration_situation_other").parents('.form-group')
         .toggle($(this).val() === "Other");
