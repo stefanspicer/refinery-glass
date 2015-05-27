@@ -1024,6 +1024,7 @@ body{
 	color: $red;
 	border-color: $white;
 	background: $white;
+	transition: .2s ease-out;
 	&:hover {
 		color: $white;
 		border-color: $red;
