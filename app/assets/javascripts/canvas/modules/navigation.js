@@ -62,7 +62,10 @@ var CanvasMenus = (function($){
 
         $('.notched-borders').removeClass('one').removeClass('two').removeClass('three').removeClass('four').addClass($(this).data('pos'));
 
-        $('.page-content').parent().load(dest_url + ' .page-content');
+        var $content_container = $('.page-content').parent();
+        $content_container.load(dest_url + ' .page-content', function () {
+          $(document).trigger('content-ready', $content_container[0]);
+        });
 
         if(history.pushState){
           history.replaceState({isModal: true}, null, dest_url);
