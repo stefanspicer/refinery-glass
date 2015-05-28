@@ -1044,6 +1044,12 @@ form{
   }
 }
 
+.form-inline{
+  .dropdown-wrapper{
+    display: inline-block;
+  }
+}
+
 .form-group{
   .form-control, textarea{
 	  @include border-radius($radius);
