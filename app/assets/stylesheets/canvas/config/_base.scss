@@ -779,7 +779,7 @@ a.pill{
 
 .datepicker-wrapper{
   position: absolute;
-  width: 230px;
+  width: 290px;
   padding: 15px;
   background: $white;
   @include box-shadow($shadow);
@@ -792,14 +792,22 @@ a.pill{
     margin-left: -5px;
     margin-right: -5px;
     .form-group{
-      margin-left: 5px;
-      margin-right: 5px;
+      margin-left: 5px !important;
+      margin-right: 5px !important;
+      .form-control{
+        font-size: 14px;
+      }
     }
   }
   .close{
     position: absolute;
     top: 10px;
     right: 10px;
+    z-index: 100;
+    font-size: 12px;
+  }
+  .bootstrap-datetimepicker-widget{
+    width: 100%;
   }
   &.left{
     left: 0;
