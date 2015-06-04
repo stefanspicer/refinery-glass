@@ -21,6 +21,7 @@
     .icon, .gcicon{
       width: 10px;
       height: 10px;
+      font-size: 10px;
       &:last-child{
         margin-left: -10px !important
       }
@@ -38,7 +39,6 @@
   }
   .icon, .gcicon{
     margin: 0 !important;
-    font-size: 10px;
   }
 }
 

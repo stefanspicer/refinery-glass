@@ -8,6 +8,12 @@ var GlassDateTime = (function ($) {
       useCurrent: true,
       defaultDate: new Date()
     });
+    $('.datetimepicker.inline').datetimepicker({
+      useCurrent: true,
+      inline: true,
+      format: 'MMM D, YYYY',
+      defaultDate: new Date()
+    });
     $('.datetimepicker.side-by-side').datetimepicker({
       sideBySide: true,
       useCurrent: true,
