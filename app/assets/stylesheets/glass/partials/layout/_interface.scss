@@ -270,6 +270,13 @@ body{
         font-weight: 600;
         display: inline-block;
       }
+      .link-url{
+        position: absolute;
+        left: 50%;
+        margin-left: -10px;
+        top: -10px;
+        border-color: $primary-color;
+      }
       .url{
         font-weight: 600;
         color: $grey-5;

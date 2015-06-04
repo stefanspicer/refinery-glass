@@ -15,6 +15,31 @@
     border-color: $primary-dark;
     background: $primary-dark;
   }
+  &-sm{
+    @include circle(20px);
+    line-height: 1;
+    .icon, .gcicon{
+      width: 10px;
+      height: 10px;
+      &:last-child{
+        margin-left: -10px !important
+      }
+    }
+  }
+  &-white{
+    border-color: $white;
+    background-color: $white;
+    color: $primary-color;
+    &:hover{
+      border-color: $primary-color;;
+      background-color: $primary-color;;
+      color: $white;
+    }
+  }
+  .icon, .gcicon{
+    margin: 0 !important;
+    font-size: 10px;
+  }
 }
 
 .circle-icon.fluid-width{
