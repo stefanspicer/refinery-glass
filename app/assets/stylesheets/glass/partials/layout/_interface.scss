@@ -97,6 +97,7 @@ body{
     white-space: nowrap;
     width: 100%;
     overflow: hidden;
+    height: 65px;
     .site-name{
       text-align: right;
       background: $grey-1;
@@ -232,14 +233,14 @@ body{
     position: fixed;
     top: 0;
     color: $grey-6;
-    font-size: 21px;
+    font-size: 18px;
     font-weight: 600;
   }
   #sidebar-right-inner{
     width: 350px;
     height: calc(100% - 62px);
     padding: 0;
-    top: 62px;
+    top: 65px;
     overflow-y: scroll;
     overflow-x: hidden;
     z-index: 1002;
@@ -668,6 +669,7 @@ body{
   color: $white;
   z-index: 1050;
   padding: 9px 10px;
+  font-size: 18px;
   @include transition($transition);
   &:hover{
     .gcicon{
@@ -695,10 +697,10 @@ body{
   .gcicon{
     color: $white;
     font-size: 24px;
+    transition: .2s ease-out;
   }
   .gcicon-cancel{
-    font-size: 16px;
-    top: -3px;
+    top: -1px;
   }
 }
 
