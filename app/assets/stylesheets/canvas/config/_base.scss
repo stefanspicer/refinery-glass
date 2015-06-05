@@ -1286,6 +1286,7 @@ input:not([type="checkbox"]):focus, .form-control:focus, input[type="submit"]:fo
   padding-left: 30px;
 }
 
+body:not(.mozilla){
   .placeholder-labels{
     .form-control{
       &:focus{
@@ -1318,7 +1319,7 @@ input:not([type="checkbox"]):focus, .form-control:focus, input[type="submit"]:fo
       }
     }
   }
-
+}
 
 .validation{
   background: $red;
