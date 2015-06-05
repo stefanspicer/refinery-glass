@@ -30,18 +30,6 @@ a:active{
 	color: $primary-hover;
 }
 
-button{
-	background: none;
-	border: none;
-	padding: 0;
-	color: $primary-color;
-	text-decoration: none !important;
-	&:hover, &:focus{
-		color: $primary-hover;
-		text-decoration: none !important;
-	}
-}
-
 .bump-up{
   top: -1px;
 }
@@ -146,6 +134,10 @@ button{
 
 .block{
   display: block;
+}
+
+.inline-block {
+	display: inline-block;
 }
 
 .inner-wrapper{
@@ -375,6 +367,12 @@ p::-moz-selection {
   border-radius: $radius-double;
 }
 
+.pseudo-hidden-field, .image-id-field {
+	opacity: 0;
+	height: 0px;
+	width: 0px;
+}
+
 
 
 /* -------------------- ELEMENTS -------------------- */
@@ -579,7 +577,7 @@ p::-moz-selection {
   line-height: 1;
   border: 1px solid $grey-3;
   display: inline-block;
-  .icon{
+  .icon, .gcicon{
     font-size: 16px;
     line-height: 1;
     margin: 0 2px 0 0;
@@ -618,7 +616,7 @@ a.pill{
   padding: 0 12px 0 15px;
   font-size: 14px;
   line-height: 26px;
-  .icon{
+  .icon, .gcicon{
     font-size: 12px;
   }
 }
@@ -628,7 +626,7 @@ a.pill{
   padding: 0 8px 0 10px;
   font-size: 12px;
   line-height: 18px;
-  .icon{
+  .icon, .gcicon{
     font-size: 12px;
   }
 }
@@ -817,6 +815,12 @@ a.pill{
   }
 }
 
+.ui.modal > .content {
+	font-size: $font-size-base !important;
+}
+
+
+
 /* -------------------- BROWSER UPDATE -------------------- */
 
 .browser-update-wrapper{
@@ -854,6 +858,7 @@ a.pill{
     }
   }
 }
+
 
 
 /* -------------------- TYPOGRAPHY -------------------- */
@@ -1029,6 +1034,7 @@ ul li{
 .ellipsis{
   @include ellipsis(100%);
 }
+
 
 
 /* -------------------- FORMS -------------------- */
@@ -1347,11 +1353,48 @@ body:not(.mozilla){
   box-shadow: none;
 }
 
+.left-inner-addon input {
+	padding-left: 30px;
+}
+
+.right-inner-addon input {
+	padding-right: 30px;
+}
+
+.left-inner-addon .addon, .right-inner-addon .addon{
+	position: absolute;
+	padding: 8px 12px 6px;
+	pointer-events: none;
+	z-index: 999;
+	color: #aeaeae;
+}
+
+.right-inner-addon .addon {
+	right: 0;
+}
+.left-inner-addon .addon {
+	left: 0;
+}
+
+.right-inner-addon, .left-inner-addon {
+	position: relative;
+}
+
 
 
 /* -------------------- BUTTONS -------------------- */
 
+
 button{
+	background: none;
+	border: none;
+	padding: 0;
+	color: $primary-color;
+	text-decoration: none !important;
+	&:hover, &:focus{
+		color: $primary-hover;
+		text-decoration: none !important;
+	}
   &:active{
 		@include box-shadow(none);
 		outline: 0 !important;
@@ -1397,8 +1440,13 @@ button{
   font-weight: 600;
 }
 
+.btn-xs{
+  font-size: 12px;
+}
+
 .btn-sm{
-  padding: 5px 20px;
+  padding: 2px 10px;
+  font-size: 14px;
 }
 
 .btn-md{
@@ -1548,11 +1596,11 @@ button{
 }
 
 .btn-hover-spin{
-  .icon{
+  .icon, .gcicon{
     transition: $transition ease-out;
   }
   &:hover{
-    .icon{
+    .icon, .gcicon{
       transform: rotate(180deg) scale(-1, 1) translate(0, 1px);
     }
   }
@@ -1566,13 +1614,13 @@ button{
 }
 
 .btn-hover-remove{
-  .icon-minus-circle{
+  .icon, .gcicon{
     display: none;
   }
   &:hover{
     background: $red;
     color: $white;
-    .icon{
+    .icon, .gcicon{
       display: none;
     }
     .icon-minus-circle{
@@ -1581,49 +1629,13 @@ button{
   }
 }
 
-.pseudo-hidden-field, .image-id-field {
-	opacity: 0;
-	height: 0px;
-	width: 0px;
-}
-
-.left-inner-addon input {
-	padding-left: 30px;
-}
-
-.right-inner-addon input {
-	padding-right: 30px;
-}
-
-.left-inner-addon .addon, .right-inner-addon .addon{
-	position: absolute;
-	padding: 8px 12px 6px;
-	pointer-events: none;
-	z-index: 999;
-	color: #aeaeae;
-}
-
-.right-inner-addon .addon {
-	right: 0;
-}
-.left-inner-addon .addon {
-	left: 0;
-}
-
-.right-inner-addon, .left-inner-addon {
-	position: relative;
-}
-
-.inline-block {
-	display: inline-block;
-}
-
 .btn-file {
 	position: relative;
 	overflow: hidden;
 	padding-top: 8px !important;
 	padding-bottom: 9px !important;
 }
+
 .btn-file input[type=file] {
 	position: absolute;
 	top: 0;
@@ -1653,7 +1665,7 @@ button{
       opacity: 0;
       margin-left: -22px !important;
     }
-    transition: .15s cubic-bezier(.4,0,.2,1);
+    transition: .15s $bezier;
   }
   &:hover{
     .icon, .gcicon{
@@ -1687,8 +1699,4 @@ button{
       }
     }
   }
-}
-
-.ui.modal > .content {
-	font-size: $font-size-base !important
 }
