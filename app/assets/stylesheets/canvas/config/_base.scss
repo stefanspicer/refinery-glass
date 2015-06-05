@@ -1317,8 +1317,10 @@ body:not(.mozilla){
       &:focus{
         padding-top: 25px;
       }
-      &[type="text"]{
-        height: 68px;
+      &:not(textarea){
+        &:focus{
+          height: 68px;
+        }
       }
     }
     textarea{
