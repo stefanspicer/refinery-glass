@@ -1336,6 +1336,7 @@ body:not(.mozilla){
   z-index: 5;
   transition: .2s ease-out;
   white-space: nowrap;
+  @include ellipsis(100%);
   &.active{
     height: 25px;
   }
@@ -1650,9 +1651,9 @@ button{
     }
     &:last-child{
       opacity: 0;
-      margin-left: -22px !important
+      margin-left: -22px !important;
     }
-    transition: .15s cubic-bezier(.4,0,.2,1)
+    transition: .15s cubic-bezier(.4,0,.2,1);
   }
   &:hover{
     .icon, .gcicon{
