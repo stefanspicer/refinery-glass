@@ -1353,6 +1353,7 @@ body:not(.mozilla){
   color: $white;
   padding-bottom: 0px;
   padding-left: 15px;
+  padding-right: 15px;
   font-size: 12px;
   bottom: -5px;
   margin-top: -5px;
@@ -1399,6 +1400,10 @@ body:not(.mozilla){
 
 .right-inner-addon, .left-inner-addon {
 	position: relative;
+}
+
+.pseudo-hidden-field{
+  display: none;
 }
 
 
