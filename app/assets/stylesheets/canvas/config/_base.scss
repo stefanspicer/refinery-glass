@@ -788,6 +788,10 @@ a.pill{
   z-index: 150;
   border-radius: $radius;
   margin-top: 5px;
+  visibility:hidden;
+  opacity: 0;
+  transform: scale(1.2);
+  transition: visibility 0s $bezier .2s, all .2s $bezier;
   .datepicker-fields{
     display: flex;
     flex-wrap: nowrap;
@@ -816,6 +820,15 @@ a.pill{
   }
   &.right{
     right: 0;
+  }
+  &.lg{
+    width: 320px;
+  }
+  &.active{
+    visibility :visible;
+    opacity: 1;
+    transition-delay: 0s;
+    transform: scale(1.0);
   }
 }
 
