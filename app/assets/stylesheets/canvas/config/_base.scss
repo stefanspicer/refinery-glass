@@ -1,5 +1,9 @@
 /* -------------------- MAIN -------------------- */
 
+html, body{
+  overflow: auto !important;  
+}
+
 html{
 	height: 100%;
 }
