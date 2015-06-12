@@ -248,6 +248,10 @@ p::-moz-selection {
   margin-bottom: $margin * 3;
 }
 
+.margin-bottom-xl{
+  margin-bottom: $margin * 4;
+}
+
 .margin-top-none{
   margin-top: 0;
 }
@@ -274,6 +278,10 @@ p::-moz-selection {
 
 .margin-top-lg{
   margin-top: $margin * 3;
+}
+
+.margin-top-xl{
+  margin-top: $margin * 4;
 }
 
 .margin-right-none{
@@ -304,6 +312,10 @@ p::-moz-selection {
   margin-right: $margin * 3;
 }
 
+.margin-right-xl{
+  margin-right: $margin * 4;
+}
+
 .margin-left-none{
   margin-left: 0;
 }
@@ -330,6 +342,10 @@ p::-moz-selection {
 
 .margin-left-lg{
   margin-left: $margin * 3;
+}
+
+.margin-left-xl{
+  margin-left: $margin * 4;
 }
 
 .flip-wrapper{
