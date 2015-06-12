@@ -1,8 +1,8 @@
 Refinery::Plugin::META = {
   "refinery_dashboard"    => {position: 0 , icon: 'gcicon gcicon-dashboard'},
-  "refinery_pages"        => {position: 5, icon: 'gcicon gcicon-pages'    },
+  "refinery_pages"        => {position: 5, icon: 'gcicon gcicon-pages'     },
   "refinerycms_blog"      => {position: 15, icon: 'gcicon gcicon-feather'  },
-  "refinerycms_inquiries" => {position: 85, icon: 'gcicon gcicon-wrench'    },
+  "refinerycms_inquiries" => {position: 85, icon: 'gcicon gcicon-wrench'   },
   "refinery_users"        => {position: 90, icon: 'gcicon gcicon-group'    },
   "refinery_settings"     => {position: 0 , icon: 'gcicon gcicon-wrench'   }, #hide
   "refinery_images"       => {position: 0 , icon: 'gcicon gcicon-wrench'   }, #hide
