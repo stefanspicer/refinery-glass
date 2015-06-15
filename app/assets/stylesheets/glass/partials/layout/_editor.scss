@@ -136,39 +136,6 @@
   }
 }
 
-.inline-module{
-  &-fw{
-    width: 100vw;
-    transform: translateX(-50vw);
-    left: 50%;
-    .img-responsive{
-      width: 100%;
-    }
-  }
-  &-lg{
-    @media (min-width: 768px) {
-      width: calc(100% + 200px);
-      margin-left: -100px;
-    }
-  }
-}
-
-.image-group{
-  &.active{
-    display: flex;
-    flex-wrap: wrap;
-    .inline-editable-image-container{
-      .img-layout{
-        display: none;
-      }
-    }
-  }
-  .inline-editable-image-container{
-    flex: 1;
-    margin: 0 15px;
-  }
-}
-
 .link-items{
   width: 20px !important;
   height: 20px !important;
