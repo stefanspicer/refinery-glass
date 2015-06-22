@@ -1,6 +1,6 @@
 /* -------------------- MODULES -------------------- */
 
-.circle-icon{
+.circle-icon {
   @include circle(30px);
   color: $black;
   border: 1px solid $black;
@@ -10,43 +10,43 @@
   &:link, &:visited {
     color: $black;
   }
-  &:hover, &:focus{
+  &:hover, &:focus {
     color: $white;
     border-color: $primary-dark;
     background: $primary-dark;
   }
-  &-sm{
+  &-sm {
     @include circle(20px);
     line-height: 1;
-    .icon, .gcicon{
+    .icon, .gcicon {
       width: 10px;
       height: 10px;
       font-size: 10px;
-      &:last-child{
+      &:last-child {
         margin-left: -10px !important
       }
     }
   }
-  &-white{
+  &-white {
     border-color: $white;
     background-color: $white;
     color: $primary-color;
-    &:hover{
+    &:hover {
       border-color: $primary-color;;
       background-color: $primary-color;;
       color: $white;
     }
   }
-  .icon, .gcicon{
+  .icon, .gcicon {
     margin: 0 !important;
   }
 }
 
-.circle-icon.fluid-width{
+.circle-icon.fluid-width {
   padding: 0 10px 0 10px;
   min-width: 30px;
   width: auto;
-  span{
+  span {
     padding-top: 2px;
   }
 }

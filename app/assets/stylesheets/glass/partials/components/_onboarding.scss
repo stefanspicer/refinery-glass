@@ -1,120 +1,120 @@
 /* -------------------- ONBOARDING -------------------- */
 
-.onboarding-menu{
+.onboarding-menu {
   display: flex;
   padding: 0;
   margin-bottom: 60px;
-  .btn{
+  .btn {
     flex: 1;
     border-right: 1px solid $grey-1;
     height: 100%;
     padding: 18px;
     color: $grey-4;
     margin: 0;
-    &:last-child{
+    &:last-child {
       border-right: 0;
     }
-    &:hover{
+    &:hover {
       color: $primary-hover;
-      .gcicon{
+      .gcicon {
         color: $primary-hover;
       }
     }
-    .gcicon{
+    .gcicon {
       transition: $transition;
     }
-    .gcicon-check{
+    .gcicon-check {
       display: none;
     }
-    .icon{
+    .icon {
       margin: 5px auto 5px;
       display: block;
       font-size: 24px;
     }
-    &.completed-step{
+    &.completed-step {
       box-shadow: none;
-      .gcicon-check{
+      .gcicon-check {
         color: $green;
         display: inline;
       }
-      &:hover{
+      &:hover {
         color: $primary-hover;
-        .gcicon{
+        .gcicon {
           color: $primary-hover;
         }
       }
     }
-    &.active{
+    &.active {
       color: $grey-6;
       box-shadow: none;
       font-weight: 600;
-      .gcicon-check{
+      .gcicon-check {
         display: none;
       }
-      &:hover{
+      &:hover {
         color: $primary-hover;
-        .gcicon{
+        .gcicon {
           color: $primary-hover;
         }
       }
     }
-    &.completed-step.active{
-      .gcicon-check{
+    &.completed-step.active {
+      .gcicon-check {
         display: inline;
       }
     }
   }
 }
 
-.onboarding{
-  h1, h2, h3, h4, h5{
+.onboarding {
+  h1, h2, h3, h4, h5 {
     text-align: center;
   }
   
-  p{
+  p {
     text-align: left;
     font-size: 21px;
     line-height: 1.8em;
   }
-  .message{
-    p{
+  .message {
+    p {
       font-size: 18px;
     }
   }
-  ul{
+  ul {
     text-align: left;
     font-size: 21px;
     line-height: 1.8em;
   }
-  .feature-icon{
+  .feature-icon {
     color: $grey-2;
     font-size: 160px;
     display: block;
     margin: 0 auto 15px;
     text-align: center;
   }
-  hr{
+  hr {
     height: 2px;
   }
-  .lesson-body{
-  	hr{
+  .lesson-body {
+  	hr {
     	height: 4px;
     	width: 150px;
     	margin: 30px auto 45px;
   	}
-   	.mini-lesson{
+   	.mini-lesson {
     	margin-bottom: 30px;
   	}
 	}
-	.onboarding-sm{
+	.onboarding-sm {
   	font-size: 16px;
 	}
-	.well-sm{
+	.well-sm {
   	padding: 15px;
   	margin-bottom: 30px;
-  	p{
+  	p {
     	font-size: 16px;
-    	&:last-child{
+    	&:last-child {
     	  margin-bottom: 0;
     	}
   	}
@@ -132,13 +132,13 @@
 			content: "";
 		}
 	}
-	.step-heading{
-  	.step-display{
+	.step-heading {
+  	.step-display {
     	border: 0 !important;
-    	.next-step, .next-lesson, .previous-step, .previous-lesson{
+    	.next-step, .next-lesson, .previous-step, .previous-lesson {
       	top: 15px;
     	}
-    	span{
+    	span {
       	font-size: 32px;
         color: $grey-6;
         line-height: 1.6;
@@ -164,25 +164,25 @@
   .onboarding-footer {
 		margin-top: 15px;
 		margin-bottom: 90px;
-		hr{
+		hr {
   		margin-bottom: 60px;
 		}
 	}
-	.subscription-collapse{
+	.subscription-collapse {
   	margin-bottom: 45px;
-  	.form-group{
+  	.form-group {
       text-align: left;
     	margin: 10px 0 0 0;
   	}
 	}
-	#mail_address{
-  	h4{
+	#mail_address {
+  	h4 {
     	margin-top: 30px;
   	}
 	}
 }
 
-.scrollable{
+.scrollable {
 	max-height: 300px;
 }
 
@@ -215,12 +215,12 @@
 	.btn-success {
 		margin-bottom: 45px;
 	}
-	footer{
-  	span{
-    	a{
+	footer {
+  	span {
+    	a {
       	font-weight: 600;
       	color: $primary-color;
-      	&:hover{
+      	&:hover {
         	color: $primary-hover;
       	}
     	}
@@ -238,23 +238,23 @@
 	}
 }
 
-.lesson{
-  .step-display{
+.lesson {
+  .step-display {
     padding: 5px 20px !important;
     display: inline-block;
   }
 
-  .next-step, .next-lesson, .previous-step, .previous-lesson{
+  .next-step, .next-lesson, .previous-step, .previous-lesson {
     font-size: 32px;
     top: 5px;
     position: absolute;
     color: $grey-5;
-    &:hover{
+    &:hover {
       cursor: pointer;
       color: $primary-hover;
     }
   }
-	.previous-step, .previous-lesson{
+	.previous-step, .previous-lesson {
 		left: -40px;
 	}
 	.next-step, .next-lesson {
@@ -266,7 +266,7 @@
 
 /* -------------------- COVER IMAGE PICKER -------------------- */
 
-.cover-image-picker{
+.cover-image-picker {
   margin-top: 30px;
   #preview-area {
   	width: calc(100% - 10px);
@@ -304,8 +304,8 @@
   				margin-right: 7px;
   			}
   		}
-  		&:nth-child(4n+4), &:nth-child(4n+3){
-  			.thumbnail{
+  		&:nth-child(4n+4), &:nth-child(4n+3) {
+  			.thumbnail {
   				margin-bottom: 0;
   			}
   		}
@@ -333,23 +333,23 @@
   	}
   }
   
-  .carousel-control{
+  .carousel-control {
     width: 30px;
     background: none !important;
-    .icon{
+    .icon {
       color: $grey-5;
       opacity: 1;
       margin-top: -16px;
     }
-    &.left{
+    &.left {
       left: -30px;
-      .icon{
+      .icon {
         left: 0;
       }
     }
-    &.right{
+    &.right {
       right: -30px;
-      .icon{
+      .icon {
         right: 0;
       }
     }
@@ -362,7 +362,7 @@
   		overflow: hidden;
   		cursor: pointer;
   		img {
-  			opacity: 0.9;
+  			opacity: .9;
   			border-radius: $radius;
   			position: absolute;
   			top: 0;
@@ -438,12 +438,12 @@ $color_choice_dimension: 40px;
 		&.color-input-container-lg {
 			margin-top: 80px;
 		}
-		.color-field{
+		.color-field {
 			height: 42px;
 		}
 	}
-	.divider-right{
-    &:after{
+	.divider-right {
+    &:after {
       width: 4px;
       right: -2px;
     }
