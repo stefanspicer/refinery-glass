@@ -105,8 +105,8 @@
             display: block;
             .circle-icon {
               border-color: $primary-color;
-                &:link {
-              color: $primary-color;
+              &:link, &:visited {
+                color: $primary-color;
               }
               &:hover {
                 color: $white;
