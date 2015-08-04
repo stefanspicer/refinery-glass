@@ -36,7 +36,9 @@ var DatePickerWrapper = (function($){
       daysOfWeekDisabled: disabledDays
     });
 
-    var $dp           = $dpElement.data('DateTimePicker');
+    var $dp = $dpElement.data('DateTimePicker');
+
+    setDateTimePickerDateTime($dp, false, moment($($btn.data('date-input')).val(), "YYYY-MM-DD"));
 
     /**
      * Handles the datepicker's value changing.
@@ -49,17 +51,16 @@ var DatePickerWrapper = (function($){
       var $inputField = $wrapper.find('input.' + (format === 'LT' ? 'time' : 'date') + '-only');
 
       $inputField.val(e.date.format(format));
-      call_callback($btn, $dp, $wrapper.hasClass('active'));
+      handleDateChange($btn, $dp, $wrapper.hasClass('active'));
     };
 
     $dpElement.on('dp.change', {dpElement: $dpElement, format: 'MM/DD/YYYY'}, changeInputOnDatepickerChange);
     $dpElement.on('dp.change', {dpElement: $dpElement, format: 'LT'},         changeInputOnDatepickerChange);
 
-
     var toggleVisibility = function(e) {
       e.preventDefault();
       var $wrapper = $($btn.data('container-selector')).find('.datepicker-wrapper');
-      call_callback($btn, $dp, $wrapper.hasClass('active'));
+      handleDateChange($btn, $dp, $wrapper.hasClass('active'));
       $wrapper.toggleClass('active');
     };
 
@@ -151,11 +152,13 @@ var DatePickerWrapper = (function($){
     return inputfieldFormat;
   }
 
-  function call_callback($btn, $dp, closing) {
+  function handleDateChange($btn, $dp, closing) {
     var callback = $btn.data('on-date-change');
     if (callback && closing) {
       callback($dp.date());
     }
+
+    $($btn.data('date-input')).val($dp.date().format('MM/DD/YYYY'));
   }
 
   // Return API for other modules
