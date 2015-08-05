@@ -41,7 +41,7 @@ var DatePickerWrapper = (function($){
     if($btn.data('date-input')){
       setDateTimePickerDateTime($dp, false, moment($($btn.data('date-input')).val(), "YYYY-MM-DD"));
     } else if($container.hasClass('has-time-field')) {
-      console.log('has time field');
+
       var newMoment = moment('10:00 AM', 'H:mm A');
       setDateTimePickerDateTime($dp, true, newMoment);
     }
