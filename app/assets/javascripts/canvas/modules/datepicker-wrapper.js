@@ -88,17 +88,17 @@ var DatePickerWrapper = (function($){
 
     $container.find('input[type=text]').change(function(e){
       var $inputField = $(this);
-      var inputfieldFormat = $(this).hasClass('time-only') ? 'H:mm A' : 'MM/DD/YYYY';
+      var inputfieldFormat = $(this).hasClass('time-only') ? 'FT' : 'MM/DD/YYYY';
 
       // get the number of integers in the string.
       var intsCount = $inputField.val().replace(/[^0-9]/g,"").length;
       var originalFormat = inputfieldFormat;
       // The format used for Time as 'HH:MM am/pm' is LT
-      var isTime = originalFormat === 'H:mm A' ? true : false;
+      var isTime = originalFormat === 'FT' ? true : false;
 
       inputfieldFormat = setDateFormat(inputfieldFormat, intsCount);
 
-      var newMomentObject = moment($inputField.val(), inputfieldFormat);
+      var newMomentObject = moment($inputField.val(), originalFormat);
 
       // Based on whether the momentObject is valid or not (using moment.js .isValid()), add, or remove the 'has-error'
       // class and change the value in the input field and for the datetimepicker.
@@ -114,7 +114,7 @@ var DatePickerWrapper = (function($){
 
         if(isTime){
           newMoment = moment('10:00 AM', 'H:mm A');
-          $inputField.val();
+          $inputField.val(newMoment.format('H:mm A'));
           setDateTimePickerDateTime($dp, isTime, newMoment);
         } else {
           newMoment = moment();
