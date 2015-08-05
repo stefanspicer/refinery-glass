@@ -38,7 +38,13 @@ var DatePickerWrapper = (function($){
 
     var $dp = $dpElement.data('DateTimePicker');
 
-    setDateTimePickerDateTime($dp, false, moment($($btn.data('date-input')).val(), "YYYY-MM-DD"));
+    if($btn.data('date-input')){
+      setDateTimePickerDateTime($dp, false, moment($($btn.data('date-input')).val(), "YYYY-MM-DD"));
+    } else if($container.hasClass('has-time-field')) {
+      console.log('has time field');
+      var newMoment = moment('10:00 AM', 'H:mm A');
+      setDateTimePickerDateTime($dp, true, newMoment);
+    }
 
     /**
      * Handles the datepicker's value changing.
@@ -59,6 +65,7 @@ var DatePickerWrapper = (function($){
 
     var toggleVisibility = function(e) {
       e.preventDefault();
+
       var $wrapper = $($btn.data('container-selector')).find('.datepicker-wrapper');
       handleDateChange($btn, $dp, $wrapper.hasClass('active'));
       $wrapper.toggleClass('active');
@@ -81,13 +88,13 @@ var DatePickerWrapper = (function($){
 
     $container.find('input[type=text]').change(function(e){
       var $inputField = $(this);
-      var inputfieldFormat = $(this).hasClass('time-only') ? 'LT' : 'MM/DD/YYYY';
+      var inputfieldFormat = $(this).hasClass('time-only') ? 'H:mm A' : 'MM/DD/YYYY';
 
       // get the number of integers in the string.
       var intsCount = $inputField.val().replace(/[^0-9]/g,"").length;
       var originalFormat = inputfieldFormat;
       // The format used for Time as 'HH:MM am/pm' is LT
-      var isTime = originalFormat === 'LT' ? true : false;
+      var isTime = originalFormat === 'H:mm A' ? true : false;
 
       inputfieldFormat = setDateFormat(inputfieldFormat, intsCount);
 
@@ -106,7 +113,7 @@ var DatePickerWrapper = (function($){
         var newMoment;
 
         if(isTime){
-          newMoment = moment('12:00 PM', 'FT');
+          newMoment = moment('10:00 AM', 'H:mm A');
           $inputField.val();
           setDateTimePickerDateTime($dp, isTime, newMoment);
         } else {
