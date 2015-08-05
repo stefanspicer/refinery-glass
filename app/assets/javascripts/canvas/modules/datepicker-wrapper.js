@@ -24,6 +24,9 @@ var DatePickerWrapper = (function($){
     var $dpElement = $container.find('.inline-dp-root');
     var format = 'MM/DD/YYYY';
     var disabledDays = $btn.data('disable-weekdays') || [];
+    var $btnClone = $btn.clone();
+    var $btnClearDP = $btn.siblings('.clear-dp');
+    var $wrapper = $($btn.data('container-selector')).find('.datepicker-wrapper');
 
     if($dpElement.length === 0){
       console.log("Datepicker error - root node not found");
@@ -46,6 +49,14 @@ var DatePickerWrapper = (function($){
       setDateTimePickerDateTime($dp, true, newMoment);
     }
 
+    $btnClearDP.click(function(e){
+      e.preventDefault();
+      $btn.html($btnClone.html()); // return text back to its original
+      $btnClearDP.addClass('toggled');
+      $wrapper.toggleClass('active');
+      resetDP($container, $dp);
+    });
+
     /**
      * Handles the datepicker's value changing.
      * @param  {Event} e - the dp.change event. Contains date and oldDate
@@ -63,14 +74,32 @@ var DatePickerWrapper = (function($){
     $dpElement.on('dp.change', {dpElement: $dpElement, format: 'MM/DD/YYYY'}, changeInputOnDatepickerChange);
     $dpElement.on('dp.change', {dpElement: $dpElement, format: 'LT'},         changeInputOnDatepickerChange);
 
+    /**
+     * Toggles the visiblity of the dp
+     * @param  {Event} e - The click event on the button that toggled the visiblity
+     * @return undefined
+     */
     var toggleVisibility = function(e) {
       e.preventDefault();
 
-      var $wrapper = $($btn.data('container-selector')).find('.datepicker-wrapper');
       handleDateChange($btn, $dp, $wrapper.hasClass('active'));
       $wrapper.toggleClass('active');
+      // Update the text of the button
+      //
+      if($btn.hasClass('display-date')){
+        $btn.text($dp.date().format('MM/DD/YYYY H:mm A'));
+      } else {
+        $btn.addClass('display-date');
+      }
+
+      if($btnClearDP.length > 0 && $btnClearDP.hasClass('toggled')) {
+        $btnClearDP.removeClass('toggled');
+      }
     };
 
+    // When either the close button or the button that opens the datepicker are clicked,
+    // Toggle the visiblity of the corresponding datetimepicker.
+    //
     $container.find('.close-dp').click(toggleVisibility);
     $btn.click(toggleVisibility);
 
@@ -88,17 +117,16 @@ var DatePickerWrapper = (function($){
 
     $container.find('input[type=text]').change(function(e){
       var $inputField = $(this);
-      var inputfieldFormat = $(this).hasClass('time-only') ? 'FT' : 'MM/DD/YYYY';
+      var inputfieldFormat = $inputField.hasClass('time-only') ? 'FT' : 'MM/DD/YYYY';
 
       // get the number of integers in the string.
       var intsCount = $inputField.val().replace(/[^0-9]/g,"").length;
       var originalFormat = inputfieldFormat;
       // The format used for Time as 'HH:MM am/pm' is LT
       var isTime = originalFormat === 'FT' ? true : false;
+      var newMomentObject = moment($inputField.val(), originalFormat);
 
       inputfieldFormat = setDateFormat(inputfieldFormat, intsCount);
-
-      var newMomentObject = moment($inputField.val(), originalFormat);
 
       // Based on whether the momentObject is valid or not (using moment.js .isValid()), add, or remove the 'has-error'
       // class and change the value in the input field and for the datetimepicker.
@@ -110,23 +138,49 @@ var DatePickerWrapper = (function($){
         // Set the input field's value to the formatted value.
         $inputField.val(newMomentObject.format(originalFormat));
       } else {
-        var newMoment;
 
-        if(isTime){
-          newMoment = moment('10:00 AM', 'H:mm A');
-          $inputField.val(newMoment.format('H:mm A'));
-          setDateTimePickerDateTime($dp, isTime, newMoment);
-        } else {
-          newMoment = moment();
-          $inputField.val(newMoment.format(originalFormat));
-          setDateTimePickerDateTime($dp, isTime, newMoment);
-        }
+        setDefaultDateOrTime($inputField, $dp);
         // If validation failed then add the 'has-error' class to the input field's parent
         // Note: 'has-error' is a bootstrap class.
         $inputField.parent().addClass('has-error');
       }
     });
   };
+
+  /**
+   * Method for resetting a specific part of the datepicker to it's default value
+   * @param {Object} $inputField - The specific field (date or time) to reset
+   * @param {DatePicker} $dp     - The current datetimepicker
+   */
+  function setDefaultDateOrTime($inputField, $dp){
+    var inputfieldFormat = $inputField.hasClass('time-only') ? 'FT' : 'MM/DD/YYYY';
+    var isTime = inputfieldFormat === 'FT' ? true : false;
+    var newMoment;
+
+    if(isTime){
+      newMoment = moment('10:00 AM', 'H:mm A');
+      $inputField.val(newMoment.format('H:mm A'));
+      setDateTimePickerDateTime($dp, isTime, newMoment);
+    } else {
+      newMoment = moment();
+      $inputField.val(newMoment.format(inputfieldFormat));
+      setDateTimePickerDateTime($dp, isTime, newMoment);
+    }
+  }
+
+  /**
+   * Resets the values of the dp's input fields while
+   * still preserving the date store for the dp so if
+   * opened again, the user can continue where they left off.
+   * @param  {Object} $container - The DOM element that contains the datepicker wrapper
+   * @param  {DatePicker} $dp    - The datepicker module
+   * @return undefined
+   */
+  function resetDP($container, $dp){
+    $container.find('input[type=text]').each(function(){
+      $(this).val(''); // reset the value in the input fields
+    });
+  }
 
   function setDateTimePickerDateTime($dp, isTime, newMomentObject){
     var currentDate = $dp.date();
