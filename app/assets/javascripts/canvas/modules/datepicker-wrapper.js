@@ -27,6 +27,17 @@ var DatePickerWrapper = (function($){
     var $btnClone = $btn.clone();
     var $btnClearDP = $btn.siblings('.clear-dp');
     var $wrapper = $($btn.data('container-selector')).find('.datepicker-wrapper');
+    var icons = {
+      time: 'icon icon-clock',
+      date: 'icon icon-calendar',
+      up: 'icon icon-up',
+      down: 'icon icon-down',
+      previous: 'icon icon-angle-left',
+      next: 'icon icon-angle-right',
+      today: 'icon icon-crosshair',
+      clear: 'icon icon-trash',
+      close: 'icon icon-cancel'
+    };
 
     if($dpElement.length === 0){
       console.log("Datepicker error - root node not found");
@@ -36,7 +47,8 @@ var DatePickerWrapper = (function($){
     $dpElement.datetimepicker({
       format: format,
       inline: true,
-      daysOfWeekDisabled: disabledDays
+      daysOfWeekDisabled: disabledDays,
+      icons: icons
     });
 
     var $dp = $dpElement.data('DateTimePicker');
