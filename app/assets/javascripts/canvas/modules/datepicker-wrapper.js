@@ -32,7 +32,7 @@ var DatePickerWrapper = (function($){
       date: 'icon icon-calendar',
       up: 'icon icon-angle-up',
       down: 'icon icon-angle-down',
-      previous: 'icon icon-angle-leLT',
+      previous: 'icon icon-angle-left',
       next: 'icon icon-angle-right',
       today: 'icon icon-crosshair',
       clear: 'icon icon-trash',
