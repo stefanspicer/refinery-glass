@@ -38,6 +38,14 @@ var DatePickerWrapper = (function($){
       clear: 'icon icon-trash',
       close: 'icon icon-cancel'
     };
+    var dpOptions = {
+      format: format,
+      inline: true,
+      sideBySide: true, // set to false if you want to time picker to be accessible in toolbar.
+      daysOfWeekDisabled: disabledDays,
+      icons: icons
+    };
+
     var btnFormat = (dateformat = $btn.data('date-format')) ? dateformat : 'MMM. D';
 
     if($dpElement.length === 0){
@@ -45,15 +53,13 @@ var DatePickerWrapper = (function($){
       return null;
     }
 
-    $dpElement.datetimepicker({
-      format: format,
-      inline: true,
-      sideBySide: true, // set to false if you want to time picker to be accessible in toolbar.
-      daysOfWeekDisabled: disabledDays,
-      icons: icons
-    });
+    $dpElement.datetimepicker(dpOptions);
 
     var $dp = $dpElement.data('DateTimePicker');
+
+    if($btn.data('default-datetime')){
+      $dp.date(moment($btn.data('default-datetime')));
+    }
 
     if($btn.data('date-input')){
       setDateTimePickerDateTime($dp, false, moment($($btn.data('date-input')).val(), "YYYY-MM-DD"));
