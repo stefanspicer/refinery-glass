@@ -24,20 +24,21 @@ var DatePickerWrapper = (function($){
     var $dpElement = $container.find('.inline-dp-root');
     var format = 'MM/DD/YYYY';
     var disabledDays = $btn.data('disable-weekdays') || [];
-    var $btnClone = $btn.clone();
+    var originalHTML = $btn.html();
     var $btnClearDP = $btn.siblings('.clear-dp');
     var $wrapper = $($btn.data('container-selector')).find('.datepicker-wrapper');
     var icons = {
       time: 'icon icon-clock',
       date: 'icon icon-calendar',
-      up: 'icon icon-up',
-      down: 'icon icon-down',
-      previous: 'icon icon-angle-left',
+      up: 'icon icon-angle-up',
+      down: 'icon icon-angle-down',
+      previous: 'icon icon-angle-leLT',
       next: 'icon icon-angle-right',
       today: 'icon icon-crosshair',
       clear: 'icon icon-trash',
       close: 'icon icon-cancel'
     };
+    var btnFormat = (dateformat = $btn.data('date-format')) ? dateformat : 'MMM. D';
 
     if($dpElement.length === 0){
       console.log("Datepicker error - root node not found");
@@ -47,6 +48,7 @@ var DatePickerWrapper = (function($){
     $dpElement.datetimepicker({
       format: format,
       inline: true,
+      sideBySide: true, // set to false if you want to time picker to be accessible in toolbar.
       daysOfWeekDisabled: disabledDays,
       icons: icons
     });
@@ -63,9 +65,10 @@ var DatePickerWrapper = (function($){
 
     $btnClearDP.click(function(e){
       e.preventDefault();
-      $btn.html($btnClone.html()); // return text back to its original
+      console.log(originalHTML);
+      $btn.removeClass('toggled').html(originalHTML); // return text back to its original
       $btnClearDP.addClass('toggled');
-      $wrapper.toggleClass('active');
+      $wrapper.removeClass('active');
       resetDP($container, $dp);
     });
 
@@ -83,8 +86,8 @@ var DatePickerWrapper = (function($){
       handleDateChange($btn, $dp, $wrapper.hasClass('active'));
     };
 
-    $dpElement.on('dp.change', {dpElement: $dpElement, format: 'MM/DD/YYYY'}, changeInputOnDatepickerChange);
-    $dpElement.on('dp.change', {dpElement: $dpElement, format: 'LT'},         changeInputOnDatepickerChange);
+    $dpElement.on('dp.change', {format: 'MM/DD/YYYY'}, changeInputOnDatepickerChange);
+    $dpElement.on('dp.change', {format: 'LT'},         changeInputOnDatepickerChange);
 
     /**
      * Toggles the visiblity of the dp
@@ -95,11 +98,14 @@ var DatePickerWrapper = (function($){
       e.preventDefault();
 
       handleDateChange($btn, $dp, $wrapper.hasClass('active'));
+
+      $btn.addClass('toggled');
       $wrapper.toggleClass('active');
       // Update the text of the button
       //
       if($btn.hasClass('display-date')){
-        $btn.text($dp.date().format('MM/DD/YYYY H:mm A'));
+        var icons = $btn.find('i');
+        $btn.html(' ' + $dp.date().format(btnFormat)).prepend(icons[1]).prepend(icons[0]);
       } else {
         $btn.addClass('display-date');
       }
@@ -129,16 +135,23 @@ var DatePickerWrapper = (function($){
 
     $container.find('input[type=text]').change(function(e){
       var $inputField = $(this);
-      var inputfieldFormat = $inputField.hasClass('time-only') ? 'FT' : 'MM/DD/YYYY';
+      var inputfieldFormat = $inputField.hasClass('time-only') ? 'LT' : 'MM/DD/YYYY';
 
       // get the number of integers in the string.
       var intsCount = $inputField.val().replace(/[^0-9]/g,"").length;
       var originalFormat = inputfieldFormat;
       // The format used for Time as 'HH:MM am/pm' is LT
-      var isTime = originalFormat === 'FT' ? true : false;
-      var newMomentObject = moment($inputField.val(), originalFormat);
+      var isTime = originalFormat === 'LT' ? true : false;
 
       inputfieldFormat = setDateFormat(inputfieldFormat, intsCount);
+      console.log($inputField.val());
+      console.log(inputfieldFormat);
+      console.log(originalFormat);
+
+      var newMomentObject = moment($inputField.val(), inputfieldFormat);
+
+      console.log(newMomentObject);
+      console.log(newMomentObject.isValid());
 
       // Based on whether the momentObject is valid or not (using moment.js .isValid()), add, or remove the 'has-error'
       // class and change the value in the input field and for the datetimepicker.
@@ -165,8 +178,8 @@ var DatePickerWrapper = (function($){
    * @param {DatePicker} $dp     - The current datetimepicker
    */
   function setDefaultDateOrTime($inputField, $dp){
-    var inputfieldFormat = $inputField.hasClass('time-only') ? 'FT' : 'MM/DD/YYYY';
-    var isTime = inputfieldFormat === 'FT' ? true : false;
+    var inputfieldFormat = $inputField.hasClass('time-only') ? 'LT' : 'MM/DD/YYYY';
+    var isTime = inputfieldFormat === 'LT' ? true : false;
     var newMoment;
 
     if(isTime){
@@ -183,7 +196,7 @@ var DatePickerWrapper = (function($){
   /**
    * Resets the values of the dp's input fields while
    * still preserving the date store for the dp so if
-   * opened again, the user can continue where they left off.
+   * opened again, the user can continue where they leLT off.
    * @param  {Object} $container - The DOM element that contains the datepicker wrapper
    * @param  {DatePicker} $dp    - The datepicker module
    * @return undefined
