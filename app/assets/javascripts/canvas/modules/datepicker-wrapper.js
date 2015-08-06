@@ -107,25 +107,25 @@ var DatePickerWrapper = (function($){
 
       $btn.addClass('toggled');
       $wrapper.toggleClass('active');
-      // Update the text of the button
-      //
-      if($btn.hasClass('display-date')){
-        var icons = $btn.find('i');
-        $btn.html(' ' + $dp.date().format(btnFormat)).prepend(icons[1]).prepend(icons[0]);
-      } else {
-        $btn.addClass('display-date');
-      }
 
       if($btnClearDP.length > 0 && $btnClearDP.hasClass('toggled')) {
         $btnClearDP.removeClass('toggled');
       }
     };
 
+    var updateButtonText = function(e){
+      e.preventDefault();
+
+      var icons = $btn.find('i');
+      $btn.html(' ' + $dp.date().format(btnFormat)).prepend(icons[1]).prepend(icons[0]);
+    }
+
     // When either the close button or the button that opens the datepicker are clicked,
     // Toggle the visiblity of the corresponding datetimepicker.
     //
     $container.find('.close-dp').click(toggleVisibility);
     $btn.click(toggleVisibility);
+    $container.find('.save-dp').click(updateButtonText);
 
     // NOTE: TEMPORARILY REMOVED. THIS WOULD SWITCH BETWEEN THE DATEPICKER AND THE TIME
     //       PICKER DEPENDING ON WHAT INPUT IS IN FOCUS - JK
