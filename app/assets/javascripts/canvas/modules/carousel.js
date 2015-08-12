@@ -1,9 +1,9 @@
 var CanvasCarousel = (function($){
   $(document).on('content-ready', function (e, element) {
-    
+
     var $carousel = $('.carousel');
     var $item = $('.carousel-inner');
-    
+
 
     $carousel.waypoint(function() {
       $carousel.carousel('cycle');
@@ -24,7 +24,7 @@ var CanvasCarousel = (function($){
 
     // Allow carousel navigation using swipe gestures.
     if($carousel.length > 0){
-      
+
       $carousel.each(function(index, element){
         Hammer($carousel[index]).on('panright', function() {
           $($carousel[index]).carousel('prev');
@@ -35,7 +35,7 @@ var CanvasCarousel = (function($){
         });
       });
     }
-  }); 
+  });
 
   // Return API for other modules
   return {};

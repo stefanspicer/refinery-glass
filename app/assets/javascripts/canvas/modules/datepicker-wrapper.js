@@ -49,7 +49,7 @@ var DatePickerWrapper = (function($){
     var btnFormat = (dateformat = $btn.data('date-format')) ? dateformat : 'MMM. D';
 
     if($dpElement.length === 0){
-      console.log("Datepicker error - root node not found");
+      console.warn("Datepicker error - root node not found");
       return null;
     }
 
@@ -71,7 +71,7 @@ var DatePickerWrapper = (function($){
 
     $btnClearDP.click(function(e){
       e.preventDefault();
-      console.log(originalHTML);
+
       $btn.removeClass('toggled').html(originalHTML); // return text back to its original
       $btnClearDP.addClass('toggled');
       $wrapper.removeClass('active');
@@ -150,14 +150,7 @@ var DatePickerWrapper = (function($){
       var isTime = originalFormat === 'LT' ? true : false;
 
       inputfieldFormat = setDateFormat(inputfieldFormat, intsCount);
-      console.log($inputField.val());
-      console.log(inputfieldFormat);
-      console.log(originalFormat);
-
       var newMomentObject = moment($inputField.val(), inputfieldFormat);
-
-      console.log(newMomentObject);
-      console.log(newMomentObject.isValid());
 
       // Based on whether the momentObject is valid or not (using moment.js .isValid()), add, or remove the 'has-error'
       // class and change the value in the input field and for the datetimepicker.
