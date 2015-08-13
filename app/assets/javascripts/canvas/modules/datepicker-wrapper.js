@@ -27,6 +27,8 @@ var DatePickerWrapper = (function($){
     var originalHTML = $btn.html();
     var $btnClearDP = $btn.siblings('.clear-dp');
     var $wrapper = $($btn.data('container-selector')).find('.datepicker-wrapper');
+    var timeOnly = $container.hasClass('time-only');
+
     var icons = {
       time: 'icon icon-clock',
       date: 'icon icon-calendar',
@@ -47,35 +49,39 @@ var DatePickerWrapper = (function($){
     };
 
     var btnFormat = (dateformat = $btn.data('date-format')) ? dateformat : 'MMM. D';
+    var $dp;
 
     if($dpElement.length === 0){
       console.warn("Datepicker error - root node not found");
       return null;
     }
 
-    $dpElement.datetimepicker(dpOptions);
+    // If this is only a time picker then do not init the datetime picker
+    if(! timeOnly){
+      $dpElement.datetimepicker(dpOptions);
 
-    var $dp = $dpElement.data('DateTimePicker');
+      $dp = $dpElement.data('DateTimePicker');
 
-    if($btn.data('default-datetime')){
-      $dp.date(moment($btn.data('default-datetime')));
-    }
+      if($btn.data('default-datetime')){
+        $dp.date(moment($btn.data('default-datetime')));
+      }
 
-    if($btn.data('date-input')){
-      setDateTimePickerDateTime($dp, false, moment($($btn.data('date-input')).val(), "YYYY-MM-DD"));
-    } else if($container.hasClass('has-time-field')) {
-
-      var newMoment = moment('10:00 AM', 'H:mm A');
-      setDateTimePickerDateTime($dp, true, newMoment);
+      if($btn.data('date-input')){
+        setDateTimePickerDateTime($dp, false, moment($($btn.data('date-input')).val(), "YYYY-MM-DD"));
+      } else if($container.hasClass('has-time-field')) {
+        var newMoment = moment('10:00 AM', 'H:mm A');
+        setDateTimePickerDateTime($dp, true, newMoment);
+      }
     }
 
     $btnClearDP.click(function(e){
       e.preventDefault();
-
-      $btn.removeClass('toggled').html(originalHTML); // return text back to its original
-      $btnClearDP.addClass('toggled');
-      $wrapper.removeClass('active');
-      resetDP($container, $dp);
+      if(! timeOnly){
+        $btn.removeClass('toggled').html(originalHTML); // return text back to its original
+        $btnClearDP.addClass('toggled');
+        $wrapper.removeClass('active');
+      }
+      resetDP($container);
     });
 
     /**
@@ -117,7 +123,13 @@ var DatePickerWrapper = (function($){
       e.preventDefault();
 
       var icons = $btn.find('i');
-      $btn.html(' ' + $dp.date().format(btnFormat)).prepend(icons[1]).prepend(icons[0]);
+      if($dp !== undefined){
+        $btn.html(' ' + $dp.date().format(btnFormat)).prepend(icons[1]).prepend(icons[0]);
+      } else {
+        var time = $wrapper.find('input[type="text"].time-only');
+        $btn.html(' ' + moment(time.val(), 'LT').format(btnFormat)).prepend(icons[1]).prepend(icons[0])
+      }
+      
     }
 
     // When either the close button or the button that opens the datepicker are clicked,
@@ -197,29 +209,30 @@ var DatePickerWrapper = (function($){
    * still preserving the date store for the dp so if
    * opened again, the user can continue where they leLT off.
    * @param  {Object} $container - The DOM element that contains the datepicker wrapper
-   * @param  {DatePicker} $dp    - The datepicker module
    * @return undefined
    */
-  function resetDP($container, $dp){
+  function resetDP($container){
     $container.find('input[type=text]').each(function(){
       $(this).val(''); // reset the value in the input fields
     });
   }
 
   function setDateTimePickerDateTime($dp, isTime, newMomentObject){
-    var currentDate = $dp.date();
+    if($dp !== undefined){
+      var currentDate = $dp.date();
 
-    // Set the appropriate values to update the current moment object that is used to keep track of
-    // the datetimepicker widget's datetime.
-    if(isTime){
-      currentDate.hour(newMomentObject.hour()).minute(newMomentObject.minute());
-    } else {
-      currentDate.year(newMomentObject.year()).month(newMomentObject.month()).date(newMomentObject.date());
+      // Set the appropriate values to update the current moment object that is used to keep track of
+      // the datetimepicker widget's datetime.
+      if(isTime){
+        currentDate.hour(newMomentObject.hour()).minute(newMomentObject.minute());
+      } else {
+        currentDate.year(newMomentObject.year()).month(newMomentObject.month()).date(newMomentObject.date());
+      }
+
+      // Set the datetimepicker to be the moment that was set.
+      $dp.date(currentDate);
+      return currentDate;
     }
-
-    // Set the datetimepicker to be the moment that was set.
-    $dp.date(currentDate);
-    return currentDate;
   }
 
   /**
@@ -238,12 +251,13 @@ var DatePickerWrapper = (function($){
   }
 
   function handleDateChange($btn, $dp, closing) {
-    var callback = $btn.data('on-date-change');
-    if (callback && closing) {
-      callback($dp.date());
+    if($dp !== undefined){
+      var callback = $btn.data('on-date-change');
+      if (callback && closing) {
+        callback($dp.date());
+      }
+      $($btn.data('date-input')).val($dp.date().format('MM/DD/YYYY'));
     }
-
-    $($btn.data('date-input')).val($dp.date().format('MM/DD/YYYY'));
   }
 
   // Return API for other modules
