@@ -63,13 +63,13 @@ var DatePickerWrapper = (function($){
       $dp = $dpElement.data('DateTimePicker');
 
       if($btn.data('default-datetime')){
-        $dp.date(moment($btn.data('default-datetime')));
+        $dp.date(moment($btn.data('default-datetime')).tz("America/Los_Angeles"));
       }
 
       if($btn.data('date-input')){
-        setDateTimePickerDateTime($dp, false, moment($($btn.data('date-input')).val(), "YYYY-MM-DD"));
+        setDateTimePickerDateTime($dp, false, moment($($btn.data('date-input')).val(), "YYYY-MM-DD").tz("America/Los_Angeles"));
       } else if($container.hasClass('has-time-field')) {
-        var newMoment = moment('10:00 AM', 'H:mm A');
+        var newMoment = moment('10:00 AM', 'H:mm A').tz("America/Los_Angeles");
         setDateTimePickerDateTime($dp, true, newMoment);
       }
     }
@@ -127,7 +127,7 @@ var DatePickerWrapper = (function($){
         $btn.html(' ' + $dp.date().format(btnFormat)).prepend(icons[1]).prepend(icons[0]);
       } else {
         var time = $wrapper.find('input[type="text"].time-only');
-        $btn.html(' ' + moment(time.val(), 'LT').format(btnFormat)).prepend(icons[1]).prepend(icons[0])
+        $btn.html(' ' + moment(time.val(), 'LT').tz("America/Los_Angeles").format(btnFormat)).prepend(icons[1]).prepend(icons[0])
       }
       
     }
@@ -162,7 +162,7 @@ var DatePickerWrapper = (function($){
       var isTime = originalFormat === 'LT' ? true : false;
 
       inputfieldFormat = setDateFormat(inputfieldFormat, intsCount);
-      var newMomentObject = moment($inputField.val(), inputfieldFormat);
+      var newMomentObject = moment($inputField.val(), inputfieldFormat).tz("America/Los_Angeles");
 
       // Based on whether the momentObject is valid or not (using moment.js .isValid()), add, or remove the 'has-error'
       // class and change the value in the input field and for the datetimepicker.
@@ -194,11 +194,11 @@ var DatePickerWrapper = (function($){
     var newMoment;
 
     if(isTime){
-      newMoment = moment('10:00 AM', 'H:mm A');
+      newMoment = moment('10:00 AM', 'H:mm A').tz("America/Los_Angeles");
       $inputField.val(newMoment.format('H:mm A'));
       setDateTimePickerDateTime($dp, isTime, newMoment);
     } else {
-      newMoment = moment();
+      newMoment = moment().tz("America/Los_Angeles");
       $inputField.val(newMoment.format(inputfieldFormat));
       setDateTimePickerDateTime($dp, isTime, newMoment);
     }
