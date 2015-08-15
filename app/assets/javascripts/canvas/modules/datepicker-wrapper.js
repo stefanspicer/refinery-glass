@@ -13,7 +13,12 @@ var DatePickerWrapper = (function($){
     // Add PST timezone
     moment.tz.add('PST|PST PDT|80 70|0101|1Lzm0 1zb0 Op0');
 
-    $('.datepicker-opener').each(function () {
+    $(element).find('.datepicker_time_field .time-only').change(function(e){
+      e.preventDefault();
+      handleInputFieldChanged(this);
+    });
+
+    $(element).find('.datepicker-opener').each(function () {
       initDatePicker($(this));
     });
   });
@@ -32,6 +37,7 @@ var DatePickerWrapper = (function($){
     var $wrapper = $($btn.data('container-selector')).find('.datepicker-wrapper');
     var timeOnly = $container.hasClass('time-only');
     var defaultDateTime = $btn.data('default-datetime');
+    console.log($container);
 
     var icons = {
       time: 'icon icon-clock',
@@ -156,35 +162,48 @@ var DatePickerWrapper = (function($){
     // });
 
     $container.find('input[type=text]').change(function(e){
-      var $inputField = $(this);
-      var inputfieldFormat = $inputField.hasClass('time-only') ? 'LT' : 'MM/DD/YYYY';
-
-      // get the number of integers in the string.
-      var intsCount = $inputField.val().replace(/[^0-9]/g,"").length;
-      var originalFormat = inputfieldFormat;
-      // The format used for Time as 'HH:MM am/pm' is LT
-      var isTime = originalFormat === 'LT' ? true : false;
-
-      inputfieldFormat = setDateFormat(inputfieldFormat, intsCount);
-      var newMomentObject = moment($inputField.val(), inputfieldFormat).tz("PST");
-
-      // Based on whether the momentObject is valid or not (using moment.js .isValid()), add, or remove the 'has-error'
-      // class and change the value in the input field and for the datetimepicker.
-      if(newMomentObject.isValid()){
-
-        setDateTimePickerDateTime($dp, isTime, newMomentObject);
-        // If there were any error classes added to this input field's parent  then remove them.
-        $inputField.parent().removeClass('has-error');
-        // Set the input field's value to the formatted value.
-        $inputField.val(newMomentObject.format(originalFormat));
-      } else {
-
-        setDefaultDateOrTime($inputField, $dp);
-        // If validation failed then add the 'has-error' class to the input field's parent
-        // Note: 'has-error' is a bootstrap class.
-        $inputField.parent().addClass('has-error');
-      }
+      e.preventDefault();
+      handleInputFieldChanged(this, $dp);
     });
+  };
+
+  /**
+   * [handleInputFieldChanged description]
+   * @param  {[type]} inputField [description]
+   * @param  {object} (optional) $dp - a DateTimePicker
+   * @return {[type]}            [description]
+   */
+  var handleInputFieldChanged = function(inputField, $dp){
+
+    var $inputField = $(inputField);
+    var inputfieldFormat = $inputField.hasClass('time-only') ? 'LT' : 'MM/DD/YYYY';
+
+    // get the number of integers in the string.
+    var intsCount = $inputField.val().replace(/[^0-9]/g,"").length;
+    var originalFormat = inputfieldFormat;
+    // The format used for Time as 'HH:MM am/pm' is LT
+    var isTime = originalFormat === 'LT' ? true : false;
+
+    inputfieldFormat = setDateFormat(inputfieldFormat, intsCount);
+    var newMomentObject = moment($inputField.val(), inputfieldFormat).tz("PST");
+
+    // Based on whether the momentObject is valid or not (using moment.js .isValid()), add, or remove the 'has-error'
+    // class and change the value in the input field and for the datetimepicker.
+    if(newMomentObject.isValid()){
+      if($dp !== undefined) {
+        setDateTimePickerDateTime($dp, isTime, newMomentObject);
+      }
+      // If there were any error classes added to this input field's parent  then remove them.
+      $inputField.parent().removeClass('has-error');
+      // Set the input field's value to the formatted value.
+      $inputField.val(newMomentObject.format(originalFormat));
+    } else {
+      
+      setDefaultDateOrTime($inputField, $dp);
+      // If validation failed then add the 'has-error' class to the input field's parent
+      // Note: 'has-error' is a bootstrap class.
+      $inputField.parent().addClass('has-error');
+    }
   };
 
   /**
