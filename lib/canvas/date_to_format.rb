@@ -10,7 +10,7 @@ module Canvas::DateToFormat
   end
   
   def format_datetimes
-    if self.class.datetime_attrs.present?
+    if defined?(self.class.datetime_attrs)
       format_datetime_attributes(self)
     end
   end
