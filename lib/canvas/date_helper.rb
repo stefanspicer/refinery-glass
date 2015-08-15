@@ -3,11 +3,21 @@ module Canvas
 
     def format_datetime_attributes(resource)
       resource_class = resource.class.name.to_s.constantize
+      
+      
 
       resource_class.datetime_attrs.each do |dt|
-        if resource[dt.to_sym].present?
-          date = resource[dt.to_sym][:date]
-          time = resource[dt.to_sym][:time]
+        attribute = resource[dt.to_sym]
+        # LINES FOR HELPING WITH DEBUGGING
+        # puts '---------------------------------------'
+        # puts resource.attributes
+        # puts '---------------------------------------'
+        # puts "#{dt}: #{attribute}"
+        # puts resource_class.datetime_attrs
+
+        if attribute.present? && attribute.is_a?(Hash)
+          date = attribute[:date]
+          time = attribute[:time]
 
           if date.present? && time.present?
             datetime = DateTime.strptime("#{date} #{time}", '%m/%d/%Y %H:%M %P')
