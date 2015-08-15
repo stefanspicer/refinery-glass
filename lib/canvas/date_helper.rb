@@ -2,9 +2,9 @@ module Canvas
   module DateHelper
 
     def format_datetime_attributes(resource)
-      resouce_class = resource.class.name.to_s.constantize
+      resource_class = resource.class.name.to_s.constantize
 
-      resouce_class.datetime_attrs.each do |dt|
+      resource_class.datetime_attrs.each do |dt|
         if resource[dt.to_sym].present?
           date = resource[dt.to_sym][:date]
           time = resource[dt.to_sym][:time]
@@ -18,7 +18,7 @@ module Canvas
           end
 
           # Convert to utc if this is for a datetime attribute.
-          datetime = datetime.utc if datetime.present? && (resouce_class.columns.find {|column| (column.name == dt) && (column.sql_type == 'datetime')}).present?
+          datetime = datetime.utc if datetime.present? && (resource_class.columns.find {|column| (column.name == dt) && (column.sql_type == 'datetime')}).present?
 
           # Assign the formatted date, time or datetime to the param
           resource[dt.to_sym] = datetime
