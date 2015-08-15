@@ -45,6 +45,7 @@
     <% if anytime %>
       <button type="button" class="btn btn-white flex-1 btn-toggle-icons delay-toggle <%= 'toggled' unless has_datetime %> clear-dp"><i class="icon icon-unchecked"></i><i class="icon icon-checked"></i> Anytime</button>
     <% end %>
+    <% if show_date_field %>
     <button type="button" class="btn btn-white <%= 'flex-1' if anytime %> btn-toggle-icons delay-toggle datepicker-opener <%= 'toggled' if has_datetime %>" <%= defined?(disabled_weekdays) ? "data-disabled-weekdays=#{disabled_weekdays}" : nil %> data-container-selector="#<%= class_container_selector %>"
     <% if defined?(btn_date_format) %>data-date-format='<%= btn_date_format %>'  <% end %>
     <% if defined?(datetime) && datetime.present? %>data-default-datetime='<%= dt_object.to_s %>'<% end %>>
@@ -60,6 +61,11 @@
           Choose a time
         <% end %>
     </button>
+    <% elsif show_time_field %>
+      <div class='form-group available_time_field time_field'>
+        <input type="text" name="<%= "#{(record.class.name.demodulize).underscore}[#{time_field_name.to_sym}][time]" %>" class="form-control time-only inline" value="<%= has_datetime ? dt_object.strftime('%-l:%M %p') : '' %>" placeholder="HH:MM PM"/>
+      </div>
+    <% end %>
   </div>
   <div id="<%= class_container_selector %>" class="datepicker-container has-time-field<%= show_time_field && !(show_date_field) ? ' time-only' : '' %>">
     <div class="datepicker-wrapper <%= anytime ? 'fluid' : 'lg' %> left">
@@ -74,12 +80,14 @@
           <input type="text" name="<%= "#{(record.class.name.demodulize).underscore}[#{date_field_name.to_sym}][date]" %>" class="form-control date-only inline" value="<%= has_datetime ? datetime.strftime('%m/%d/%Y') : '' %>" placeholder="MM/DD/YYYY"/>
         </div>
         <% end %>
-        <% if  show_time_field %>
+
+        <% if  show_time_field && show_date_field %>
         <div class='form-group available_time_field time_field'>
           <label for="<%= "#{(record.class.name.demodulize).underscore}_#{time_field_name}" %>">Time</label>
-          <input type="text" name="<%= "#{(record.class.name.demodulize).underscore}[#{time_field_name.to_sym}][time]" %>" class="form-control time-only inline" value="<%= has_datetime ? dt_object.strftime('%I:%M %p') : '' %>" placeholder="HH:MM PM"/>
+          <input type="text" name="<%= "#{(record.class.name.demodulize).underscore}[#{time_field_name.to_sym}][time]" %>" class="form-control time-only inline" value="<%= has_datetime ? dt_object.strftime('%-l:%M %p') : '' %>" placeholder="HH:MM PM"/>
         </div>
         <% end %>
+
       </div>
       <div class="form-group">
         <div class="row">
