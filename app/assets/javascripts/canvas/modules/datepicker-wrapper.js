@@ -19,7 +19,7 @@ var DatePickerWrapper = (function($){
     });
 
     $(element).find('.datepicker-opener').each(function () {
-      initDatePicker($(this));
+      initDatePicker($(this), element);
     });
   });
 
@@ -27,8 +27,8 @@ var DatePickerWrapper = (function($){
    * Create a single datepicker to be used in a modal
    * @return {undefined}
    */
-  var initDatePicker = function($btn){
-    var $container = $($btn.data('container-selector'));
+  var initDatePicker = function($btn, element){
+    var $container = $(element).find($btn.data('container-selector'));
     var $dpElement = $container.find('.inline-dp-root');
     var format = 'MM/DD/YYYY';
     var disabledDays = $btn.data('disabled-weekdays') || [];
