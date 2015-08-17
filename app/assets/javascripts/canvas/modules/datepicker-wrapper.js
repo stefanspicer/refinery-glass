@@ -37,7 +37,6 @@ var DatePickerWrapper = (function($){
     var $wrapper = $($btn.data('container-selector')).find('.datepicker-wrapper');
     var timeOnly = $container.hasClass('time-only');
     var defaultDateTime = $btn.data('default-datetime');
-    console.log($container);
 
     var icons = {
       time: 'icon icon-clock',
