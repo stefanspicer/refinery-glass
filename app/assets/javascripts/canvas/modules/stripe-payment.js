@@ -3,15 +3,21 @@ var Payment = (function($){
   var stripeResponseHandler;
 
   $(document).on('content-ready', function (e, element) {
-    var published_key = $('#published_key').val();
+    var $publishedKeyInput = $('#published_key')
 
     // return early if there has been to published_key set.
-    if(published_key === undefined || published_key === null || published_key === ''){
+    if($publishedKeyInput.length === 0){
+      var published_key_div = '<input type="hidden" id="published_key" value="<%= Rails.configuration.stripe[:publishable_key] %>"/>';
+
+      console.warn('publishedKeyInput not set');
+      console.log('to fix add this line into the view with the form: ' + published_key_div);
       return;
+    } else {
+
     }
 
     try {
-      Stripe.setPublishableKey(published_key);
+      Stripe.setPublishableKey($publishedKeyInput.val());
     } catch (e) {
       console.warn(e);
       return;
