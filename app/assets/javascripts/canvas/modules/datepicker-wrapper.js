@@ -11,7 +11,7 @@ var DatePickerWrapper = (function($){
 
   $(document).on('content-ready', function (e, element) {
     // Add PST timezone
-    moment.tz.add('PST|PST PDT|80 70|0101|1Lzm0 1zb0 Op0');
+    // moment.tz.add('PST|PST PDT|80 70|0101|1Lzm0 1zb0 Op0');
 
     $(element).find('.datepicker_time_field .time-only').change(function(e){
       e.preventDefault();
@@ -76,9 +76,9 @@ var DatePickerWrapper = (function($){
       }
 
       if($btn.data('date-input')){
-        setDateTimePickerDateTime($dp, false, moment($($btn.data('date-input')).val(), "YYYY-MM-DD").tz("PST"));
+        setDateTimePickerDateTime($dp, false, moment($($btn.data('date-input')).val(), "YYYY-MM-DD"));
       } else if($container.hasClass('has-time-field')) {
-        var newMoment = moment('10:00 AM', 'H:mm A').tz('PST');
+        var newMoment = moment('10:00 AM', 'H:mm A');
         setDateTimePickerDateTime($dp, true, newMoment);
       }
     }
@@ -103,7 +103,7 @@ var DatePickerWrapper = (function($){
       var $wrapper    = $($btn.data('container-selector')).find('.datepicker-wrapper');
       var $inputField = $wrapper.find('input.' + (format === 'LT' ? 'time' : 'date') + '-only');
 
-      $inputField.val(e.date.tz('PST').format(format));
+      $inputField.val(e.date.format(format));
       handleDateChange($btn, $dp, $wrapper.hasClass('active'));
     };
 
@@ -136,7 +136,7 @@ var DatePickerWrapper = (function($){
         $btn.html(' ' + $dp.date().format(btnFormat)).prepend(icons[1]).prepend(icons[0]);
       } else {
         var time = $wrapper.find('input[type="text"].time-only');
-        $btn.html(' ' + moment(time.val(), 'LT').tz("PST").format(btnFormat)).prepend(icons[1]).prepend(icons[0])
+        $btn.html(' ' + moment(time.val(), 'LT').format(btnFormat)).prepend(icons[1]).prepend(icons[0])
       }
       
     }
@@ -184,7 +184,7 @@ var DatePickerWrapper = (function($){
     var isTime = originalFormat === 'LT' ? true : false;
 
     inputfieldFormat = setDateFormat(inputfieldFormat, intsCount);
-    var newMomentObject = moment($inputField.val(), inputfieldFormat).tz("PST");
+    var newMomentObject = moment($inputField.val(), inputfieldFormat);
 
     // Based on whether the momentObject is valid or not (using moment.js .isValid()), add, or remove the 'has-error'
     // class and change the value in the input field and for the datetimepicker.
@@ -216,11 +216,11 @@ var DatePickerWrapper = (function($){
     var newMoment;
 
     if(isTime){
-      newMoment = moment('10:00 AM', 'H:mm A').tz("PST");
+      newMoment = moment('10:00 AM', 'H:mm A');
       $inputField.val(newMoment.format('H:mm A'));
       setDateTimePickerDateTime($dp, isTime, newMoment);
     } else {
-      newMoment = moment().tz("PST");
+      newMoment = moment();
       $inputField.val(newMoment.format(inputfieldFormat));
       setDateTimePickerDateTime($dp, isTime, newMoment);
     }

@@ -30,7 +30,7 @@
   anytime = defined?(anytime) && anytime
   show_time_field = (defined?(show_time) ? show_time : true)
   show_date_field = (defined?(show_date) ? show_date : true)
-  dt_object = DateTime.parse(datetime.to_s).utc if has_datetime
+  dt_object = DateTime.parse(datetime.to_s) if has_datetime
 %>
 
 <div class="form-group">
