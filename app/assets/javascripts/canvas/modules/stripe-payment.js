@@ -3,17 +3,16 @@ var Payment = (function($){
   var stripeResponseHandler;
 
   $(document).on('content-ready', function (e, element) {
-    var $publishedKeyInput = $('#published_key')
+    var $publishedKeyInput = $(element).find('#published_key');
+    var $paymentForm = $(element).find('.payment-form');
 
     // return early if there has been to published_key set.
-    if($publishedKeyInput.length === 0){
+    if($publishedKeyInput.length === 0 && $paymentForm.length !== 0){
       var published_key_div = '<input type="hidden" id="published_key" value="<%= Rails.configuration.stripe[:publishable_key] %>"/>';
 
       console.warn('publishedKeyInput not set');
       console.log('to fix add this line into the view with the form: ' + published_key_div);
       return;
-    } else {
-
     }
 
     try {
@@ -37,7 +36,7 @@ var Payment = (function($){
     });
 
     // Listen for and handle a payment form submission
-    $(element).find('.payment-form').submit(function(e) {
+    $paymentForm.submit(function(e) {
       var $form = $(this);
       var $termsModal = $('#accept-terms-modal');
 
