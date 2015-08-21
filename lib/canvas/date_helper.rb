@@ -7,19 +7,19 @@ module Canvas
       resource_class.datetime_attrs.each do |dt|
         attribute = resource[dt.to_sym]
         # LINES FOR HELPING WITH DEBUGGING
-        puts '---------------------------------------'
-        puts resource.attributes
-        puts '---------------------------------------'
-        puts "#{dt}: #{attribute}"
-        puts resource_class.datetime_attrs
+        # puts '---------------------------------------'
+        # puts resource.attributes
+        # puts '---------------------------------------'
+        # puts "#{dt}: #{attribute}"
+        # puts resource_class.datetime_attrs
 
         if attribute.present? && attribute.is_a?(Hash)
           date = attribute[:date]
           time = attribute[:time]
-          puts '&&&&&&&&&&&&&&&&&&&&&'
-          puts date
-          puts time
-          puts '&&&&&&&&&&&&&&&&&&&&&'
+          # puts '&&&&&&&&&&&&&&&&&&&&&'
+          # puts date
+          # puts time
+          # puts '&&&&&&&&&&&&&&&&&&&&&'
           if date.present? && time.present?
             datetime = DateTime.strptime("#{date} #{time}", '%m/%d/%Y %H:%M %P')
           elsif date.present?
