@@ -12,13 +12,15 @@ var DatePickerWrapper = (function($){
     // Add PST timezone
     // moment.tz.add('PST|PST PDT|80 70|0101|1Lzm0 1zb0 Op0');
 
-    $(element).find('.datepicker_time_field .time-only').change(function(e){
-      e.preventDefault();
-      inputFieldChanged(this);
-    });
+    var $datepicker;
 
     $(element).find('.datepicker-opener').each(function () {
-      initDatePicker($(this));
+      $datepicker = initDatePicker($(this));
+    });
+
+    // A separate (simple) time picker that is optionally used within the datepicker
+    $(element).find('input.format-as-time').change(function (e) {
+      inputFieldChanged(this, $datepicker);
     });
   });
 
@@ -139,17 +141,18 @@ var DatePickerWrapper = (function($){
     // $('.datepicker-fields input[type=text]').focus(function(e){
     //   e.preventDefault();
 
-    //   if($dp.format() === 'MM/DD/YYYY' && $(this).hasClass('time-only')){
+    //   if($dp.format() === 'MM/DD/YYYY' && $(this).hasClass('format-as-time')){
     //     $dp.hide().format('LT').show();
     //   } else if($dp.format() === 'LT' && $(this).hasClass('date-only')) {
     //     $dp.hide().format('MM/DD/YYYY').show();
     //   }
     // });
 
-    $wrapper.find('input[type=text]').change(function(e){
-      e.preventDefault();
+    $wrapper.find('input.date-only').change(function(e){
       inputFieldChanged(this, $dp);
     });
+
+    return $dp;
   };
 
   /**
@@ -161,7 +164,7 @@ var DatePickerWrapper = (function($){
   var inputFieldChanged = function(inputField, $dp){
 
     var $inputField = $(inputField);
-    var inputfieldFormat = $inputField.hasClass('time-only') ? 'LT' : 'MM/DD/YYYY';
+    var inputfieldFormat = $inputField.hasClass('format-as-time') ? 'LT' : 'MM/DD/YYYY';
 
     // get the number of integers in the string.
     var intsCount = $inputField.val().replace(/[^0-9]/g,"").length;
@@ -197,7 +200,7 @@ var DatePickerWrapper = (function($){
    * @param {DatePicker} $dp     - The current datetimepicker
    */
   function resetToDefault($inputField, $dp){
-    var inputfieldFormat = $inputField.hasClass('time-only') ? 'LT' : 'MM/DD/YYYY';
+    var inputfieldFormat = $inputField.hasClass('format-as-time') ? 'LT' : 'MM/DD/YYYY';
     var isTime = inputfieldFormat === 'LT' ? true : false;
     var newMoment;
 
