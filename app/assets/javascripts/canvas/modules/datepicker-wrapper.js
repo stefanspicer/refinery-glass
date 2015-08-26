@@ -116,13 +116,14 @@ var DatePickerWrapper = (function($){
      * @return undefined
      */
     var saveDate = function (e) {
-      var icons = $btn.find('i');
       if($dp !== undefined){
-        if (callback && closing) {
+        if (callback) {
           callback($dp.date());
         }
 
-        $btn.html(' ' + $dp.date().format(btnFormat)).prepend(icons[1]).prepend(icons[0]);
+        if (btnFormat != 'manual') {
+          $btn.html($dp.date().format(btnFormat));
+        }
         $ioElem.val($dp.date().toISOString());
       }
     };
@@ -284,3 +285,5 @@ var DatePickerWrapper = (function($){
 // if($btnClearDP.length > 0 && $btnClearDP.hasClass('toggled')) {
 //   $btnClearDP.removeClass('toggled');
 // }
+// var icons = $btn.find('i');
+// .prepend(icons[1]).prepend(icons[0]);
