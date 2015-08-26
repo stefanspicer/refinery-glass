@@ -28,7 +28,7 @@ var DatePickerWrapper = (function($){
    * Create a single datepicker to be used in a modal
    * @return {undefined}
    */
-  var initDatePicker = function($btn){
+  var initDatePicker = function($btn) {
     var $wrapper = $btn.parent().find('.datepicker-wrapper');
     var $dpElement = $wrapper.find('.inline-dp-root');
     var disabledDays = $btn.data('disabled-weekdays') || [];
@@ -258,9 +258,8 @@ var DatePickerWrapper = (function($){
    * @return {string} - a string containing the date format to use.
    */
   function setDateFormat(inputfieldFormat, intsCount){
-
-   if(inputfieldFormat === 'MM/DD/YYYY' && intsCount <= 7){
-      inputfieldFormat= 'MM/DD/YY';
+    if(inputfieldFormat === 'MM/DD/YYYY' && intsCount <= 7){
+      inputfieldFormat = 'MM/DD/YY';
     }
     return inputfieldFormat;
   }
