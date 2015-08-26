@@ -8,18 +8,17 @@
  * @return {Object} - An object containing any of the publicly accessible methods of this module.
  */
 var DatePickerWrapper = (function($){
-
   $(document).on('content-ready', function (e, element) {
     // Add PST timezone
     // moment.tz.add('PST|PST PDT|80 70|0101|1Lzm0 1zb0 Op0');
 
     $(element).find('.datepicker_time_field .time-only').change(function(e){
       e.preventDefault();
-      handleInputFieldChanged(this);
+      inputFieldChanged(this);
     });
 
     $(element).find('.datepicker-opener').each(function () {
-      initDatePicker($(this), element);
+      initDatePicker($(this));
     });
   });
 
@@ -27,16 +26,12 @@ var DatePickerWrapper = (function($){
    * Create a single datepicker to be used in a modal
    * @return {undefined}
    */
-  var initDatePicker = function($btn, element){
-    var $container = $(element).find($btn.data('container-selector'));
-    var $dpElement = $container.find('.inline-dp-root');
+  var initDatePicker = function($btn){
+    var $wrapper = $btn.parent().find('.datepicker-wrapper');
+    var $dpElement = $wrapper.find('.inline-dp-root');
     var format = 'MM/DD/YYYY';
     var disabledDays = $btn.data('disabled-weekdays') || [];
-    var originalHTML = $btn.html();
-    var $btnClearDP = $btn.siblings('.clear-dp');
-    var $wrapper = $($btn.data('container-selector')).find('.datepicker-wrapper');
-    var timeOnly = $container.hasClass('time-only');
-    var defaultDateTime = $btn.data('default-datetime');
+    var $ioElem = $($btn.data('io-selector'));
 
     var icons = {
       time: 'icon icon-clock',
@@ -57,7 +52,7 @@ var DatePickerWrapper = (function($){
       icons: icons
     };
 
-    var btnFormat = (dateformat = $btn.data('date-format')) ? dateformat : 'MMM. D';
+    var btnFormat = (dateformat = $btn.data('date-format')) ? dateformat : 'MMM. D, YYYY';
     var $dp;
 
     if($dpElement.length === 0){
@@ -65,50 +60,28 @@ var DatePickerWrapper = (function($){
       return null;
     }
 
-    // If this is only a time picker then do not init the datetime picker
-    if(! timeOnly){
-      $dpElement.datetimepicker(dpOptions);
+    $dpElement.datetimepicker(dpOptions);
 
-      $dp = $dpElement.data('DateTimePicker');
+    $dp = $dpElement.data('DateTimePicker');
 
-      if(defaultDateTime !== undefined){
-        $dp.date(moment.utc(defaultDateTime));
-      }
-
-      if($btn.data('date-input')){
-        setDateTimePickerDateTime($dp, false, moment($($btn.data('date-input')).val(), "YYYY-MM-DD"));
-      } else if($container.hasClass('has-time-field')) {
-        var newMoment = moment('10:00 AM', 'H:mm A');
-        setDateTimePickerDateTime($dp, true, newMoment);
-      }
+    if($ioElem.val()) {
+      $dp.date(moment.utc($ioElem.val()));
     }
-
-    $btnClearDP.click(function(e){
-      e.preventDefault();
-      if(! timeOnly){
-        $btn.removeClass('toggled').html(originalHTML); // return text back to its original
-        $btnClearDP.addClass('toggled');
-        $wrapper.removeClass('active');
-      }
-      resetDP($container);
-    });
 
     /**
      * Handles the datepicker's value changing.
      * @param  {Event} e - the dp.change event. Contains date and oldDate
      * @return {undefined}
      */
-    var changeInputOnDatepickerChange = function(e) {
+    var dpDateChanged = function(e) {
       var format      = e.data.format;
-      var $wrapper    = $($btn.data('container-selector')).find('.datepicker-wrapper');
       var $inputField = $wrapper.find('input.' + (format === 'LT' ? 'time' : 'date') + '-only');
 
       $inputField.val(e.date.format(format));
-      handleDateChange($btn, $dp, $wrapper.hasClass('active'));
     };
 
-    $dpElement.on('dp.change', {format: 'MM/DD/YYYY'}, changeInputOnDatepickerChange);
-    $dpElement.on('dp.change', {format: 'LT'},         changeInputOnDatepickerChange);
+    $dpElement.on('dp.change', {format: 'MM/DD/YYYY'}, dpDateChanged);
+    $dpElement.on('dp.change', {format: 'LT'},         dpDateChanged);
 
     /**
      * Toggles the visiblity of the dp
@@ -118,35 +91,36 @@ var DatePickerWrapper = (function($){
     var toggleVisibility = function(e) {
       e.preventDefault();
 
-      handleDateChange($btn, $dp, $wrapper.hasClass('active'));
-
       $btn.addClass('toggled');
       $wrapper.toggleClass('active');
 
-      if($btnClearDP.length > 0 && $btnClearDP.hasClass('toggled')) {
-        $btnClearDP.removeClass('toggled');
+      if (!$wrapper.hasClass('active')) {
+        saveDate();
       }
     };
 
-    var updateButtonText = function(e){
-      e.preventDefault();
-
+    /**
+     * Save the chosen datetime - the datepicker is closing
+     * @return undefined
+     */
+    var saveDate = function (e) {
       var icons = $btn.find('i');
       if($dp !== undefined){
+        var callback = $btn.data('on-date-change');
+        if (callback && closing) {
+          callback($dp.date());
+        }
+
         $btn.html(' ' + $dp.date().format(btnFormat)).prepend(icons[1]).prepend(icons[0]);
-      } else {
-        var time = $wrapper.find('input[type="text"].time-only');
-        $btn.html(' ' + moment(time.val(), 'LT').format(btnFormat)).prepend(icons[1]).prepend(icons[0])
+        $ioElem.val($dp.date().format('YYYY-MM-DD'));
       }
-      
-    }
+    };
 
     // When either the close button or the button that opens the datepicker are clicked,
     // Toggle the visiblity of the corresponding datetimepicker.
     //
-    $container.find('.close-dp').click(toggleVisibility);
+    $wrapper.find('.close-dp').click(toggleVisibility);
     $btn.click(toggleVisibility);
-    $container.find('.save-dp').click(updateButtonText);
 
     // NOTE: TEMPORARILY REMOVED. THIS WOULD SWITCH BETWEEN THE DATEPICKER AND THE TIME
     //       PICKER DEPENDING ON WHAT INPUT IS IN FOCUS - JK
@@ -160,19 +134,19 @@ var DatePickerWrapper = (function($){
     //   }
     // });
 
-    $container.find('input[type=text]').change(function(e){
+    $wrapper.find('input[type=text]').change(function(e){
       e.preventDefault();
-      handleInputFieldChanged(this, $dp);
+      inputFieldChanged(this, $dp);
     });
   };
 
   /**
-   * [handleInputFieldChanged description]
+   * [inputFieldChanged description]
    * @param  {[type]} inputField [description]
    * @param  {object} (optional) $dp - a DateTimePicker
    * @return {[type]}            [description]
    */
-  var handleInputFieldChanged = function(inputField, $dp){
+  var inputFieldChanged = function(inputField, $dp){
 
     var $inputField = $(inputField);
     var inputfieldFormat = $inputField.hasClass('time-only') ? 'LT' : 'MM/DD/YYYY';
@@ -197,7 +171,7 @@ var DatePickerWrapper = (function($){
       // Set the input field's value to the formatted value.
       $inputField.val(newMomentObject.format(originalFormat));
     } else {
-      
+
       setDefaultDateOrTime($inputField, $dp);
       // If validation failed then add the 'has-error' class to the input field's parent
       // Note: 'has-error' is a bootstrap class.
@@ -229,14 +203,18 @@ var DatePickerWrapper = (function($){
   /**
    * Resets the values of the dp's input fields while
    * still preserving the date store for the dp so if
-   * opened again, the user can continue where they leLT off.
-   * @param  {Object} $container - The DOM element that contains the datepicker wrapper
+   * opened again, the user can continue where they left off.
+   * @param  {Object} $wrapper - The DOM element that contains the datepicker wrapper
    * @return undefined
    */
-  function resetDP($container){
-    $container.find('input[type=text]').each(function(){
+  function resetDP($btn){
+    var $wrapper = $btn.parent().find('.datepicker-wrapper');
+    $wrapper.find('input[type=text]').each(function(){
       $(this).val(''); // reset the value in the input fields
     });
+
+    var $ioElem  = $($btn.data('io-selector'));
+    $ioElem.val('');
   }
 
   function setDateTimePickerDateTime($dp, isTime, newMomentObject){
@@ -272,16 +250,26 @@ var DatePickerWrapper = (function($){
     return inputfieldFormat;
   }
 
-  function handleDateChange($btn, $dp, closing) {
-    if($dp !== undefined){
-      var callback = $btn.data('on-date-change');
-      if (callback && closing) {
-        callback($dp.date());
-      }
-      $($btn.data('date-input')).val($dp.date().format('MM/DD/YYYY'));
-    }
-  }
-
   // Return API for other modules
-  return {};
+  return {
+    reset: resetDP
+  };
 })(jQuery);
+
+// FIXME: this was in dp change ...I don't think we use it
+// $($btn.data('date-input')).val($dp.date().format('MM/DD/YYYY'));
+
+// FIXME: Advisor requests "anytime" needs this
+// var originalHTML = $btn.html();
+// var $btnClearDP = $btn.siblings('.clear-dp');
+// $btnClearDP.click(function(e){
+//   e.preventDefault();
+//   $btn.removeClass('toggled').html(originalHTML); // return text back to its original
+//   $btnClearDP.addClass('toggled');
+//   $wrapper.removeClass('active');
+//   resetDP($btn);
+// });
+
+// if($btnClearDP.length > 0 && $btnClearDP.hasClass('toggled')) {
+//   $btnClearDP.removeClass('toggled');
+// }

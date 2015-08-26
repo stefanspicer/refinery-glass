@@ -1,95 +1,26 @@
-<%#
-  The dp (datetimepicker) module takes many locale options. They are as follow:
-
-  f:                          The form the this datepicker is part of.
-  record:                 The ActiveRecord that the datepicker is being used to set the datetime for.
-
-  date_field_name:  A string specifying the record's attribute name for the field that the datetimepicker is being used for.
-
-  show_date         (optional): Set to false if the date portion of the dp should not be shown.
-                                default: true
-  show_time         (optional): Set to false if the time portion of the dp should not be shown.
-                                default: true
-  instructions_text  (optional): The message that should be displayed at the top of the dp.
-                                default: 'Choose a prefered time and we will call you as close to that time as possible.'
-  button_text       (optional): Text that should show in the button that opens the datepicker
-                                default: ' Choose a time'
-  anytime             (optional): If set to true, there will be a button that clears and closes the dp if the datetime
-                                is optional.
-                                default: undefined
-  disabled_weekdays (optional): If some weekdays that shouldn't be selectable from the datepicker pass them here as an array ex. [1] or [1,2]
-                                default: undefined
-  default_datetime  (optional): A default datetime string to set the dp to.
-%>
-
-<%
-  # Set variables used in the rendering of the datetimepicker
-  #
-  has_datetime = defined?(datetime) && datetime.present?
-
-  anytime = defined?(anytime) && anytime
-  show_time_field = (defined?(show_time) ? show_time : true)
-  show_date_field = (defined?(show_date) ? show_date : true)
-  dt_object = DateTime.parse(datetime.to_s) if has_datetime
-%>
-
-<div class="form-group">
-  <div class="<%= 'flex' if anytime %> datepicker-buttons">
-    <% if anytime %>
-      <button type="button" class="btn btn-white flex-1 btn-toggle-icons delay-toggle <%= 'toggled' unless has_datetime %> clear-dp"><i class="icon icon-unchecked"></i><i class="icon icon-checked"></i> Anytime</button>
+<div class="datepicker-container has-time-field">
+  <div class="datepicker-wrapper lg left">
+    <button class="close-btn close-dp"><i class="icon icon-cancel"></i></button>
+    <% if defined?(instructions_text) %>
+      <p><%= instructions_text %></p>
     <% end %>
-    <% if show_date_field %>
-    <button type="button" class="btn btn-white <%= 'flex-1' if anytime %> btn-toggle-icons delay-toggle datepicker-opener <%= 'toggled' if has_datetime %>" <%= defined?(disabled_weekdays) ? "data-disabled-weekdays=#{disabled_weekdays}" : nil %> data-container-selector="#<%= class_container_selector %>"
-    <% if defined?(btn_date_format) %>data-date-format='<%= btn_date_format %>'  <% end %>
-    <% if defined?(datetime) && datetime.present? %>data-default-datetime='<%= dt_object.to_s %>'<% end %>>
-      <i class="icon icon-unchecked"></i><i class="icon icon-checked"></i>  
-        <% if has_datetime  %>
-          <%# if There is a datetime then display it as the text in the button %>
-          <%= dt_object.strftime(ruby_dt_format) %>
-        <% elsif defined?(button_text) %>
-          <%# otherwise display some explicitly defined text %>
-          <%= button_text %>
-        <% else %>
-          <%# or fall through to default %>
-          Choose a time
-        <% end %>
-    </button>
-    <% elsif show_time_field %>
-      <div class='form-group datepicker_time_field'>
-        <input type="text" name="<%= "#{(record.class.name.demodulize).underscore}[#{date_field_name.to_sym}][time]" %>" class="form-control time-only inline" value="<%= has_datetime ? dt_object.strftime('%-l:%M %p') : '' %>" placeholder="HH:MM PM"/>
+    <div class="datepicker-fields">
+      <div class="form-group available_date_field date_field">
+        <label>Date</label>
+        <input type="text" placeholder="MM/DD/YYYY" class="form-control date-only inline">
       </div>
-    <% end %>
-  </div>
-  <div id="<%= class_container_selector %>" class="datepicker-container has-time-field<%= show_time_field && !(show_date_field) ? ' time-only' : '' %>">
-    <div class="datepicker-wrapper <%= anytime ? 'fluid' : 'lg' %> left">
-      <button class="close-btn close-dp"><i class="icon icon-cancel"></i></button>
-      <% if defined?(instructions_text) %>
-        <p><%= instructions_text %></p>
-      <% end %>
-      <div class="datepicker-fields">
-        <% if show_date_field %>
-        <div class='form-group available_date_field date_field'>
-          <label for="<%= "#{(record.class.name.demodulize).underscore}_#{date_field_name}" %>">Date</label>
-          <input type="text" name="<%= "#{(record.class.name.demodulize).underscore}[#{date_field_name.to_sym}][date]" %>" class="form-control date-only inline" value="<%= has_datetime ? datetime.strftime('%m/%d/%Y') : '' %>" placeholder="MM/DD/YYYY"/>
-        </div>
-        <% end %>
-
-        <% if  show_time_field && show_date_field %>
-        <div class='form-group available_time_field time_field'>
-          <label for="<%= "#{(record.class.name.demodulize).underscore}_#{date_field_name}" %>">Time</label>
-          <input type="text" name="<%= "#{(record.class.name.demodulize).underscore}[#{date_field_name.to_sym}][time]" %>" class="form-control time-only inline" value="<%= has_datetime ? dt_object.strftime('%-l:%M %p') : '' %>" placeholder="HH:MM PM"/>
-        </div>
-        <% end %>
-
+      <div class="form-group available_time_field time_field hidden">
+        <label>Time</label>
+        <input type="text" placeholder="HH:MM PM" class="form-control time-only inline">
       </div>
-      <div class="form-group">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="inline-dp-root"></div>
-          </div>
-        </div>
-      </div>
-      <button type="button" class="btn btn-primary pull-right close-dp save-dp">Save</button>
     </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="inline-dp-root"></div>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-primary pull-right close-dp" type="button">Save</button>
   </div>
 </div>
