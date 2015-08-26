@@ -12,15 +12,13 @@ var DatePickerWrapper = (function($){
     // Add PST timezone
     // moment.tz.add('PST|PST PDT|80 70|0101|1Lzm0 1zb0 Op0');
 
-    var $datepicker;
-
     $(element).find('.datepicker-opener').each(function () {
-      $datepicker = initDatePicker($(this));
+      initDatePicker($(this));
     });
 
     // A separate (simple) time picker that is optionally used within the datepicker
     $(element).find('input.format-as-time').change(function (e) {
-      inputFieldChanged(this, $datepicker);
+      inputFieldChanged(this);
     });
   });
 
@@ -33,11 +31,11 @@ var DatePickerWrapper = (function($){
     var $dpElement = $wrapper.find('.inline-dp-root');
     var disabledDays = $btn.data('disabled-weekdays') || [];
     var $ioElem = $($btn.data('io-selector'));
-    var callback = $btn.data('on-date-change');
     var dateOnly = $btn.hasClass('date-only');
     var ruby_date_format = dateOnly ? 'YYYY-MM-DD' : 'YYYY-MM-DD H:mm A';
     var btnFormat = $btn.data('btn-format') || ('MMM. D, YYYY' + (dateOnly ? '' : ' h:mm A'));
     var useBrowserTimezone = $btn.hasClass('use-browser-timezone');
+    // callback = $btn.data('on-date-change'); // needs to happen later for setting it late
 
     var $timeField = $wrapper.find('.time_field');
     dateOnly ? $timeField.addClass('hidden') : $timeField.removeClass('hidden');
@@ -117,6 +115,7 @@ var DatePickerWrapper = (function($){
      */
     var saveDate = function (e) {
       if($dp !== undefined){
+        var callback = $btn.data('on-date-change');
         if (callback) {
           callback($dp.date());
         }
@@ -147,19 +146,16 @@ var DatePickerWrapper = (function($){
     // });
 
     $wrapper.find('input.date-only').change(function(e){
-      inputFieldChanged(this, $dp);
+      inputFieldChanged(this);
     });
-
-    return $dp;
   };
 
   /**
    * [inputFieldChanged description]
    * @param  {[type]} inputField [description]
-   * @param  {object} (optional) $dp - a DateTimePicker
    * @return {[type]}            [description]
    */
-  var inputFieldChanged = function(inputField, $dp){
+  var inputFieldChanged = function(inputField) {
 
     var $inputField = $(inputField);
     var inputfieldFormat = $inputField.hasClass('format-as-time') ? 'LT' : 'MM/DD/YYYY';
@@ -172,6 +168,9 @@ var DatePickerWrapper = (function($){
 
     inputfieldFormat = setDateFormat(inputfieldFormat, intsCount);
     var newMomentObject = moment($inputField.val(), inputfieldFormat);
+
+    var $wrapper = $inputField.parents('.datepicker-wrapper');
+    var $dp = ($wrapper.length > 0) ? $wrapper.find('.inline-dp-root').data('DateTimePicker') : undefined;
 
     // Based on whether the momentObject is valid or not (using moment.js .isValid()), add, or remove the 'has-error'
     // class and change the value in the input field and for the datetimepicker.
