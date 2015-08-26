@@ -30,9 +30,15 @@ var DatePickerWrapper = (function($){
     var $wrapper = $btn.parent().find('.datepicker-wrapper');
     var $dpElement = $wrapper.find('.inline-dp-root');
     var disabledDays = $btn.data('disabled-weekdays') || [];
-    var btnFormat = $btn.data('btn-format') || 'MMM. D, YYYY';
     var $ioElem = $($btn.data('io-selector'));
     var callback = $btn.data('on-date-change');
+    var dateOnly = $btn.hasClass('date-only');
+    var ruby_date_format = dateOnly ? 'YYYY-MM-DD' : 'YYYY-MM-DD H:mm A';
+    var btnFormat = $btn.data('btn-format') || ('MMM. D, YYYY' + (dateOnly ? '' : ' h:mm A'));
+    var useBrowserTimezone = $btn.hasClass('use-browser-timezone');
+
+    var $timeField = $wrapper.find('.time_field');
+    dateOnly ? $timeField.addClass('hidden') : $timeField.removeClass('hidden');
 
     var icons = {
       time: 'icon icon-clock',
@@ -64,10 +70,6 @@ var DatePickerWrapper = (function($){
 
     $dp = $dpElement.data('DateTimePicker');
 
-    if($ioElem.val()) {
-      $dp.date(moment.utc($ioElem.val()));
-    }
-
     /**
      * Handles the datepicker's value changing.
      * @param  {Event} e - the dp.change event. Contains date and oldDate
@@ -82,6 +84,16 @@ var DatePickerWrapper = (function($){
 
     $dpElement.on('dp.change', {format: 'MM/DD/YYYY'}, dpDateChanged);
     $dpElement.on('dp.change', {format: 'LT'},         dpDateChanged);
+
+    if($ioElem.val()) {
+      var initialDate = moment($ioElem.val(), moment.ISO_8601);
+      if (!useBrowserTimezone) {
+        // '.utcOffset()' of the DB value allows us to use the server's time zone instead of the browser's
+        initialDate.utcOffset($ioElem.val());
+      }
+      $dp.date(initialDate);
+    }
+
 
     /**
      * Toggles the visiblity of the dp
@@ -111,7 +123,7 @@ var DatePickerWrapper = (function($){
         }
 
         $btn.html(' ' + $dp.date().format(btnFormat)).prepend(icons[1]).prepend(icons[0]);
-        $ioElem.val($dp.date().format('YYYY-MM-DD'));
+        $ioElem.val($dp.date().toISOString());
       }
     };
 
@@ -171,7 +183,7 @@ var DatePickerWrapper = (function($){
       $inputField.val(newMomentObject.format(originalFormat));
     } else {
 
-      setDefaultDateOrTime($inputField, $dp);
+      resetToDefault($inputField, $dp);
       // If validation failed then add the 'has-error' class to the input field's parent
       // Note: 'has-error' is a bootstrap class.
       $inputField.parent().addClass('has-error');
@@ -183,7 +195,7 @@ var DatePickerWrapper = (function($){
    * @param {Object} $inputField - The specific field (date or time) to reset
    * @param {DatePicker} $dp     - The current datetimepicker
    */
-  function setDefaultDateOrTime($inputField, $dp){
+  function resetToDefault($inputField, $dp){
     var inputfieldFormat = $inputField.hasClass('time-only') ? 'LT' : 'MM/DD/YYYY';
     var isTime = inputfieldFormat === 'LT' ? true : false;
     var newMoment;
