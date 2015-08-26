@@ -64,11 +64,11 @@ var Payment = (function($){
   // Make request to stripe to get a token.
   function processStripeToken($form){
     // Disable the submit button to prevent repeated clicks
-    var $submitBtn = $form.find('button[type=submit]');
-    var text = $submitBtn.text();
-    $submitBtn.data('original-text', text);
+    var $submit_btn = $form.find('button[type=submit]');
+    var text = $submit_btn.text();
+    $submit_btn.data('original-text', text);
 
-    $submitBtn.html('<i class="ui active inline inverted xs loader"></i> Sending').attr('disabled', true);
+    $submit_btn.html('<i class="ui active inline inverted xs loader"></i> Sending').attr('disabled', true);
 
     Stripe.card.createToken($form, stripeResponseHandler);
 
@@ -78,10 +78,10 @@ var Payment = (function($){
   stripeResponseHandler = function(status, response) {
 
     var $form = $('.payment-form');
+    var $submit_btn = $form.find('button[type=submit]');
 
     if (response.error) {
-      var $submitBtn = $form.find('button[type=submit]');
-      $submitBtn.html($submitBtn.data('original-text')); // reset the text on the submit button
+      $submit_btn.html($submit_btn.data('original-text')); // reset the text on the submit button
       CanvasForms.insertStripeErrors($form, [response.error.message]);
 
       return false;
@@ -92,44 +92,7 @@ var Payment = (function($){
       // Insert the token into the form so it gets submitted to the server
       $form.append($('<input type="hidden" name="stripeToken" />').val(token));
 
-      $form.ajaxSubmit({
-        success: function(response, statusText, xhr, element) {
-
-          var redirectUrl = $form.attr('data-next-url');
-          // if there was an explicit redirect url then use it instead of the default.
-          if( redirectUrl !== undefined){
-            window.location.href = redirectUrl
-          } else if(response.redirect_url !== undefined){
-            window.location.href = response.redirect_url
-          } else {
-            $form.find('.payment-error-explanation').addClass('hidden');
-            $form.fadeOut(500, 'swing', function(){
-              var thankyouDiv = $('#thank-you');
-              $form.replaceWith(thankyouDiv);
-              thankyouDiv.fadeIn(500, 'swing', function(){
-                $('html, body').animate({
-                  scrollTop: $('#thank-you').offset().top - 73
-                }, 500);
-              });
-            });
-          }
-
-          return true
-        },
-        error: function(response, statusText, xhr, element){
-          if(response.responseJSON.messages !== undefined){
-            CanvasForms.insertErrors($form, response.responseJSON.messages);
-          } else if(response.responseJSON.message !== undefined) {
-            CanvasForms.insertStripeErrors($form, [response.responseJSON.message]);
-          }
-
-          var $submitBtn = $form.find('button[type=submit]');
-          $submitBtn.html($submitBtn.data('original-text')); // reset the text on the submit button
-          $form.find('button[type=submit]').prop('disabled', false);
-
-          return true;
-        }
-      });
+      $form.ajaxSubmit(CanvasForms.paramsForAjaxSubmit($form, '.payment-form', $submit_btn, $submit_btn));
     }
   };
 
