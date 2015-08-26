@@ -29,9 +29,10 @@ var DatePickerWrapper = (function($){
   var initDatePicker = function($btn){
     var $wrapper = $btn.parent().find('.datepicker-wrapper');
     var $dpElement = $wrapper.find('.inline-dp-root');
-    var format = 'MM/DD/YYYY';
     var disabledDays = $btn.data('disabled-weekdays') || [];
+    var btnFormat = $btn.data('btn-format') || 'MMM. D, YYYY';
     var $ioElem = $($btn.data('io-selector'));
+    var callback = $btn.data('on-date-change');
 
     var icons = {
       time: 'icon icon-clock',
@@ -45,14 +46,13 @@ var DatePickerWrapper = (function($){
       close: 'icon icon-cancel'
     };
     var dpOptions = {
-      format: format,
+      format: 'MM/DD/YYYY',
       inline: true,
       sideBySide: true, // set to false if you want to time picker to be accessible in toolbar.
       daysOfWeekDisabled: disabledDays,
       icons: icons
     };
 
-    var btnFormat = (dateformat = $btn.data('date-format')) ? dateformat : 'MMM. D, YYYY';
     var $dp;
 
     if($dpElement.length === 0){
@@ -106,7 +106,6 @@ var DatePickerWrapper = (function($){
     var saveDate = function (e) {
       var icons = $btn.find('i');
       if($dp !== undefined){
-        var callback = $btn.data('on-date-change');
         if (callback && closing) {
           callback($dp.date());
         }
