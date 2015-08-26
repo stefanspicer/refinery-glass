@@ -87,15 +87,13 @@ var DatePickerWrapper = (function($){
     $dpElement.on('dp.change', {format: 'MM/DD/YYYY'}, dpDateChanged);
     $dpElement.on('dp.change', {format: 'LT'},         dpDateChanged);
 
-    if($ioElem.val()) {
-      var initialDate = moment($ioElem.val(), moment.ISO_8601);
-      if (!useBrowserTimezone) {
-        // '.utcOffset()' of the DB value allows us to use the server's time zone instead of the browser's
-        initialDate.utcOffset($ioElem.val());
-      }
-      $dp.date(initialDate);
+    var initialDateStr = $ioElem.val() ? $ioElem.val() : $wrapper.data('initial-date');
+    var initialDate = moment(initialDateStr, moment.ISO_8601);
+    if (!useBrowserTimezone) {
+      // '.utcOffset()' of the DB value allows us to use the server's time zone instead of the browser's
+      initialDate.utcOffset(initialDateStr);
     }
-
+    $dp.date(initialDate);
 
     /**
      * Toggles the visiblity of the dp
