@@ -29,17 +29,23 @@ var DatePickerWrapper = (function($){
   var initDatePicker = function($btn) {
     var $wrapper = $btn.parent().find('.datepicker-wrapper');
     var $dpElement = $wrapper.find('.inline-dp-root');
-    var disabledDays = $btn.data('disabled-weekdays') || [];
     var $ioElem = $($btn.data('io-selector'));
     var dateOnly = $btn.hasClass('date-only');
     var btnFormat = $btn.data('btn-format') || ('MMM. D, YYYY' + (dateOnly ? '' : ' h:mm A'));
     var useBrowserTimezone = $btn.hasClass('use-browser-timezone');
+    var configInitialDate = $btn.data('initial-date');
     // callback = $btn.data('on-date-change'); // needs to happen later for setting it late
 
-    var $timeField = $wrapper.find('.time_field');
-    dateOnly ? $timeField.addClass('hidden') : $timeField.removeClass('hidden');
+    var dpOptions = {
+      format: 'MM/DD/YYYY',
+      inline: true,
+      sideBySide: true, // set to false if you want to time picker to be accessible in toolbar.
+    };
 
-    var icons = {
+    if ($btn.data('disabled-weekdays')) { dpOptions['daysOfWeekDisabled'] = $btn.data('disabled-weekdays'); }
+    if ($btn.data('view-mode')        ) { dpOptions['viewMode']           = $btn.data('view-mode');         }
+
+    dpOptions['icons'] = {
       time: 'icon icon-clock',
       date: 'icon icon-calendar',
       up: 'icon icon-angle-up',
@@ -50,13 +56,9 @@ var DatePickerWrapper = (function($){
       clear: 'icon icon-trash',
       close: 'icon icon-cancel'
     };
-    var dpOptions = {
-      format: 'MM/DD/YYYY',
-      inline: true,
-      sideBySide: true, // set to false if you want to time picker to be accessible in toolbar.
-      daysOfWeekDisabled: disabledDays,
-      icons: icons
-    };
+
+    var $timeField = $wrapper.find('.time_field');
+    dateOnly ? $timeField.addClass('hidden') : $timeField.removeClass('hidden');
 
     var $dp;
 
@@ -84,7 +86,8 @@ var DatePickerWrapper = (function($){
     $dpElement.on('dp.change', {format: 'MM/DD/YYYY'}, dpDateChanged);
     $dpElement.on('dp.change', {format: 'LT'},         dpDateChanged);
 
-    var initialDateStr = $ioElem.val() ? $ioElem.val() : $wrapper.data('initial-date');
+    // Prefer an already saved date ($ioElem), then a configured one, the wrapper is a last resort (for the timezone)
+    var initialDateStr = $ioElem.val() ? $ioElem.val() : (configInitialDate ? configInitialDate : $wrapper.data('initial-date'));
     var initialDate = moment(initialDateStr, moment.ISO_8601);
     if (!useBrowserTimezone) {
       // '.utcOffset()' of the DB value allows us to use the server's time zone instead of the browser's
