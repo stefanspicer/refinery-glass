@@ -32,7 +32,6 @@ var DatePickerWrapper = (function($){
     var disabledDays = $btn.data('disabled-weekdays') || [];
     var $ioElem = $($btn.data('io-selector'));
     var dateOnly = $btn.hasClass('date-only');
-    var ruby_date_format = dateOnly ? 'YYYY-MM-DD' : 'YYYY-MM-DD H:mm A';
     var btnFormat = $btn.data('btn-format') || ('MMM. D, YYYY' + (dateOnly ? '' : ' h:mm A'));
     var useBrowserTimezone = $btn.hasClass('use-browser-timezone');
     // callback = $btn.data('on-date-change'); // needs to happen later for setting it late
@@ -123,7 +122,8 @@ var DatePickerWrapper = (function($){
         if (btnFormat != 'manual') {
           $btn.html($dp.date().format(btnFormat));
         }
-        $ioElem.val($dp.date().toISOString());
+
+        $ioElem.val(dateOnly ? $dp.date().format('YYYY-MM-DD') : $dp.date().toISOString());
       }
     };
 
