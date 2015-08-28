@@ -269,23 +269,3 @@ var DatePickerWrapper = (function($){
     reset: resetDP
   };
 })(jQuery);
-
-// FIXME: this was in dp change ...I don't think we use it
-// $($btn.data('date-input')).val($dp.date().format('MM/DD/YYYY'));
-
-// FIXME: Advisor requests "anytime" needs this
-// var originalHTML = $btn.html();
-// var $btnClearDP = $btn.siblings('.clear-dp');
-// $btnClearDP.click(function(e){
-//   e.preventDefault();
-//   $btn.removeClass('toggled').html(originalHTML); // return text back to its original
-//   $btnClearDP.addClass('toggled');
-//   $wrapper.removeClass('active');
-//   resetDP($btn);
-// });
-
-// if($btnClearDP.length > 0 && $btnClearDP.hasClass('toggled')) {
-//   $btnClearDP.removeClass('toggled');
-// }
-// var icons = $btn.find('i');
-// .prepend(icons[1]).prepend(icons[0]);
