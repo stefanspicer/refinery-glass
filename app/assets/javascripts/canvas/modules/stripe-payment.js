@@ -65,8 +65,7 @@ var Payment = (function($){
   function processStripeToken($form){
     // Disable the submit button to prevent repeated clicks
     var $submit_btn = $form.find('button[type=submit]');
-    var text = $submit_btn.text();
-    $submit_btn.data('original-text', text);
+    CanvasForms.initAjaxForm($form);
 
     $submit_btn.html('<i class="ui active inline inverted xs loader"></i> Sending').attr('disabled', true);
 
