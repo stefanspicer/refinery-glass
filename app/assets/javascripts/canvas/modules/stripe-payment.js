@@ -63,35 +63,24 @@ var Payment = (function($){
 
   // Make request to stripe to get a token.
   function processStripeToken($form){
-    // Disable the submit button to prevent repeated clicks
-    var $submit_btn = $form.find('button[type=submit]');
-    CanvasForms.initAjaxForm($form);
-
-    $submit_btn.html('<i class="ui active inline inverted xs loader"></i> Sending').attr('disabled', true);
-
     Stripe.card.createToken($form, stripeResponseHandler);
-
     return false;
   }
 
   stripeResponseHandler = function(status, response) {
 
     var $form = $('.payment-form');
-    var $submit_btn = $form.find('.btn[type=submit]');
-    $form.data('submit-btn', $submit_btn);
 
     if (response.error) {
-      CanvasForms.insertStripeErrors($form, [response.error.message]);
+      CanvasForms.insertErrors($form, [response.error.message], null);
 
       return false;
     } else {
-      $form.find('.payment-error-explanation').addClass('hidden');
       // token contains id, last4, and card type
       var token = response.id;
       // Insert the token into the form so it gets submitted to the server
       $form.append($('<input type="hidden" name="stripeToken" />').val(token));
-
-      $form.ajaxSubmit(CanvasForms.paramsForAjaxSubmit($form, '.payment-form'));
+      $form.submit();
     }
   };
 
