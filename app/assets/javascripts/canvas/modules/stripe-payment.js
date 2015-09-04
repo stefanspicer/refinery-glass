@@ -77,10 +77,10 @@ var Payment = (function($){
   stripeResponseHandler = function(status, response) {
 
     var $form = $('.payment-form');
-    var $submit_btn = $form.find('button[type=submit]');
+    var $submit_btn = $form.find('.btn[type=submit]');
+    $form.data('submit-btn', $submit_btn);
 
     if (response.error) {
-      $submit_btn.html($submit_btn.data('original-text')); // reset the text on the submit button
       CanvasForms.insertStripeErrors($form, [response.error.message]);
 
       return false;
@@ -91,7 +91,7 @@ var Payment = (function($){
       // Insert the token into the form so it gets submitted to the server
       $form.append($('<input type="hidden" name="stripeToken" />').val(token));
 
-      $form.ajaxSubmit(CanvasForms.paramsForAjaxSubmit($form, '.payment-form', $submit_btn, $submit_btn));
+      $form.ajaxSubmit(CanvasForms.paramsForAjaxSubmit($form, '.payment-form'));
     }
   };
 
