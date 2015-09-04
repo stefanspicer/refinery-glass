@@ -36,8 +36,8 @@ var Payment = (function($){
     });
 
     // Listen for and handle a payment form submission
-    $paymentForm.submit(function(e) {
-      var $form = $(this);
+     $paymentForm.find('.payment-btn').click(function(e){
+      var $form = $(this).parents('form');
       var $termsModal = $('#accept-terms-modal');
 
       // If there is a EULA that must be agreed to before proceeding,
