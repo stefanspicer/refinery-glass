@@ -23,7 +23,7 @@ var Payment = (function($){
     }
 
     // If a donation amount button is pressed, insert that amount into the amount field.
-    $(element).find('.price-list .btn').unbind('click').click(function(e){
+    $(element).find('.price-list .btn').click(function(e){
       e.preventDefault();
       var btn = $(this);
       var amt = btn.data('amount');
