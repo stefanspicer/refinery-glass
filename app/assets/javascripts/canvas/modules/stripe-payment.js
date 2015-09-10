@@ -38,7 +38,7 @@ var Payment = (function($){
     });
 
     // Listen for and handle a payment form submission
-     $paymentForm.find('.payment-btn').click(function(e){
+    $paymentForm.find('.payment-btn').click(function(e){
       var $form = $(this).parents('form');
       var $termsModal = $('#accept-terms-modal');
 
@@ -81,7 +81,8 @@ var Payment = (function($){
       // token contains id, last4, and card type
       var token = response.id;
       // Insert the token into the form so it gets submitted to the server
-      $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+      $('#stripeToken').remove();
+      $form.append($('<input id="stripeToken" type="hidden" name="stripeToken" />').val(token));
       $form.submit();
     }
   };
