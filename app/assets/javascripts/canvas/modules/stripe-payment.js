@@ -65,6 +65,7 @@ var Payment = (function($){
 
   // Make request to stripe to get a token.
   function processStripeToken($form){
+    CanvasForms.disableSubmit($form);
     Stripe.card.createToken($form, stripeResponseHandler);
     return false;
   }
