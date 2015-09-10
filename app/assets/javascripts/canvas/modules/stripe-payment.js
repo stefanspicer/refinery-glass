@@ -15,11 +15,13 @@ var Payment = (function($){
       return;
     }
 
-    try {
-      Stripe.setPublishableKey($publishedKeyInput.val());
-    } catch (e) {
-      console.warn(e);
-      return;
+    if ($publishedKeyInput.length > 0) {
+      try {
+        Stripe.setPublishableKey($publishedKeyInput.val());
+      } catch (e) {
+        console.warn(e);
+        return;
+      }
     }
 
     // If a donation amount button is pressed, insert that amount into the amount field.
