@@ -25,16 +25,22 @@ var Payment = (function($){
     }
 
     // If a donation amount button is pressed, insert that amount into the amount field.
-    $(element).find('.price-list .btn').click(function(e){
+    var $priceList = $(element).find('.price-list');
+    $priceList.find('.btn').click(function(e){
       e.preventDefault();
       var btn = $(this);
       var amt = btn.data('amount');
+
+      var monthly = $priceList.data('monthly-selector');
+      var oneTime = $priceList.data('one-time-selector');
+
       if(btn.hasClass('monthly-amt')){
-        $('input[type="radio"]#monthly').prop("checked", true);
+        $(monthly).prop("checked", true);
       } else{
-        $('input[type="radio"]#one-time').prop("checked", true);
+        $(oneTime).prop("checked", true);
       }
-      $('#donation_amount').val(amt).focus();
+      var fieldSelector = $priceList.data('field-selector');
+      $(fieldSelector).val(amt).focus();
     });
 
     // Listen for and handle a payment form submission
