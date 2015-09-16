@@ -80,28 +80,27 @@ var Payment = (function($){
     var $form = $('.payment-form');
     //call form.verify here
     $form.validate( function(validateSuccess) {
-      if(validateSuccess)
-      {
+      if(validateSuccess) {
         if (response.error) {
-        CanvasForms.insertErrors($form, [response.error.message], null);
-        return false;
+          CanvasForms.insertErrors($form, [response.error.message], null);
+          return false;
         }
         else {
-            // token contains id, last4, and card type
-            var token = response.id;
+          // token contains id, last4, and card type
+          var token = response.id;
             // Insert the token into the form so it gets submitted to the server
             $('#stripeToken').remove();
             $form.append($('<input id="stripeToken" type="hidden" name="stripeToken" />').val(token));
             $form.submit();
+          }
         }
-      }
-      else {
-        var $errorInputs = $form.find('.validation.active');
-        if($errorInputs.length > 0){
-          CanvasForms.scrollToVerifyErrors($form, $errorInputs);
+        else {
+          var $errorInputs = $form.find('.validation.active');
+          if($errorInputs.length > 0){
+            CanvasForms.scrollToVerifyErrors($form, $errorInputs);
+          }
         }
-      }
-    });
+      });
 
   };
 
