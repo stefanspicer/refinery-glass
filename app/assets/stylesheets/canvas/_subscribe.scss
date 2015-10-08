@@ -5,8 +5,8 @@
 
 .subscribe-wrapper.open{
 	height: 114px;
-}	
-	
+}
+
 #subscribe-form{
 	max-width: 400px;
 	margin: 0 auto;
@@ -24,7 +24,7 @@
 	.closed{
   	top: -54px;
   	@media (max-width: 767px) {
-  	 top: -57px; 
+  	 top: -57px;
   	}
 	}
   .subscribe-btn{
@@ -40,11 +40,11 @@
 		padding-right: 0;
 		padding-bottom: 0 !important;
 	}
-	
+
 	.tight-gutter:nth-child(2),.tight-gutter:nth-child(3){
 	  padding-left: 10px;
 	}
-	
+
 	.tight-gutter:last-child{
 		padding-right: 15px;
 	}
