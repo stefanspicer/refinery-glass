@@ -58,7 +58,7 @@ var DatePickerWrapper = (function($){
     };
 
     var $timeField = $wrapper.find('.time_field');
-    dateOnly ? $timeField.addClass('hidden') : $timeField.removeClass('hidden');
+    dateOnly ? $timeField.addClass('hidden-xs-up') : $timeField.removeClass('hidden-xs-up');
 
     var $dp;
 
@@ -123,7 +123,11 @@ var DatePickerWrapper = (function($){
         }
 
         if (btnFormat != 'manual') {
-          $btn.html($dp.date().format(btnFormat));
+          var $to_replace = $btn.find('.update-date');
+          if ($to_replace.length == 0) {
+            $to_replace = $btn;
+          }
+          $to_replace.html($dp.date().format(btnFormat));
         }
 
         $ioElem.val(dateOnly ? $dp.date().format('YYYY-MM-DD') : $dp.date().toISOString());
