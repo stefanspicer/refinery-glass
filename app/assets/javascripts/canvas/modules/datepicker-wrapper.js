@@ -48,10 +48,10 @@ var DatePickerWrapper = (function($){
     dpOptions['icons'] = {
       time: 'icon icon-clock',
       date: 'icon icon-calendar',
-      up: 'icon icon-angle-up',
-      down: 'icon icon-angle-down',
-      previous: 'icon icon-angle-left',
-      next: 'icon icon-angle-right',
+      up: 'icon icon-up',
+      down: 'icon icon-down',
+      previous: 'icon icon-left',
+      next: 'icon icon-right',
       today: 'icon icon-crosshair',
       clear: 'icon icon-trash',
       close: 'icon icon-cancel'
