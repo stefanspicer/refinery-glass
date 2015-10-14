@@ -58,7 +58,7 @@ var DatePickerWrapper = (function($){
     };
 
     var $timeField = $wrapper.find('.time_field');
-    dateOnly ? $timeField.addClass('hidden-xs-up') : $timeField.removeClass('hidden-xs-up');
+    dateOnly ? $timeField.addClass('hidden')       : $timeField.removeClass('hidden');
 
     var $dp;
 
